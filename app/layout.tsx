@@ -1,85 +1,89 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import JsonLd from "@/components/seo/JsonLd";
-import { siteConfig } from "@/content/site";
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://airik-xi.vercel.app";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.siteUrl),
+  metadataBase: new URL(siteUrl),
+
   title: {
-    default: `${siteConfig.name} — چاپ تخصصی سیلک و DTF`,
-    template: `%s | ${siteConfig.name}`,
+    default: "AIRIK | چاپ حرفه‌ای",
+    template: "%s | AIRIK",
   },
-  description: siteConfig.description,
+
+  description:
+    "AIRIK یک مجموعه چاپ حرفه‌ای است؛ از انتخاب روش و متریال تا تولید نهایی، برای پروژه‌های چاپی برندها و کسب‌وکارها.",
+
+  applicationName: "AIRIK",
+
   keywords: [
+    "چاپ",
+    "چاپخانه",
+    "چاپ حرفه‌ای",
     "چاپ سیلک",
     "چاپ DTF",
+    "چاپ روی لباس",
+    "چاپ روی تیشرت",
+    "چاپ روی پارچه",
+    "چاپ بسته‌بندی",
     "چاپ بگ",
-    "چاپ لباس",
-    "چاپ جعبه پیتزا",
-    "چاپ لیوان کاغذی",
-    "چاپ ظروف",
-    "آیریک",
   ],
-  openGraph: {
-    title: `${siteConfig.name} — چاپ تخصصی سیلک و DTF`,
-    description: siteConfig.description,
-    url: siteConfig.siteUrl,
-    locale: "fa_IR",
-    type: "website",
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: `${siteConfig.siteUrl}${siteConfig.logo}`,
-        width: 512,
-        height: 512,
-        alt: siteConfig.name,
-      },
-    ],
+
+  authors: [{ name: "AIRIK" }],
+  creator: "AIRIK",
+  publisher: "AIRIK",
+
+  alternates: {
+    canonical: "/",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: `${siteConfig.name} — چاپ تخصصی`,
-    description: siteConfig.description,
-  },
+
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
+
+  openGraph: {
+    type: "website",
+    locale: "fa_IR",
+    url: siteUrl,
+    siteName: "AIRIK",
+    title: "AIRIK | چاپ حرفه‌ای",
+    description:
+      "چاپ فقط خروجی فایل نیست؛ بخشی از کیفیت محصول شماست.",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "AIRIK | چاپ حرفه‌ای",
+    description:
+      "راهکارهای چاپ برای برندها و کسب‌وکارها؛ از انتخاب روش و متریال تا تولید نهایی.",
+  },
+
   icons: {
     icon: "/icon.svg",
   },
-};
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  themeColor: "#1a1a18",
+  other: {
+    "theme-color": "#F5F3EF",
+  },
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className="min-h-screen overflow-x-hidden">
-        <a
-          href="#main-content"
-          className="fixed right-4 top-4 z-[100] -translate-y-24 rounded-md bg-white px-4 py-3 text-sm font-medium transition-transform focus:translate-y-0"
-          style={{ color: "var(--color-text-dark)" }}
-        >
-          پرش به محتوا
-        </a>
-
-        <JsonLd type="organization" data={siteConfig} />
-        <JsonLd type="localBusiness" data={siteConfig} />
-        <Header />
-        <main id="main-content">{children}</main>
-        <Footer />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
