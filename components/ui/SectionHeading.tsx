@@ -1,9 +1,9 @@
-interface SectionHeadingProps {
+type SectionHeadingProps = {
   eyebrow?: string;
   title: string;
   description?: string;
-  align?: "right" | "left" | "center";
-}
+  align?: "right" | "center";
+};
 
 export default function SectionHeading({
   eyebrow,
@@ -13,47 +13,23 @@ export default function SectionHeading({
 }: SectionHeadingProps) {
   const alignment =
     align === "center"
-      ? "text-center items-center"
-      : align === "left"
-        ? "text-left items-start"
-        : "text-right items-end";
+      ? "mx-auto text-center items-center"
+      : "text-right items-start";
 
   return (
-    <div
-      className={`flex max-w-3xl flex-col ${alignment}`}
-      style={{
-        gap: "var(--space-sm)",
-      }}
-    >
+    <div className={`flex max-w-4xl flex-col ${alignment}`}>
       {eyebrow && (
-        <span
-          className="text-xs font-semibold tracking-[0.16em]"
-          style={{
-            color: "var(--color-accent)",
-          }}
-        >
+        <span className="mb-7 text-sm font-medium text-black/40">
           {eyebrow}
         </span>
       )}
 
-      <h2
-        className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl"
-        style={{
-          color: "var(--color-text)",
-          lineHeight: "1.15",
-        }}
-      >
+      <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
         {title}
       </h2>
 
       {description && (
-        <p
-          className="max-w-2xl text-base md:text-lg"
-          style={{
-            color: "var(--color-text-muted)",
-            lineHeight: "var(--line-height-relaxed)",
-          }}
-        >
+        <p className="mt-7 max-w-3xl text-base leading-8 text-black/55 md:text-lg">
           {description}
         </p>
       )}
