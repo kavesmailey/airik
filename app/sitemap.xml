@@ -2,8 +2,9 @@ import { services } from "@/content/services";
 import { projects } from "@/content/projects";
 import { articles } from "@/content/articles";
 import { businessTypes } from "@/content/business";
+import { siteConfig } from "@/content/site";
 
-const baseUrl = "https://iric.print";
+const baseUrl = siteConfig.siteUrl;
 
 export default function Sitemap() {
   const staticPages = [
