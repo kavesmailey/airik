@@ -1,10 +1,28 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "تماس با ما | آیریک",
+  title: "تماس با آیریک | سفارش و مشاوره چاپ",
   description:
-    "برای مشاوره، استعلام قیمت و هماهنگی سفارش‌های چاپ با آیریک در تماس باشید.",
+    "برای سفارش چاپ، دریافت مشاوره و استعلام قیمت با آیریک در ارتباط باشید.",
 };
+
+const contactItems = [
+  {
+    title: "تلفن",
+    value: "برای تماس مستقیم با ما",
+    href: "tel:",
+  },
+  {
+    title: "واتساپ",
+    value: "برای ارسال جزئیات پروژه",
+    href: "#",
+  },
+  {
+    title: "ایمیل",
+    value: "برای پروژه‌ها و همکاری‌های سازمانی",
+    href: "mailto:",
+  },
+];
 
 export default function ContactPage() {
   return (
@@ -18,109 +36,82 @@ export default function ContactPage() {
             </p>
 
             <h1 className="text-4xl font-medium leading-[1.3] tracking-tight md:text-6xl lg:text-7xl">
-              بیایید درباره
+              پروژه‌ای برای چاپ دارید؟
               <br />
-              پروژه‌تان صحبت کنیم.
+              از همین‌جا شروع کنیم.
             </h1>
 
             <p className="mt-10 max-w-3xl text-lg leading-9 text-black/60 md:text-xl">
-              برای استعلام قیمت، مشاوره درباره روش چاپ یا هماهنگی یک سفارش،
-              با آیریک در تماس باشید. اگر هنوز جزئیات پروژه مشخص نیست، اشکالی
-              ندارد؛ از همان اطلاعات اولیه شروع می‌کنیم.
+              فرقی نمی‌کند هنوز در مرحله بررسی ایده باشید یا فایل نهایی
+              آماده داشته باشید. اطلاعات پروژه را برای ما بفرستید تا درباره
+              روش چاپ، زمان اجرا و هزینه با هم صحبت کنیم.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Contact information */}
+      {/* Contact options */}
       <section>
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
-          <div className="grid gap-16 md:grid-cols-2 md:gap-24">
-            <div>
-              <p className="mb-7 text-sm font-medium text-black/45">
-                راه‌های ارتباطی
-              </p>
+          <div className="grid border-t border-black/10 md:grid-cols-3">
+            {contactItems.map((item, index) => (
+              <a
+                key={item.title}
+                href={item.href}
+                className="group border-b border-black/10 py-10 transition-opacity hover:opacity-60 md:border-l md:px-10 md:py-12 md:first:pr-0 md:last:border-l-0"
+              >
+                <span className="text-xs text-black/35">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
 
-              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
-                یک پیام کافی است
-                <br />
-                تا شروع کنیم.
-              </h2>
+                <h2 className="mt-8 text-2xl font-medium">
+                  {item.title}
+                </h2>
 
-              <p className="mt-8 max-w-xl leading-8 text-black/55">
-                برای اینکه سریع‌تر راهنمایی‌تان کنیم، اگر امکان دارد نوع
-                محصول، تعداد تقریبی، روش چاپ موردنظر و زمان موردنیاز را
-                هنگام تماس اعلام کنید.
-              </p>
-            </div>
-
-            <div className="border-t border-black/10">
-              {/* Phone */}
-              <div className="border-b border-black/10 py-8">
-                <p className="text-sm text-black/40">تلفن</p>
-
-                <a
-                  href="tel:"
-                  className="mt-3 block text-xl font-medium transition-opacity hover:opacity-60"
-                >
-                  شماره تماس را وارد کنید
-                </a>
-              </div>
-
-              {/* Email */}
-              <div className="border-b border-black/10 py-8">
-                <p className="text-sm text-black/40">ایمیل</p>
-
-                <a
-                  href="mailto:"
-                  className="mt-3 block text-xl font-medium transition-opacity hover:opacity-60"
-                >
-                  ایمیل را وارد کنید
-                </a>
-              </div>
-
-              {/* Working hours */}
-              <div className="border-b border-black/10 py-8">
-                <p className="text-sm text-black/40">ساعات پاسخ‌گویی</p>
-
-                <p className="mt-3 text-xl font-medium">
-                  شنبه تا چهارشنبه
+                <p className="mt-4 leading-8 text-black/50">
+                  {item.value}
                 </p>
 
-                <p className="mt-2 text-black/50">
-                  ساعت کاری را در اینجا وارد کنید
-                </p>
-              </div>
-            </div>
+                <span className="mt-7 block text-xl">
+                  ↗
+                </span>
+              </a>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Quote CTA */}
+      {/* Quote */}
       <section className="bg-[#f5f3ef]">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="grid gap-12 md:grid-cols-2 md:items-end md:gap-24">
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+          <div className="grid gap-16 md:grid-cols-2 md:gap-28">
             <div>
-              <p className="mb-6 text-sm font-medium text-black/45">
-                استعلام قیمت
+              <p className="mb-7 text-sm font-medium text-black/45">
+                برای استعلام قیمت
               </p>
 
-              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
-                اگر قیمت می‌خواهید،
+              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
+                هرچه اطلاعات
                 <br />
-                از اینجا شروع کنید.
+                دقیق‌تر باشد، پاسخ دقیق‌تر است.
               </h2>
             </div>
 
-            <div>
-              <p className="text-lg leading-9 text-black/60">
-                مشخصات سفارش را برای ما ارسال کنید تا بتوانیم بر اساس نوع
-                چاپ، محصول و تیراژ، برآورد دقیق‌تری ارائه کنیم.
+            <div className="text-lg leading-9 text-black/60">
+              <p>
+                اگر امکانش را دارید، نوع محصول، تعداد، ابعاد، جنس متریال،
+                فایل یا طرح موردنظر و زمان تقریبی تحویل را در اختیار ما
+                بگذارید.
+              </p>
+
+              <p className="mt-7">
+                اگر هنوز همه این اطلاعات را ندارید، مشکلی نیست. همان چیزی
+                که الان می‌دانید برای شروع کافی است.
               </p>
 
               <Link
                 href="/استعلام-قیمت"
-                className="mt-8 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
+                className="mt-9 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
               >
                 استعلام قیمت
                 <span>↗</span>
@@ -130,50 +121,55 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Location */}
+      {/* FAQ-like info */}
       <section>
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
-          <div className="grid gap-12 md:grid-cols-2 md:gap-24">
-            <div>
-              <p className="mb-7 text-sm font-medium text-black/45">
-                آدرس
-              </p>
+          <div className="max-w-3xl">
+            <p className="mb-7 text-sm font-medium text-black/45">
+              قبل از تماس
+            </p>
 
-              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-4xl">
-                ما را پیدا کنید.
-              </h2>
-            </div>
+            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+              لازم نیست متخصص چاپ باشید.
+            </h2>
 
-            <div>
-              <p className="text-lg leading-9 text-black/60">
-                آدرس دقیق مجموعه را در این بخش وارد کنید. بهتر است اطلاعات
-                آدرس، منطقه، شهر و در صورت نیاز لینک مسیریابی در این قسمت
-                قرار بگیرد.
-              </p>
+            <p className="mt-9 text-lg leading-9 text-black/60">
+              اگر نمی‌دانید چاپ سیلک بهتر است یا DTF، چه متریالی مناسب
+              پروژه شماست یا برای تیراژ موردنظرتان چه روشی منطقی‌تر است،
+              لازم نیست قبل از تماس جواب این سؤال‌ها را پیدا کنید.
+            </p>
 
-              <div className="mt-8 aspect-[16/9] bg-[#eeebe5]">
-                <div className="flex h-full items-center justify-center text-sm text-black/25">
-                  نقشه
-                </div>
-              </div>
-            </div>
+            <p className="mt-7 text-lg leading-9 text-black/60">
+              اطلاعات پروژه را بفرستید. ما گزینه‌های مناسب را بررسی
+              می‌کنیم و بر اساس شرایط پروژه پیشنهاد می‌دهیم.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Final */}
+      {/* Final CTA */}
       <section className="border-t border-black/10">
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="max-w-3xl">
-            <p className="mb-6 text-sm font-medium text-black/45">
-              آماده‌ایم
-            </p>
+          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="mb-6 text-sm font-medium text-black/45">
+                آماده‌اید؟
+              </p>
 
-            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
-              یک سفارش خوب،
-              <br />
-              از یک گفت‌وگوی خوب شروع می‌شود.
-            </h2>
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+                بیایید درباره پروژه‌تان
+                <br />
+                صحبت کنیم.
+              </h2>
+            </div>
+
+            <Link
+              href="/استعلام-قیمت"
+              className="inline-flex w-fit items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
+            >
+              شروع کنید
+              <span>↗</span>
+            </Link>
           </div>
         </div>
       </section>
