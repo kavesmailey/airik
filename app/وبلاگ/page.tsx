@@ -1,163 +1,164 @@
-import type { Metadata } from "next";
-import { generateMetadata } from "@/lib/seo";
 import Link from "next/link";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import ArticleCard from "@/components/cards/ArticleCard";
-import Reveal from "@/components/ui/Reveal";
-import { articles } from "@/content/articles";
-import { categories } from "@/content/categories";
-import Button from "@/components/ui/Button";
-import IconArrow from "@/components/ui/IconArrow";
+import { blogPosts } from "@/content/blog";
 
-export const metadata: Metadata = generateMetadata({
-  title: "وبلاگ",
+export const metadata = {
+  title: "مجله چاپ | آیریک",
   description:
-    "مقالات آموزشی درباره چاپ سیلک، DTF، بسته‌بندی و نکات برندینگ برای کسب‌وکارها.",
-  path: "/وبلاگ",
-});
+    "راهنما، آموزش و مطالب کاربردی درباره چاپ، انتخاب روش چاپ، چاپ روی لباس و بسته‌بندی.",
+};
 
-export default function BlogIndexPage() {
-  const featuredArticle = articles[0];
-  const otherArticles = articles.slice(1);
-
+export default function BlogPage() {
   return (
-    <>
+    <main dir="rtl">
       {/* Hero */}
-      <section className="pt-28 pb-16" style={{ backgroundColor: "var(--color-bg)" }}>
-        <div className="container-iric">
-          <Breadcrumbs items={[{ label: "وبلاگ", href: "/وبلاگ" }]} />
-          <div className="mt-6 max-w-3xl">
-            <p className="text-sm font-medium" style={{ color: "var(--color-accent)" }}>
-              مقالات آموزشی
+      <section className="border-b border-black/10">
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="max-w-4xl">
+            <p className="mb-8 text-sm font-medium text-black/45">
+              مجله آیریک
             </p>
-            <h1
-              className="mt-4 text-4xl font-bold sm:text-5xl"
-              style={{ color: "var(--color-text)", lineHeight: "var(--line-height-tight)" }}
-            >
-              وبلاگ آیریک
+
+            <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
+              چیزهایی که قبل از چاپ
+              <br />
+              بهتر است بدانید.
             </h1>
-            <p
-              className="mt-5 text-lg"
-              style={{ color: "var(--color-text-muted)", lineHeight: "var(--line-height-relaxed)" }}
-            >
-              دانش چاپ سیلک و DTF را با هم به اشتراک می‌گذاریم. راهنماهای عملی برای انتخاب روش چاپ،
-              طراحی و مراقبت از محصولات چاپ‌شده.
+
+            <p className="mt-10 max-w-2xl text-lg leading-9 text-black/60 md:text-xl">
+              انتخاب روش چاپ فقط یک تصمیم فنی نیست. اینجا درباره تکنیک‌های
+              مختلف چاپ، کاربردها، محدودیت‌ها و نکاتی که به شما کمک می‌کنند
+              انتخاب بهتری داشته باشید می‌نویسیم.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Featured Article */}
-      <section className="pb-16" style={{ backgroundColor: "var(--color-bg)" }}>
-        <div className="container-iric">
-          <Reveal>
-            <Link
-              href={`/وبلاگ/${featuredArticle.slug}`}
-              className="group block"
-              style={{ textDecoration: "none" }}
-            >
-              <div className="card-industrial overflow-hidden" style={{ padding: 0 }}>
-                <div className="grid md:grid-cols-2">
-                  <div className="relative min-h-64">
-                    <img
-                      src={featuredArticle.featuredImage}
-                      alt={featuredArticle.alt}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="p-8">
-                    <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-                      {featuredArticle.category} · {featuredArticle.readingTime}
-                    </p>
-                    <h2
-                      className="mt-3 text-2xl font-bold sm:text-3xl"
-                      style={{ color: "var(--color-text)" }}
-                    >
-                      {featuredArticle.title}
-                    </h2>
-                    <p
-                      className="mt-4 text-base"
-                      style={{ color: "var(--color-text-muted)" }}
-                    >
-                      {featuredArticle.excerpt}
-                    </p>
-                    <div
-                      className="mt-5 flex items-center gap-2 text-sm font-medium"
-                      style={{ color: "var(--color-accent)" }}
-                    >
-                      مطالعه مقاله
-                      <IconArrow direction="left" size={16} />
+      {/* Articles */}
+      <section>
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="mb-16 flex items-end justify-between gap-8">
+            <div>
+              <p className="mb-5 text-sm font-medium text-black/45">
+                آخرین مطالب
+              </p>
+
+              <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
+                راهنمای چاپ
+              </h2>
+            </div>
+
+            <span className="hidden text-sm text-black/40 md:block">
+              {blogPosts.length} مطلب
+            </span>
+          </div>
+
+          <div className="grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
+            {blogPosts.map((post) => (
+              <article key={post.slug} className="group">
+                <Link
+                  href={`/وبلاگ/${post.slug}`}
+                  className="block"
+                >
+                  <div className="relative mb-7 aspect-[16/10] overflow-hidden bg-[#f5f3ef]">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-xs font-medium tracking-[0.15em] text-black/25">
+                        AIRIK
+                      </span>
                     </div>
+
+                    <div className="absolute inset-x-0 bottom-0 h-px bg-black/10" />
                   </div>
-                </div>
-              </div>
-            </Link>
-          </Reveal>
+
+                  <div className="flex items-center gap-3 text-xs text-black/40">
+                    {post.category && <span>{post.category}</span>}
+                    {post.category && post.date && (
+                      <span>·</span>
+                    )}
+                    {post.date && <span>{post.date}</span>}
+                  </div>
+
+                  <h3 className="mt-4 text-xl font-medium leading-[1.5] tracking-tight transition-opacity group-hover:opacity-60 md:text-2xl">
+                    {post.title}
+                  </h3>
+
+                  {post.excerpt && (
+                    <p className="mt-4 line-clamp-3 text-base leading-8 text-black/50">
+                      {post.excerpt}
+                    </p>
+                  )}
+
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium">
+                    مطالعه مطلب
+                    <span className="transition-transform group-hover:-translate-x-1">
+                      ↗
+                    </span>
+                  </span>
+                </Link>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="py-12" style={{ backgroundColor: "var(--color-bg-light)" }}>
-        <div className="container-iric">
-          <h2 className="text-2xl font-bold" style={{ color: "var(--color-text-dark)" }}>
-            دسته‌بندی‌ها
-          </h2>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {categories.map((category) => (
-              <span
-                key={category.slug}
-                className="inline-flex items-center rounded-md px-4 py-2 text-sm font-medium"
-                style={{
-                  backgroundColor: "var(--color-surface-light)",
-                  border: "1px solid var(--color-border-light)",
-                  color: "var(--color-text-dark)",
-                }}
+      {/* SEO / editorial section */}
+      <section className="bg-[#f5f3ef]">
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="grid gap-16 md:grid-cols-2 md:gap-24">
+            <div>
+              <p className="mb-6 text-sm font-medium text-black/45">
+                چرا این مجله؟
+              </p>
+
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+                قبل از سفارش، تصمیم درست بگیرید.
+              </h2>
+            </div>
+
+            <div className="max-w-xl">
+              <p className="text-lg leading-9 text-black/60">
+                تفاوت روش‌های چاپ همیشه از روی ظاهرشان مشخص نیست. گاهی یک
+                تکنیک برای تیراژ پایین مناسب‌تر است و گاهی همان تکنیک برای
+                یک سفارش بزرگ، انتخاب اقتصادی خوبی نیست.
+              </p>
+
+              <p className="mt-6 text-lg leading-9 text-black/60">
+                مطالب این بخش با همین نگاه نوشته شده‌اند؛ تا بتوانید قبل
+                از سفارش، گزینه‌های مختلف را بشناسید و با اطلاعات بیشتری
+                تصمیم بگیرید.
+              </p>
+
+              <Link
+                href="/خدمات"
+                className="mt-9 inline-flex items-center gap-3 border-b border-black pb-2 text-sm font-medium"
               >
-                {category.name}
-              </span>
-            ))}
+                مشاهده خدمات چاپ
+                <span>↗</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* All Articles */}
-      <section className="py-16" style={{ backgroundColor: "var(--color-bg-light)" }}>
-        <div className="container-iric">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {otherArticles.map((article, index) => (
-              <Reveal key={article.slug} delay={index * 80}>
-                <ArticleCard article={article} />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Final CTA */}
+      <section>
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="border-t border-black/10 pt-16 md:pt-20">
+            <h2 className="max-w-4xl text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+              جواب سؤال‌تان را پیدا نکردید؟
+              <br />
+              مستقیماً از ما بپرسید.
+            </h2>
 
-      {/* CTA */}
-      <section className="py-20" style={{ backgroundColor: "var(--color-accent)" }}>
-        <div className="container-iric text-center">
-          <h2
-            className="text-4xl font-bold"
-            style={{ color: "var(--color-accent-contrast)", lineHeight: "var(--line-height-tight)" }}
-          >
-            سوالی درباره چاپ دارید؟
-          </h2>
-          <p
-            className="mt-5 text-lg mx-auto max-w-2xl"
-            style={{ color: "var(--color-accent-contrast)", opacity: 0.75 }}
-          >
-            مشاوره تخصصی قبل از سفارش، بهترین نتیجه را برای شما به ارمغان می‌آورد.
-          </p>
-          <div className="mt-8 flex justify-center">
-            <Button href="/استعلام-قیمت" size="lg">
-              دریافت مشاوره رایگان
-              <IconArrow direction="up-left" size={16} />
-            </Button>
+            <Link
+              href="/تماس-با-ما"
+              className="mt-10 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
+            >
+              تماس با آیریک
+              <span>↗</span>
+            </Link>
           </div>
         </div>
       </section>
-    </>
+    </main>
   );
 }
