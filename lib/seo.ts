@@ -1,9 +1,3 @@
-/**
- * ═══════════════════════════════════════════════════════════════
- * SEO UTILITIES — Metadata helpers for pages
- * ═══════════════════════════════════════════════════════════════
- */
-
 import type { Metadata } from "next";
 import { siteConfig } from "@/content/site";
 
@@ -20,7 +14,7 @@ export function generateMetadata({
   path,
   ogImage,
 }: SeoProps): Metadata {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://iric.print";
+  const baseUrl = siteConfig.siteUrl;
   const canonicalUrl = `${baseUrl}${path}`;
 
   return {
@@ -36,13 +30,13 @@ export function generateMetadata({
       locale: "fa_IR",
       type: "website",
       siteName: siteConfig.name,
-      ...(ogImage && { images: [{ url: ogImage }] }),
+      images: ogImage ? [{ url: `${baseUrl}${ogImage}` }] : undefined,
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} | ${siteConfig.name}`,
       description,
-      ...(ogImage && { images: [ogImage] }),
+      images: ogImage ? [`${baseUrl}${ogImage}`] : undefined,
     },
   };
 }
