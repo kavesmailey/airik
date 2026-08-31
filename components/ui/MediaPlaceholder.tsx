@@ -36,37 +36,16 @@ export default function MediaPlaceholder({
 
   return (
     <div
-      className={`relative flex items-center justify-center overflow-hidden rounded-md ${className}`}
+      className={`relative flex items-center justify-center overflow-hidden ${className}`}
       style={{
         aspectRatio,
         backgroundColor: t.bg,
         border: `1px solid ${t.border}`,
+        borderRadius: "var(--radius-md)",
       }}
       role="img"
       aria-label={label}
     >
-      <svg
-        className="absolute inset-0 h-full w-full opacity-8"
-        aria-hidden="true"
-      >
-        <defs>
-          <pattern
-            id="grid-pattern"
-            width="24"
-            height="24"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M 24 0 L 0 0 0 24"
-              fill="none"
-              stroke={t.icon}
-              strokeWidth="0.5"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid-pattern)" />
-      </svg>
-
       <div className="relative z-10 flex flex-col items-center gap-2 px-4 text-center">
         <svg
           width="32"
