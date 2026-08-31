@@ -1,38 +1,105 @@
 import Link from "next/link";
-import { services } from "@/content/services";
 
 export const metadata = {
   title: "خدمات چاپ | آیریک",
   description:
-    "خدمات تخصصی چاپ آیریک شامل چاپ سیلک، DTF، چاپ روی لباس، بگ، بسته‌بندی و محصولات تبلیغاتی.",
+    "خدمات چاپ آیریک؛ از چاپ سیلک و DTF تا چاپ روی لباس، پارچه، بگ، کارتن، جعبه و محصولات مختلف.",
 };
+
+const services = [
+  {
+    number: "۰۱",
+    title: "چاپ سیلک",
+    slug: "چاپ-سیلک",
+    description:
+      "چاپی دقیق و بادوام برای تیراژهای مختلف؛ مناسب لباس، پارچه و بسیاری از محصولات تبلیغاتی.",
+  },
+  {
+    number: "۰۲",
+    title: "چاپ DTF",
+    slug: "چاپ-dtf",
+    description:
+      "راهکاری مناسب برای طرح‌های رنگی و جزئیات بالا، با امکان اجرا روی انواع مختلف پوشاک.",
+  },
+  {
+    number: "۰۳",
+    title: "چاپ روی لباس",
+    slug: "چاپ-روی-لباس",
+    description:
+      "اجرای طرح روی تیشرت، هودی، لباس کار و دیگر محصولات پوشیدنی با توجه به جنس و کاربرد محصول.",
+  },
+  {
+    number: "۰۴",
+    title: "چاپ روی پارچه",
+    slug: "چاپ-روی-پارچه",
+    description:
+      "چاپ برای پروژه‌هایی که پارچه بخشی از هویت یا محصول نهایی است؛ از تولیدات کوچک تا سفارش‌های تیراژدار.",
+  },
+  {
+    number: "۰۵",
+    title: "چاپ بگ",
+    slug: "چاپ-بگ",
+    description:
+      "چاپ روی انواع بگ و کیسه برای بسته‌بندی، فروشگاه‌ها، رویدادها و استفاده تبلیغاتی.",
+  },
+  {
+    number: "۰۶",
+    title: "چاپ کارتن",
+    slug: "چاپ-کارتن",
+    description:
+      "چاپ و اجرای بسته‌بندی‌های کارتنی برای محصولاتی که بسته‌بندی بخشی از تجربه برند است.",
+  },
+  {
+    number: "۰۷",
+    title: "چاپ جعبه پیتزا",
+    slug: "چاپ-جعبه-پیتزا",
+    description:
+      "چاپ جعبه‌های پیتزا و بسته‌بندی غذا با امکان اجرای هویت بصری برند روی محصول.",
+  },
+  {
+    number: "۰۸",
+    title: "چاپ لیوان کاغذی",
+    slug: "چاپ-لیوان-کاغذی",
+    description:
+      "چاپ روی لیوان‌های کاغذی برای کافه‌ها، رستوران‌ها، رویدادها و برندهایی که جزئیات مهم است.",
+  },
+  {
+    number: "۰۹",
+    title: "چاپ ظروف گرد",
+    slug: "چاپ-ظروف-گرد",
+    description:
+      "چاپ روی ظروف و محصولات گرد با توجه به فرم، جنس و روش مناسب اجرای طرح.",
+  },
+  {
+    number: "۱۰",
+    title: "چاپ روی تیشرت",
+    slug: "چاپ-روی-تیشرت",
+    description:
+      "چاپ سفارشی روی تیشرت برای برندها، مجموعه‌ها، کمپین‌ها، رویدادها و سفارش‌های شخصی.",
+  },
+];
 
 export default function ServicesPage() {
   return (
     <main dir="rtl">
       {/* Hero */}
       <section className="border-b border-black/10">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="max-w-4xl">
-            <p className="mb-8 text-sm font-medium tracking-wide text-black/50">
-              خدمات چاپ آیریک
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+          <div className="max-w-5xl">
+            <p className="mb-8 text-sm font-medium text-black/45">
+              خدمات چاپ
             </p>
 
-            <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
-              برای هر محصول،
+            <h1 className="text-4xl font-medium leading-[1.3] tracking-tight md:text-6xl lg:text-7xl">
+              برای هر چیزی که قرار است
               <br />
-              روش درست چاپ را پیدا می‌کنیم.
+              دیده شود، راهی برای چاپ هست.
             </h1>
 
-            <p className="mt-10 max-w-2xl text-lg leading-9 text-black/60 md:text-xl">
-              چاپ فقط انتخاب یک دستگاه یا تکنیک نیست. جنس محصول، تیراژ،
-              پیچیدگی طرح، تعداد رنگ و نتیجه‌ای که از چاپ انتظار دارید،
-              همگی روی انتخاب روش مناسب تأثیر می‌گذارند.
-            </p>
-
-            <p className="mt-5 max-w-2xl text-base leading-8 text-black/50">
-              آیریک قبل از اجرا، پروژه را بررسی می‌کند تا راهکاری انتخاب شود
-              که از نظر کیفیت، هزینه و نتیجه نهایی برای شما منطقی باشد.
+            <p className="mt-10 max-w-3xl text-lg leading-9 text-black/60 md:text-xl">
+              از چاپ روی لباس و پارچه تا بسته‌بندی و محصولات تبلیغاتی،
+              آیریک مجموعه‌ای از خدمات چاپ را برای نیازهای مختلف کسب‌وکارها
+              ارائه می‌کند. روش چاپ همیشه از خود محصول شروع می‌شود؛ نه برعکس.
             </p>
           </div>
         </div>
@@ -40,49 +107,41 @@ export default function ServicesPage() {
 
       {/* Services list */}
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="mb-20 max-w-3xl">
-            <p className="mb-6 text-sm font-medium tracking-wide text-black/50">
-              خدمات
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+          <div className="mb-16 max-w-3xl md:mb-24">
+            <p className="mb-7 text-sm font-medium text-black/45">
+              خدمات آیریک
             </p>
 
-            <h2 className="text-3xl font-medium leading-[1.35] tracking-tight md:text-5xl">
-              از چاپ روی پوشاک تا بسته‌بندی و محصولات برندشده.
+            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+              روش درست را برای
+              <br />
+              پروژه‌تان پیدا کنید.
             </h2>
-
-            <p className="mt-7 text-lg leading-9 text-black/60">
-              خدمات آیریک برای پروژه‌های مختلف طراحی شده‌اند؛ از سفارش‌های
-              کوچک و فروشگاهی تا تولیدات برندها، کمپین‌ها و سفارش‌های تیراژ
-              بالا.
-            </p>
           </div>
 
-          <div className="divide-y divide-black/10 border-y border-black/10">
-            {services.map((service, index) => (
+          <div className="border-t border-black/10">
+            {services.map((service) => (
               <Link
                 key={service.slug}
                 href={`/خدمات/${service.slug}`}
-                className="group block py-10 transition-opacity hover:opacity-70 md:py-14"
+                className="group block border-b border-black/10 py-9 transition-opacity hover:opacity-60 md:py-12"
               >
-                <div className="grid gap-8 md:grid-cols-[100px_1fr_auto] md:items-start">
-                  <span className="text-sm text-black/40">
-                    {String(index + 1).padStart(2, "0")}
+                <div className="grid gap-7 md:grid-cols-[80px_1fr_1fr_auto] md:items-center md:gap-10">
+                  <span className="text-xs text-black/35">
+                    {service.number}
                   </span>
 
-                  <div>
-                    <h3 className="text-2xl font-medium tracking-tight md:text-4xl">
-                      {service.title}
-                    </h3>
+                  <h3 className="text-2xl font-medium tracking-tight md:text-3xl">
+                    {service.title}
+                  </h3>
 
-                    {service.description && (
-                      <p className="mt-5 max-w-2xl text-base leading-8 text-black/55 md:text-lg">
-                        {service.description}
-                      </p>
-                    )}
-                  </div>
+                  <p className="max-w-xl leading-8 text-black/50">
+                    {service.description}
+                  </p>
 
-                  <span className="hidden text-2xl transition-transform group-hover:-translate-x-2 md:block">
-                    ↗
+                  <span className="text-xl transition-transform group-hover:-translate-x-1">
+                    ←
                   </span>
                 </div>
               </Link>
@@ -91,76 +150,97 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Decision section */}
+      {/* How we choose */}
       <section className="bg-[#f5f3ef]">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="grid gap-16 md:grid-cols-2 md:gap-24">
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+          <div className="grid gap-16 md:grid-cols-2 md:gap-28">
             <div>
-              <p className="mb-6 text-sm font-medium text-black/50">
-                انتخاب روش چاپ
+              <p className="mb-7 text-sm font-medium text-black/45">
+                فقط انتخاب سرویس نیست
               </p>
 
-              <h2 className="text-3xl font-medium leading-[1.35] tracking-tight md:text-5xl">
-                لازم نیست از قبل بدانید چه روشی برای شما مناسب است.
+              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
+                مهم است بدانیم
+                <br />
+                چطور چاپ کنیم.
               </h2>
             </div>
 
-            <div className="max-w-xl">
-              <p className="text-lg leading-9 text-black/65">
-                اگر بین سیلک، DTF یا روش‌های دیگر مردد هستید، کافی است
-                مشخصات پروژه را برای ما بفرستید. محصول، تعداد، جنس سطح،
-                فایل طراحی و نتیجه موردنظر را بررسی می‌کنیم و مناسب‌ترین
-                روش را پیشنهاد می‌دهیم.
+            <div className="space-y-7 text-lg leading-9 text-black/60">
+              <p>
+                یک طرح ممکن است روی دو محصول مختلف به دو روش کاملاً متفاوت
+                نیاز داشته باشد. جنس سطح، تعداد رنگ، میزان جزئیات، تیراژ و
+                کاربرد نهایی همگی روی انتخاب روش چاپ تأثیر دارند.
               </p>
 
-              <p className="mt-6 text-lg leading-9 text-black/65">
-                هدف فقط پایین آوردن هزینه یا انتخاب سریع‌ترین روش نیست؛
-                هدف رسیدن به تعادل درست بین کیفیت، دوام، ظاهر نهایی و
-                هزینه اجرای پروژه است.
+              <p>
+                اگر بین چند روش مردد هستید، لازم نیست قبل از تماس پاسخ را
+                بدانید. مشخصات پروژه را با ما در میان بگذارید تا مناسب‌ترین
+                گزینه را بررسی کنیم.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Business solutions */}
+      <section>
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+          <div className="grid gap-14 md:grid-cols-2 md:gap-24">
+            <div>
+              <p className="mb-7 text-sm font-medium text-black/45">
+                برای کسب‌وکارها
+              </p>
+
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+                سفارش چاپ وقتی
+                <br />
+                تکرار می‌شود، داستان فرق می‌کند.
+              </h2>
+            </div>
+
+            <div>
+              <p className="text-lg leading-9 text-black/60">
+                اگر برای برند، فروشگاه، رستوران، کافه یا مجموعه خود به
+                سفارش‌های چاپی منظم نیاز دارید، می‌توانیم همکاری را بر اساس
+                نیازهای تکرارشونده شما شکل دهیم.
               </p>
 
               <Link
-                href="/استعلام-قیمت"
-                className="mt-10 inline-flex items-center gap-3 border-b border-black pb-2 text-base font-medium"
+                href="/برای-کسب-و-کارها"
+                className="mt-8 inline-flex items-center gap-3 text-sm font-medium transition-opacity hover:opacity-50"
               >
-                پروژه‌تان را بررسی کنیم
-                <span>↗</span>
+                راهکارهای آیریک برای کسب‌وکارها
+                <span>←</span>
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Business CTA */}
-      <section>
+      {/* CTA */}
+      <section className="border-t border-black/10">
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="border-t border-black/10 pt-16 md:pt-20">
-            <p className="mb-6 text-sm font-medium text-black/50">
-              برای برندها و کسب‌وکارها
-            </p>
+          <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl">
+              <p className="mb-6 text-sm font-medium text-black/45">
+                مطمئن نیستید کدام روش مناسب است؟
+              </p>
 
-            <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-end">
-              <h2 className="text-3xl font-medium leading-[1.35] tracking-tight md:text-5xl">
-                چاپی که قرار است بخشی از تجربه برند شما باشد، باید از ابتدا
-                درست طراحی و اجرا شود.
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+                پروژه را برای ما توضیح دهید.
+                <br />
+                انتخاب روش را بسپارید به ما.
               </h2>
-
-              <div>
-                <p className="text-lg leading-9 text-black/60">
-                  اگر سفارش شما تکرارشونده است یا بخشی از هویت برندتان روی
-                  محصولات، لباس یا بسته‌بندی دیده می‌شود، می‌توانیم یک
-                  فرآیند مشخص و قابل تکرار برای تولید تعریف کنیم.
-                </p>
-
-                <Link
-                  href="/استعلام-قیمت"
-                  className="mt-8 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
-                >
-                  شروع یک پروژه
-                  <span>↗</span>
-                </Link>
-              </div>
             </div>
+
+            <Link
+              href="/استعلام-قیمت"
+              className="inline-flex w-fit shrink-0 items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
+            >
+              استعلام قیمت
+              <span>↗</span>
+            </Link>
           </div>
         </div>
       </section>
