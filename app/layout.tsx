@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://airik-xi.vercel.app";
@@ -83,7 +85,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body>{children}</body>
+      <body className="bg-[#f7f5f1] text-black antialiased">
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
