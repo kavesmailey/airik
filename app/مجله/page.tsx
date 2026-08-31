@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function OldBlogRedirect() {
-  redirect("/وبلاگ");
+export default function AboutOldRedirect() {
+  redirect(encodeURI("/درباره-ما"));
 }
