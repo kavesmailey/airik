@@ -1,85 +1,123 @@
 import Link from "next/link";
-import Button from "@/components/ui/Button";
-import IconArrow from "@/components/ui/IconArrow";
-import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden" style={{ backgroundColor: "var(--color-bg)" }}>
-      {/* Media area — replace with real workshop image/video */}
-      <div className="absolute inset-0">
-        <MediaPlaceholder
-          aspectRatio="auto"
-          label="تصویر کارگاه آیریک — قابل جایگزینی"
-          tone="dark"
-          className="h-full w-full"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(26,26,24,0.7) 0%, rgba(26,26,24,0.3) 40%, rgba(26,26,24,0.1) 100%)",
-          }}
-        />
-      </div>
+    <section
+      className="relative flex min-h-screen items-center overflow-hidden"
+      style={{
+        backgroundColor: "var(--color-bg)",
+        color: "var(--color-text)",
+      }}
+    >
+      <div className="container-iric w-full pt-32 pb-24 sm:pt-40 sm:pb-32 lg:pt-44 lg:pb-36">
+        <div className="max-w-6xl">
+          {/* Eyebrow */}
+          <div className="mb-8 flex items-center gap-3">
+            <span
+              className="h-px w-10"
+              style={{ backgroundColor: "var(--color-accent)" }}
+            />
+            <p
+              className="text-sm font-medium"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              آیریک — چاپ برای برندهایی که به جزئیات اهمیت می‌دهند
+            </p>
+          </div>
 
-      <div className="container-iric relative flex min-h-screen flex-col justify-end pb-8 pt-28 sm:pb-10">
-        <div className="max-w-4xl">
-          <p
-            className="mb-5 text-sm font-medium"
-            style={{ color: "var(--color-text-muted)" }}
-          >
-            آیریک — چاپ تخصصی برای برندها
-          </p>
+          {/* Main heading */}
           <h1
-            className="text-5xl font-bold sm:text-6xl lg:text-7xl"
+            className="max-w-5xl text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl"
             style={{
               color: "var(--color-text)",
-              lineHeight: "var(--line-height-tight)",
+              lineHeight: "1.08",
             }}
           >
-            چاپی که برند شما را حرفه‌ای‌تر نشان می‌دهد
+            چاپ فقط روی محصول نیست؛
+            <br />
+            <span style={{ color: "var(--color-accent)" }}>
+              بخشی از تجربه برند شماست.
+            </span>
           </h1>
-          <div
-            className="mt-7 grid gap-6 border-t pt-6 md:grid-cols-12 md:items-end"
-            style={{ borderColor: "var(--color-border-strong)" }}
-          >
+
+          {/* Description */}
+          <div className="mt-10 max-w-2xl">
             <p
-              className="text-lg md:col-span-6 lg:col-span-5"
+              className="text-lg sm:text-xl"
               style={{
                 color: "var(--color-text-muted)",
-                lineHeight: "var(--line-height-relaxed)",
+                lineHeight: "2",
               }}
             >
-              چاپ سیلک و DTF روی بگ، لباس، کارتن، جعبه پیتزا، لیوان کاغذی و ظروف گرد؛
-              با تمرکز بر کیفیت، اجرای دقیق و مشاوره قبل از سفارش.
+              از چاپ سیلک و DTF روی پوشاک و بگ تا چاپ روی بسته‌بندی و محصولات
+              تبلیغاتی، آیریک کنار شماست تا متناسب با محصول، تیراژ، متریال و
+              بودجه، راهکار چاپی درست را انتخاب و با دقت اجرا کنید.
             </p>
-            <div className="flex flex-col gap-3 sm:flex-row md:col-span-6 md:justify-end">
-              <Button href="/استعلام-قیمت" size="lg">
-                استعلام قیمت
-                <IconArrow direction="up-left" size={16} />
-              </Button>
-              <Button href="/نمونه-کارها" variant="secondary" size="lg">
-                مشاهده نمونه‌کارها
-              </Button>
+          </div>
+
+          {/* CTAs */}
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Link
+              href="/استعلام-قیمت"
+              className="inline-flex min-h-14 items-center justify-center rounded-md px-7 text-base font-bold transition-opacity hover:opacity-85"
+              style={{
+                backgroundColor: "var(--color-accent)",
+                color: "var(--color-accent-contrast)",
+              }}
+            >
+              استعلام قیمت
+            </Link>
+
+            <Link
+              href="/نمونه-کارها"
+              className="inline-flex min-h-14 items-center justify-center rounded-md border px-7 text-base font-bold transition-colors"
+              style={{
+                borderColor: "var(--color-border)",
+                color: "var(--color-text)",
+              }}
+            >
+              مشاهده نمونه‌کارها
+            </Link>
+          </div>
+
+          {/* Bottom information */}
+          <div
+            className="mt-24 border-t pt-7 sm:mt-32"
+            style={{ borderColor: "var(--color-border)" }}
+          >
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+              <p
+                className="text-xs font-medium uppercase tracking-wide"
+                style={{ color: "var(--color-text-faint)" }}
+              >
+                Printing solutions for brands & businesses
+              </p>
+
+              <div
+                className="flex flex-wrap gap-x-5 gap-y-2 text-sm"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                <span>چاپ سیلک</span>
+                <span>·</span>
+                <span>چاپ DTF</span>
+                <span>·</span>
+                <span>بسته‌بندی</span>
+                <span>·</span>
+                <span>پوشاک</span>
+                <span>·</span>
+                <span>محصولات تبلیغاتی</span>
+              </div>
             </div>
           </div>
         </div>
-
-        <div
-          className="mt-9 flex items-center justify-between text-xs"
-          style={{ color: "var(--color-text-faint)" }}
-        >
-          <span>چاپ سیلک و DTF با کیفیت صنعتی</span>
-          <Link
-            href="#why-iric"
-            className="inline-flex min-h-11 items-center gap-2 transition-colors hover:opacity-70"
-          >
-            ادامه
-            <IconArrow direction="down" size={16} />
-          </Link>
-        </div>
       </div>
+
+      {/* Subtle decorative element */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-32 -left-32 h-72 w-72 rounded-full opacity-20 blur-3xl"
+        style={{ backgroundColor: "var(--color-accent)" }}
+      />
     </section>
   );
 }
