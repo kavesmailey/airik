@@ -3,6 +3,7 @@ import { generateMetadata } from "@/lib/seo";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
+import PrintingInquiryForm from "@/components/forms/PrintingInquiryForm";
 import { siteConfig } from "@/content/site";
 
 export const metadata: Metadata = generateMetadata({
@@ -15,7 +16,10 @@ export const metadata: Metadata = generateMetadata({
 export default function ContactPage() {
   return (
     <>
-      <section className="pt-28 pb-16" style={{ backgroundColor: "var(--color-bg)" }}>
+      <section
+        className="pt-28 pb-16"
+        style={{ backgroundColor: "var(--color-bg)" }}
+      >
         <div className="container-iric">
           <Breadcrumbs items={[{ label: "تماس با ما", href: "/تماس-با-ما" }]} />
           <div className="mt-6 max-w-3xl">
@@ -29,7 +33,8 @@ export default function ContactPage() {
               className="mt-5 text-lg"
               style={{ color: "var(--color-text-muted)", lineHeight: "var(--line-height-relaxed)" }}
             >
-              برای مشاوره، استعلام قیمت یا هر سوالی، از طریق راه‌های زیر با ما در ارتباط باشید.
+              برای مشاوره، استعلام قیمت یا هر سوالی، از طریق راه‌های زیر با ما در
+              ارتباط باشید.
             </p>
           </div>
         </div>
@@ -37,119 +42,122 @@ export default function ContactPage() {
 
       <section className="pb-20" style={{ backgroundColor: "var(--color-bg)" }}>
         <div className="container-iric">
-          <div className="grid gap-6 lg:grid-cols-2">
-            {/* Contact info */}
-            <div className="card-industrial space-y-6">
-              <h2 className="text-2xl font-bold" style={{ color: "var(--color-text)" }}>
-                اطلاعات تماس
-              </h2>
-              <div className="space-y-4">
-                {siteConfig.contact.phoneDisplay ? (
-                  <div>
-                    <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-                      تلفن
+          <div className="grid gap-12 lg:grid-cols-2">
+            {/* Left column: contact info + map */}
+            <div className="space-y-8">
+              <div className="card-industrial space-y-6">
+                <h2 className="text-2xl font-bold" style={{ color: "var(--color-text)" }}>
+                  اطلاعات تماس
+                </h2>
+                <div className="space-y-4">
+                  {siteConfig.contact.phoneDisplay ? (
+                    <div>
+                      <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
+                        تلفن
+                      </p>
+                      <p style={{ color: "var(--color-text)", direction: "ltr" }}>
+                        {siteConfig.contact.phoneDisplay}
+                      </p>
+                    </div>
+                  ) : (
+                    <p style={{ color: "var(--color-text-muted)" }}>
+                      شماره تماس به زودی اضافه می‌شود.
                     </p>
-                    <p style={{ color: "var(--color-text)", direction: "ltr" }}>
-                      {siteConfig.contact.phoneDisplay}
+                  )}
+                  {siteConfig.contact.email ? (
+                    <div>
+                      <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
+                        ایمیل
+                      </p>
+                      <p style={{ color: "var(--color-text)", direction: "ltr" }}>
+                        {siteConfig.contact.email}
+                      </p>
+                    </div>
+                  ) : null}
+                  {siteConfig.contact.address ? (
+                    <div>
+                      <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
+                        آدرس
+                      </p>
+                      <p style={{ color: "var(--color-text)" }}>
+                        {siteConfig.contact.address}
+                      </p>
+                    </div>
+                  ) : (
+                    <p style={{ color: "var(--color-text-muted)" }}>
+                      آدرس کارگاه به زودی اضافه می‌شود.
                     </p>
-                  </div>
-                ) : (
+                  )}
+                  {siteConfig.contact.workingHours ? (
+                    <div>
+                      <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
+                        ساعات کاری
+                      </p>
+                      <p style={{ color: "var(--color-text)" }}>
+                        {siteConfig.contact.workingHours}
+                      </p>
+                    </div>
+                  ) : (
+                    <p style={{ color: "var(--color-text-muted)" }}>
+                      ساعات کاری اعلام خواهد شد.
+                    </p>
+                  )}
                   <p style={{ color: "var(--color-text-muted)" }}>
-                    شماره تماس به زودی اضافه می‌شود.
+                    {siteConfig.contact.serviceArea}
                   </p>
-                )}
-                {siteConfig.contact.email ? (
-                  <div>
+                </div>
+
+                {/* Social links if available */}
+                {(siteConfig.social.instagram ||
+                  siteConfig.social.telegram ||
+                  siteConfig.social.whatsapp) && (
+                  <div
+                    className="pt-4 border-t"
+                    style={{ borderColor: "var(--color-border)" }}
+                  >
                     <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-                      ایمیل
+                      شبکه‌های اجتماعی
                     </p>
-                    <p style={{ color: "var(--color-text)", direction: "ltr" }}>
-                      {siteConfig.contact.email}
-                    </p>
+                    <div className="mt-3 flex gap-4">
+                      {siteConfig.social.instagram && (
+                        <a href={siteConfig.social.instagram} style={{ color: "var(--color-text)" }}>
+                          اینستاگرام
+                        </a>
+                      )}
+                      {siteConfig.social.telegram && (
+                        <a href={siteConfig.social.telegram} style={{ color: "var(--color-text)" }}>
+                          تلگرام
+                        </a>
+                      )}
+                      {siteConfig.social.whatsapp && (
+                        <a href={siteConfig.social.whatsapp} style={{ color: "var(--color-text)" }}>
+                          واتساپ
+                        </a>
+                      )}
+                    </div>
                   </div>
-                ) : null}
-                {siteConfig.contact.address ? (
-                  <div>
-                    <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-                      آدرس
-                    </p>
-                    <p style={{ color: "var(--color-text)" }}>
-                      {siteConfig.contact.address}
-                    </p>
-                  </div>
-                ) : (
-                  <p style={{ color: "var(--color-text-muted)" }}>
-                    آدرس کارگاه به زودی اضافه می‌شود.
-                  </p>
                 )}
-                {siteConfig.contact.workingHours ? (
-                  <div>
-                    <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-                      ساعات کاری
-                    </p>
-                    <p style={{ color: "var(--color-text)" }}>
-                      {siteConfig.contact.workingHours}
-                    </p>
-                  </div>
-                ) : (
-                  <p style={{ color: "var(--color-text-muted)" }}>
-                    ساعات کاری اعلام خواهد شد.
-                  </p>
-                )}
-                <p style={{ color: "var(--color-text-muted)" }}>
-                  {siteConfig.contact.serviceArea}
-                </p>
               </div>
 
-              {/* Social links if available */}
-              {(siteConfig.social.instagram || siteConfig.social.telegram || siteConfig.social.whatsapp) && (
-                <div className="pt-4 border-t" style={{ borderColor: "var(--color-border)" }}>
-                  <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-                    شبکه‌های اجتماعی
-                  </p>
-                  <div className="mt-3 flex gap-4">
-                    {siteConfig.social.instagram && (
-                      <a href={siteConfig.social.instagram} style={{ color: "var(--color-text)" }}>
-                        اینستاگرام
-                      </a>
-                    )}
-                    {siteConfig.social.telegram && (
-                      <a href={siteConfig.social.telegram} style={{ color: "var(--color-text)" }}>
-                        تلگرام
-                      </a>
-                    )}
-                    {siteConfig.social.whatsapp && (
-                      <a href={siteConfig.social.whatsapp} style={{ color: "var(--color-text)" }}>
-                        واتساپ
-                      </a>
-                    )}
-                  </div>
-                </div>
-              )}
+              <div className="card-industrial">
+                <h2 className="text-2xl font-bold mb-4" style={{ color: "var(--color-text)" }}>
+                  موقعیت ما
+                </h2>
+                <MediaPlaceholder
+                  aspectRatio="16/9"
+                  label="نقشه موقعیت — به زودی"
+                  tone="dark"
+                />
+              </div>
             </div>
 
-            {/* Map placeholder */}
+            {/* Right column: inquiry form */}
             <div className="card-industrial">
-              <h2 className="text-2xl font-bold mb-4" style={{ color: "var(--color-text)" }}>
-                موقعیت ما
+              <h2 className="text-2xl font-bold mb-6" style={{ color: "var(--color-text)" }}>
+                درخواست چاپ
               </h2>
-              <MediaPlaceholder
-                aspectRatio="16/9"
-                label="نقشه موقعیت — به زودی"
-                tone="dark"
-              />
+              <PrintingInquiryForm />
             </div>
-          </div>
-
-          {/* CTA */}
-          <div className="mt-12 text-center">
-            <a
-              href="/استعلام-قیمت"
-              className="btn-primary"
-              style={{ fontSize: "var(--font-size-base)", padding: "1rem 2rem" }}
-            >
-              دریافت مشاوره و استعلام قیمت
-            </a>
           </div>
         </div>
       </section>
