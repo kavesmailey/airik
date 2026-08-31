@@ -1,66 +1,54 @@
+import { cn } from "@/lib/utils";
+
 interface MediaPlaceholderProps {
-  aspectRatio?: string;
   label?: string;
-  tone?: "dark" | "light" | "accent";
+  aspectRatio?: "1/1" | "4/3" | "16/9";
+  tone?: "dark" | "light";
   className?: string;
 }
 
 export default function MediaPlaceholder({
-  aspectRatio = "4/3",
-  label = "تصویر کارگاه آیریک",
+  label = "AIRIK",
+  aspectRatio = "16/9",
   tone = "dark",
-  className = "",
+  className,
 }: MediaPlaceholderProps) {
-  const tones = {
-    dark: {
-      bg: "var(--color-surface)",
-      border: "var(--color-border)",
-      text: "var(--color-text-muted)",
-      icon: "var(--color-text-faint)",
-    },
-    light: {
-      bg: "var(--color-surface-light)",
-      border: "var(--color-border-light)",
-      text: "var(--color-text-dark-muted)",
-      icon: "var(--color-text-dark-faint)",
-    },
-    accent: {
-      bg: "rgba(232, 89, 12, 0.08)",
-      border: "rgba(232, 89, 12, 0.3)",
-      text: "var(--color-accent)",
-      icon: "var(--color-accent)",
-    },
-  };
-
-  const t = tones[tone];
+  const isDark = tone === "dark";
 
   return (
     <div
-      className={`relative flex items-center justify-center overflow-hidden ${className}`}
+      className={cn(
+        "relative w-full overflow-hidden",
+        className
+      )}
       style={{
         aspectRatio,
-        backgroundColor: t.bg,
-        border: `1px solid ${t.border}`,
-        borderRadius: "var(--radius-md)",
+        borderRadius: "var(--radius-sm)",
+        backgroundColor: isDark
+          ? "var(--color-surface-dark)"
+          : "var(--color-surface-light)",
+        border: "1px solid var(--color-border)",
       }}
-      role="img"
-      aria-label={label}
+      aria-hidden="true"
     >
-      <div className="relative z-10 flex flex-col items-center gap-2 px-4 text-center">
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke={t.icon}
-          strokeWidth="1"
-          aria-hidden="true"
+      <div
+        className="absolute inset-0 opacity-[0.08]"
+        style={{
+          backgroundImage:
+            "linear-gradient(var(--color-text) 1px, transparent 1px), linear-gradient(90deg, var(--color-text) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+      />
+
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span
+          className="text-xs font-medium tracking-[0.2em] uppercase"
+          style={{
+            color: isDark
+              ? "var(--color-text-muted)"
+              : "var(--color-text-dark-muted)",
+          }}
         >
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-          <circle cx="8.5" cy="8.5" r="1.5" />
-          <path d="M21 15l-5-5L5 21" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        <span className="text-xs font-medium" style={{ color: t.text }}>
           {label}
         </span>
       </div>
