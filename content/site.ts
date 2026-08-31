@@ -1,12 +1,14 @@
 export const siteConfig = {
   name: "آیریک",
   englishName: "IRIC",
-  tagline: "چاپ تخصصی برای برندهایی که کیفیت اهمیت دارد",
-  description:
-    "چاپ سیلک و DTF روی بگ، لباس، کارتن، جعبه پیتزا، لیوان کاغذی و ظروف گرد؛ با تمرکز بر کیفیت، اجرای دقیق و مشاوره قبل از سفارش.",
 
-  // SITE_URL — replace with your actual domain when live
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://iric.print",
+  tagline: "چاپ تخصصی برای برندهایی که کیفیت اهمیت دارد",
+
+  description:
+    "آیریک یک مجموعه تخصصی چاپ برای برندها، کسب‌وکارها و سازمان‌هاست؛ از چاپ سیلک و DTF روی لباس و پارچه تا چاپ روی بگ، بسته‌بندی و محصولات تبلیغاتی.",
+
+  siteUrl:
+    process.env.NEXT_PUBLIC_SITE_URL || "https://airik-xi.vercel.app",
 
   contact: {
     phone: "",
@@ -27,16 +29,33 @@ export const siteConfig = {
     whatsapp: "",
   },
 
-  // Logo path (placed in /public)
   logo: "/images/logo/iric-logo.svg",
 
   navigation: [
-    { label: "خانه", href: "/" },
-    { label: "خدمات چاپ", href: "/خدمات" },
-    { label: "نمونه‌کارها", href: "/نمونه-کارها" },
-    { label: "وبلاگ", href: "/وبلاگ" },
-    { label: "درباره ما", href: "/درباره-ما" },
-    { label: "تماس با ما", href: "/تماس-با-ما" },
+    {
+      label: "خانه",
+      href: "/",
+    },
+    {
+      label: "خدمات چاپ",
+      href: "/خدمات",
+    },
+    {
+      label: "نمونه‌کارها",
+      href: "/نمونه-کارها",
+    },
+    {
+      label: "بلاگ",
+      href: "/بلاگ",
+    },
+    {
+      label: "درباره ما",
+      href: "/درباره-ما",
+    },
+    {
+      label: "تماس با ما",
+      href: "/تماس-با-ما",
+    },
   ],
 
   cta: {
