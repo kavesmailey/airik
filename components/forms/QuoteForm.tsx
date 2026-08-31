@@ -179,4 +179,104 @@ export default function QuoteForm() {
           {productTypes.map((type) => (
             <option key={type} value={type}>
               {type}
-           
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Quantity */}
+      <div>
+        <label htmlFor="quantity" style={labelStyle}>
+          تعداد تقریبی
+        </label>
+        <select
+          id="quantity"
+          name="quantity"
+          required
+          value={formData.quantity}
+          onChange={handleChange}
+          style={inputStyle}
+        >
+          <option value="">انتخاب کنید</option>
+          {quantityOptions.map((qty) => (
+            <option key={qty} value={qty}>
+              {qty}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Printing method */}
+      <div>
+        <label htmlFor="printingMethod" style={labelStyle}>
+          نوع چاپ
+        </label>
+        <select
+          id="printingMethod"
+          name="printingMethod"
+          required
+          value={formData.printingMethod}
+          onChange={handleChange}
+          style={inputStyle}
+        >
+          <option value="">انتخاب کنید</option>
+          {printingMethods.map((method) => (
+            <option key={method} value={method}>
+              {method}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* File upload */}
+      <div>
+        <label htmlFor="file" style={labelStyle}>
+          آپلود لوگو یا طرح (اختیاری)
+        </label>
+        <input
+          type="file"
+          id="file"
+          name="file"
+          accept=".ai,.pdf,.png,.jpg,.jpeg,.eps,.psd"
+          onChange={handleFileChange}
+          style={inputStyle}
+        />
+      </div>
+
+      {/* Timeline */}
+      <div>
+        <label htmlFor="timeline" style={labelStyle}>
+          زمان مورد نیاز
+        </label>
+        <input
+          type="text"
+          id="timeline"
+          name="timeline"
+          placeholder="مثلاً: تا پایان ماه"
+          value={formData.timeline}
+          onChange={handleChange}
+          style={inputStyle}
+        />
+      </div>
+
+      {/* Description */}
+      <div>
+        <label htmlFor="description" style={labelStyle}>
+          توضیحات
+        </label>
+        <textarea
+          id="description"
+          name="description"
+          rows={4}
+          value={formData.description}
+          onChange={handleChange}
+          style={inputStyle}
+        />
+      </div>
+
+      <Button type="submit" size="lg" className="w-full" onClick={undefined} href={undefined}>
+        {isSubmitting ? "در حال ارسال..." : "دریافت مشاوره و استعلام قیمت"}
+      </Button>
+    </form>
+  );
+}
