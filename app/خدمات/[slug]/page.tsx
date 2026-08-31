@@ -38,13 +38,17 @@ export function generateMetadata({
       canonical: `/خدمات/${service.slug}`,
     },
     openGraph: {
+      type: "website",
+      locale: "fa_IR",
       title: service.meta.title,
       description: service.meta.description,
       url: `/خدمات/${service.slug}`,
+      siteName: "AIRIK",
       images: service.image
         ? [
             {
               url: service.image,
+              alt: service.title,
             },
           ]
         : undefined,
@@ -53,7 +57,7 @@ export function generateMetadata({
 }
 
 function getRelatedArticlesForService(slug: string) {
-  return articles.filter((article: any) => {
+  return articles.filter((article) => {
     const relatedServices = article.relatedServices;
 
     return (
@@ -76,15 +80,14 @@ export default function ServicePage({
     service.relatedServiceSlugs
   );
 
-  const relatedArticles = getRelatedArticlesForService(
-    service.slug
-  );
+  const relatedArticles =
+    getRelatedArticlesForService(service.slug);
 
   return (
     <main dir="rtl">
       {/* Hero */}
       <section className="border-b border-black/10">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="max-w-5xl">
             <Link
               href="/خدمات"
@@ -94,7 +97,7 @@ export default function ServicePage({
               همه خدمات
             </Link>
 
-            <p className="mb-6 text-sm text-black/40">
+            <p className="mb-6 text-sm font-medium text-black/40">
               خدمات چاپ
             </p>
 
@@ -123,10 +126,10 @@ export default function ServicePage({
 
       {/* Introduction */}
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
             <div>
-              <p className="mb-6 text-sm text-black/40">
+              <p className="mb-6 text-sm font-medium text-black/40">
                 درباره این روش
               </p>
 
@@ -148,9 +151,9 @@ export default function ServicePage({
 
       {/* How it works */}
       <section className="bg-[#f5f3ef]">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="max-w-4xl">
-            <p className="mb-6 text-sm text-black/40">
+            <p className="mb-6 text-sm font-medium text-black/40">
               چگونه کار می‌کند؟
             </p>
 
@@ -171,9 +174,9 @@ export default function ServicePage({
 
       {/* Benefits */}
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="mb-16 max-w-3xl md:mb-24">
-            <p className="mb-6 text-sm text-black/40">
+            <p className="mb-6 text-sm font-medium text-black/40">
               مزایا
             </p>
 
@@ -205,10 +208,10 @@ export default function ServicePage({
 
       {/* Suitable For */}
       <section className="border-y border-black/10">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-2 md:gap-28">
             <div>
-              <p className="mb-6 text-sm text-black/40">
+              <p className="mb-6 text-sm font-medium text-black/40">
                 مناسب برای
               </p>
 
@@ -241,9 +244,9 @@ export default function ServicePage({
 
       {/* Applications */}
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="mb-16 md:mb-24">
-            <p className="mb-6 text-sm text-black/40">
+            <p className="mb-6 text-sm font-medium text-black/40">
               کاربردها
             </p>
 
@@ -273,9 +276,9 @@ export default function ServicePage({
 
       {/* Considerations */}
       <section className="bg-[#f5f3ef]">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="mb-16 max-w-3xl md:mb-24">
-            <p className="mb-6 text-sm text-black/40">
+            <p className="mb-6 text-sm font-medium text-black/40">
               نکات مهم
             </p>
 
@@ -307,10 +310,10 @@ export default function ServicePage({
 
       {/* Printing Methods */}
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
             <div>
-              <p className="mb-6 text-sm text-black/40">
+              <p className="mb-6 text-sm font-medium text-black/40">
                 روش‌های چاپ
               </p>
 
@@ -355,9 +358,9 @@ export default function ServicePage({
 
       {/* Process */}
       <section className="bg-black text-white">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="mb-16 max-w-3xl md:mb-24">
-            <p className="mb-6 text-sm text-white/40">
+            <p className="mb-6 text-sm font-medium text-white/40">
               فرآیند
             </p>
 
@@ -391,10 +394,10 @@ export default function ServicePage({
 
       {/* Pricing */}
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-2 md:gap-28">
             <div>
-              <p className="mb-6 text-sm text-black/40">
+              <p className="mb-6 text-sm font-medium text-black/40">
                 قیمت
               </p>
 
@@ -426,10 +429,10 @@ export default function ServicePage({
 
       {/* FAQ */}
       <section className="border-t border-black/10 bg-[#f5f3ef]">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
             <div>
-              <p className="mb-6 text-sm text-black/40">
+              <p className="mb-6 text-sm font-medium text-black/40">
                 سوالات متداول
               </p>
 
@@ -475,9 +478,9 @@ export default function ServicePage({
       {/* Related Services */}
       {relatedServices.length > 0 && (
         <section>
-          <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+          <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
             <div className="mb-16 md:mb-24">
-              <p className="mb-6 text-sm text-black/40">
+              <p className="mb-6 text-sm font-medium text-black/40">
                 خدمات مرتبط
               </p>
 
@@ -522,9 +525,9 @@ export default function ServicePage({
       {/* Related Articles */}
       {relatedArticles.length > 0 && (
         <section className="border-t border-black/10">
-          <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+          <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
             <div className="mb-16 md:mb-24">
-              <p className="mb-6 text-sm text-black/40">
+              <p className="mb-6 text-sm font-medium text-black/40">
                 مقالات مرتبط
               </p>
 
@@ -534,37 +537,35 @@ export default function ServicePage({
             </div>
 
             <div className="grid border-t border-black/10 md:grid-cols-2">
-              {relatedArticles.map(
-                (article: any, index: number) => (
-                  <Link
-                    key={article.slug}
-                    href={`/بلاگ/${article.slug}`}
-                    className="group border-b border-black/10 py-9 transition-opacity hover:opacity-60 md:[&:nth-child(odd)]:border-l md:[&:nth-child(odd)]:pl-10 md:[&:nth-child(even)]:pr-10"
-                  >
-                    <div className="flex items-start justify-between gap-8">
-                      <div>
-                        <span className="text-xs text-black/30">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-
-                        <h3 className="mt-4 text-xl font-medium leading-8 tracking-tight md:text-2xl">
-                          {article.title}
-                        </h3>
-
-                        {article.excerpt && (
-                          <p className="mt-3 max-w-xl leading-8 text-black/50">
-                            {article.excerpt}
-                          </p>
-                        )}
-                      </div>
-
-                      <span className="text-xl transition-transform group-hover:-translate-x-1">
-                        ↗
+              {relatedArticles.map((article, index) => (
+                <Link
+                  key={article.slug}
+                  href={`/بلاگ/${article.slug}`}
+                  className="group border-b border-black/10 py-9 transition-opacity hover:opacity-60 md:[&:nth-child(odd)]:border-l md:[&:nth-child(odd)]:pl-10 md:[&:nth-child(even)]:pr-10"
+                >
+                  <div className="flex items-start justify-between gap-8">
+                    <div>
+                      <span className="text-xs text-black/30">
+                        {String(index + 1).padStart(2, "0")}
                       </span>
+
+                      <h3 className="mt-4 text-xl font-medium leading-8 tracking-tight md:text-2xl">
+                        {article.title}
+                      </h3>
+
+                      {article.excerpt && (
+                        <p className="mt-3 max-w-xl leading-8 text-black/50">
+                          {article.excerpt}
+                        </p>
+                      )}
                     </div>
-                  </Link>
-                )
-              )}
+
+                    <span className="text-xl transition-transform group-hover:-translate-x-1">
+                      ↗
+                    </span>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </section>
@@ -572,9 +573,9 @@ export default function ServicePage({
 
       {/* Final CTA */}
       <section className="border-t border-black/10">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="max-w-4xl">
-            <p className="mb-6 text-sm text-black/40">
+            <p className="mb-6 text-sm font-medium text-black/40">
               شروع پروژه
             </p>
 
