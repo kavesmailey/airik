@@ -1,156 +1,160 @@
 import type { Metadata } from "next";
-import { generateMetadata as createMetadata } from "@/lib/seo";
-import { getArticleBySlug, getRelatedArticles, getAllArticleSlugs } from "@/content/articles";
-import { getServiceBySlug } from "@/content/services";
-import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import JsonLd from "@/components/seo/JsonLd";
-import ArticleCard from "@/components/cards/ArticleCard";
-import ServiceCard from "@/components/cards/ServiceCard";
-import Button from "@/components/ui/Button";
-import IconArrow from "@/components/ui/IconArrow";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { articles, getArticleBySlug } from "@/content/articles";
 
 interface ArticlePageProps {
-  params: { slug: string };
+  params: {
+    slug: string;
+  };
 }
 
 export function generateStaticParams() {
-  return getAllArticleSlugs().map((slug) => ({ slug }));
+  return articles.map((article) => ({
+    slug: article.slug,
+  }));
 }
 
-export function generateMetadata({ params }: ArticlePageProps): Metadata {
+export function generateMetadata({
+  params,
+}: ArticlePageProps): Metadata {
   const article = getArticleBySlug(params.slug);
-  if (!article) return {};
-  return createMetadata({
-    title: article.meta.title,
-    description: article.meta.description,
-    path: `/بلاگ/${article.slug}`,
-    ogImage: article.featuredImage,
-  });
+
+  if (!article) {
+    return {};
+  }
+
+  return {
+    title: article.meta?.title || article.title,
+    description:
+      article.meta?.description ||
+      article.excerpt ||
+      `راهنمای AIRIK درباره ${article.title}`,
+  };
 }
 
 export default function ArticlePage({ params }: ArticlePageProps) {
   const article = getArticleBySlug(params.slug);
-  if (!article) notFound();
 
-  const relatedArticles = getRelatedArticles(article.relatedArticles);
-  const relatedServices = article.relatedServices
-    .map(getServiceBySlug)
-    .filter(Boolean);
-
-  const jsonLdArticle = {
-    slug: article.slug,
-    headline: article.title,
-    description: article.excerpt,
-    image: article.featuredImage,
-    datePublished: article.date,
-    dateModified: article.updatedDate || article.date,
-    author: article.author,
-  };
+  if (!article) {
+    notFound();
+  }
 
   return (
-    <>
-      <JsonLd type="article" data={jsonLdArticle} />
-      <JsonLd
-        type="breadcrumb"
-        data={{
-          items: [
-            { label: "خانه", href: "/" },
-            { label: "بلاگ", href: "/بلاگ" },
-            { label: article.title, href: `/بلاگ/${article.slug}` },
-          ],
-        }}
-      />
-
-      {/* Hero */}
-      <section
-        className="pt-28 pb-12"
-        style={{ backgroundColor: "var(--color-bg)" }}
-      >
-        <div className="container-iric max-w-4xl">
-          <Breadcrumbs
-            items={[
-              { label: "بلاگ", href: "/بلاگ" },
-              { label: article.title, href: `/بلاگ/${article.slug}` },
-            ]}
-          />
-          <div className="mt-6">
-            <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-              {article.category} · {article.readingTime} · {article.date}
-            </p>
-            <h1
-              className="mt-4 text-3xl font-bold sm:text-4xl lg:text-5xl"
-              style={{ color: "var(--color-text)", lineHeight: "var(--line-height-tight)" }}
+    <main dir="rtl">
+      <article>
+        <header className="border-b border-black/10">
+          <div className="mx-auto max-w-5xl px-6 py-28 md:px-10 md:py-40">
+            <Link
+              href="/بلاگ"
+              className="mb-10 inline-block text-sm text-black/45 transition-colors hover:text-black"
             >
+              ← بازگشت به بلاگ
+            </Link>
+
+            {article.category && (
+              <p className="mb-7 text-sm font-medium text-black/45">
+                {article.category}
+              </p>
+            )}
+
+            <h1 className="text-4xl font-medium leading-[1.35] tracking-tight md:text-6xl">
               {article.title}
             </h1>
-            <p
-              className="mt-5 text-lg"
-              style={{ color: "var(--color-text-muted)", lineHeight: "var(--line-height-relaxed)" }}
+
+            {article.excerpt && (
+              <p className="mt-10 max-w-3xl text-lg leading-9 text-black/60 md:text-xl">
+                {article.excerpt}
+              </p>
+            )}
+
+            <div className="mt-8 flex flex-wrap gap-5 text-xs text-black/40">
+              {article.readingTime && (
+                <span>{article.readingTime} دقیقه مطالعه</span>
+              )}
+
+              {article.date && <span>{article.date}</span>}
+            </div>
+          </div>
+        </header>
+
+        <div className="mx-auto max-w-3xl px-6 py-24 md:px-10 md:py-32">
+          <div className="prose prose-lg max-w-none prose-headings:font-medium prose-headings:tracking-tight prose-p:leading-9 prose-p:text-black/65 prose-li:leading-8 prose-li:text-black/65">
+            {Array.isArray(article.content) ? (
+              article.content.map((section, index) => {
+                if (typeof section === "string") {
+                  return <p key={index}>{section}</p>;
+                }
+
+                if (
+                  typeof section === "object" &&
+                  section !== null &&
+                  "type" in section
+                ) {
+                  if (section.type === "heading") {
+                    return (
+                      <h2 key={index} className="mt-16 text-3xl">
+                        {section.content}
+                      </h2>
+                    );
+                  }
+
+                  if (section.type === "paragraph") {
+                    return <p key={index}>{section.content}</p>;
+                  }
+
+                  if (section.type === "list") {
+                    return (
+                      <ul key={index}>
+                        {section.items?.map(
+                          (item: string, itemIndex: number) => (
+                            <li key={itemIndex}>{item}</li>
+                          ),
+                        )}
+                      </ul>
+                    );
+                  }
+                }
+
+                return null;
+              })
+            ) : (
+              <div>{article.content}</div>
+            )}
+          </div>
+        </div>
+      </article>
+
+      <section className="border-t border-black/10 bg-[#f5f3ef]">
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl">
+              <p className="mb-6 text-sm font-medium text-black/45">
+                قدم بعدی
+              </p>
+
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+                برای پروژه‌تان
+                <br />
+                راهکار مناسب می‌خواهید؟
+              </h2>
+
+              <p className="mt-7 max-w-2xl text-lg leading-8 text-black/55">
+                اطلاعات سفارش را برای ما بفرستید. اگر درباره روش چاپ یا
+                متریال مطمئن نیستید، بررسی آن را به ما بسپارید.
+              </p>
+            </div>
+
+            <Link
+              href="/استعلام-قیمت"
+              className="inline-flex w-fit shrink-0 items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
             >
-              {article.excerpt}
-            </p>
+              استعلام قیمت
+              <span>↗</span>
+            </Link>
           </div>
         </div>
       </section>
-
-      {/* Content */}
-      <section className="py-12" style={{ backgroundColor: "var(--color-bg)" }}>
-        <div className="container-iric max-w-4xl">
-          <img
-            src={article.featuredImage}
-            alt={article.alt}
-            className="mb-8 w-full rounded-md object-cover"
-            loading="lazy"
-          />
-          <div
-            className="article-content"
-            style={{
-              color: "var(--color-text)",
-              lineHeight: "2",
-              fontSize: "1.125rem",
-            }}
-          >
-            {article.content}
-          </div>
-
-          {/* Related Services */}
-          {relatedServices.length > 0 && (
-            <div className="mt-16">
-              <h2 className="text-2xl font-bold mb-6" style={{ color: "var(--color-text)" }}>
-                خدمات مرتبط
-              </h2>
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {relatedServices.map((service: any) => (
-                  <ServiceCard key={service.slug} service={service} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Related Articles */}
-          {relatedArticles.length > 0 && (
-            <div className="mt-16">
-              <h2 className="text-2xl font-bold mb-6" style={{ color: "var(--color-text)" }}>
-                مقالات مرتبط
-              </h2>
-              <div className="grid gap-6 md:grid-cols-2">
-                {relatedArticles.map((related) => (
-                  <ArticleCard key={related.slug} article={related} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* CTA */}
-          <div className="mt-16 text-center">
-            <Button href="/استعلام-قیمت" size="lg">
-              دریافت مشاوره و استعلام قیمت
-              <IconArrow direction="up-left" size={16} />
-            </Button>
-          </div>
-        </div>
-      </section>
-    </>
+    </main>
   );
 }
