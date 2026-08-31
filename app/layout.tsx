@@ -6,6 +6,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { siteConfig } from "@/content/site";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.siteUrl),
   title: {
     default: `${siteConfig.name} — چاپ تخصصی سیلک و DTF`,
     template: `%s | ${siteConfig.name}`,
@@ -24,9 +25,18 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${siteConfig.name} — چاپ تخصصی سیلک و DTF`,
     description: siteConfig.description,
+    url: siteConfig.siteUrl,
     locale: "fa_IR",
     type: "website",
     siteName: siteConfig.name,
+    images: [
+      {
+        url: `${siteConfig.siteUrl}${siteConfig.logo}`,
+        width: 512,
+        height: 512,
+        alt: siteConfig.name,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -36,6 +46,9 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  icons: {
+    icon: "/icon.svg",
   },
 };
 
@@ -62,6 +75,7 @@ export default function RootLayout({
         </a>
 
         <JsonLd type="organization" data={siteConfig} />
+        <JsonLd type="localBusiness" data={siteConfig} />
         <Header />
         <main id="main-content">{children}</main>
         <Footer />
