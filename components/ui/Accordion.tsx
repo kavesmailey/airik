@@ -39,21 +39,24 @@ export default function Accordion({
     : "var(--color-text-dark-muted)";
 
   return (
-    <div className={`divide-y ${className}`} style={{ borderColor }}>
+    <div className={className} style={{ borderColor }}>
       {items.map((item) => {
         const isOpen = openId === item.id;
         const itemId = `accordion-${item.id}`;
         const panelId = `accordion-panel-${item.id}`;
 
         return (
-          <div key={item.id}>
+          <div
+            key={item.id}
+            style={{ borderBottom: `1px solid ${borderColor}` }}
+          >
             <button
               type="button"
               id={itemId}
               aria-expanded={isOpen}
               aria-controls={panelId}
               onClick={() => toggleItem(item.id)}
-              className="flex min-h-20 w-full items-center justify-between gap-5 py-5 text-right text-lg font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-accent"
+              className="flex min-h-20 w-full items-center justify-between gap-5 py-5 text-right text-lg font-semibold transition-colors"
               style={{ color: titleColor }}
             >
               <span>{item.title}</span>
@@ -96,8 +99,11 @@ export default function Accordion({
               className="overflow-hidden pb-6 pe-10"
             >
               <div
-                className="text-base leading-relaxed"
-                style={{ color: contentColor }}
+                className="text-base"
+                style={{
+                  color: contentColor,
+                  lineHeight: "var(--line-height-relaxed)",
+                }}
               >
                 {item.content}
               </div>
