@@ -1,12 +1,8 @@
-import Reveal from "./Reveal";
-
 interface SectionHeadingProps {
   eyebrow?: string;
   title: string;
   description?: string;
-  align?: "right" | "center";
-  tone?: "dark" | "light";
-  className?: string;
+  align?: "right" | "left" | "center";
 }
 
 export default function SectionHeading({
@@ -14,39 +10,53 @@ export default function SectionHeading({
   title,
   description,
   align = "right",
-  tone = "dark",
-  className = "",
 }: SectionHeadingProps) {
-  const isDark = tone === "dark";
+  const alignment =
+    align === "center"
+      ? "text-center items-center"
+      : align === "left"
+        ? "text-left items-start"
+        : "text-right items-end";
 
   return (
-    <Reveal className={`${align === "center" ? "text-center" : ""} ${className}`}>
+    <div
+      className={`flex max-w-3xl flex-col ${alignment}`}
+      style={{
+        gap: "var(--space-sm)",
+      }}
+    >
       {eyebrow && (
-        <p className="text-sm font-medium" style={{ color: "var(--color-accent)" }}>
+        <span
+          className="text-xs font-semibold tracking-[0.16em]"
+          style={{
+            color: "var(--color-accent)",
+          }}
+        >
           {eyebrow}
-        </p>
+        </span>
       )}
+
       <h2
-        className="mt-3 text-4xl font-bold sm:text-5xl lg:text-6xl"
+        className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl"
         style={{
-          color: isDark ? "var(--color-text)" : "var(--color-text-dark)",
-          lineHeight: "var(--line-height-tight)",
+          color: "var(--color-text)",
+          lineHeight: "1.15",
         }}
       >
         {title}
       </h2>
+
       {description && (
         <p
-          className="mt-5 max-w-2xl text-lg"
+          className="max-w-2xl text-base md:text-lg"
           style={{
-            color: isDark ? "var(--color-text-muted)" : "var(--color-text-dark-muted)",
+            color: "var(--color-text-muted)",
             lineHeight: "var(--line-height-relaxed)",
-            marginInline: align === "center" ? "auto" : undefined,
           }}
         >
           {description}
         </p>
       )}
-    </Reveal>
+    </div>
   );
 }
