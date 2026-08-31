@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { generateMetadata } from "@/lib/seo";
+import { generateMetadata as createMetadata } from "@/lib/seo";
 import { getBusinessTypeBySlug } from "@/content/business";
 import { getServiceBySlug } from "@/content/services";
 import { getArticleBySlug } from "@/content/articles";
@@ -17,7 +17,7 @@ interface BusinessPageProps {
 export function generateMetadata({ params }: BusinessPageProps): Metadata {
   const business = getBusinessTypeBySlug(params.slug);
   if (!business) return {};
-  return generateMetadata({
+  return createMetadata({
     title: business.meta.title,
     description: business.meta.description,
     path: `/برای-کسب-و-کارها/${business.slug}`,
@@ -38,7 +38,10 @@ export default function BusinessPage({ params }: BusinessPageProps) {
 
   return (
     <>
-      <section className="pt-28 pb-16" style={{ backgroundColor: "var(--color-bg)" }}>
+      <section
+        className="pt-28 pb-16"
+        style={{ backgroundColor: "var(--color-bg)" }}
+      >
         <div className="container-iric">
           <Breadcrumbs
             items={[
