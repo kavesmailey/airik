@@ -1,11 +1,6 @@
-/**
- * ═══════════════════════════════════════════════════════════════
- * BREADCRUMBS — RTL-aware breadcrumb navigation
- * ═══════════════════════════════════════════════════════════════
- */
-
 import Link from "next/link";
 import JsonLd from "@/components/seo/JsonLd";
+import { siteConfig } from "@/content/site";
 
 interface BreadcrumbItem {
   label: string;
@@ -26,11 +21,12 @@ export default function Breadcrumbs({
   const separatorColor = isDark ? "var(--color-text-faint)" : "var(--color-text-dark-faint)";
 
   const fullItems = [{ label: "خانه", href: "/" }, ...items];
+  const baseUrl = siteConfig.siteUrl;
 
   const breadcrumbData = {
     items: fullItems.map((item) => ({
       label: item.label,
-      href: `https://iric.print${item.href}`,
+      href: `${baseUrl}${item.href}`,
     })),
   };
 
