@@ -7,162 +7,276 @@ export const metadata: Metadata = {
     "برای دریافت قیمت چاپ، مشخصات پروژه خود را برای AIRIK ارسال کنید.",
 };
 
+const fields = [
+  {
+    label: "نام و نام خانوادگی",
+    type: "text",
+    placeholder: "نام شما",
+  },
+  {
+    label: "نام شرکت یا برند",
+    type: "text",
+    placeholder: "در صورت وجود",
+  },
+  {
+    label: "شماره تماس",
+    type: "tel",
+    placeholder: "۰۹۱۲...",
+  },
+  {
+    label: "ایمیل",
+    type: "email",
+    placeholder: "example@email.com",
+  },
+];
+
 export default function QuotePage() {
   return (
     <main dir="rtl">
+      {/* Hero */}
       <section className="border-b border-black/10">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="max-w-5xl">
-            <Link
-              href="/"
-              className="mb-10 inline-block text-sm text-black/45 transition-colors hover:text-black"
-            >
-              ← AIRIK
-            </Link>
-
-            <p className="mb-7 text-sm font-medium text-black/45">
-              شروع پروژه
+            <p className="mb-8 text-sm font-medium text-black/40">
+              استعلام قیمت
             </p>
 
-            <h1 className="text-4xl font-medium leading-[1.3] tracking-tight md:text-6xl lg:text-7xl">
-              برای پروژه چاپی‌تان
+            <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
+              پروژه‌تان را
               <br />
-              قیمت بگیرید.
+              برای ما تعریف کنید.
             </h1>
 
-            <p className="mt-10 max-w-3xl text-lg leading-9 text-black/60 md:text-xl">
-              اطلاعاتی که درباره پروژه دارید برای ما بفرستید. اگر هنوز روش
-              چاپ یا متریال مناسب را نمی‌دانید، مشکلی نیست؛ همین اطلاعات اولیه
-              برای شروع بررسی کافی است.
+            <p className="mt-10 max-w-3xl text-lg leading-9 text-black/60 md:text-xl md:leading-10">
+              هرچه اطلاعات دقیق‌تری از پروژه داشته باشیم، می‌توانیم
+              راهکار و برآورد دقیق‌تری ارائه کنیم. اگر هنوز همه جزئیات
+              را نمی‌دانید، همان اطلاعات اولیه را ارسال کنید.
             </p>
           </div>
         </div>
       </section>
 
+      {/* Form */}
       <section>
         <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-32 lg:px-12">
-          <div className="grid gap-16 md:grid-cols-[0.75fr_1.25fr] md:gap-28">
+          <div className="grid gap-16 md:grid-cols-[0.65fr_1.35fr] md:gap-28">
+            {/* Intro */}
             <div>
-              <p className="mb-6 text-sm font-medium text-black/45">
-                اطلاعات مورد نیاز
+              <p className="mb-7 text-sm font-medium text-black/40">
+                اطلاعات پروژه
               </p>
 
               <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-4xl">
-                هرچه جزئیات بیشتری
+                چند جزئیات،
                 <br />
-                داشته باشیم، دقیق‌تر.
+                برای شروع کافی است.
               </h2>
 
-              <p className="mt-6 leading-8 text-black/55">
-                لازم نیست تمام مشخصات فنی را بدانید. نوع محصول، تعداد و
-                کاربرد نهایی برای شروع کافی است.
+              <p className="mt-7 leading-8 text-black/55">
+                نوع محصول، تعداد، ابعاد، متریال و زمان مورد نیاز مهم‌ترین
+                اطلاعات برای بررسی سفارش هستند.
               </p>
+
+              <div className="mt-12 border-t border-black/10">
+                {[
+                  "نوع محصول یا خدمات چاپ",
+                  "تعداد یا تیراژ تقریبی",
+                  "ابعاد",
+                  "متریال مورد نظر",
+                  "زمان مورد نیاز",
+                ].map((item, index) => (
+                  <div
+                    key={item}
+                    className="flex gap-5 border-b border-black/10 py-5"
+                  >
+                    <span className="text-xs text-black/30">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <span className="text-sm text-black/60">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
 
+            {/* Form */}
             <form className="border-t border-black/10">
-              <div className="grid gap-8 py-8 md:grid-cols-2">
-                <label className="block">
-                  <span className="mb-3 block text-sm text-black/55">
-                    نام / نام شرکت
-                  </span>
-                  <input
-                    type="text"
-                    name="name"
-                    className="w-full border-b border-black/20 bg-transparent px-0 py-4 outline-none transition-colors focus:border-black"
-                  />
-                </label>
+              <div className="grid gap-x-8 md:grid-cols-2">
+                {fields.map((field) => (
+                  <label
+                    key={field.label}
+                    className="border-b border-black/10 py-7"
+                  >
+                    <span className="mb-3 block text-xs text-black/40">
+                      {field.label}
+                    </span>
 
-                <label className="block">
-                  <span className="mb-3 block text-sm text-black/55">
-                    شماره تماس
-                  </span>
-                  <input
-                    type="tel"
-                    name="phone"
-                    className="w-full border-b border-black/20 bg-transparent px-0 py-4 outline-none transition-colors focus:border-black"
-                  />
-                </label>
+                    <input
+                      type={field.type}
+                      name={field.label}
+                      placeholder={field.placeholder}
+                      className="w-full bg-transparent text-base text-black outline-none placeholder:text-black/25"
+                    />
+                  </label>
+                ))}
               </div>
 
-              <div className="border-t border-black/10 py-8">
-                <label className="block">
-                  <span className="mb-3 block text-sm text-black/55">
-                    نوع محصول
-                  </span>
-                  <input
-                    type="text"
-                    name="product"
-                    placeholder="مثلاً بسته‌بندی، تیشرت، بگ، لیبل و..."
-                    className="w-full border-b border-black/20 bg-transparent px-0 py-4 outline-none transition-colors placeholder:text-black/25 focus:border-black"
-                  />
-                </label>
-              </div>
+              <label className="block border-b border-black/10 py-7">
+                <span className="mb-3 block text-xs text-black/40">
+                  نوع محصول یا خدمات چاپ
+                </span>
 
-              <div className="border-t border-black/10 py-8">
-                <label className="block">
-                  <span className="mb-3 block text-sm text-black/55">
-                    تعداد تقریبی
+                <select
+                  name="service"
+                  defaultValue=""
+                  className="w-full appearance-none bg-transparent text-base text-black outline-none"
+                >
+                  <option value="" disabled>
+                    انتخاب کنید
+                  </option>
+                  <option value="silk">چاپ سیلک</option>
+                  <option value="dtf">چاپ DTF</option>
+                  <option value="clothing">چاپ روی لباس</option>
+                  <option value="fabric">چاپ روی پارچه</option>
+                  <option value="bag">چاپ بگ</option>
+                  <option value="carton">چاپ کارتن</option>
+                  <option value="pizza-box">چاپ جعبه پیتزا</option>
+                  <option value="paper-cup">چاپ لیوان کاغذی</option>
+                  <option value="round-surfaces">چاپ ظروف گرد</option>
+                  <option value="other">سایر</option>
+                </select>
+              </label>
+
+              <div className="grid gap-x-8 md:grid-cols-2">
+                <label className="block border-b border-black/10 py-7">
+                  <span className="mb-3 block text-xs text-black/40">
+                    تیراژ تقریبی
                   </span>
+
                   <input
                     type="text"
                     name="quantity"
                     placeholder="مثلاً ۵۰۰ عدد"
-                    className="w-full border-b border-black/20 bg-transparent px-0 py-4 outline-none transition-colors placeholder:text-black/25 focus:border-black"
+                    className="w-full bg-transparent text-base text-black outline-none placeholder:text-black/25"
                   />
                 </label>
-              </div>
 
-              <div className="border-t border-black/10 py-8">
-                <label className="block">
-                  <span className="mb-3 block text-sm text-black/55">
-                    توضیحات پروژه
+                <label className="block border-b border-black/10 py-7">
+                  <span className="mb-3 block text-xs text-black/40">
+                    زمان مورد نیاز
                   </span>
-                  <textarea
-                    name="description"
-                    rows={5}
-                    placeholder="هر چیزی که درباره سفارش، ابعاد، متریال، زمان تحویل یا کاربرد محصول می‌دانید بنویسید."
-                    className="w-full resize-none border-b border-black/20 bg-transparent px-0 py-4 leading-8 outline-none transition-colors placeholder:text-black/25 focus:border-black"
+
+                  <input
+                    type="text"
+                    name="deadline"
+                    placeholder="مثلاً دو هفته"
+                    className="w-full bg-transparent text-base text-black outline-none placeholder:text-black/25"
                   />
                 </label>
               </div>
 
-              <div className="border-t border-black/10 pt-8">
+              <label className="block border-b border-black/10 py-7">
+                <span className="mb-3 block text-xs text-black/40">
+                  توضیحات پروژه
+                </span>
+
+                <textarea
+                  name="description"
+                  rows={6}
+                  placeholder="هر اطلاعاتی که درباره پروژه دارید بنویسید..."
+                  className="w-full resize-none bg-transparent text-base leading-8 text-black outline-none placeholder:text-black/25"
+                />
+              </label>
+
+              <label className="block border-b border-black/10 py-7">
+                <span className="mb-3 block text-xs text-black/40">
+                  لینک فایل یا نمونه
+                </span>
+
+                <input
+                  type="url"
+                  name="file"
+                  placeholder="https://..."
+                  dir="ltr"
+                  className="w-full bg-transparent text-left text-base text-black outline-none placeholder:text-black/25"
+                />
+              </label>
+
+              <div className="pt-8">
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-3 rounded-full bg-black px-8 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
+                  className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-black px-8 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
                 >
                   ارسال درخواست
-                  <span>↗</span>
+                  <span aria-hidden="true">↗</span>
                 </button>
+
+                <p className="mt-5 max-w-lg text-xs leading-6 text-black/35">
+                  با ارسال این فرم، اطلاعات پروژه شما برای بررسی و
+                  هماهنگی سفارش استفاده خواهد شد.
+                </p>
               </div>
             </form>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-black/10 bg-[#f5f3ef]">
-        <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-32 lg:px-12">
-          <div className="grid gap-12 md:grid-cols-3">
-            <div>
-              <p className="mb-4 text-xs text-black/40">محصول</p>
-              <p className="leading-8 text-black/65">
-                چه چیزی قرار است چاپ شود؟
+      {/* If unsure */}
+      <section className="border-y border-black/10 bg-[#f5f3ef]">
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="grid gap-12 md:grid-cols-[1fr_auto] md:items-end">
+            <div className="max-w-4xl">
+              <p className="mb-7 text-sm font-medium text-black/40">
+                هنوز مطمئن نیستید؟
+              </p>
+
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+                لازم نیست روش چاپ را
+                <br />
+                از قبل بدانید.
+              </h2>
+
+              <p className="mt-7 max-w-2xl text-lg leading-9 text-black/55">
+                کافی است بگویید چه چیزی می‌خواهید تولید کنید. بر اساس
+                محصول، تیراژ، متریال و کاربرد، گزینه‌های مناسب را
+                بررسی می‌کنیم.
               </p>
             </div>
 
+            <Link
+              href="/خدمات"
+              className="inline-flex w-fit items-center gap-3 text-sm text-black/60 transition-opacity hover:opacity-50"
+            >
+              مشاهده روش‌های چاپ
+              <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section>
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="mb-4 text-xs text-black/40">تعداد</p>
-              <p className="leading-8 text-black/65">
-                چه تیراژی نیاز دارید؟
+              <p className="mb-4 text-sm text-black/40">
+                ترجیح می‌دهید مستقیم صحبت کنیم؟
               </p>
+
+              <h2 className="text-2xl font-medium tracking-tight md:text-3xl">
+                با AIRIK تماس بگیرید.
+              </h2>
             </div>
 
-            <div>
-              <p className="mb-4 text-xs text-black/40">کاربرد</p>
-              <p className="leading-8 text-black/65">
-                محصول در نهایت کجا و چگونه استفاده می‌شود؟
-              </p>
-            </div>
+            <Link
+              href="/تماس-با-ما"
+              className="inline-flex w-fit items-center gap-3 rounded-full border border-black/15 px-7 py-4 text-sm transition-colors hover:border-black"
+            >
+              اطلاعات تماس
+              <span aria-hidden="true">↗</span>
+            </Link>
           </div>
         </div>
       </section>
