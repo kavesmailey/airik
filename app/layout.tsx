@@ -1,23 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-
-const vazirmatn = Vazirmatn({
-  subsets: ["arabic", "latin"],
-  variable: "--font-vazirmatn",
-  display: "swap",
-  preload: true,
-});
+import JsonLd from "@/components/seo/JsonLd";
+import { siteConfig } from "@/content/site";
 
 export const metadata: Metadata = {
   title: {
-    default: "آیریک — چاپ تخصصی سیلک و DTF",
-    template: "%s | آیریک",
+    default: `${siteConfig.name} — چاپ تخصصی سیلک و DTF`,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "چاپ سیلک و DTF روی بگ، لباس، کارتن، جعبه پیتزا، لیوان کاغذی و ظروف گرد؛ با تمرکز بر کیفیت، اجرای دقیق و مشاوره قبل از سفارش.",
+  description: siteConfig.description,
   keywords: [
     "چاپ سیلک",
     "چاپ DTF",
@@ -29,11 +22,20 @@ export const metadata: Metadata = {
     "آیریک",
   ],
   openGraph: {
-    title: "آیریک — چاپ تخصصی سیلک و DTF",
-    description: "چاپ تخصصی برای برندهایی که کیفیت اهمیت دارد.",
+    title: `${siteConfig.name} — چاپ تخصصی سیلک و DTF`,
+    description: siteConfig.description,
     locale: "fa_IR",
     type: "website",
-    siteName: "آیریک",
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} — چاپ تخصصی`,
+    description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -49,19 +51,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fa" dir="rtl" className={vazirmatn.variable}>
-      <body className="min-h-screen overflow-x-hidden bg-bg font-sans text-text antialiased">
+    <html lang="fa" dir="rtl">
+      <body className="min-h-screen overflow-x-hidden">
         <a
           href="#main-content"
-          className="fixed right-4 top-4 z-[100] -translate-y-24 rounded-md bg-white px-4 py-3 text-sm font-medium text-text-dark transition-transform focus:translate-y-0"
+          className="fixed right-4 top-4 z-[100] -translate-y-24 rounded-md bg-white px-4 py-3 text-sm font-medium transition-transform focus:translate-y-0"
+          style={{ color: "var(--color-text-dark)" }}
         >
           پرش به محتوا
         </a>
 
+        <JsonLd type="organization" data={siteConfig} />
         <Header />
-
         <main id="main-content">{children}</main>
-
         <Footer />
       </body>
     </html>
