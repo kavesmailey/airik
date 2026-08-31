@@ -141,7 +141,7 @@ export const services: Service[] = [
   },
 
   // ═══════════════════════════════════════════════════════════
-  // PRINTING METHOD: چاپ DTF (already exists, content updated)
+  // PRINTING METHOD: چاپ DTF
   // ═══════════════════════════════════════════════════════════
   {
     slug: "چاپ-dtf",
@@ -716,6 +716,58 @@ export const services: Service[] = [
       title: "چاپ روی ظروف گرد | آیریک",
       description:
         "چاپ برند روی ظروف گرد و بسته‌بندی‌های دایره‌ای با کیفیت بالا.",
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // APPLICATION: چاپ روی تیشرت (placeholder for Phase 9)
+  // ═══════════════════════════════════════════════════════════
+  {
+    slug: "چاپ-روی-تیشرت",
+    title: "چاپ روی تیشرت",
+    shortDescription: "چاپ تخصصی روی تیشرت با روش‌های سیلک و DTF",
+    fullDescription:
+      "محتوای کامل این خدمت در فاز ۹ تکمیل خواهد شد.",
+    aboutText:
+      "محتوای کامل این خدمت در فاز ۹ تکمیل خواهد شد.",
+    benefits: [],
+    suitableFor: [],
+    applications: [],
+    keyConsiderations: [],
+    printingMethods: [],
+    processSteps: [],
+    faqs: [],
+    image: "/images/services/t-shirt-printing.jpg",
+    relatedServiceSlugs: ["چاپ-روی-لباس", "چاپ-سیلک", "چاپ-dtf"],
+    meta: {
+      title: "چاپ روی تیشرت | آیریک",
+      description: "خدمات چاپ روی تیشرت با کیفیت بالا.",
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // APPLICATION: چاپ روی پارچه (placeholder for Phase 9)
+  // ═══════════════════════════════════════════════════════════
+  {
+    slug: "چاپ-روی-پارچه",
+    title: "چاپ روی پارچه",
+    shortDescription: "چاپ سیلک روی انواع پارچه",
+    fullDescription:
+      "محتوای کامل این خدمت در فاز ۹ تکمیل خواهد شد.",
+    aboutText:
+      "محتوای کامل این خدمت در فاز ۹ تکمیل خواهد شد.",
+    benefits: [],
+    suitableFor: [],
+    applications: [],
+    keyConsiderations: [],
+    printingMethods: [],
+    processSteps: [],
+    faqs: [],
+    image: "/images/services/fabric-printing.jpg",
+    relatedServiceSlugs: ["چاپ-سیلک", "چاپ-روی-لباس"],
+    meta: {
+      title: "چاپ روی پارچه | آیریک",
+      description: "خدمات چاپ سیلک روی انواع پارچه.",
     },
   },
 ];
