@@ -1,0 +1,67 @@
+import { services } from "@/content/services";
+import { projects } from "@/content/projects";
+import { articles } from "@/content/articles";
+import { businessTypes } from "@/content/business";
+
+const baseUrl = "https://iric.print";
+
+export default function Sitemap() {
+  const staticPages = [
+    { url: "/", priority: 1.0 },
+    { url: "/خدمات", priority: 0.9 },
+    { url: "/نمونه-کارها", priority: 0.8 },
+    { url: "/مجله", priority: 0.8 },
+    { url: "/برای-کسب-و-کارها", priority: 0.7 },
+    { url: "/استعلام-قیمت", priority: 0.9 },
+    { url: "/درباره-آیریک", priority: 0.6 },
+    { url: "/تماس-با-ما", priority: 0.6 },
+  ];
+
+  const servicePages = services.map((service) => ({
+    url: `/خدمات/${service.slug}`,
+    priority: 0.8,
+  }));
+
+  const projectPages = projects.map((project) => ({
+    url: `/نمونه-کارها/${project.slug}`,
+    priority: 0.7,
+  }));
+
+  const articlePages = articles.map((article) => ({
+    url: `/مجله/${article.slug}`,
+    priority: 0.7,
+  }));
+
+  const businessPages = businessTypes.map((business) => ({
+    url: `/برای-کسب-و-کارها/${business.slug}`,
+    priority: 0.7,
+  }));
+
+  const allPages = [
+    ...staticPages,
+    ...servicePages,
+    ...projectPages,
+    ...articlePages,
+    ...businessPages,
+  ];
+
+  return new Response(
+    `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${allPages
+  .map(
+    (page) => `  <url>
+    <loc>${baseUrl}${page.url}</loc>
+    <priority>${page.priority}</priority>
+  </url>`
+  )
+  .join("\n")}
+</urlset>`,
+    {
+      headers: {
+        "Content-Type": "application/xml",
+        "Cache-Control": "public, max-age=3600",
+      },
+    }
+  );
+}
