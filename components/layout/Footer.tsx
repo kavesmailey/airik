@@ -1,190 +1,56 @@
 import Link from "next/link";
-import { siteConfig } from "@/content/site";
+
+const navigation = [
+  { label: "خدمات", href: "/خدمات" },
+  { label: "برای کسب‌وکارها", href: "/برای-کسب-و-کارها" },
+  { label: "نمونه‌کارها", href: "/نمونه-کارها" },
+  { label: "بلاگ", href: "/بلاگ" },
+];
 
 export default function Footer() {
-  const navigationItems = siteConfig.navigation.slice(0, 4);
-
-  const services = [
-    {
-      label: "چاپ روی بگ",
-      href: "/خدمات/چاپ-بگ",
-    },
-    {
-      label: "چاپ روی لباس",
-      href: "/خدمات/چاپ-روی-لباس",
-    },
-    {
-      label: "چاپ روی جعبه پیتزا",
-      href: "/خدمات/چاپ-جعبه-پیتزا",
-    },
-    {
-      label: "چاپ DTF",
-      href: "/خدمات/چاپ-dtf",
-    },
-  ];
-
   return (
     <footer
-      style={{
-        backgroundColor: "var(--color-bg)",
-        color: "var(--color-text)",
-      }}
+      dir="rtl"
+      className="border-t border-black/10 bg-[#f7f5f1]"
     >
-      <div className="container-iric py-12">
-        {/* Main footer */}
-        <div
-          className="grid gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-4"
-          style={{
-            borderBottom: "1px solid var(--color-border)",
-          }}
-        >
-          {/* Brand */}
+      <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28 lg:px-12">
+        <div className="grid gap-16 md:grid-cols-[1.4fr_0.6fr]">
           <div>
             <Link
               href="/"
-              className="inline-block text-sm font-bold"
-              style={{ color: "var(--color-text)" }}
+              className="text-3xl font-semibold tracking-[-0.04em]"
             >
-              {siteConfig.name}
+              AIRIK
             </Link>
 
-            <p
-              className="mt-4 max-w-xs text-sm"
-              style={{
-                color: "var(--color-text-muted)",
-                lineHeight: "var(--line-height-relaxed)",
-              }}
-            >
-              {siteConfig.tagline}
+            <p className="mt-7 max-w-xl text-lg leading-9 text-black/55">
+              راهکارهای چاپ برای برندها و کسب‌وکارها؛ از انتخاب روش و متریال
+              تا تولید نهایی.
             </p>
           </div>
 
-          {/* Navigation */}
-          <div>
-            <p
-              className="text-xs font-medium"
-              style={{ color: "var(--color-text-faint)" }}
-            >
-              دسترسی سریع
-            </p>
-
-            <nav className="mt-4 flex flex-col items-start gap-3 text-sm">
-              {navigationItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="transition-opacity hover:opacity-60"
-                  style={{ color: "var(--color-text-muted)" }}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Services */}
-          <div>
-            <p
-              className="text-xs font-medium"
-              style={{ color: "var(--color-text-faint)" }}
-            >
-              خدمات
-            </p>
-
-            <nav className="mt-4 flex flex-col items-start gap-3 text-sm">
-              {services.map((service) => (
-                <Link
-                  key={service.href}
-                  href={service.href}
-                  className="transition-opacity hover:opacity-60"
-                  style={{ color: "var(--color-text-muted)" }}
-                >
-                  {service.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <p
-              className="text-xs font-medium"
-              style={{ color: "var(--color-text-faint)" }}
-            >
-              اطلاعات تماس
-            </p>
-
-            <div className="mt-4 flex flex-col items-start gap-3 text-sm">
-              {siteConfig.contact.phoneDisplay && (
-                <span
-                  style={{
-                    color: "var(--color-text-muted)",
-                    direction: "ltr",
-                  }}
-                >
-                  {siteConfig.contact.phoneDisplay}
-                </span>
-              )}
-
-              {siteConfig.contact.email && (
-                <span
-                  style={{
-                    color: "var(--color-text-muted)",
-                    direction: "ltr",
-                  }}
-                >
-                  {siteConfig.contact.email}
-                </span>
-              )}
-
-              {siteConfig.contact.serviceArea && (
-                <span style={{ color: "var(--color-text-muted)" }}>
-                  {siteConfig.contact.serviceArea}
-                </span>
-              )}
-            </div>
-          </div>
+          <nav className="grid grid-cols-2 gap-x-8 gap-y-5">
+            {navigation.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm text-black/55 transition-colors hover:text-black"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
-        {/* Bottom */}
-        <div className="pt-8">
-          <div
-            className="flex flex-col gap-4 text-xs sm:flex-row sm:items-center sm:justify-between"
-            style={{ color: "var(--color-text-faint)" }}
+        <div className="mt-20 flex flex-col gap-5 border-t border-black/10 pt-7 text-xs text-black/40 md:mt-28 md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} AIRIK. تمامی حقوق محفوظ است.</p>
+
+          <Link
+            href="/استعلام-قیمت"
+            className="transition-colors hover:text-black"
           >
-            <p>
-              © ۱۴۰۴ {siteConfig.name}. تمامی حقوق محفوظ است.
-            </p>
-
-            <div className="flex gap-5">
-              <Link
-                href="/درباره-آیریک"
-                className="transition-opacity hover:opacity-60"
-              >
-                درباره آیریک
-              </Link>
-
-              <Link
-                href="/تماس-با-ما"
-                className="transition-opacity hover:opacity-60"
-              >
-                تماس با ما
-              </Link>
-            </div>
-          </div>
-
-          {/* Large brand signature */}
-          <div className="mt-8 overflow-hidden">
-            <p
-              className="break-words text-5xl font-bold leading-none sm:text-7xl lg:text-8xl"
-              style={{
-                color: "var(--color-text)",
-                opacity: 0.9,
-              }}
-            >
-              آیریک
-            </p>
-          </div>
+            شروع یک پروژه ↗
+          </Link>
         </div>
       </div>
     </footer>
