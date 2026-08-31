@@ -1,19 +1,34 @@
+import type { Metadata } from "next";
+import { generateMetadata } from "@/lib/seo";
+import Hero from "@/components/home/Hero";
+import WhyIric from "@/components/home/WhyIric";
+import ServicesPreview from "@/components/home/ServicesPreview";
+import Consultation from "@/components/home/Consultation";
+import ProjectsPreview from "@/components/home/ProjectsPreview";
+import Process from "@/components/home/Process";
+import BusinessSolutions from "@/components/home/BusinessSolutions";
+import FaqSection from "@/components/home/FaqSection";
+import FinalCta from "@/components/home/FinalCta";
+
+export const metadata: Metadata = generateMetadata({
+  title: "چاپ تخصصی سیلک و DTF",
+  description:
+    "چاپ سیلک و DTF روی بگ، لباس، کارتن، جعبه پیتزا، لیوان کاغذی و ظروف گرد؛ با تمرکز بر کیفیت، اجرای دقیق و مشاوره قبل از سفارش.",
+  path: "/",
+});
+
 export default function HomePage() {
   return (
-    <section className="section-iric bg-bg">
-      <div className="container-iric">
-        <p className="text-sm text-accent">آیریک — چاپ تخصصی</p>
-        <h1 className="mt-4 text-5xl font-bold leading-[1.3] sm:text-7xl">
-          چاپی که برند شما را حرفه‌ای‌تر نشان می‌دهد
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-text-muted">
-          چاپ سیلک و DTF روی بگ، لباس، کارتن، جعبه پیتزا، لیوان کاغذی و ظروف گرد؛
-          با تمرکز بر کیفیت، اجرای دقیق و مشاوره قبل از سفارش.
-        </p>
-        <p className="mt-12 text-sm text-text-muted">
-          صفحه اصلی در فاز ۴ تکمیل خواهد شد.
-        </p>
-      </div>
-    </section>
+    <>
+      <Hero />
+      <WhyIric />
+      <ServicesPreview />
+      <Consultation />
+      <ProjectsPreview />
+      <Process />
+      <BusinessSolutions />
+      <FaqSection />
+      <FinalCta />
+    </>
   );
 }
