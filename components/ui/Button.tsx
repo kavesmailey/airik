@@ -1,51 +1,58 @@
-/**
- * ═══════════════════════════════════════════════════════════════
- * BUTTON — Reusable button/link component
- * ═══════════════════════════════════════════════════════════════
- */
-
 import Link from "next/link";
+import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface ButtonProps {
+  children: ReactNode;
   href?: string;
-  variant?: "primary" | "secondary";
-  size?: "sm" | "md" | "lg";
-  children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
   type?: "button" | "submit" | "reset";
-  ariaLabel?: string;
+  variant?: "primary" | "secondary" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
+  className?: string;
+  disabled?: boolean;
+  onClick?: () => void;
 }
 
 export default function Button({
+  children,
   href,
+  type = "button",
   variant = "primary",
   size = "md",
-  children,
-  className = "",
+  className,
+  disabled = false,
   onClick,
-  type = "button",
-  ariaLabel,
 }: ButtonProps) {
-  const baseClasses = "btn-primary";
-  const variantClasses =
-    variant === "primary" ? "btn-primary" : "btn-secondary";
-  const sizeClasses = {
-    sm: "min-h-10 px-4 text-xs",
-    md: "min-h-12 px-6 text-sm",
-    lg: "min-h-14 px-8 text-base",
-  }[size];
+  const variants = {
+    primary:
+      "bg-[var(--color-accent)] text-[var(--color-accent-foreground)] hover:opacity-90",
+    secondary:
+      "bg-[var(--color-surface-dark)] text-[var(--color-text)] hover:opacity-90",
+    outline:
+      "border border-[var(--color-border)] bg-transparent text-[var(--color-text)] hover:bg-[var(--color-surface-muted)]",
+    ghost:
+      "bg-transparent text-[var(--color-text)] hover:bg-[var(--color-surface-muted)]",
+  };
 
-  const combinedClasses = `${variantClasses} ${sizeClasses} ${className}`;
+  const sizes = {
+    sm: "min-h-9 px-4 text-sm",
+    md: "min-h-11 px-5 text-sm",
+    lg: "min-h-13 px-7 text-base",
+  };
+
+  const classes = cn(
+    "inline-flex items-center justify-center gap-2",
+    "font-medium transition-all duration-200",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]",
+    "disabled:pointer-events-none disabled:opacity-50",
+    variants[variant],
+    sizes[size],
+    className
+  );
 
   if (href) {
     return (
-      <Link
-        href={href}
-        className={combinedClasses}
-        aria-label={ariaLabel}
-        onClick={onClick}
-      >
+      <Link href={href} className={classes} aria-disabled={disabled}>
         {children}
       </Link>
     );
@@ -54,8 +61,8 @@ export default function Button({
   return (
     <button
       type={type}
-      className={combinedClasses}
-      aria-label={ariaLabel}
+      className={classes}
+      disabled={disabled}
       onClick={onClick}
     >
       {children}
