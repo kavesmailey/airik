@@ -1,150 +1,192 @@
 import type { Metadata } from "next";
-import { generateMetadata as createMetadata } from "@/lib/seo";
-import { getProjectBySlug } from "@/content/projects";
-import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import JsonLd from "@/components/seo/JsonLd";
-import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { projects, getProjectBySlug } from "@/content/projects";
 
 interface ProjectPageProps {
-  params: { slug: string };
+  params: {
+    slug: string;
+  };
 }
 
-export function generateMetadata({ params }: ProjectPageProps): Metadata {
+export function generateStaticParams() {
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
+}
+
+export function generateMetadata({
+  params,
+}: ProjectPageProps): Metadata {
   const project = getProjectBySlug(params.slug);
-  if (!project) return {};
-  return createMetadata({
-    title: project.meta.title,
-    description: project.meta.description,
-    path: `/نمونه-کارها/${project.slug}`,
-  });
+
+  if (!project) {
+    return {};
+  }
+
+  return {
+    title: project.meta?.title || `${project.title} | AIRIK`,
+    description:
+      project.meta?.description ||
+      project.description ||
+      `جزئیات پروژه ${project.title} در AIRIK`,
+  };
 }
 
 export default function ProjectPage({ params }: ProjectPageProps) {
   const project = getProjectBySlug(params.slug);
-  if (!project) notFound();
+
+  if (!project) {
+    notFound();
+  }
 
   return (
-    <>
-      <JsonLd type="service" data={project} />
+    <main dir="rtl">
+      <section className="border-b border-black/10">
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
+          <Link
+            href="/نمونه-کارها"
+            className="mb-10 inline-block text-sm text-black/45 transition-colors hover:text-black"
+          >
+            ← بازگشت به نمونه‌کارها
+          </Link>
 
-      <section
-        className="pt-28 pb-16"
-        style={{ backgroundColor: "var(--color-bg)" }}
-      >
-        <div className="container-iric">
-          <Breadcrumbs
-            items={[
-              { label: "نمونه‌کارها", href: "/نمونه-کارها" },
-              { label: project.title, href: `/نمونه-کارها/${project.slug}` },
-            ]}
-          />
+          <div className="max-w-5xl">
+            {project.category && (
+              <p className="mb-7 text-sm font-medium text-black/45">
+                {project.category}
+              </p>
+            )}
 
-          <div className="mt-6">
-            <h1
-              className="text-4xl font-bold sm:text-5xl lg:text-6xl"
-              style={{ color: "var(--color-text)", lineHeight: "var(--line-height-tight)" }}
-            >
+            <h1 className="text-4xl font-medium leading-[1.3] tracking-tight md:text-6xl lg:text-7xl">
               {project.title}
             </h1>
+
+            {project.description && (
+              <p className="mt-10 max-w-3xl text-lg leading-9 text-black/60 md:text-xl">
+                {project.description}
+              </p>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Project info */}
-      <section className="py-16" style={{ backgroundColor: "var(--color-bg)" }}>
-        <div className="container-iric">
-          <div className="grid gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <MediaPlaceholder
-                aspectRatio="4/3"
-                label={project.title}
-                tone="dark"
+      {project.image && (
+        <section>
+          <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24 lg:px-12">
+            <div className="overflow-hidden bg-[#f5f3ef]">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="h-auto w-full object-cover"
               />
             </div>
-            <div className="lg:col-span-7">
-              <dl className="grid gap-4 sm:grid-cols-2">
-                {[
-                  { label: "محصول", value: project.product },
-                  { label: "روش چاپ", value: project.printingMethod },
-                  { label: "تعداد", value: project.quantity },
-                  { label: "تعداد رنگ", value: project.colorCount },
-                  { label: "هدف پروژه", value: project.objective },
-                  { label: "برند", value: project.brand },
-                ].map((item) => (
-                  <div key={item.label} className="card-industrial">
-                    <dt className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-                      {item.label}
-                    </dt>
-                    <dd
-                      className="mt-1 text-lg font-bold"
-                      style={{ color: "var(--color-text)" }}
-                    >
-                      {item.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
+          </div>
+        </section>
+      )}
+
+      <section>
+        <div className="mx-auto max-w-5xl px-6 py-24 md:px-10 md:py-32">
+          <div className="grid gap-16 md:grid-cols-[0.75fr_1.25fr] md:gap-28">
+            <div>
+              <p className="text-sm font-medium text-black/45">
+                درباره پروژه
+              </p>
+            </div>
+
+            <div className="space-y-10 text-lg leading-9 text-black/65">
+              {project.challenge && (
+                <div>
+                  <h2 className="mb-4 text-xl font-medium text-black">
+                    چالش
+                  </h2>
+                  <p>{project.challenge}</p>
+                </div>
+              )}
+
+              {project.solution && (
+                <div>
+                  <h2 className="mb-4 text-xl font-medium text-black">
+                    راهکار
+                  </h2>
+                  <p>{project.solution}</p>
+                </div>
+              )}
+
+              {project.outcome && (
+                <div>
+                  <h2 className="mb-4 text-xl font-medium text-black">
+                    نتیجه
+                  </h2>
+                  <p>{project.outcome}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Challenge & Result */}
-      <section className="py-16" style={{ backgroundColor: "var(--color-bg-light)" }}>
-        <div className="container-iric">
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div>
-              <h2 className="text-2xl font-bold" style={{ color: "var(--color-text-dark)" }}>
-                چالش
+      {(project.service || project.material || project.application) && (
+        <section className="border-y border-black/10 bg-[#f5f3ef]">
+          <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+            <div className="grid gap-12 md:grid-cols-3">
+              {project.service && (
+                <div>
+                  <p className="mb-4 text-xs text-black/40">نوع چاپ</p>
+                  <p className="text-lg font-medium">{project.service}</p>
+                </div>
+              )}
+
+              {project.material && (
+                <div>
+                  <p className="mb-4 text-xs text-black/40">متریال</p>
+                  <p className="text-lg font-medium">{project.material}</p>
+                </div>
+              )}
+
+              {project.application && (
+                <div>
+                  <p className="mb-4 text-xs text-black/40">کاربرد</p>
+                  <p className="text-lg font-medium">
+                    {project.application}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="border-t border-black/10">
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl">
+              <p className="mb-6 text-sm font-medium text-black/45">
+                پروژه بعدی
+              </p>
+
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+                برای پروژه چاپی
+                <br />
+                خودتان آماده‌اید؟
               </h2>
-              <p
-                className="mt-4"
-                style={{ color: "var(--color-text-dark-muted)", lineHeight: "var(--line-height-relaxed)" }}
-              >
-                {project.challenge}
+
+              <p className="mt-7 max-w-2xl text-lg leading-8 text-black/55">
+                اطلاعات پروژه‌تان را برای ما بفرستید تا راهکار مناسب را
+                بررسی کنیم.
               </p>
             </div>
-            <div>
-              <h2 className="text-2xl font-bold" style={{ color: "var(--color-text-dark)" }}>
-                نتیجه
-              </h2>
-              <p
-                className="mt-4"
-                style={{ color: "var(--color-text-dark-muted)", lineHeight: "var(--line-height-relaxed)" }}
-              >
-                {project.result}
-              </p>
-            </div>
+
+            <Link
+              href="/استعلام-قیمت"
+              className="inline-flex w-fit shrink-0 items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
+            >
+              استعلام قیمت
+              <span>↗</span>
+            </Link>
           </div>
         </div>
       </section>
-
-      {/* Process */}
-      <section className="py-16" style={{ backgroundColor: "var(--color-bg)" }}>
-        <div className="container-iric">
-          <h2 className="text-3xl font-bold" style={{ color: "var(--color-text)" }}>
-            فرآیند اجرا
-          </h2>
-          <ol className="mt-8 space-y-4">
-            {project.process.map((step, index) => (
-              <li
-                key={step}
-                className="flex items-center gap-4"
-                style={{ color: "var(--color-text)" }}
-              >
-                <span
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold"
-                  style={{ backgroundColor: "var(--color-accent)", color: "var(--color-accent-contrast)" }}
-                >
-                  {index + 1}
-                </span>
-                {step}
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-    </>
+    </main>
   );
 }
