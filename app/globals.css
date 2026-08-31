@@ -1,15 +1,42 @@
 /* ═══════════════════════════════════════════════════════════════
-   IRIC — Design Tokens & Global Styles
+   آیریک — Design Tokens & Global Styles
    Industrial / Precise / Tactile / Bold
+   ───────────────────────────────────────────────────────────────
+   HOW TO CUSTOMIZE:
+   • Change any --color-* variable below to update the entire site
+   • Change --font-family to use a different font
+   • Change --radius-* to adjust border radius globally
+   • Change --space-* to adjust spacing scale
+   • Place font files in /public/fonts/ and update @font-face below
    ═══════════════════════════════════════════════════════════════ */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ── Design Tokens (Single Source of Truth) ──────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS — SINGLE SOURCE OF TRUTH
+   ═══════════════════════════════════════════════════════════════ */
 :root {
-  /* Dark theme (primary) */
+  /* ── Typography ─────────────────────────────────────────────── */
+  --font-family: "Vazirmatn", "IRANSans", system-ui, sans-serif;
+  --font-size-xs: 0.8125rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+  --font-size-7xl: 4.5rem;
+  --font-size-8xl: 6rem;
+  --line-height-tight: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* ── Colors — Dark Theme (Primary) ──────────────────────────── */
   --color-bg: #1a1a18;
   --color-surface: #232321;
   --color-surface-hover: #2a2a28;
@@ -19,7 +46,7 @@
   --color-border: rgba(245, 242, 236, 0.15);
   --color-border-strong: rgba(245, 242, 236, 0.3);
 
-  /* Light theme (alternate sections) */
+  /* ── Colors — Light Theme (Alternate Sections) ──────────────── */
   --color-bg-light: #f0ede5;
   --color-surface-light: #faf8f3;
   --color-text-dark: #1a1a18;
@@ -28,18 +55,89 @@
   --color-border-light: rgba(26, 26, 24, 0.2);
   --color-border-light-strong: rgba(26, 26, 24, 0.35);
 
-  /* Accent — industrial safety orange */
+  /* ── Colors — Accent (Industrial Safety Orange) ─────────────── */
   --color-accent: #e8590c;
   --color-accent-hover: #f0702e;
   --color-accent-contrast: #1a1a18;
 
-  /* Secondary tones (editorial variety) */
+  /* ── Colors — Secondary Tones ───────────────────────────────── */
   --color-tone-clay: #8b3a1f;
   --color-tone-ink: #1f3a44;
   --color-tone-olive: #4a4a3a;
+
+  /* ── Border Radius ──────────────────────────────────────────── */
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* ── Spacing Scale ──────────────────────────────────────────── */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
+
+  /* ── Container ──────────────────────────────────────────────── */
+  --container-max-width: 1536px;
+  --container-padding: 1rem;
+
+  /* ── Borders ────────────────────────────────────────────────── */
+  --border-width-default: 1px;
+  --border-width-thin: 0.5px;
+  --border-width-thick: 2px;
+
+  /* ── Shadows ────────────────────────────────────────────────── */
+  --shadow-header: 0 1px 0 0 var(--color-border);
+  --shadow-elevated: 0 4px 24px rgba(0, 0, 0, 0.2);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.12);
+
+  /* ── Animation ──────────────────────────────────────────────── */
+  --transition-fast: 150ms;
+  --transition-default: 250ms;
+  --transition-slow: 400ms;
+  --transition-slower: 700ms;
+  --ease-default: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
 }
 
-/* ── Base Styles ─────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   FONT FACE — Self-hosted fonts go in /public/fonts/
+   ═══════════════════════════════════════════════════════════════ */
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════════════════════════ */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -49,13 +147,19 @@
   }
 
   body {
-    @apply bg-bg text-text font-sans text-base;
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    background-color: var(--color-bg);
+    color: var(--color-text);
     min-height: 100vh;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-sans font-bold;
+    font-family: var(--font-family);
+    font-weight: 700;
+    line-height: var(--line-height-tight);
   }
 
   ::selection {
@@ -84,28 +188,50 @@
   }
 }
 
-/* ── Component Base Styles ───────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   COMPONENT BASE STYLES
+   ═══════════════════════════════════════════════════════════════ */
 @layer components {
   .container-iric {
-    @apply mx-auto w-full max-w-screen-2xl px-4 sm:px-6 lg:px-8;
+    margin-inline: auto;
+    width: 100%;
+    max-width: var(--container-max-width);
+    padding-inline: var(--container-padding);
+  }
+  @media (min-width: 640px) {
+    .container-iric {
+      padding-inline: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-iric {
+      padding-inline: 2rem;
+    }
   }
 
   .section-iric {
-    @apply py-20 sm:py-28;
+    padding-block: var(--space-4xl);
   }
-
-  .divider-dark {
-    border-color: var(--color-border);
-  }
-  .divider-light {
-    border-color: var(--color-border-light);
+  @media (min-width: 640px) {
+    .section-iric {
+      padding-block: var(--space-5xl);
+    }
   }
 
   .btn-primary {
-    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-md px-6 text-sm font-semibold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    min-height: 3rem;
+    padding-inline: 1.5rem;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
     background-color: var(--color-accent);
     color: var(--color-accent-contrast);
-    transition: background-color 250ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: background-color var(--transition-default) var(--ease-default);
+    text-decoration: none;
   }
   .btn-primary:hover {
     background-color: var(--color-accent-hover);
@@ -116,44 +242,67 @@
   }
 
   .btn-secondary {
-    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-md px-6 text-sm font-semibold;
-    border: 1px solid var(--color-border-strong);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    min-height: 3rem;
+    padding-inline: 1.5rem;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    border: var(--border-width-default) solid var(--color-border-strong);
     color: var(--color-text);
-    transition: border-color 250ms, background-color 250ms;
+    transition: border-color var(--transition-default), background-color var(--transition-default);
+    text-decoration: none;
+    background-color: transparent;
   }
   .btn-secondary:hover {
     border-color: var(--color-text);
     background-color: rgba(245, 242, 236, 0.08);
   }
 
-  .link-underline {
-    @apply relative;
-  }
-  .link-underline::after {
-    content: "";
-    @apply absolute inset-x-0 bottom-0 h-px origin-right scale-x-0 transition-transform duration-300;
-    background-color: currentColor;
-  }
-  .link-underline:hover::after,
-  .link-underline:focus-visible::after {
-    transform-origin: left;
-    @apply scale-x-100;
-  }
-
   .card-industrial {
-    @apply rounded-md border p-6 sm:p-8;
+    border-radius: var(--radius-md);
+    border: var(--border-width-default) solid var(--color-border);
     background-color: var(--color-surface);
-    border-color: var(--color-border);
-    transition: transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
-                border-color 300ms;
+    padding: var(--space-lg);
+    transition: transform 300ms var(--ease-default), border-color 300ms;
+  }
+  @media (min-width: 640px) {
+    .card-industrial {
+      padding: var(--space-xl);
+    }
   }
   .card-industrial:hover {
     transform: translateY(-2px);
     border-color: var(--color-border-strong);
   }
+
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-default) var(--ease-default);
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform-origin: left;
+    transform: scaleX(1);
+  }
 }
 
-/* ── Utility Classes ─────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════════ */
 @layer utilities {
   .text-start-rtl {
     text-align: start;
