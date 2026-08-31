@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { generateMetadata } from "@/lib/seo";
+import { generateMetadata as createMetadata } from "@/lib/seo";
 import { getProjectBySlug } from "@/content/projects";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import JsonLd from "@/components/seo/JsonLd";
@@ -13,7 +13,7 @@ interface ProjectPageProps {
 export function generateMetadata({ params }: ProjectPageProps): Metadata {
   const project = getProjectBySlug(params.slug);
   if (!project) return {};
-  return generateMetadata({
+  return createMetadata({
     title: project.meta.title,
     description: project.meta.description,
     path: `/نمونه-کارها/${project.slug}`,
@@ -28,7 +28,10 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     <>
       <JsonLd type="service" data={project} />
 
-      <section className="pt-28 pb-16" style={{ backgroundColor: "var(--color-bg)" }}>
+      <section
+        className="pt-28 pb-16"
+        style={{ backgroundColor: "var(--color-bg)" }}
+      >
         <div className="container-iric">
           <Breadcrumbs
             items={[
@@ -69,10 +72,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                   { label: "هدف پروژه", value: project.objective },
                   { label: "برند", value: project.brand },
                 ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="card-industrial"
-                  >
+                  <div key={item.label} className="card-industrial">
                     <dt className="text-xs" style={{ color: "var(--color-text-faint)" }}>
                       {item.label}
                     </dt>
@@ -98,7 +98,10 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               <h2 className="text-2xl font-bold" style={{ color: "var(--color-text-dark)" }}>
                 چالش
               </h2>
-              <p className="mt-4" style={{ color: "var(--color-text-dark-muted)", lineHeight: "var(--line-height-relaxed)" }}>
+              <p
+                className="mt-4"
+                style={{ color: "var(--color-text-dark-muted)", lineHeight: "var(--line-height-relaxed)" }}
+              >
                 {project.challenge}
               </p>
             </div>
@@ -106,7 +109,10 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               <h2 className="text-2xl font-bold" style={{ color: "var(--color-text-dark)" }}>
                 نتیجه
               </h2>
-              <p className="mt-4" style={{ color: "var(--color-text-dark-muted)", lineHeight: "var(--line-height-relaxed)" }}>
+              <p
+                className="mt-4"
+                style={{ color: "var(--color-text-dark-muted)", lineHeight: "var(--line-height-relaxed)" }}
+              >
                 {project.result}
               </p>
             </div>
