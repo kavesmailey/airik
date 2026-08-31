@@ -5,36 +5,64 @@ import IconArrow from "@/components/ui/IconArrow";
 
 interface ServiceCardProps {
   service: Service;
+  tone?: "dark" | "light";
 }
 
-export default function ServiceCard({ service }: ServiceCardProps) {
+export default function ServiceCard({ service, tone = "dark" }: ServiceCardProps) {
+  const isDark = tone === "dark";
+
   return (
     <Link
       href={`/خدمات/${service.slug}`}
-      className="group card-industrial block transition-transform hover:-translate-y-1"
+      className="group block"
       style={{ textDecoration: "none" }}
     >
-      <MediaPlaceholder
-        aspectRatio="4/3"
-        label={service.title}
-        tone="dark"
-        className="mb-4"
-      />
-      <h3
-        className="text-xl font-bold"
-        style={{ color: "var(--color-text)" }}
+      <div
+        className="card-industrial group-hover:border-strong transition-all"
+        style={{
+          borderRadius: "var(--radius-md)",
+          border: "1px solid var(--color-border)",
+          backgroundColor: isDark ? "var(--color-surface)" : "var(--color-surface-light)",
+          padding: "var(--space-lg)",
+          transition: "transform 300ms var(--ease-default), border-color 300ms",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.borderColor = "var(--color-border-strong)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.borderColor = "var(--color-border)";
+        }}
       >
-        {service.title}
-      </h3>
-      <p
-        className="mt-2 text-sm"
-        style={{ color: "var(--color-text-muted)" }}
-      >
-        {service.shortDescription}
-      </p>
-      <div className="mt-4 flex items-center gap-2 text-sm font-medium" style={{ color: "var(--color-accent)" }}>
-        مشاهده جزئیات
-        <IconArrow direction="left" size={16} />
+        <MediaPlaceholder
+          aspectRatio="4/3"
+          label={service.title}
+          tone={isDark ? "dark" : "light"}
+          className="mb-4"
+        />
+        <h3
+          className="text-xl font-bold"
+          style={{ color: isDark ? "var(--color-text)" : "var(--color-text-dark)" }}
+        >
+          {service.title}
+        </h3>
+        <p
+          className="mt-2 text-sm"
+          style={{
+            color: isDark ? "var(--color-text-muted)" : "var(--color-text-dark-muted)",
+            lineHeight: "var(--line-height-relaxed)",
+          }}
+        >
+          {service.shortDescription}
+        </p>
+        <div
+          className="mt-4 flex items-center gap-2 text-sm font-medium"
+          style={{ color: "var(--color-accent)" }}
+        >
+          مشاهده جزئیات
+          <IconArrow direction="left" size={16} />
+        </div>
       </div>
     </Link>
   );
