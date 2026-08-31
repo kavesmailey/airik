@@ -1,13 +1,19 @@
-import { siteConfig } from "@/content/site";
+import type { MetadataRoute } from "next";
 
-export default function robots() {
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://airik-xi.vercel.app";
+
+export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-      },
-    ],
-    sitemap: `${siteConfig.siteUrl}/sitemap.xml`,
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: [
+        "/api/",
+        "/_next/",
+        "/admin/",
+      ],
+    },
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }
