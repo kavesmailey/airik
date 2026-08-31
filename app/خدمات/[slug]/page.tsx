@@ -3,14 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import {
-  getServiceBySlug,
   getAllServiceSlugs,
+  getServiceBySlug,
+  getRelatedServices,
 } from "@/content/services";
-import {
-  articles,
-  getRelatedArticles,
-} from "@/content/articles";
-import { generateMetadata as createMetadata } from "@/lib/seo";
+
+import { articles } from "@/content/articles";
 
 interface ServicePageProps {
   params: {
@@ -19,7 +17,9 @@ interface ServicePageProps {
 }
 
 export function generateStaticParams() {
-  return getAllServiceSlugs().map((slug) => ({ slug }));
+  return getAllServiceSlugs().map((slug) => ({
+    slug,
+  }));
 }
 
 export function generateMetadata({
@@ -31,27 +31,53 @@ export function generateMetadata({
     return {};
   }
 
-  return createMetadata({
+  return {
     title: service.meta.title,
     description: service.meta.description,
-    path: `/خدمات/${service.slug}`,
-    ogImage: service.image,
+    alternates: {
+      canonical: `/خدمات/${service.slug}`,
+    },
+    openGraph: {
+      title: service.meta.title,
+      description: service.meta.description,
+      url: `/خدمات/${service.slug}`,
+      images: service.image
+        ? [
+            {
+              url: service.image,
+            },
+          ]
+        : undefined,
+    },
+  };
+}
+
+function getRelatedArticlesForService(slug: string) {
+  return articles.filter((article: any) => {
+    const relatedServices = article.relatedServices;
+
+    return (
+      Array.isArray(relatedServices) &&
+      relatedServices.includes(slug)
+    );
   });
 }
 
-export default function ServicePage({ params }: ServicePageProps) {
+export default function ServicePage({
+  params,
+}: ServicePageProps) {
   const service = getServiceBySlug(params.slug);
 
   if (!service) {
     notFound();
   }
 
-  const relatedServices = service.relatedServiceSlugs
-    .map(getServiceBySlug)
-    .filter(Boolean);
+  const relatedServices = getRelatedServices(
+    service.relatedServiceSlugs
+  );
 
-  const relatedArticles = articles.filter((article) =>
-    article.relatedServices.includes(service.slug)
+  const relatedArticles = getRelatedArticlesForService(
+    service.slug
   );
 
   return (
@@ -62,17 +88,17 @@ export default function ServicePage({ params }: ServicePageProps) {
           <div className="max-w-5xl">
             <Link
               href="/خدمات"
-              className="mb-8 inline-flex items-center gap-2 text-sm text-black/45 transition-opacity hover:opacity-60"
+              className="mb-10 inline-flex items-center gap-3 text-sm text-black/45 transition-opacity hover:opacity-60"
             >
-              <span>←</span>
-              خدمات چاپ
+              <span>→</span>
+              همه خدمات
             </Link>
 
-            <p className="mb-7 text-sm font-medium text-black/45">
+            <p className="mb-6 text-sm text-black/40">
               خدمات چاپ
             </p>
 
-            <h1 className="text-4xl font-medium leading-[1.3] tracking-tight md:text-6xl lg:text-7xl">
+            <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
               {service.title}
             </h1>
 
@@ -80,7 +106,7 @@ export default function ServicePage({ params }: ServicePageProps) {
               {service.shortDescription}
             </p>
 
-            <p className="mt-8 max-w-3xl text-base leading-8 text-black/50 md:text-lg">
+            <p className="mt-7 max-w-3xl text-base leading-8 text-black/50 md:text-lg">
               {service.fullDescription}
             </p>
 
@@ -88,7 +114,7 @@ export default function ServicePage({ params }: ServicePageProps) {
               href="/استعلام-قیمت"
               className="mt-10 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
             >
-              استعلام قیمت و مشاوره
+              استعلام قیمت
               <span>↗</span>
             </Link>
           </div>
@@ -100,14 +126,14 @@ export default function ServicePage({ params }: ServicePageProps) {
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
             <div>
-              <p className="mb-7 text-sm font-medium text-black/45">
+              <p className="mb-6 text-sm text-black/40">
                 درباره این روش
               </p>
 
-              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                قبل از انتخاب،
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+                انتخاب روش چاپ
                 <br />
-                روش را بشناسید.
+                از خود چاپ مهم‌تر است.
               </h2>
             </div>
 
@@ -120,22 +146,24 @@ export default function ServicePage({ params }: ServicePageProps) {
         </div>
       </section>
 
-      {/* What is this method */}
+      {/* How it works */}
       <section className="bg-[#f5f3ef]">
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
           <div className="max-w-4xl">
-            <p className="mb-7 text-sm font-medium text-black/45">
-              این روش چگونه کار می‌کند؟
+            <p className="mb-6 text-sm text-black/40">
+              چگونه کار می‌کند؟
             </p>
 
-            <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-              فرآیند چاپ،
+            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+              روش اجرا،
               <br />
-              از فایل تا خروجی.
+              مرحله به مرحله.
             </h2>
 
             <p className="mt-10 text-lg leading-9 text-black/60 md:text-xl md:leading-10">
-              {service.aboutText}
+              روش چاپ بر اساس جنس متریال، نوع طرح، تیراژ و کاربرد
+              نهایی انتخاب می‌شود. قبل از تولید، مشخصات پروژه بررسی
+              می‌شود تا روش مناسب انتخاب شود.
             </p>
           </div>
         </div>
@@ -145,7 +173,7 @@ export default function ServicePage({ params }: ServicePageProps) {
       <section>
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
           <div className="mb-16 max-w-3xl md:mb-24">
-            <p className="mb-7 text-sm font-medium text-black/45">
+            <p className="mb-6 text-sm text-black/40">
               مزایا
             </p>
 
@@ -180,34 +208,32 @@ export default function ServicePage({ params }: ServicePageProps) {
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-2 md:gap-28">
             <div>
-              <p className="mb-7 text-sm font-medium text-black/45">
+              <p className="mb-6 text-sm text-black/40">
                 مناسب برای
               </p>
 
-              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                اگر پروژه شما
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+                چه پروژه‌هایی
                 <br />
-                این ویژگی‌ها را دارد.
+                به این روش نیاز دارند؟
               </h2>
             </div>
 
-            <div>
-              <div className="border-t border-black/10">
-                {service.suitableFor.map((item, index) => (
-                  <div
-                    key={item}
-                    className="flex items-start gap-6 border-b border-black/10 py-6"
-                  >
-                    <span className="text-xs text-black/30">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+            <div className="border-t border-black/10">
+              {service.suitableFor.map((item, index) => (
+                <div
+                  key={item}
+                  className="flex gap-6 border-b border-black/10 py-6"
+                >
+                  <span className="text-xs text-black/30">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-                    <p className="text-base leading-8 text-black/65 md:text-lg">
-                      {item}
-                    </p>
-                  </div>
-                ))}
-              </div>
+                  <p className="text-base leading-8 text-black/65 md:text-lg">
+                    {item}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -217,16 +243,16 @@ export default function ServicePage({ params }: ServicePageProps) {
       <section>
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
           <div className="mb-16 md:mb-24">
-            <p className="mb-7 text-sm font-medium text-black/45">
+            <p className="mb-6 text-sm text-black/40">
               کاربردها
             </p>
 
             <h2 className="text-3xl font-medium tracking-tight md:text-5xl">
-              این روش کجا استفاده می‌شود؟
+              کجا استفاده می‌شود؟
             </h2>
           </div>
 
-          <div className="grid gap-x-12 border-t border-black/10 md:grid-cols-2">
+          <div className="grid border-t border-black/10 md:grid-cols-2">
             {service.applications.map((application, index) => (
               <div
                 key={application}
@@ -249,18 +275,18 @@ export default function ServicePage({ params }: ServicePageProps) {
       <section className="bg-[#f5f3ef]">
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
           <div className="mb-16 max-w-3xl md:mb-24">
-            <p className="mb-7 text-sm font-medium text-black/45">
+            <p className="mb-6 text-sm text-black/40">
               نکات مهم
             </p>
 
-            <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-              نتیجه خوب،
+            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+              قبل از سفارش
               <br />
-              به انتخاب درست بستگی دارد.
+              این موارد مهم‌اند.
             </h2>
           </div>
 
-          <div className="grid gap-px overflow-hidden border border-black/10 bg-black/10 md:grid-cols-2">
+          <div className="grid gap-px border border-black/10 bg-black/10 md:grid-cols-2">
             {service.keyConsiderations.map((item) => (
               <div
                 key={item.label}
@@ -284,14 +310,14 @@ export default function ServicePage({ params }: ServicePageProps) {
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
             <div>
-              <p className="mb-7 text-sm font-medium text-black/45">
-                روش‌های اجرا
+              <p className="mb-6 text-sm text-black/40">
+                روش‌های چاپ
               </p>
 
-              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                بسته به پروژه،
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+                کدام روش
                 <br />
-                روش مناسب فرق می‌کند.
+                مناسب‌تر است؟
               </h2>
             </div>
 
@@ -301,7 +327,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                   key={method.name}
                   className="border-b border-black/10 py-8 md:py-10"
                 >
-                  <div className="flex items-start gap-6">
+                  <div className="flex gap-6">
                     <span className="text-xs text-black/30">
                       {String(index + 1).padStart(2, "0")}
                     </span>
@@ -315,7 +341,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                         {method.description}
                       </p>
 
-                      <p className="mt-4 text-sm text-black/45">
+                      <p className="mt-4 text-sm leading-7 text-black/40">
                         مناسب برای: {method.suitableFor}
                       </p>
                     </div>
@@ -331,14 +357,14 @@ export default function ServicePage({ params }: ServicePageProps) {
       <section className="bg-black text-white">
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
           <div className="mb-16 max-w-3xl md:mb-24">
-            <p className="mb-7 text-sm font-medium text-white/45">
+            <p className="mb-6 text-sm text-white/40">
               فرآیند
             </p>
 
-            <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
+            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
               از فایل اولیه
               <br />
-              تا تحویل سفارش.
+              تا خروجی نهایی.
             </h2>
           </div>
 
@@ -363,16 +389,16 @@ export default function ServicePage({ params }: ServicePageProps) {
         </div>
       </section>
 
-      {/* Pricing Factors */}
+      {/* Pricing */}
       <section>
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-2 md:gap-28">
             <div>
-              <p className="mb-7 text-sm font-medium text-black/45">
+              <p className="mb-6 text-sm text-black/40">
                 قیمت
               </p>
 
-              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
                 قیمت چاپ
                 <br />
                 یک عدد ثابت نیست.
@@ -381,33 +407,16 @@ export default function ServicePage({ params }: ServicePageProps) {
 
             <div>
               <p className="text-lg leading-9 text-black/60 md:text-xl md:leading-10">
-                هزینه نهایی به مشخصات واقعی پروژه بستگی دارد. عواملی مثل
-                تیراژ، ابعاد چاپ، تعداد رنگ، نوع متریال، پیچیدگی طرح و روش
-                اجرای انتخاب‌شده می‌توانند روی قیمت تأثیر بگذارند.
+                قیمت نهایی بر اساس مشخصات واقعی پروژه تعیین می‌شود.
+                تیراژ، ابعاد، جنس متریال، روش چاپ، تعداد رنگ و پیچیدگی
+                طرح از عوامل مهم در محاسبه هزینه هستند.
               </p>
-
-              <div className="mt-10 border-t border-black/10">
-                {service.keyConsiderations.map((item) => (
-                  <div
-                    key={`price-${item.label}`}
-                    className="flex items-start justify-between gap-8 border-b border-black/10 py-5"
-                  >
-                    <span className="text-sm font-medium">
-                      {item.label}
-                    </span>
-
-                    <span className="max-w-sm text-left text-sm leading-7 text-black/45">
-                      {item.description}
-                    </span>
-                  </div>
-                ))}
-              </div>
 
               <Link
                 href="/استعلام-قیمت"
-                className="mt-9 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
+                className="mt-10 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
               >
-                دریافت قیمت برای پروژه شما
+                دریافت قیمت پروژه
                 <span>↗</span>
               </Link>
             </div>
@@ -420,11 +429,11 @@ export default function ServicePage({ params }: ServicePageProps) {
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
             <div>
-              <p className="mb-7 text-sm font-medium text-black/45">
+              <p className="mb-6 text-sm text-black/40">
                 سوالات متداول
               </p>
 
-              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
                 قبل از سفارش،
                 <br />
                 این‌ها را بدانید.
@@ -437,7 +446,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                   key={faq.question}
                   className="group border-b border-black/10"
                 >
-                  <summary className="flex cursor-pointer list-none items-start justify-between gap-8 py-7 md:py-8">
+                  <summary className="flex cursor-pointer list-none items-start justify-between gap-8 py-7">
                     <div className="flex gap-5">
                       <span className="pt-1 text-xs text-black/30">
                         {String(index + 1).padStart(2, "0")}
@@ -468,17 +477,17 @@ export default function ServicePage({ params }: ServicePageProps) {
         <section>
           <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
             <div className="mb-16 md:mb-24">
-              <p className="mb-7 text-sm font-medium text-black/45">
+              <p className="mb-6 text-sm text-black/40">
                 خدمات مرتبط
               </p>
 
               <h2 className="text-3xl font-medium tracking-tight md:text-5xl">
-                شاید این خدمات هم به پروژه شما مربوط باشند.
+                شاید این خدمات هم به کارتان بیایند.
               </h2>
             </div>
 
             <div className="grid border-t border-black/10 md:grid-cols-2">
-              {relatedServices.map((relatedService: any, index) => (
+              {relatedServices.map((relatedService, index) => (
                 <Link
                   key={relatedService.slug}
                   href={`/خدمات/${relatedService.slug}`}
@@ -515,7 +524,7 @@ export default function ServicePage({ params }: ServicePageProps) {
         <section className="border-t border-black/10">
           <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
             <div className="mb-16 md:mb-24">
-              <p className="mb-7 text-sm font-medium text-black/45">
+              <p className="mb-6 text-sm text-black/40">
                 مقالات مرتبط
               </p>
 
@@ -525,36 +534,37 @@ export default function ServicePage({ params }: ServicePageProps) {
             </div>
 
             <div className="grid border-t border-black/10 md:grid-cols-2">
-              {getRelatedArticles(
-                relatedArticles.map((article) => article.slug)
-              ).map((article, index) => (
-                <Link
-                  key={article.slug}
-                  href={`/بلاگ/${article.slug}`}
-                  className="group border-b border-black/10 py-9 transition-opacity hover:opacity-60 md:[&:nth-child(odd)]:border-l md:[&:nth-child(odd)]:pl-10 md:[&:nth-child(even)]:pr-10"
-                >
-                  <div className="flex items-start justify-between gap-8">
-                    <div>
-                      <span className="text-xs text-black/30">
-                        {String(index + 1).padStart(2, "0")} ·{" "}
-                        {article.readingTime}
+              {relatedArticles.map(
+                (article: any, index: number) => (
+                  <Link
+                    key={article.slug}
+                    href={`/بلاگ/${article.slug}`}
+                    className="group border-b border-black/10 py-9 transition-opacity hover:opacity-60 md:[&:nth-child(odd)]:border-l md:[&:nth-child(odd)]:pl-10 md:[&:nth-child(even)]:pr-10"
+                  >
+                    <div className="flex items-start justify-between gap-8">
+                      <div>
+                        <span className="text-xs text-black/30">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+
+                        <h3 className="mt-4 text-xl font-medium leading-8 tracking-tight md:text-2xl">
+                          {article.title}
+                        </h3>
+
+                        {article.excerpt && (
+                          <p className="mt-3 max-w-xl leading-8 text-black/50">
+                            {article.excerpt}
+                          </p>
+                        )}
+                      </div>
+
+                      <span className="text-xl transition-transform group-hover:-translate-x-1">
+                        ↗
                       </span>
-
-                      <h3 className="mt-4 text-xl font-medium leading-8 tracking-tight md:text-2xl">
-                        {article.title}
-                      </h3>
-
-                      <p className="mt-3 max-w-xl leading-8 text-black/50">
-                        {article.excerpt}
-                      </p>
                     </div>
-
-                    <span className="text-xl transition-transform group-hover:-translate-x-1">
-                      ↗
-                    </span>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                )
+              )}
             </div>
           </div>
         </section>
@@ -564,20 +574,20 @@ export default function ServicePage({ params }: ServicePageProps) {
       <section className="border-t border-black/10">
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12">
           <div className="max-w-4xl">
-            <p className="mb-7 text-sm font-medium text-black/45">
+            <p className="mb-6 text-sm text-black/40">
               شروع پروژه
             </p>
 
-            <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl lg:text-6xl">
+            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl lg:text-6xl">
               پروژه‌ای دارید که
               <br />
               باید چاپ شود؟
             </h2>
 
             <p className="mt-8 max-w-2xl text-lg leading-9 text-black/55">
-              مشخصات پروژه را برای ما بفرستید. اگر هنوز مطمئن نیستید این
-              روش برای شما مناسب است، می‌توانیم قبل از سفارش گزینه‌های
-              مختلف را بررسی و مقایسه کنیم.
+              مشخصات پروژه را برای ما بفرستید. اگر هنوز در انتخاب
+              روش چاپ مطمئن نیستید، می‌توانیم بر اساس متریال، طرح،
+              تیراژ و کاربرد نهایی گزینه مناسب را بررسی کنیم.
             </p>
 
             <Link
