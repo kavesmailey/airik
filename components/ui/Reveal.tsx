@@ -53,13 +53,13 @@ export default function Reveal({
   return (
     <div
       ref={ref}
-      className={`transition-all ${className}`}
+      className={className}
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? "translateY(0)" : "translateY(22px)",
         transitionDelay: `${delay}ms`,
         transitionDuration: "600ms",
-        transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+        transitionTimingFunction: "var(--ease-default)",
       }}
     >
       {children}
