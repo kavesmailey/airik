@@ -1,152 +1,143 @@
-import type { Metadata } from "next";
-import { generateMetadata as createMetadata } from "@/lib/seo";
-import { getArticleBySlug, getRelatedArticles, getAllArticleSlugs } from "@/content/articles";
-import { getServiceBySlug } from "@/content/services";
-import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import JsonLd from "@/components/seo/JsonLd";
-import ArticleCard from "@/components/cards/ArticleCard";
-import ServiceCard from "@/components/cards/ServiceCard";
-import Button from "@/components/ui/Button";
-import IconArrow from "@/components/ui/IconArrow";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { blogPosts } from "@/content/blog";
+
+interface ArticlePageProps {
+  params: {
+    slug: string;
+  };
+}
 
 export function generateStaticParams() {
-  return getAllArticleSlugs().map((slug) => ({ slug }));
+  return blogPosts.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const article = getArticleBySlug(params.slug);
-  if (!article) return {};
-  return createMetadata({
-    title: article.meta.title,
-    description: article.meta.description,
-    path: `/وبلاگ/${article.slug}`,
-    ogImage: article.featuredImage,
-  });
-}
+export function generateMetadata({ params }: ArticlePageProps) {
+  const post = blogPosts.find((item) => item.slug === params.slug);
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = getArticleBySlug(params.slug);
-  if (!article) notFound();
+  if (!post) {
+    return {
+      title: "مطلب پیدا نشد | آیریک",
+    };
+  }
 
-  const relatedArticles = getRelatedArticles(article.relatedArticles);
-  const relatedServices = article.relatedServices
-    .map(getServiceBySlug)
-    .filter(Boolean);
-
-  const jsonLdArticle = {
-    slug: article.slug,
-    headline: article.title,
-    description: article.excerpt,
-    image: article.featuredImage,
-    datePublished: article.date,
-    dateModified: article.updatedDate || article.date,
-    author: article.author,
+  return {
+    title: `${post.title} | آیریک`,
+    description:
+      post.excerpt ||
+      `مطالعه مطلب ${post.title} در مجله آیریک.`,
   };
+}
+
+export default function ArticlePage({ params }: ArticlePageProps) {
+  const post = blogPosts.find((item) => item.slug === params.slug);
+
+  if (!post) {
+    notFound();
+  }
 
   return (
-    <>
-      <JsonLd type="article" data={jsonLdArticle} />
-      <JsonLd
-        type="breadcrumb"
-        data={{
-          items: [
-            { label: "خانه", href: "/" },
-            { label: "وبلاگ", href: "/وبلاگ" },
-            { label: article.title, href: `/وبلاگ/${article.slug}` },
-          ],
-        }}
-      />
-
-      {/* Hero */}
-      <section
-        className="pt-28 pb-12"
-        style={{ backgroundColor: "var(--color-bg)" }}
-      >
-        <div className="container-iric max-w-4xl">
-          <Breadcrumbs
-            items={[
-              { label: "وبلاگ", href: "/وبلاگ" },
-              { label: article.title, href: `/وبلاگ/${article.slug}` },
-            ]}
-          />
-          <div className="mt-6">
-            <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-              {article.category} · {article.readingTime} · {article.date}
-            </p>
-            <h1
-              className="mt-4 text-3xl font-bold sm:text-4xl lg:text-5xl"
-              style={{ color: "var(--color-text)", lineHeight: "var(--line-height-tight)" }}
-            >
-              {article.title}
-            </h1>
-            <p
-              className="mt-5 text-lg"
-              style={{ color: "var(--color-text-muted)", lineHeight: "var(--line-height-relaxed)" }}
-            >
-              {article.excerpt}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Content */}
-      <section className="py-12" style={{ backgroundColor: "var(--color-bg)" }}>
-        <div className="container-iric max-w-4xl">
-          <img
-            src={article.featuredImage}
-            alt={article.alt}
-            className="mb-8 w-full rounded-md object-cover"
-            loading="lazy"
-          />
-          <div
-            className="article-content"
-            style={{
-              color: "var(--color-text)",
-              lineHeight: "2",
-              fontSize: "1.125rem",
-            }}
+    <main dir="rtl">
+      {/* Article header */}
+      <section className="border-b border-black/10">
+        <div className="mx-auto max-w-5xl px-6 py-28 md:px-10 md:py-36">
+          <Link
+            href="/وبلاگ"
+            className="mb-12 inline-flex items-center gap-2 text-sm text-black/45 transition-colors hover:text-black"
           >
-            {article.content}
+            <span>→</span>
+            بازگشت به مجله
+          </Link>
+
+          <div className="flex flex-wrap items-center gap-3 text-sm text-black/40">
+            {post.category && <span>{post.category}</span>}
+            {post.category && post.date && <span>·</span>}
+            {post.date && <span>{post.date}</span>}
           </div>
 
-          {/* Related Services */}
-          {relatedServices.length > 0 && (
-            <div className="mt-16">
-              <h2 className="text-2xl font-bold mb-6" style={{ color: "var(--color-text)" }}>
-                خدمات مرتبط
-              </h2>
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {relatedServices.map((service: any) => (
-                  <ServiceCard key={service.slug} service={service} />
-                ))}
-              </div>
+          <h1 className="mt-7 text-4xl font-medium leading-[1.3] tracking-tight md:text-6xl">
+            {post.title}
+          </h1>
+
+          {post.excerpt && (
+            <p className="mt-9 max-w-3xl text-lg leading-9 text-black/60 md:text-xl">
+              {post.excerpt}
+            </p>
+          )}
+        </div>
+      </section>
+
+      {/* Article */}
+      <article>
+        <div className="mx-auto max-w-3xl px-6 py-24 md:px-10 md:py-32">
+          {"content" in post && typeof post.content === "string" ? (
+            <div className="whitespace-pre-line text-lg leading-[2.1] text-black/70">
+              {post.content}
+            </div>
+          ) : (
+            <div className="text-lg leading-[2.1] text-black/70">
+              <p>
+                در این مطلب درباره «{post.title}» صحبت می‌کنیم و نکات مهمی را
+                که قبل از انتخاب روش چاپ باید بدانید بررسی می‌کنیم.
+              </p>
+
+              <p className="mt-8">
+                انتخاب روش مناسب چاپ به عوامل مختلفی مثل جنس محصول، تیراژ،
+                جزئیات طرح، تعداد رنگ و نتیجه مورد انتظار بستگی دارد.
+              </p>
+
+              <p className="mt-8">
+                اگر برای پروژه خودتان هنوز مطمئن نیستید کدام روش مناسب‌تر
+                است، می‌توانید مشخصات سفارش را برای تیم آیریک ارسال کنید تا
+                بهترین گزینه را بررسی کنیم.
+              </p>
             </div>
           )}
+        </div>
+      </article>
 
-          {/* Related Articles */}
-          {relatedArticles.length > 0 && (
-            <div className="mt-16">
-              <h2 className="text-2xl font-bold mb-6" style={{ color: "var(--color-text)" }}>
-                مقالات مرتبط
-              </h2>
-              <div className="grid gap-6 md:grid-cols-2">
-                {relatedArticles.map((related) => (
-                  <ArticleCard key={related.slug} article={related} />
-                ))}
-              </div>
-            </div>
-          )}
+      {/* CTA */}
+      <section className="bg-[#f5f3ef]">
+        <div className="mx-auto max-w-5xl px-6 py-24 md:px-10 md:py-32">
+          <div className="max-w-3xl">
+            <p className="mb-6 text-sm font-medium text-black/45">
+              برای پروژه خودتان
+            </p>
 
-          {/* CTA */}
-          <div className="mt-16 text-center">
-            <Button href="/استعلام-قیمت" size="lg">
-              دریافت مشاوره و استعلام قیمت
-              <IconArrow direction="up-left" size={16} />
-            </Button>
+            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+              هنوز نمی‌دانید کدام روش چاپ برای شما مناسب است؟
+            </h2>
+
+            <p className="mt-7 max-w-2xl text-lg leading-9 text-black/60">
+              مشخصات پروژه را بفرستید تا بر اساس محصول، تیراژ و نتیجه‌ای که
+              می‌خواهید، راهکار مناسب را بررسی کنیم.
+            </p>
+
+            <Link
+              href="/استعلام-قیمت"
+              className="mt-9 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white"
+            >
+              استعلام قیمت
+              <span>↗</span>
+            </Link>
           </div>
         </div>
       </section>
-    </>
+
+      {/* Back to blog */}
+      <section>
+        <div className="mx-auto max-w-5xl px-6 py-16 md:px-10">
+          <Link
+            href="/وبلاگ"
+            className="inline-flex items-center gap-2 text-sm text-black/50 transition-colors hover:text-black"
+          >
+            <span>→</span>
+            مشاهده مطالب بیشتر
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }
