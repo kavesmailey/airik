@@ -1,280 +1,169 @@
-import type { Metadata } from "next";
-import { generateMetadata } from "@/lib/seo";
 import Link from "next/link";
-import SectionHeading from "@/components/ui/SectionHeading";
-import ServiceCard from "@/components/cards/ServiceCard";
-import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import Reveal from "@/components/ui/Reveal";
-import Button from "@/components/ui/Button";
-import IconArrow from "@/components/ui/IconArrow";
-import Accordion from "@/components/ui/Accordion";
 import { services } from "@/content/services";
-import { generalFaqs } from "@/content/faq";
 
-export const metadata: Metadata = generateMetadata({
-  title: "خدمات چاپ",
+export const metadata = {
+  title: "خدمات چاپ | آیریک",
   description:
-    "خدمات چاپ سیلک و DTF آیریک روی بگ، لباس، کارتن، جعبه پیتزا، لیوان کاغذی و ظروف گرد. مشاوره تخصصی قبل از سفارش.",
-  path: "/خدمات",
-});
-
-const printingMethods = [
-  {
-    name: "چاپ سیلک",
-    description:
-      "روش کلاسیک و ماندگار برای چاپ روی انواع سطوح. مناسب تیراژ بالا و طرح‌های ساده تا متوسط.",
-    suitableFor: "لوگو، طرح‌های تخت، تیراژ بالا",
-  },
-  {
-    name: "چاپ DTF",
-    description:
-      "روش مدرن با جزئیات فوق‌العاده بالا. مناسب طرح‌های پیچیده، عکس و تیراژ پایین.",
-    suitableFor: "عکس، گرادیان، جزئیات ریز، تیراژ پایین",
-  },
-];
-
-const capabilities = [
-  {
-    title: "کیفیت اجرا",
-    description: "تمرکز بر دقت و ثبات کیفیت در تمام مراحل چاپ.",
-  },
-  {
-    title: "انتخاب روش مناسب",
-    description: "مشاوره برای انتخاب بهترین روش چاپ متناسب با محصول و بودجه.",
-  },
-  {
-    title: "توجه به متریال",
-    description: "بررسی نوع سطح و متریال برای بهترین نتیجه چاپ.",
-  },
-  {
-    title: "اجرای سفارش",
-    description: "مدیریت سفارش از دریافت فایل تا تحویل نهایی.",
-  },
-];
-
-const processSteps = [
-  { title: "بررسی نیاز", description: "شناخت محصول، تیراژ و هدف برند" },
-  { title: "انتخاب روش چاپ", description: "پیشنهاد بهترین روش بر اساس نیاز" },
-  { title: "آماده‌سازی", description: "آماده‌سازی فایل و تجهیزات چاپ" },
-  { title: "اجرا", description: "چاپ با دقت و کنترل کیفیت" },
-  { title: "کنترل نهایی", description: "بررسی کیفیت و بسته‌بندی" },
-];
+    "خدمات تخصصی چاپ آیریک شامل چاپ سیلک، DTF، چاپ روی لباس، بگ، بسته‌بندی و محصولات تبلیغاتی.",
+};
 
 export default function ServicesPage() {
   return (
-    <>
-      {/* ── Hero ─────────────────────────────────────────────── */}
-      <section
-        className="pt-28 pb-16"
-        style={{ backgroundColor: "var(--color-bg)" }}
-      >
-        <div className="container-iric">
-          <Breadcrumbs items={[{ label: "خدمات چاپ", href: "/خدمات" }]} />
-          <div className="mt-6 max-w-4xl">
-            <p className="text-sm font-medium" style={{ color: "var(--color-accent)" }}>
+    <main dir="rtl">
+      {/* Hero */}
+      <section className="border-b border-black/10">
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="max-w-4xl">
+            <p className="mb-8 text-sm font-medium tracking-wide text-black/50">
               خدمات چاپ آیریک
             </p>
-            <h1
-              className="mt-4 text-4xl font-bold sm:text-5xl lg:text-6xl"
-              style={{ color: "var(--color-text)", lineHeight: "var(--line-height-tight)" }}
-            >
-              چاپی که برند شما را
+
+            <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
+              برای هر محصول،
               <br />
-              حرفه‌ای‌تر نشان می‌دهد
+              روش درست چاپ را پیدا می‌کنیم.
             </h1>
-            <p
-              className="mt-6 max-w-2xl text-lg"
-              style={{ color: "var(--color-text-muted)", lineHeight: "var(--line-height-relaxed)" }}
-            >
-              چاپ سیلک و DTF روی بگ، لباس، کارتن، جعبه پیتزا، لیوان کاغذی و ظروف گرد.
-              با مشاوره تخصصی قبل از سفارش، بهترین روش چاپ را برای محصول خود انتخاب کنید.
+
+            <p className="mt-10 max-w-2xl text-lg leading-9 text-black/60 md:text-xl">
+              چاپ فقط انتخاب یک دستگاه یا تکنیک نیست. جنس محصول، تیراژ،
+              پیچیدگی طرح، تعداد رنگ و نتیجه‌ای که از چاپ انتظار دارید،
+              همگی روی انتخاب روش مناسب تأثیر می‌گذارند.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href="/استعلام-قیمت" size="lg">
-                استعلام قیمت
-                <IconArrow direction="up-left" size={16} />
-              </Button>
-              <Button href="#services-list" variant="secondary" size="lg">
-                مشاهده خدمات
-              </Button>
-            </div>
+
+            <p className="mt-5 max-w-2xl text-base leading-8 text-black/50">
+              آیریک قبل از اجرا، پروژه را بررسی می‌کند تا راهکاری انتخاب شود
+              که از نظر کیفیت، هزینه و نتیجه نهایی برای شما منطقی باشد.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ── Services Overview ────────────────────────────────── */}
-      <section
-        id="services-list"
-        className="py-20"
-        style={{ backgroundColor: "var(--color-bg-light)" }}
-      >
-        <div className="container-iric">
-          <SectionHeading
-            eyebrow="کاربردها"
-            title="چه محصولاتی را چاپ می‌کنیم؟"
-            description="هر محصول نیازمند روش چاپ متفاوتی است. آیریک با مشاوره تخصصی، بهترین روش را برای محصول شما انتخاب می‌کند."
-            tone="light"
-          />
+      {/* Services list */}
+      <section>
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="mb-20 max-w-3xl">
+            <p className="mb-6 text-sm font-medium tracking-wide text-black/50">
+              خدمات
+            </p>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, index) => (
-              <Reveal key={service.slug} delay={index * 80}>
-                <ServiceCard service={service} />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Printing Methods ─────────────────────────────────── */}
-      <section className="py-20" style={{ backgroundColor: "var(--color-bg)" }}>
-        <div className="container-iric">
-          <SectionHeading
-            eyebrow="روش‌های چاپ"
-            title="دو روش تخصصی چاپ"
-            description="آیریک با دو روش چاپ سیلک و DTF، پاسخگوی نیازهای مختلف برندهاست. انتخاب روش مناسب به نوع طرح، تیراژ و محصول بستگی دارد."
-            tone="dark"
-          />
-
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {printingMethods.map((method, index) => (
-              <Reveal key={method.name} delay={index * 100}>
-                <div className="card-industrial h-full">
-                  <span className="text-sm font-bold" style={{ color: "var(--color-accent)" }}>
-                    {String(index + 1).padStart(2, "۰")}
-                  </span>
-                  <h3 className="mt-4 text-2xl font-bold" style={{ color: "var(--color-text)" }}>
-                    {method.name}
-                  </h3>
-                  <p
-                    className="mt-3 text-base"
-                    style={{ color: "var(--color-text-muted)", lineHeight: "var(--line-height-relaxed)" }}
-                  >
-                    {method.description}
-                  </p>
-                  <p className="mt-4 text-sm" style={{ color: "var(--color-text-faint)" }}>
-                    مناسب برای: {method.suitableFor}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Capabilities ─────────────────────────────────────── */}
-      <section className="py-20" style={{ backgroundColor: "var(--color-bg-light)" }}>
-        <div className="container-iric">
-          <SectionHeading
-            eyebrow="چرا آیریک؟"
-            title="تعهد به کیفیت"
-            description="هر سفارش با دقت بررسی می‌شود تا بهترین نتیجه حاصل شود."
-            tone="light"
-          />
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {capabilities.map((item, index) => (
-              <Reveal key={item.title} delay={index * 80}>
-                <div
-                  className="card-industrial h-full"
-                  style={{ backgroundColor: "var(--color-surface-light)" }}
-                >
-                  <span className="text-sm font-bold" style={{ color: "var(--color-accent)" }}>
-                    {String(index + 1).padStart(2, "۰")}
-                  </span>
-                  <h3 className="mt-3 text-lg font-bold" style={{ color: "var(--color-text-dark)" }}>
-                    {item.title}
-                  </h3>
-                  <p
-                    className="mt-2 text-sm"
-                    style={{ color: "var(--color-text-dark-muted)", lineHeight: "var(--line-height-relaxed)" }}
-                  >
-                    {item.description}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Process ──────────────────────────────────────────── */}
-      <section className="py-20" style={{ backgroundColor: "var(--color-bg)" }}>
-        <div className="container-iric">
-          <SectionHeading
-            eyebrow="فرآیند کار"
-            title="از نیاز تا تحویل"
-            description="فرآیند ساده و شفاف برای اجرای هر سفارش."
-            tone="dark"
-          />
-
-          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-            {processSteps.map((step, index) => (
-              <Reveal key={step.title} delay={index * 70}>
-                <div className="card-industrial h-full">
-                  <span className="text-sm font-bold" style={{ color: "var(--color-accent)" }}>
-                    {String(index + 1).padStart(2, "۰")}
-                  </span>
-                  <h3 className="mt-3 text-lg font-bold" style={{ color: "var(--color-text)" }}>
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
-                    {step.description}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── FAQ ──────────────────────────────────────────────── */}
-      <section className="py-20" style={{ backgroundColor: "var(--color-bg-light)" }}>
-        <div className="container-iric max-w-3xl">
-          <SectionHeading
-            eyebrow="سوالات متداول"
-            title="پاسخ به سوالات شما"
-            tone="light"
-          />
-          <div className="mt-12">
-            <Accordion
-              items={generalFaqs.map((faq, index) => ({
-                id: `services-faq-${index}`,
-                title: faq.question,
-                content: faq.answer,
-              }))}
-              tone="light"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ──────────────────────────────────────────────── */}
-      <section className="py-20" style={{ backgroundColor: "var(--color-accent)" }}>
-        <div className="container-iric">
-          <Reveal className="text-center">
-            <h2
-              className="text-4xl font-bold sm:text-5xl"
-              style={{ color: "var(--color-accent-contrast)", lineHeight: "var(--line-height-tight)" }}
-            >
-              نمی‌دونید چه نوع چاپی مناسبته؟
+            <h2 className="text-3xl font-medium leading-[1.35] tracking-tight md:text-5xl">
+              از چاپ روی پوشاک تا بسته‌بندی و محصولات برندشده.
             </h2>
-            <p
-              className="mt-5 text-lg mx-auto max-w-2xl"
-              style={{ color: "var(--color-accent-contrast)", opacity: 0.75, lineHeight: "var(--line-height-relaxed)" }}
-            >
-              اگر نمی‌دانید برای محصول، تیراژ و بودجه شما چه نوع چاپی مناسب است،
-              قبل از سفارش با ما مشورت کنید.
+
+            <p className="mt-7 text-lg leading-9 text-black/60">
+              خدمات آیریک برای پروژه‌های مختلف طراحی شده‌اند؛ از سفارش‌های
+              کوچک و فروشگاهی تا تولیدات برندها، کمپین‌ها و سفارش‌های تیراژ
+              بالا.
             </p>
-            <div className="mt-8 flex justify-center">
-              <Button href="/استعلام-قیمت" size="lg">
-                مشاوره رایگان قبل از سفارش
-                <IconArrow direction="up-left" size={16} />
-              </Button>
-            </div>
-          </Reveal>
+          </div>
+
+          <div className="divide-y divide-black/10 border-y border-black/10">
+            {services.map((service, index) => (
+              <Link
+                key={service.slug}
+                href={`/خدمات/${service.slug}`}
+                className="group block py-10 transition-opacity hover:opacity-70 md:py-14"
+              >
+                <div className="grid gap-8 md:grid-cols-[100px_1fr_auto] md:items-start">
+                  <span className="text-sm text-black/40">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <div>
+                    <h3 className="text-2xl font-medium tracking-tight md:text-4xl">
+                      {service.title}
+                    </h3>
+
+                    {service.description && (
+                      <p className="mt-5 max-w-2xl text-base leading-8 text-black/55 md:text-lg">
+                        {service.description}
+                      </p>
+                    )}
+                  </div>
+
+                  <span className="hidden text-2xl transition-transform group-hover:-translate-x-2 md:block">
+                    ↗
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
-    </>
+
+      {/* Decision section */}
+      <section className="bg-[#f5f3ef]">
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="grid gap-16 md:grid-cols-2 md:gap-24">
+            <div>
+              <p className="mb-6 text-sm font-medium text-black/50">
+                انتخاب روش چاپ
+              </p>
+
+              <h2 className="text-3xl font-medium leading-[1.35] tracking-tight md:text-5xl">
+                لازم نیست از قبل بدانید چه روشی برای شما مناسب است.
+              </h2>
+            </div>
+
+            <div className="max-w-xl">
+              <p className="text-lg leading-9 text-black/65">
+                اگر بین سیلک، DTF یا روش‌های دیگر مردد هستید، کافی است
+                مشخصات پروژه را برای ما بفرستید. محصول، تعداد، جنس سطح،
+                فایل طراحی و نتیجه موردنظر را بررسی می‌کنیم و مناسب‌ترین
+                روش را پیشنهاد می‌دهیم.
+              </p>
+
+              <p className="mt-6 text-lg leading-9 text-black/65">
+                هدف فقط پایین آوردن هزینه یا انتخاب سریع‌ترین روش نیست؛
+                هدف رسیدن به تعادل درست بین کیفیت، دوام، ظاهر نهایی و
+                هزینه اجرای پروژه است.
+              </p>
+
+              <Link
+                href="/استعلام-قیمت"
+                className="mt-10 inline-flex items-center gap-3 border-b border-black pb-2 text-base font-medium"
+              >
+                پروژه‌تان را بررسی کنیم
+                <span>↗</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Business CTA */}
+      <section>
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="border-t border-black/10 pt-16 md:pt-20">
+            <p className="mb-6 text-sm font-medium text-black/50">
+              برای برندها و کسب‌وکارها
+            </p>
+
+            <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-end">
+              <h2 className="text-3xl font-medium leading-[1.35] tracking-tight md:text-5xl">
+                چاپی که قرار است بخشی از تجربه برند شما باشد، باید از ابتدا
+                درست طراحی و اجرا شود.
+              </h2>
+
+              <div>
+                <p className="text-lg leading-9 text-black/60">
+                  اگر سفارش شما تکرارشونده است یا بخشی از هویت برندتان روی
+                  محصولات، لباس یا بسته‌بندی دیده می‌شود، می‌توانیم یک
+                  فرآیند مشخص و قابل تکرار برای تولید تعریف کنیم.
+                </p>
+
+                <Link
+                  href="/استعلام-قیمت"
+                  className="mt-8 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
+                >
+                  شروع یک پروژه
+                  <span>↗</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
