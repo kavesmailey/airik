@@ -21,7 +21,7 @@ export default function ServiceCard({
       style={{ textDecoration: "none" }}
     >
       <div
-        className="card-industrial transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-[var(--color-border-strong)]"
+        className="card-industrial h-full transition-all duration-300 group-hover:-translate-y-1"
         style={{
           borderRadius: "var(--radius-md)",
           border: "1px solid var(--color-border)",
@@ -29,16 +29,16 @@ export default function ServiceCard({
             ? "var(--color-surface)"
             : "var(--color-surface-light)",
           padding: "var(--space-lg)",
-          transition:
-            "transform 300ms var(--ease-default), border-color 300ms",
         }}
       >
-        <MediaPlaceholder
-          aspectRatio="4/3"
-          label={service.title}
-          tone={isDark ? "dark" : "light"}
-          className="mb-4"
-        />
+        <div className="transition-transform duration-300 group-hover:scale-[1.01]">
+          <MediaPlaceholder
+            aspectRatio="4/3"
+            label={service.title}
+            tone={isDark ? "dark" : "light"}
+            className="mb-4"
+          />
+        </div>
 
         <h3
           className="text-xl font-bold"
@@ -64,10 +64,10 @@ export default function ServiceCard({
         </p>
 
         <div
-          className="mt-4 flex items-center gap-2 text-sm font-medium"
+          className="mt-5 flex items-center gap-2 text-sm font-medium transition-transform duration-300 group-hover:-translate-x-1"
           style={{ color: "var(--color-accent)" }}
         >
-          مشاهده جزئیات
+          <span>مشاهده جزئیات</span>
           <IconArrow direction="left" size={16} />
         </div>
       </div>
