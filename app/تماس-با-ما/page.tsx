@@ -1,166 +1,159 @@
-import type { Metadata } from "next";
-import { generateMetadata } from "@/lib/seo";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
-import PrintingInquiryForm from "@/components/forms/PrintingInquiryForm";
-import { siteConfig } from "@/content/site";
+import Link from "next/link";
 
-export const metadata: Metadata = generateMetadata({
+export const metadata = {
   title: "تماس با ما | آیریک",
   description:
-    "راه‌های ارتباطی با آیریک — چاپ تخصصی سیلک و DTF. برای مشاوره و استعلام قیمت تماس بگیرید.",
-  path: "/تماس-با-ما",
-});
+    "برای دریافت مشاوره، استعلام قیمت و ثبت سفارش چاپ با آیریک در تماس باشید.",
+};
 
 export default function ContactPage() {
   return (
-    <>
-      <section
-        className="pt-28 pb-16"
-        style={{ backgroundColor: "var(--color-bg)" }}
-      >
-        <div className="container-iric">
-          <Breadcrumbs items={[{ label: "تماس با ما", href: "/تماس-با-ما" }]} />
-          <div className="mt-6 max-w-3xl">
-            <h1
-              className="text-4xl font-bold sm:text-5xl"
-              style={{ color: "var(--color-text)", lineHeight: "var(--line-height-tight)" }}
-            >
+    <main dir="rtl">
+      {/* Hero */}
+      <section className="border-b border-black/10">
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="max-w-4xl">
+            <p className="mb-8 text-sm font-medium text-black/45">
               تماس با آیریک
+            </p>
+
+            <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
+              درباره پروژه‌تان
+              <br />
+              با ما صحبت کنید.
             </h1>
-            <p
-              className="mt-5 text-lg"
-              style={{ color: "var(--color-text-muted)", lineHeight: "var(--line-height-relaxed)" }}
-            >
-              برای مشاوره، استعلام قیمت یا هر سوالی، از طریق راه‌های زیر با ما در
-              ارتباط باشید.
+
+            <p className="mt-10 max-w-2xl text-lg leading-9 text-black/60 md:text-xl">
+              چه فایل آماده داشته باشید و چه هنوز در مرحله انتخاب روش چاپ
+              باشید، می‌توانید با ما در تماس باشید. اطلاعات پروژه را ارسال
+              کنید تا بتوانیم دقیق‌تر راهنمایی‌تان کنیم.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="pb-20" style={{ backgroundColor: "var(--color-bg)" }}>
-        <div className="container-iric">
-          <div className="grid gap-12 lg:grid-cols-2">
-            {/* Left column: contact info + map */}
-            <div className="space-y-8">
-              <div className="card-industrial space-y-6">
-                <h2 className="text-2xl font-bold" style={{ color: "var(--color-text)" }}>
-                  اطلاعات تماس
-                </h2>
-                <div className="space-y-4">
-                  {siteConfig.contact.phoneDisplay ? (
-                    <div>
-                      <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-                        تلفن
-                      </p>
-                      <p style={{ color: "var(--color-text)", direction: "ltr" }}>
-                        {siteConfig.contact.phoneDisplay}
-                      </p>
-                    </div>
-                  ) : (
-                    <p style={{ color: "var(--color-text-muted)" }}>
-                      شماره تماس به زودی اضافه می‌شود.
-                    </p>
-                  )}
-                  {siteConfig.contact.email ? (
-                    <div>
-                      <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-                        ایمیل
-                      </p>
-                      <p style={{ color: "var(--color-text)", direction: "ltr" }}>
-                        {siteConfig.contact.email}
-                      </p>
-                    </div>
-                  ) : null}
-                  {siteConfig.contact.address ? (
-                    <div>
-                      <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-                        آدرس
-                      </p>
-                      <p style={{ color: "var(--color-text)" }}>
-                        {siteConfig.contact.address}
-                      </p>
-                    </div>
-                  ) : (
-                    <p style={{ color: "var(--color-text-muted)" }}>
-                      آدرس کارگاه به زودی اضافه می‌شود.
-                    </p>
-                  )}
-                  {siteConfig.contact.workingHours ? (
-                    <div>
-                      <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-                        ساعات کاری
-                      </p>
-                      <p style={{ color: "var(--color-text)" }}>
-                        {siteConfig.contact.workingHours}
-                      </p>
-                    </div>
-                  ) : (
-                    <p style={{ color: "var(--color-text-muted)" }}>
-                      ساعات کاری اعلام خواهد شد.
-                    </p>
-                  )}
-                  <p style={{ color: "var(--color-text-muted)" }}>
-                    {siteConfig.contact.serviceArea}
+      {/* Contact information */}
+      <section>
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="grid gap-16 md:grid-cols-2 md:gap-24">
+            <div>
+              <p className="mb-6 text-sm font-medium text-black/45">
+                راه‌های ارتباطی
+              </p>
+
+              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+                از هر مسیری که برایتان راحت‌تر است.
+              </h2>
+            </div>
+
+            <div className="divide-y divide-black/10 border-y border-black/10">
+              <a
+                href="tel:+9821XXXXXXXX"
+                className="group flex items-center justify-between py-7"
+              >
+                <div>
+                  <p className="text-sm text-black/40">تلفن</p>
+                  <p className="mt-2 text-lg font-medium">
+                    ۰۲۱ — XXXXXXXX
                   </p>
                 </div>
 
-                {/* Social links if available */}
-                {(siteConfig.social.instagram ||
-                  siteConfig.social.telegram ||
-                  siteConfig.social.whatsapp) && (
-                  <div
-                    className="pt-4 border-t"
-                    style={{ borderColor: "var(--color-border)" }}
-                  >
-                    <p className="text-xs" style={{ color: "var(--color-text-faint)" }}>
-                      شبکه‌های اجتماعی
-                    </p>
-                    <div className="mt-3 flex gap-4">
-                      {siteConfig.social.instagram && (
-                        <a href={siteConfig.social.instagram} style={{ color: "var(--color-text)" }}>
-                          اینستاگرام
-                        </a>
-                      )}
-                      {siteConfig.social.telegram && (
-                        <a href={siteConfig.social.telegram} style={{ color: "var(--color-text)" }}>
-                          تلگرام
-                        </a>
-                      )}
-                      {siteConfig.social.whatsapp && (
-                        <a href={siteConfig.social.whatsapp} style={{ color: "var(--color-text)" }}>
-                          واتساپ
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
+                <span className="text-xl transition-transform group-hover:-translate-x-1">
+                  ↗
+                </span>
+              </a>
 
-              <div className="card-industrial">
-                <h2 className="text-2xl font-bold mb-4" style={{ color: "var(--color-text)" }}>
-                  موقعیت ما
-                </h2>
-                <MediaPlaceholder
-                  aspectRatio="16/9"
-                  label="نقشه موقعیت — به زودی"
-                  tone="dark"
-                />
-              </div>
-            </div>
+              <a
+                href="mailto:info@airik.ir"
+                className="group flex items-center justify-between py-7"
+              >
+                <div>
+                  <p className="text-sm text-black/40">ایمیل</p>
+                  <p className="mt-2 text-lg font-medium">
+                    info@airik.ir
+                  </p>
+                </div>
 
-            {/* Right column: inquiry form */}
-            <div className="card-industrial">
-              <h2 className="text-2xl font-bold mb-6" style={{ color: "var(--color-text)" }}>
-                درخواست چاپ
-              </h2>
-              <PrintingInquiryForm />
+                <span className="text-xl transition-transform group-hover:-translate-x-1">
+                  ↗
+                </span>
+              </a>
+
+              <div className="flex items-center justify-between py-7">
+                <div>
+                  <p className="text-sm text-black/40">ساعات پاسخگویی</p>
+                  <p className="mt-2 text-lg font-medium">
+                    شنبه تا پنجشنبه · ۹ تا ۱۸
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
-    </>
+
+      {/* Quote CTA */}
+      <section className="bg-[#f5f3ef]">
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="max-w-4xl">
+            <p className="mb-7 text-sm font-medium text-black/45">
+              استعلام قیمت
+            </p>
+
+            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+              مشخصات سفارش را بفرستید؛
+              <br />
+              از همین‌جا شروع می‌کنیم.
+            </h2>
+
+            <p className="mt-8 max-w-2xl text-lg leading-9 text-black/60">
+              نوع محصول، تعداد، ابعاد، جنس و هر اطلاعات دیگری که درباره
+              پروژه دارید را ارسال کنید. هرچه اطلاعات کامل‌تر باشد،
+              بررسی و برآورد دقیق‌تر خواهد بود.
+            </p>
+
+            <Link
+              href="/استعلام-قیمت"
+              className="mt-10 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
+            >
+              استعلام قیمت
+              <span>↗</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Location */}
+      <section>
+        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="grid gap-12 md:grid-cols-2 md:gap-24">
+            <div>
+              <p className="mb-6 text-sm font-medium text-black/45">
+                محل فعالیت
+              </p>
+
+              <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
+                چاپخانه آیریک
+              </h2>
+            </div>
+
+            <div>
+              <p className="text-lg leading-9 text-black/60">
+                برای دریافت آدرس دقیق و هماهنگی مراجعه حضوری، پیش از مراجعه
+                با ما تماس بگیرید.
+              </p>
+
+              <Link
+                href="/درباره-ما"
+                className="mt-8 inline-flex items-center gap-2 border-b border-black pb-2 text-sm font-medium"
+              >
+                درباره آیریک
+                <span>↗</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
