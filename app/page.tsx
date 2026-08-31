@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { generateMetadata } from "@/lib/seo";
-import { faqs } from "@/content/faq";
+import { faqItems } from "@/content/faq";
 
 import Hero from "@/components/home/Hero";
 import WhyIric from "@/components/home/WhyIric";
@@ -23,7 +23,7 @@ export const metadata: Metadata = generateMetadata({
 
 export default function HomePage() {
   const faqSchema = {
-    items: faqs.map((faq) => ({
+    items: faqItems.map((faq) => ({
       question: faq.question,
       answer: faq.answer,
     })),
