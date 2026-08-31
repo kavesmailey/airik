@@ -1,0 +1,176 @@
+/* ═══════════════════════════════════════════════════════════════
+   IRIC — Design Tokens & Global Styles
+   Industrial / Precise / Tactile / Bold
+   ═══════════════════════════════════════════════════════════════ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design Tokens (Single Source of Truth) ──────────────────── */
+:root {
+  /* Dark theme (primary) */
+  --color-bg: #1a1a18;
+  --color-surface: #232321;
+  --color-surface-hover: #2a2a28;
+  --color-text: #f5f2ec;
+  --color-text-muted: rgba(245, 242, 236, 0.55);
+  --color-text-faint: rgba(245, 242, 236, 0.35);
+  --color-border: rgba(245, 242, 236, 0.15);
+  --color-border-strong: rgba(245, 242, 236, 0.3);
+
+  /* Light theme (alternate sections) */
+  --color-bg-light: #f0ede5;
+  --color-surface-light: #faf8f3;
+  --color-text-dark: #1a1a18;
+  --color-text-dark-muted: rgba(26, 26, 24, 0.55);
+  --color-text-dark-faint: rgba(26, 26, 24, 0.35);
+  --color-border-light: rgba(26, 26, 24, 0.2);
+  --color-border-light-strong: rgba(26, 26, 24, 0.35);
+
+  /* Accent — industrial safety orange */
+  --color-accent: #e8590c;
+  --color-accent-hover: #f0702e;
+  --color-accent-contrast: #1a1a18;
+
+  /* Secondary tones (editorial variety) */
+  --color-tone-clay: #8b3a1f;
+  --color-tone-ink: #1f3a44;
+  --color-tone-olive: #4a4a3a;
+}
+
+/* ── Base Styles ─────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-bg text-text font-sans text-base;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans font-bold;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-contrast);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ── Component Base Styles ───────────────────────────────────── */
+@layer components {
+  .container-iric {
+    @apply mx-auto w-full max-w-screen-2xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-iric {
+    @apply py-20 sm:py-28;
+  }
+
+  .divider-dark {
+    border-color: var(--color-border);
+  }
+  .divider-light {
+    border-color: var(--color-border-light);
+  }
+
+  .btn-primary {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-md px-6 text-sm font-semibold;
+    background-color: var(--color-accent);
+    color: var(--color-accent-contrast);
+    transition: background-color 250ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+  }
+  .btn-primary:focus-visible {
+    outline-color: var(--color-text);
+    outline-offset: 2px;
+  }
+
+  .btn-secondary {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-md px-6 text-sm font-semibold;
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-text);
+    transition: border-color 250ms, background-color 250ms;
+  }
+  .btn-secondary:hover {
+    border-color: var(--color-text);
+    background-color: rgba(245, 242, 236, 0.08);
+  }
+
+  .link-underline {
+    @apply relative;
+  }
+  .link-underline::after {
+    content: "";
+    @apply absolute inset-x-0 bottom-0 h-px origin-right scale-x-0 transition-transform duration-300;
+    background-color: currentColor;
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform-origin: left;
+    @apply scale-x-100;
+  }
+
+  .card-industrial {
+    @apply rounded-md border p-6 sm:p-8;
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    transition: transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                border-color 300ms;
+  }
+  .card-industrial:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-border-strong);
+  }
+}
+
+/* ── Utility Classes ─────────────────────────────────────────── */
+@layer utilities {
+  .text-start-rtl {
+    text-align: start;
+  }
+  .text-end-rtl {
+    text-align: end;
+  }
+
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .texture-industrial {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+}
