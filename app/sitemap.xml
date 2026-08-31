@@ -1,68 +1,97 @@
-import { services } from "@/content/services";
-import { projects } from "@/content/projects";
-import { articles } from "@/content/articles";
-import { businessTypes } from "@/content/business";
-import { siteConfig } from "@/content/site";
+import type { MetadataRoute } from "next";
 
-const baseUrl = siteConfig.siteUrl;
+import { getAllServiceSlugs } from "@/content/services";
+import { getAllProjectSlugs } from "@/content/projects";
+import { getAllArticleSlugs } from "@/content/articles";
 
-export default function Sitemap() {
-  const staticPages = [
-    { url: "/", priority: 1.0 },
-    { url: "/خدمات", priority: 0.9 },
-    { url: "/نمونه-کارها", priority: 0.8 },
-    { url: "/وبلاگ", priority: 0.8 },
-    { url: "/برای-کسب-و-کارها", priority: 0.7 },
-    { url: "/استعلام-قیمت", priority: 0.9 },
-    { url: "/درباره-ما", priority: 0.6 },
-    { url: "/تماس-با-ما", priority: 0.6 },
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://airik-xi.vercel.app";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+
+  const staticPages: MetadataRoute.Sitemap = [
+    {
+      url: siteUrl,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+    {
+      url: `${siteUrl}/خدمات`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/نمونه-کارها`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/بلاگ`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/برای-کسب-و-کارها`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/درباره-آیریک`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${siteUrl}/تماس-با-ما`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/استعلام-قیمت`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
   ];
 
-  const servicePages = services.map((service) => ({
-    url: `/خدمات/${service.slug}`,
-    priority: 0.8,
-  }));
+  const servicePages: MetadataRoute.Sitemap = getAllServiceSlugs().map(
+    (slug) => ({
+      url: `${siteUrl}/خدمات/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    })
+  );
 
-  const projectPages = projects.map((project) => ({
-    url: `/نمونه-کارها/${project.slug}`,
-    priority: 0.7,
-  }));
+  const projectPages: MetadataRoute.Sitemap = getAllProjectSlugs().map(
+    (slug) => ({
+      url: `${siteUrl}/نمونه-کارها/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    })
+  );
 
-  const articlePages = articles.map((article) => ({
-    url: `/وبلاگ/${article.slug}`,
-    priority: 0.7,
-  }));
+  const articlePages: MetadataRoute.Sitemap = getAllArticleSlugs().map(
+    (slug) => ({
+      url: `${siteUrl}/بلاگ/${slug}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    })
+  );
 
-  const businessPages = businessTypes.map((business) => ({
-    url: `/برای-کسب-و-کارها/${business.slug}`,
-    priority: 0.7,
-  }));
-
-  const allPages = [
+  return [
     ...staticPages,
     ...servicePages,
     ...projectPages,
     ...articlePages,
-    ...businessPages,
   ];
-
-  return new Response(
-    `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allPages
-  .map(
-    (page) => `  <url>
-    <loc>${baseUrl}${page.url}</loc>
-    <priority>${page.priority}</priority>
-  </url>`
-  )
-  .join("\n")}
-</urlset>`,
-    {
-      headers: {
-        "Content-Type": "application/xml",
-        "Cache-Control": "public, max-age=3600",
-      },
-    }
-  );
 }
