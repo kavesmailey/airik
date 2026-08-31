@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const siteUrl =
+const baseUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://airik-xi.vercel.app";
 
 export default function robots(): MetadataRoute.Robots {
@@ -8,12 +8,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: [
-        "/api/",
-        "/_next/",
-        "/admin/",
-      ],
+      disallow: ["/api/", "/_next/"],
     },
-    sitemap: `${siteUrl}/sitemap.xml`,
+    sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
   };
 }
