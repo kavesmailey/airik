@@ -10,10 +10,10 @@ export default function Sitemap() {
     { url: "/", priority: 1.0 },
     { url: "/خدمات", priority: 0.9 },
     { url: "/نمونه-کارها", priority: 0.8 },
-    { url: "/مجله", priority: 0.8 },
+    { url: "/وبلاگ", priority: 0.8 },
     { url: "/برای-کسب-و-کارها", priority: 0.7 },
     { url: "/استعلام-قیمت", priority: 0.9 },
-    { url: "/درباره-آیریک", priority: 0.6 },
+    { url: "/درباره-ما", priority: 0.6 },
     { url: "/تماس-با-ما", priority: 0.6 },
   ];
 
@@ -28,7 +28,7 @@ export default function Sitemap() {
   }));
 
   const articlePages = articles.map((article) => ({
-    url: `/مجله/${article.slug}`,
+    url: `/وبلاگ/${article.slug}`,
     priority: 0.7,
   }));
 
