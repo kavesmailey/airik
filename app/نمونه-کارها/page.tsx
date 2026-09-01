@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { projects } from "@/content/projects";
 
 export const metadata: Metadata = {
-  title: "نمونه‌کارها | Ayric",
+  title: "نمونه‌کارها | آیریک",
   description:
     "نمونه‌ای از پروژه‌های چاپ و تولید آیریک برای برندها و کسب‌وکارها.",
 };
@@ -46,14 +45,10 @@ export default function ProjectsPage() {
             </h2>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-x-6 gap-y-20 md:grid-cols-2">
             {projects.map((project, index) => (
-              <Link
-                key={project.slug}
-                href={`/نمونه-کارها/${project.slug}`}
-                className="group block"
-              >
-                {/* Image / Visual */}
+              <article key={project.slug} className="group">
+                {/* Project Image */}
                 <div
                   className={`relative mb-6 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.5rem] ${
                     index % 3 === 0
@@ -73,12 +68,12 @@ export default function ProjectsPage() {
                     </span>
                   </div>
 
-                  <span className="absolute left-6 top-6 flex h-10 w-10 items-center justify-center rounded-full bg-white/70 text-sm opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100">
-                    ↗
+                  <span className="absolute bottom-6 right-6 text-xs text-black/30">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
 
-                {/* Info */}
+                {/* Project Info */}
                 <div className="flex items-start justify-between gap-6">
                   <div>
                     <p className="mb-2 text-xs text-black/35">
@@ -88,13 +83,15 @@ export default function ProjectsPage() {
                     <h3 className="text-xl font-medium tracking-tight md:text-2xl">
                       {project.title}
                     </h3>
-                  </div>
 
-                  <span className="pt-1 text-xs text-black/30">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                    {project.description && (
+                      <p className="mt-3 max-w-xl text-sm leading-7 text-black/50">
+                        {project.description}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </Link>
+              </article>
             ))}
           </div>
         </div>
@@ -152,13 +149,13 @@ export default function ProjectsPage() {
               روش اجرا و هزینه با شما صحبت کنیم.
             </p>
 
-            <Link
+            <a
               href="/استعلام-قیمت"
               className="mt-10 inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-sm text-black transition-transform hover:-translate-y-0.5"
             >
               استعلام قیمت
               <span aria-hidden="true">↗</span>
-            </Link>
+            </a>
           </div>
         </div>
       </section>
