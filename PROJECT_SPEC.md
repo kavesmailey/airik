@@ -1,5 +1,4 @@
 AYRIC — PROJECT SPECIFICATION
-
 Master Product, Design & Development Specification
 
 Project: Ayric
