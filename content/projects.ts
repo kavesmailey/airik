@@ -1,81 +1,55 @@
-/**
- * ═══════════════════════════════════════════════════════════════
- * PROJECTS DATA — Sample project structures
- * ═══════════════════════════════════════════════════════════════
- * Replace with real project data when available.
- */
-
-export interface Project {
+export type Project = {
   slug: string;
   title: string;
-  brand: string;
-  product: string;
-  printingMethod: string;
-  quantity: string;
-  colorCount: string;
-  objective: string;
-  challenge: string;
-  process: string[];
-  result: string;
-  images: string[];
-  meta: {
-    title: string;
-    description: string;
-  };
-}
+  category: string;
+  description: string;
+};
 
 export const projects: Project[] = [
   {
-    slug: "چاپ-بگ-برند-نمونه",
-    title: "از یک فایل ساده تا ۱۰۰۰ بگ چاپ‌شده",
-    brand: "برند نمونه",
-    product: "بگ",
-    printingMethod: "سیلک",
-    quantity: "۱۰۰۰ عدد",
-    colorCount: "۲ رنگ",
-    objective: "بسته‌بندی اختصاصی برند",
-    challenge:
-      "ایجاد هویت بصری یکپارچه برای بسته‌بندی که در لحظه تحویل سفارش دیده شود.",
-    process: [
-      "دریافت فایل",
-      "آماده‌سازی شابلون",
-      "چاپ",
-      "کنترل کیفیت",
-      "بسته‌بندی و تحویل",
-    ],
-    result: "بگ‌های چاپ‌شده با کیفیت یکنواخت و رنگ‌های دقیق.",
-    images: [],
-    meta: {
-      title: "چاپ بگ برند نمونه | آیریک",
-      description: "پروژه چاپ ۱۰۰۰ بگ با روش سیلک",
-    },
+    slug: "packaging",
+    title: "پروژه بسته‌بندی",
+    category: "بسته‌بندی",
+    description:
+      "طراحی و تولید بسته‌بندی با تمرکز بر کیفیت اجرا، متریال و تجربه نهایی محصول.",
   },
   {
-    slug: "چاپ-لباس-برند-نمونه",
-    title: "چاپ تیشرت با جزئیات بالا",
-    brand: "برند پوشاک نمونه",
-    product: "لباس",
-    printingMethod: "DTF",
-    quantity: "۲۰۰ عدد",
-    colorCount: "چند رنگ",
-    objective: "چاپ طرح عکسی با جزئیات بالا",
-    challenge: "اجرای طرح پیچیده با گرادیان روی پارچه",
-    process: [
-      "دریافت فایل",
-      "چاپ فیلم",
-      "انتقال حرارتی",
-      "کنترل کیفیت",
-      "تحویل",
-    ],
-    result: "تیشرت‌های چاپ‌شده با جزئیات دقیق و رنگ‌های زنده.",
-    images: [],
-    meta: {
-      title: "چاپ لباس برند نمونه | آیریک",
-      description: "پروژه چاپ ۲۰۰ تیشرت با روش DTF",
-    },
+    slug: "fashion-print",
+    title: "چاپ برای برند پوشاک",
+    category: "چاپ روی لباس",
+    description:
+      "تولید چاپ روی لباس و پارچه با توجه به جنس متریال، جزئیات طرح و تیراژ سفارش.",
+  },
+  {
+    slug: "restaurant",
+    title: "هویت چاپی رستوران",
+    category: "رستوران",
+    description:
+      "تولید مجموعه‌ای از اقلام چاپی برای یک کسب‌وکار غذایی با تمرکز بر تجربه برند.",
+  },
+  {
+    slug: "cafe",
+    title: "اقلام چاپی کافه",
+    category: "کافه",
+    description:
+      "چاپ و تولید اقلام مورد استفاده در فضای کافه و سفارش‌های بیرون‌بر.",
+  },
+  {
+    slug: "corporate",
+    title: "پروژه سازمانی",
+    category: "سازمانی",
+    description:
+      "تولید اقلام چاپی برای استفاده سازمانی، رویدادها و ارتباطات برند.",
+  },
+  {
+    slug: "promotional",
+    title: "محصولات تبلیغاتی",
+    category: "تبلیغات",
+    description:
+      "تولید محصولات و متریال‌های چاپی برای کمپین‌ها، رویدادها و فعالیت‌های تبلیغاتی.",
   },
 ];
 
-export function getProjectBySlug(slug: string): Project | undefined {
-  return projects.find((p) => p.slug === slug);
+export function getProject(slug: string) {
+  return projects.find((project) => project.slug === slug);
 }
