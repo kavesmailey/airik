@@ -1,103 +1,79 @@
-/**
- * ═══════════════════════════════════════════════════════════════
- * BUSINESS TYPES — Landing page data for different customer types
- * ═══════════════════════════════════════════════════════════════
- */
-
-export interface BusinessType {
+export type BusinessSolution = {
   slug: string;
   title: string;
   description: string;
-  relevantServices: string[];
-  relevantArticles: string[];
-  image: string;
-  meta: {
-    title: string;
-    description: string;
-  };
-}
+  seoDescription: string;
+};
 
-export const businessTypes: BusinessType[] = [
+export const businessSolutions: BusinessSolution[] = [
   {
-    slug: "برندهای-پوشاک",
-    title: "برای برندهای پوشاک",
+    slug: "restaurants",
+    title: "رستوران‌ها",
     description:
-      "چاپ تخصصی روی لباس، بگ و بسته‌بندی برای برندهای پوشاک که کیفیت برایشان اهمیت دارد.",
-    relevantServices: ["چاپ-روی-لباس", "چاپ-بگ", "چاپ-dtf"],
-    relevantArticles: ["چاپ-سیلک-چیست", "چاپ-dtf-چیست"],
-    image: "/images/business/clothing-brands.jpg",
-    meta: {
-      title: "چاپ برای برندهای پوشاک | آیریک",
-      description: "خدمات چاپ تخصصی برای برندهای پوشاک",
-    },
+      "چاپ بسته‌بندی، جعبه، لیوان، کیسه و اقلامی که بخشی از تجربه سفارش و برند رستوران هستند.",
+    seoDescription:
+      "راهکارهای چاپ برای رستوران‌ها؛ از بسته‌بندی و جعبه تا لیوان، کیسه و اقلام چاپی مورد نیاز سفارش‌های بیرون‌بر.",
   },
   {
-    slug: "بوتیک-ها",
-    title: "برای بوتیک‌ها",
+    slug: "cafes",
+    title: "کافه‌ها",
     description:
-      "بگ اختصاصی و چاپ برند برای بوتیک‌هایی که می‌خواهند هویت متمایزی داشته باشند.",
-    relevantServices: ["چاپ-بگ", "چاپ-dtf"],
-    relevantArticles: ["بهترین-روش-چاپ-روی-بگ"],
-    image: "/images/business/boutiques.jpg",
-    meta: {
-      title: "چاپ برای بوتیک‌ها | آیریک",
-      description: "خدمات چاپ تخصصی برای بوتیک‌ها",
-    },
+      "اقلام چاپی برای کافه‌ها؛ از لیوان و بسته‌بندی تا متریال‌های روزمره و تبلیغاتی.",
+    seoDescription:
+      "خدمات و راهکارهای چاپ برای کافه‌ها شامل چاپ روی لیوان، بسته‌بندی، کیسه و اقلام تبلیغاتی.",
   },
   {
-    slug: "کافه-ها",
-    title: "برای کافه‌ها",
+    slug: "fashion",
+    title: "برندهای پوشاک",
     description:
-      "چاپ لیوان، ظروف و بسته‌بندی برای کافه‌هایی که تجربه مشتری را کامل می‌کنند.",
-    relevantServices: ["چاپ-لیوان-کاغذی", "چاپ-ظروف-گرد", "چاپ-بگ"],
-    relevantArticles: ["چاپ-روی-لیوان-کاغذی"],
-    image: "/images/business/cafes.jpg",
-    meta: {
-      title: "چاپ برای کافه‌ها | آیریک",
-      description: "خدمات چاپ تخصصی برای کافه‌ها",
-    },
+      "چاپ روی لباس و پارچه، بسته‌بندی و اقلامی که هویت یک برند پوشاک را در نقطه تماس با مشتری کامل می‌کنند.",
+    seoDescription:
+      "راهکارهای چاپ برای برندهای پوشاک؛ چاپ روی لباس و پارچه، بسته‌بندی و اقلام هویت بصری.",
   },
   {
-    slug: "رستوران-ها",
-    title: "برای رستوران‌ها و فست‌فودها",
+    slug: "retail",
+    title: "فروشگاه‌ها",
     description:
-      "چاپ جعبه پیتزا، ظروف و بسته‌بندی برای رستوران‌هایی که برندشان را جدی می‌گیرند.",
-    relevantServices: ["چاپ-جعبه-پیتزا", "چاپ-ظروف-گرد", "چاپ-کارتن"],
-    relevantArticles: ["چاپ-روی-جعبه-پیتزا"],
-    image: "/images/business/restaurants.jpg",
-    meta: {
-      title: "چاپ برای رستوران‌ها | آیریک",
-      description: "خدمات چاپ تخصصی برای رستوران‌ها",
-    },
+      "راهکارهای چاپ برای فروشگاه‌ها؛ از کیسه و بسته‌بندی تا اقلام تبلیغاتی و متریال مورد نیاز فروش.",
+    seoDescription:
+      "خدمات چاپ برای فروشگاه‌ها شامل بسته‌بندی، کیسه، جعبه و سایر اقلام چاپی مورد استفاده در فروش.",
   },
   {
-    slug: "فروشگاه-های-اینترنتی",
-    title: "برای فروشگاه‌های اینترنتی",
+    slug: "brands",
+    title: "برندها",
     description:
-      "بسته‌بندی حرفه‌ای برای ارسال سفارش که تجربه مشتری را ارتقا می‌دهد.",
-    relevantServices: ["چاپ-کارتن", "چاپ-بگ", "چاپ-dtf"],
-    relevantArticles: ["فایل-مناسب-برای-چاپ"],
-    image: "/images/business/online-stores.jpg",
-    meta: {
-      title: "چاپ برای فروشگاه‌های اینترنتی | آیریک",
-      description: "خدمات چاپ تخصصی برای فروشگاه‌های اینترنتی",
-    },
+      "تولید اقلام چاپی هماهنگ با هویت برند، از بسته‌بندی و محصولات تبلیغاتی تا نقاط تماس روزمره.",
+    seoDescription:
+      "راهکارهای چاپ برای برندها؛ تولید بسته‌بندی، محصولات چاپی و اقلام تبلیغاتی هماهنگ با هویت برند.",
   },
   {
-    slug: "تولیدکننده-ها",
-    title: "برای تولیدکننده‌ها",
+    slug: "companies",
+    title: "شرکت‌ها",
     description:
-      "چاپ در تیراژ بالا با کیفیت یکنواخت برای تولیدکننده‌هایی که نیاز به برندینگ دارند.",
-    relevantServices: ["چاپ-کارتن", "چاپ-ظروف-گرد", "چاپ-لیوان-کاغذی"],
-    relevantArticles: ["چاپ-سیلک-چیست"],
-    image: "/images/business/manufacturers.jpg",
-    meta: {
-      title: "چاپ برای تولیدکننده‌ها | آیریک",
-      description: "خدمات چاپ تخصصی برای تولیدکننده‌ها",
-    },
+      "تأمین اقلام چاپی مورد نیاز شرکت‌ها برای استفاده روزمره، رویدادها، کمپین‌ها و ارتباطات سازمانی.",
+    seoDescription:
+      "خدمات چاپ برای شرکت‌ها و سازمان‌ها؛ اقلام چاپی سازمانی، تبلیغاتی، رویدادی و سفارش‌های مستمر.",
+  },
+  {
+    slug: "events",
+    title: "رویدادها",
+    description:
+      "چاپ اقلام مورد نیاز رویدادها، کمپین‌ها و تجربه‌های حضوری با توجه به زمان‌بندی و تیراژ پروژه.",
+    seoDescription:
+      "خدمات چاپ برای رویدادها و کمپین‌ها؛ تولید اقلام چاپی با توجه به تیراژ و زمان‌بندی.",
+  },
+  {
+    slug: "online-businesses",
+    title: "کسب‌وکارهای آنلاین",
+    description:
+      "بسته‌بندی و اقلام چاپی برای فروشگاه‌های آنلاین و کسب‌وکارهایی که تجربه برند را از طریق ارسال محصول منتقل می‌کنند.",
+    seoDescription:
+      "راهکارهای چاپ برای کسب‌وکارهای آنلاین شامل بسته‌بندی، جعبه، کیسه و اقلام چاپی سفارش‌های ارسالی.",
   },
 ];
 
-export function getBusinessTypeBySlug(slug: string): BusinessType | undefined {
-  return businessTypes.find((b) => b.slug === slug);
+export function getBusinessSolution(slug: string) {
+  return businessSolutions.find(
+    (business) => business.slug === slug
+  );
 }
