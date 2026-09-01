@@ -2,230 +2,241 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "درباره AIRIK",
+  title: "درباره ما | Ayric",
   description:
-    "آشنایی با AIRIK، رویکرد ما به چاپ، انتخاب روش تولید و همکاری با برندها و کسب‌وکارها.",
+    "درباره آیریک؛ مجموعه‌ای برای ارائه راهکارهای چاپ و تولید برای برندها و کسب‌وکارها.",
 };
 
 const values = [
   {
-    number: "۰۱",
-    title: "اول مسئله، بعد روش چاپ",
-    text: "هر پروژه از یک فایل آماده و یک دستگاه چاپ شروع نمی‌شود. ابتدا باید بدانیم چه چیزی قرار است تولید شود، کجا استفاده می‌شود و چه نتیجه‌ای انتظار می‌رود.",
+    number: "01",
+    title: "دقت",
+    text: "جزئیات کوچک می‌توانند تفاوت بزرگی در نتیجه نهایی ایجاد کنند.",
   },
   {
-    number: "۰۲",
-    title: "متریال بخشی از تصمیم است",
-    text: "روش چاپ را نمی‌توان جدا از سطحی که قرار است روی آن چاپ شود انتخاب کرد. جنس، بافت، ابعاد و کاربرد نهایی روی نتیجه اثر می‌گذارند.",
+    number: "02",
+    title: "کیفیت",
+    text: "کیفیت برای ما فقط مشخصات فنی نیست؛ تجربه‌ای است که محصول منتقل می‌کند.",
   },
   {
-    number: "۰۳",
-    title: "اطلاعات فنی باید قابل فهم باشد",
-    text: "مشتری قرار نیست متخصص چاپ باشد. وظیفه ما این است که تفاوت روش‌ها، محدودیت‌ها و انتخاب‌های فنی را روشن و قابل فهم توضیح دهیم.",
+    number: "03",
+    title: "راهکار",
+    text: "هر پروژه مسئله متفاوتی دارد و باید راهکار متناسب خودش را پیدا کند.",
   },
   {
-    number: "۰۴",
-    title: "نتیجه مهم‌تر از پیچیدگی است",
-    text: "فرآیند خوب الزاماً پیچیده نیست. اگر روش مناسب درست انتخاب شده باشد، تولید باید تا جای ممکن روشن، قابل پیش‌بینی و قابل اتکا باشد.",
+    number: "04",
+    title: "همراهی",
+    text: "از اولین گفتگو تا تحویل نهایی، کنار پروژه می‌مانیم.",
   },
 ];
 
 export default function AboutPage() {
   return (
     <main dir="rtl">
+      {/* Hero */}
       <section className="border-b border-black/10">
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="max-w-5xl">
-            <p className="mb-8 text-sm font-medium text-black/45">
-              درباره AIRIK
+            <p className="mb-8 text-sm font-medium text-black/40">
+              درباره آیریک
             </p>
 
-            <h1 className="text-4xl font-medium leading-[1.3] tracking-tight md:text-6xl lg:text-7xl">
-              ما فقط فایل شما را
+            <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
+              چاپ را از
               <br />
-              چاپ نمی‌کنیم.
+              زاویه دیگری می‌بینیم.
             </h1>
 
-            <p className="mt-10 max-w-3xl text-lg leading-9 text-black/60 md:text-xl">
-              چاپ بخشی از مسیر تولید یک محصول است. انتخاب روش، متریال، رنگ،
-              تیراژ و جزئیات اجرا می‌تواند نتیجه نهایی را تغییر دهد. AIRIK
-              تلاش می‌کند این تصمیم‌ها را قبل از تولید، ساده و روشن کند.
+            <p className="mt-10 max-w-3xl text-lg leading-9 text-black/60 md:text-xl md:leading-10">
+              آیریک برای برندها و کسب‌وکارهایی ساخته شده که خروجی
+              فیزیکی را بخشی از تجربه برند خود می‌دانند، نه صرفاً یک
+              محصول چاپ‌شده.
             </p>
-
-            <Link
-              href="/استعلام-قیمت"
-              className="mt-10 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
-            >
-              شروع یک پروژه
-              <span>↗</span>
-            </Link>
           </div>
         </div>
       </section>
 
+      {/* Statement */}
+      <section>
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
+          <div className="grid gap-16 md:grid-cols-[0.7fr_1.3fr] md:gap-28">
+            <div>
+              <p className="text-sm font-medium text-black/40">
+                نگاه ما
+              </p>
+            </div>
+
+            <div>
+              <p className="text-3xl font-medium leading-[1.5] tracking-tight md:text-5xl">
+                ما معتقدیم چاپ فقط انتقال یک تصویر روی یک سطح نیست.
+                <span className="text-black/35">
+                  {" "}
+                  بخشی از چیزی است که مخاطب لمس می‌کند، می‌بیند و
+                  به خاطر می‌سپارد.
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Visual */}
+      <section>
+        <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12">
+          <div className="relative flex min-h-[480px] items-center justify-center overflow-hidden rounded-[2rem] bg-[#e7e2d4] md:min-h-[650px]">
+            <div className="text-center">
+              <span className="block text-xs tracking-[0.3em] text-black/30">
+                AYRIC
+              </span>
+
+              <span className="mt-5 block text-[9rem] font-medium leading-none tracking-[-0.1em] text-black/10 md:text-[15rem]">
+                A
+              </span>
+            </div>
+
+            <p className="absolute bottom-7 right-7 max-w-xs text-sm leading-7 text-black/40 md:bottom-10 md:right-10">
+              جایی که ایده به یک چیز واقعی تبدیل می‌شود.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Story */}
       <section>
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-[0.75fr_1.25fr] md:gap-28">
             <div>
-              <p className="mb-7 text-sm font-medium text-black/45">
-                نگاه ما
+              <p className="mb-7 text-sm font-medium text-black/40">
+                داستان آیریک
               </p>
 
               <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                چاپ یک خروجی نیست؛
+                از یک سفارش
                 <br />
-                یک تصمیم تولیدی است.
+                تا یک رابطه.
               </h2>
             </div>
 
-            <div className="space-y-7 text-lg leading-9 text-black/60">
+            <div className="space-y-8 text-lg leading-9 text-black/60 md:text-xl md:leading-10">
               <p>
-                چیزی که روی صفحه نمایش می‌بینید، الزاماً همان چیزی نیست که
-                روی محصول نهایی دیده می‌شود. سطح چاپ، روش اجرا، رنگ، اندازه
-                و حتی شکل محصول می‌توانند نتیجه را تغییر دهند.
+                آیریک با یک نگاه ساده شکل گرفته است: اینکه فرآیند چاپ
+                نباید فقط از دریافت فایل و تحویل محصول تشکیل شود.
               </p>
 
               <p>
-                به همین دلیل قبل از اینکه درباره دستگاه یا تکنولوژی صحبت
-                کنیم، باید خود پروژه را بفهمیم. قرار است چه چیزی چاپ شود؟
-                برای چه کسی؟ با چه کاربردی؟ و در چه شرایطی قرار است استفاده
-                شود؟
+                ما می‌خواهیم قبل از تولید، مسئله را بفهمیم؛ متریال و
+                روش مناسب را پیدا کنیم و مطمئن شویم نتیجه نهایی با
+                چیزی که برند در ذهن دارد فاصله‌ای ندارد.
               </p>
 
               <p>
-                وقتی این تصویر روشن باشد، انتخاب روش چاپ هم منطقی‌تر می‌شود.
-                این همان نقطه‌ای است که AIRIK می‌خواهد در آن نقش داشته باشد:
-                تبدیل یک نیاز چاپی به یک تصمیم قابل اجرا.
+                به همین دلیل هر پروژه برای ما فرصتی است برای پیدا کردن
+                راهی بهتر برای تبدیل یک ایده به یک تجربه فیزیکی.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#f5f3ef]">
-        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
-          <div className="max-w-5xl">
-            <p className="mb-8 text-sm font-medium text-black/45">
-              دیدگاه AIRIK
-            </p>
-
-            <p className="text-3xl font-medium leading-[1.55] tracking-tight md:text-5xl lg:text-6xl">
-              بهترین نتیجه لزوماً
-              <br />
-              پیچیده‌ترین راه‌حل نیست.
-            </p>
-
-            <p className="mt-10 max-w-3xl text-lg leading-9 text-black/55">
-              روش مناسب، روشی است که با محصول، متریال، تعداد، جزئیات طرح و
-              کاربرد نهایی هماهنگ باشد. گاهی یک تکنولوژی ساده‌تر دقیقاً همان
-              چیزی است که پروژه نیاز دارد.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section>
+      {/* Values */}
+      <section className="border-y border-black/10 bg-[#f5f3ef]">
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="mb-16 max-w-3xl md:mb-24">
-            <p className="mb-7 text-sm font-medium text-black/45">
+            <p className="mb-7 text-sm font-medium text-black/40">
               اصول ما
             </p>
 
             <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
-              چیزهایی که در هر پروژه
+              چیزهایی که
               <br />
-              اهمیت دارند.
+              کوتاه نمی‌آیند.
             </h2>
           </div>
 
           <div className="grid border-t border-black/10 md:grid-cols-2">
             {values.map((value) => (
-              <article
+              <div
                 key={value.number}
-                className="border-b border-black/10 py-12 md:p-14"
+                className="border-b border-black/10 py-10 md:px-10 md:py-14 md:[&:nth-child(odd)]:border-l"
               >
-                <span className="text-xs text-black/35">
+                <span className="text-xs text-black/30">
                   {value.number}
                 </span>
 
-                <h3 className="mt-8 text-2xl font-medium tracking-tight md:text-3xl">
+                <h3 className="mt-7 text-2xl font-medium">
                   {value.title}
                 </h3>
 
-                <p className="mt-5 max-w-xl leading-8 text-black/55">
+                <p className="mt-5 max-w-md leading-8 text-black/50">
                   {value.text}
                 </p>
-              </article>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-y border-black/10">
+      {/* Why */}
+      <section>
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
-          <div className="grid gap-16 md:grid-cols-[0.75fr_1.25fr] md:gap-28">
-            <div>
-              <p className="mb-7 text-sm font-medium text-black/45">
-                چه کار می‌کنیم؟
-              </p>
+          <div className="max-w-5xl">
+            <p className="mb-8 text-sm font-medium text-black/40">
+              چرا آیریک؟
+            </p>
 
-              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                از پوشاک
-                <br />
-                تا بسته‌بندی.
-              </h2>
-            </div>
+            <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl lg:text-6xl">
+              چون بین یک فایل خوب
+              <br />
+              و یک خروجی خوب،
+              <br />
+              تفاوت زیادی وجود دارد.
+            </h2>
 
-            <div className="space-y-7 text-lg leading-9 text-black/60">
-              <p>
-                AIRIK مجموعه‌ای از خدمات چاپ را برای نیازهای مختلف ارائه
-                می‌کند؛ از چاپ سیلک و DTF تا چاپ روی لباس و پارچه، بگ،
-                کارتن، جعبه، لیوان و دیگر محصولات.
-              </p>
-
-              <p>
-                اما فهرست خدمات، تمام داستان نیست. ارزش اصلی زمانی ایجاد
-                می‌شود که برای هر پروژه، روش چاپ و مسیر تولید متناسب با
-                نیاز واقعی انتخاب شود.
-              </p>
-
-              <Link
-                href="/خدمات"
-                className="inline-flex items-center gap-2 pt-3 text-sm text-black transition-opacity hover:opacity-60"
-              >
-                مشاهده خدمات
-                <span>↗</span>
-              </Link>
-            </div>
+            <p className="mt-10 max-w-3xl text-lg leading-9 text-black/55 md:text-xl md:leading-10">
+              تجربه، شناخت متریال، انتخاب روش درست و توجه به جزئیات
+              اجرایی همان چیزی است که یک خروجی معمولی را از یک خروجی
+              درست و قابل اعتماد جدا می‌کند.
+            </p>
           </div>
         </div>
       </section>
 
-      <section>
+      {/* CTA */}
+      <section className="border-t border-black/10 bg-black text-white">
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="max-w-4xl">
-            <p className="mb-7 text-sm font-medium text-black/45">
-              شروع همکاری
+            <p className="mb-7 text-sm font-medium text-white/40">
+              همکاری
             </p>
 
-            <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-              لازم نیست همه جواب‌ها
+            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl lg:text-6xl">
+              یک پروژه دارید؟
               <br />
-              را از قبل بدانید.
+              با هم شروعش کنیم.
             </h2>
 
-            <p className="mt-9 max-w-3xl text-lg leading-9 text-black/60">
-              کافی است بدانیم چه چیزی می‌خواهید تولید کنید. اطلاعات پروژه را
-              بفرستید و انتخاب روش چاپ را به ما بسپارید.
+            <p className="mt-8 max-w-2xl text-lg leading-9 text-white/55">
+              درباره پروژه‌تان با ما صحبت کنید. حتی اگر هنوز جزئیات
+              کامل را نمی‌دانید.
             </p>
 
-            <Link
-              href="/استعلام-قیمت"
-              className="mt-10 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
-            >
-              استعلام قیمت
-              <span>↗</span>
-            </Link>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link
+                href="/استعلام-قیمت"
+                className="inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-sm text-black transition-transform hover:-translate-y-0.5"
+              >
+                استعلام قیمت
+                <span aria-hidden="true">↗</span>
+              </Link>
+
+              <Link
+                href="/تماس-با-ما"
+                className="inline-flex items-center gap-3 rounded-full border border-white/20 px-8 py-4 text-sm transition-colors hover:border-white"
+              >
+                تماس با ما
+                <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
