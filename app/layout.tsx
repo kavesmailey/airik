@@ -1,80 +1,29 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://airik-xi.vercel.app";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-
   title: {
-    default: "AIRIK | چاپ حرفه‌ای",
-    template: "%s | AIRIK",
+    default: "آیریک | راهکارهای چاپ",
+    template: "%s | آیریک",
   },
-
   description:
-    "AIRIK یک مجموعه چاپ حرفه‌ای است؛ از انتخاب روش و متریال تا تولید نهایی، برای پروژه‌های چاپی برندها و کسب‌وکارها.",
-
-  applicationName: "AIRIK",
-
+    "آیریک؛ ارائه‌دهنده راهکارهای چاپ برای برندها و کسب‌وکارها، از چاپ روی لباس و پارچه تا بسته‌بندی و اقلام تبلیغاتی.",
   keywords: [
+    "آیریک",
+    "Ayric",
     "چاپ",
     "چاپخانه",
-    "چاپ حرفه‌ای",
-    "چاپ سیلک",
-    "چاپ DTF",
     "چاپ روی لباس",
-    "چاپ روی تیشرت",
     "چاپ روی پارچه",
-    "چاپ بسته‌بندی",
-    "چاپ بگ",
+    "بسته بندی",
+    "چاپ تبلیغاتی",
   ],
-
-  authors: [{ name: "AIRIK" }],
-  creator: "AIRIK",
-  publisher: "AIRIK",
-
-  alternates: {
-    canonical: "/",
-  },
-
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-
-  openGraph: {
-    type: "website",
-    locale: "fa_IR",
-    url: siteUrl,
-    siteName: "AIRIK",
-    title: "AIRIK | چاپ حرفه‌ای",
-    description:
-      "چاپ فقط خروجی فایل نیست؛ بخشی از کیفیت محصول شماست.",
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "AIRIK | چاپ حرفه‌ای",
-    description:
-      "راهکارهای چاپ برای برندها و کسب‌وکارها؛ از انتخاب روش و متریال تا تولید نهایی.",
-  },
-
-  icons: {
-    icon: "/icon.svg",
-  },
-
-  other: {
-    "theme-color": "#F5F3EF",
   },
 };
 
@@ -85,9 +34,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className="bg-[#f7f5f1] text-black antialiased">
+      <body className="min-h-screen bg-[#f7f5f1] text-black antialiased">
         <Header />
-        {children}
+
+        <main>{children}</main>
+
         <Footer />
       </body>
     </html>
