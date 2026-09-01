@@ -9,22 +9,24 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main dir="rtl">
-      {/* Hero */}
+    <main dir="rtl" className="overflow-hidden">
+      {/* ─────────────────────────────────────────
+          HERO
+      ───────────────────────────────────────── */}
       <section className="border-b border-black/10">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+        <div className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 sm:py-28 md:px-10 md:py-36 lg:px-12 lg:py-40">
           <div className="max-w-5xl">
-            <p className="mb-8 text-sm text-black/40">
+            <p className="mb-7 text-xs font-medium tracking-wide text-black/40 sm:text-sm">
               نمونه‌کارهای آیریک
             </p>
 
-            <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
+            <h1 className="text-[clamp(2.5rem,7vw,6.5rem)] font-medium leading-[1.12] tracking-[-0.045em]">
               بخشی از چیزهایی
               <br />
               که ساخته‌ایم.
             </h1>
 
-            <p className="mt-8 max-w-2xl text-base leading-8 text-black/55 md:text-lg md:leading-9">
+            <p className="mt-8 max-w-2xl text-base leading-8 text-black/55 sm:mt-10 sm:text-lg sm:leading-9">
               نگاهی به بخشی از پروژه‌های چاپ و تولید آیریک برای
               برندها، کسب‌وکارها و مجموعه‌های مختلف.
             </p>
@@ -32,74 +34,96 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* Portfolio */}
+      {/* ─────────────────────────────────────────
+          PORTFOLIO
+      ───────────────────────────────────────── */}
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-32 lg:px-12">
-          <div className="mb-14 flex items-end justify-between gap-8">
+        <div className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 sm:py-24 md:px-10 md:py-32 lg:px-12">
+          {/* Section heading */}
+          <div className="mb-12 flex items-end justify-between gap-8 sm:mb-16">
             <div>
-              <p className="mb-4 text-sm text-black/40">
+              <p className="mb-4 text-xs font-medium text-black/40 sm:text-sm">
                 پروژه‌ها
               </p>
 
-              <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
+              <h2 className="text-2xl font-medium tracking-[-0.025em] sm:text-3xl md:text-4xl">
                 انتخابی از کارهای ما
               </h2>
             </div>
 
-            <span className="hidden text-sm text-black/35 md:block">
+            <span className="hidden text-xs text-black/30 sm:block">
               {String(projects.length).padStart(2, "0")} پروژه
             </span>
           </div>
 
-          <div className="grid gap-x-6 gap-y-20 md:grid-cols-2">
+          {/* Project grid */}
+          <div className="grid grid-cols-1 gap-x-6 gap-y-16 sm:gap-y-20 md:grid-cols-2 md:gap-y-24">
             {projects.map((project, index) => (
               <article
                 key={project.slug}
                 className="group"
               >
-                {/* Image */}
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#e7e2d4]">
+                {/* Project image */}
+                <div
+                  className={[
+                    "relative aspect-[4/3] overflow-hidden rounded-[1.25rem] sm:rounded-[1.5rem]",
+                    index % 3 === 0
+                      ? "bg-[#e7e2d4]"
+                      : index % 3 === 1
+                        ? "bg-[#d0d5ec]"
+                        : "bg-[#ead8c5]",
+                  ].join(" ")}
+                >
                   {project.image ? (
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                      loading={index < 2 ? "eager" : "lazy"}
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">
-                      <div className="text-center">
-                        <span className="block text-[10px] tracking-[0.35em] text-black/30">
+                      <div className="text-center transition-transform duration-700 ease-out group-hover:scale-105">
+                        <span className="block text-[9px] font-medium tracking-[0.4em] text-black/30 sm:text-[10px]">
                           AYRIC
                         </span>
 
-                        <span className="mt-5 block text-8xl font-medium tracking-[-0.08em] text-black/10">
+                        <span className="mt-4 block text-[5rem] font-medium leading-none tracking-[-0.08em] text-black/10 sm:text-8xl">
                           {String(index + 1).padStart(2, "0")}
                         </span>
                       </div>
                     </div>
                   )}
 
-                  <div className="absolute bottom-5 right-5">
-                    <span className="inline-flex rounded-full bg-white/70 px-3 py-1.5 text-[11px] text-black/50 backdrop-blur-md">
+                  {/* Category */}
+                  <div className="absolute bottom-4 right-4 sm:bottom-5 sm:right-5">
+                    <span className="inline-flex rounded-full bg-white/70 px-3 py-1.5 text-[10px] text-black/55 shadow-sm backdrop-blur-md sm:text-[11px]">
                       {project.category}
                     </span>
                   </div>
+
+                  {/* Number */}
+                  <span className="absolute left-4 top-4 text-[10px] text-black/30 sm:left-5 sm:top-5 sm:text-xs">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                 </div>
 
-                {/* Info */}
-                <div className="mt-6">
-                  <div className="flex items-start justify-between gap-6">
-                    <div>
-                      <h3 className="text-xl font-medium tracking-tight md:text-2xl">
+                {/* Project information */}
+                <div className="mt-5 sm:mt-6">
+                  <div className="flex items-start justify-between gap-5">
+                    <div className="min-w-0">
+                      <h3 className="text-lg font-medium tracking-[-0.02em] sm:text-xl md:text-2xl">
                         {project.title}
                       </h3>
 
-                      <p className="mt-3 max-w-lg text-sm leading-7 text-black/50">
-                        {project.description}
-                      </p>
+                      {project.description && (
+                        <p className="mt-2.5 max-w-xl text-sm leading-7 text-black/50 sm:mt-3">
+                          {project.description}
+                        </p>
+                      )}
                     </div>
 
-                    <span className="pt-1 text-xs text-black/25">
+                    <span className="shrink-0 pt-1 text-[10px] text-black/25 sm:text-xs">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                   </div>
@@ -110,16 +134,18 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* Intro / Approach */}
+      {/* ─────────────────────────────────────────
+          APPROACH
+      ───────────────────────────────────────── */}
       <section className="border-y border-black/10 bg-[#f7f5f1]">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="grid gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-24">
+        <div className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 sm:py-28 md:px-10 md:py-36 lg:px-12">
+          <div className="grid gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-20 lg:gap-32">
             <div>
-              <p className="mb-5 text-sm text-black/40">
+              <p className="mb-5 text-xs font-medium text-black/40 sm:text-sm">
                 نگاه آیریک
               </p>
 
-              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+              <h2 className="text-3xl font-medium leading-[1.35] tracking-[-0.035em] sm:text-4xl md:text-5xl">
                 چاپ فقط خروجی نیست؛
                 <br />
                 بخشی از تجربه است.
@@ -127,13 +153,13 @@ export default function ProjectsPage() {
             </div>
 
             <div className="max-w-2xl">
-              <p className="text-base leading-8 text-black/60 md:text-lg md:leading-9">
+              <p className="text-base leading-8 text-black/60 sm:text-lg sm:leading-9">
                 از انتخاب متریال و روش چاپ تا جزئیات اجرای نهایی،
                 هر تصمیم روی چیزی که در دست مخاطب قرار می‌گیرد
                 تأثیر می‌گذارد.
               </p>
 
-              <p className="mt-6 text-base leading-8 text-black/60 md:text-lg md:leading-9">
+              <p className="mt-6 text-base leading-8 text-black/60 sm:text-lg sm:leading-9">
                 ما تلاش می‌کنیم این جزئیات درست انتخاب و درست اجرا
                 شوند تا نتیجه نهایی همان چیزی باشد که باید باشد.
               </p>
@@ -142,30 +168,32 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ─────────────────────────────────────────
+          CTA
+      ───────────────────────────────────────── */}
       <section className="bg-[#1a1917] text-white">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+        <div className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 sm:py-28 md:px-10 md:py-36 lg:px-12">
           <div className="max-w-4xl">
-            <p className="mb-6 text-sm text-white/40">
+            <p className="mb-6 text-xs font-medium text-white/40 sm:text-sm">
               پروژه شما
             </p>
 
-            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl lg:text-6xl">
+            <h2 className="text-3xl font-medium leading-[1.35] tracking-[-0.035em] sm:text-4xl md:text-5xl lg:text-6xl">
               پروژه بعدی‌تان را
               <br />
               با ما شروع کنید.
             </h2>
 
-            <p className="mt-7 max-w-2xl text-base leading-8 text-white/50 md:text-lg md:leading-9">
-              مشخصات پروژه‌تان را برای ما بفرستید تا درباره
-              روش اجرا و هزینه با شما صحبت کنیم.
+            <p className="mt-7 max-w-2xl text-base leading-8 text-white/50 sm:text-lg sm:leading-9">
+              مشخصات پروژه‌تان را برای ما بفرستید تا درباره روش
+              اجرا و هزینه با شما صحبت کنیم.
             </p>
 
             <a
               href="/استعلام-قیمت"
-              className="mt-9 inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm text-black transition-transform duration-300 hover:-translate-y-0.5"
+              className="mt-9 inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-medium text-black transition-transform duration-300 hover:-translate-y-0.5"
             >
-              استعلام قیمت
+              <span>استعلام قیمت</span>
               <span aria-hidden="true">↗</span>
             </a>
           </div>
