@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { services } from "@/content/services";
@@ -14,9 +15,9 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import JsonLd from "@/components/seo/JsonLd";
 
 type PageProps = {
-  params: Promise<{
+  params: {
     slug: string;
-  }>;
+  };
 };
 
 function getService(slug: string) {
@@ -24,11 +25,11 @@ function getService(slug: string) {
 }
 
 /*
- * Static generation
- *
- * تمام صفحات خدمات در زمان build ساخته می‌شوند.
- * این برای معماری نهایی cPanel / static export مناسب است.
- */
+|--------------------------------------------------------------------------
+| Static generation
+|--------------------------------------------------------------------------
+*/
+
 export function generateStaticParams() {
   return services.map((service) => ({
     slug: service.slug,
@@ -36,36 +37,48 @@ export function generateStaticParams() {
 }
 
 /*
- * SEO Metadata
- *
- * Metadata از content/services.ts می‌آید تا
- * محتوا فقط در یک محل مدیریت شود.
- */
+|--------------------------------------------------------------------------
+| SEO Metadata
+|--------------------------------------------------------------------------
+*/
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const service = getService(slug);
+  const service = getService(params.slug);
 
   if (!service) {
     return {
       title: "خدمت پیدا نشد | آیریک",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
+
+  const canonicalUrl = `/خدمات/${service.slug}`;
 
   return {
     title: service.meta.title,
     description: service.meta.description,
 
     alternates: {
-      canonical: `/خدمات/${service.slug}`,
+      canonical: canonicalUrl,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
     },
 
     openGraph: {
       title: service.meta.title,
       description: service.meta.description,
       type: "website",
-      url: `/خدمات/${service.slug}`,
+      url: canonicalUrl,
+      locale: "fa_IR",
+      siteName: siteConfig.name,
       images: service.image
         ? [
             {
@@ -85,10 +98,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function ServicePage({ params }: PageProps) {
-  const { slug } = await params;
+/*
+|--------------------------------------------------------------------------
+| Page
+|--------------------------------------------------------------------------
+*/
 
-  const service = getService(slug);
+export default function ServicePage({ params }: PageProps) {
+  const service = getService(params.slug);
 
   if (!service) {
     notFound();
@@ -96,52 +113,119 @@ export default async function ServicePage({ params }: PageProps) {
 
   const relatedServices = service.relatedServiceSlugs
     .map((relatedSlug) => getService(relatedSlug))
-    .filter(Boolean);
+    .filter((item): item is NonNullable<typeof item> => Boolean(item));
 
   /*
-   * ------------------------------------------------------------
-   * Structured Data
-   * ------------------------------------------------------------
-   */
+  |--------------------------------------------------------------------------
+  | Absolute URL
+  |--------------------------------------------------------------------------
+  |
+  | برای Schema بهتر است URLها absolute باشند.
+  | اگر siteConfig.url در پروژه شما وجود داشته باشد از آن استفاده می‌شود.
+  |
+  */
+
+  const siteUrl =
+    "url" in siteConfig && typeof siteConfig.url === "string"
+      ? siteConfig.url.replace(/\/$/, "")
+      : "";
+
+  const pageUrl = `${siteUrl}/خدمات/${service.slug}`;
+
+  /*
+  |--------------------------------------------------------------------------
+  | Structured Data
+  |--------------------------------------------------------------------------
+  */
 
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
+    "@id": `${pageUrl}#service`,
     name: service.title,
     description: service.meta.description,
+    url: pageUrl,
+    serviceType: service.title,
+
     provider: {
       "@type": "Organization",
       name: siteConfig.name,
+      ...(siteUrl
+        ? {
+            url: siteUrl,
+          }
+        : {}),
     },
+
     areaServed: {
       "@type": "Country",
       name: "ایران",
     },
-    serviceType: service.title,
-    url: `/خدمات/${service.slug}`,
+
+    inLanguage: "fa-IR",
+  };
+
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${pageUrl}#webpage`,
+    name: service.meta.title,
+    description: service.meta.description,
+    url: pageUrl,
+    inLanguage: "fa-IR",
+
+    ...(siteUrl
+      ? {
+          isPartOf: {
+            "@type": "WebSite",
+            "@id": `${siteUrl}#website`,
+            name: siteConfig.name,
+            url: siteUrl,
+          },
+        }
+      : {}),
+
+    about: {
+      "@id": `${pageUrl}#service`,
+    },
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+
     itemListElement: [
       {
         "@type": "ListItem",
         position: 1,
         name: "خانه",
-        item: "/",
+        ...(siteUrl
+          ? {
+              item: siteUrl,
+            }
+          : {}),
       },
+
       {
         "@type": "ListItem",
         position: 2,
         name: "خدمات",
-        item: "/خدمات",
+        ...(siteUrl
+          ? {
+              item: `${siteUrl}/خدمات`,
+            }
+          : {}),
       },
+
       {
         "@type": "ListItem",
         position: 3,
         name: service.title,
-        item: `/خدمات/${service.slug}`,
+        ...(siteUrl
+          ? {
+              item: pageUrl,
+            }
+          : {}),
       },
     ],
   };
@@ -151,6 +235,7 @@ export default async function ServicePage({ params }: PageProps) {
       ? {
           "@context": "https://schema.org",
           "@type": "FAQPage",
+          "@id": `${pageUrl}#faq`,
           mainEntity: service.faqs.map((faq) => ({
             "@type": "Question",
             name: faq.question,
@@ -164,16 +249,20 @@ export default async function ServicePage({ params }: PageProps) {
 
   return (
     <>
+      {/* Structured Data */}
+
       <JsonLd type="service" data={serviceSchema} />
+
+      <JsonLd type="webpage" data={webPageSchema} />
 
       <JsonLd type="breadcrumb" data={breadcrumbSchema} />
 
       {faqSchema && <JsonLd type="faq" data={faqSchema} />}
 
       <main dir="rtl">
-        {/* =====================================================
+        {/* ==========================================================
             HERO
-        ====================================================== */}
+        =========================================================== */}
 
         <section
           className="pt-28 pb-16 sm:pt-32 sm:pb-20"
@@ -203,7 +292,7 @@ export default async function ServicePage({ params }: PageProps) {
                     color: "var(--color-accent)",
                   }}
                 >
-                  {service.title}
+                  خدمات چاپ آیریک
                 </p>
 
                 <h1
@@ -232,9 +321,11 @@ export default async function ServicePage({ params }: PageProps) {
                     <IconArrow direction="left" size={16} />
                   </Button>
 
-                  <Button href="#faq" variant="secondary" size="lg">
-                    سوالات متداول
-                  </Button>
+                  {service.faqs.length > 0 && (
+                    <Button href="#faq" variant="secondary" size="lg">
+                      سوالات متداول
+                    </Button>
+                  )}
                 </div>
               </div>
 
@@ -243,8 +334,9 @@ export default async function ServicePage({ params }: PageProps) {
                   <div className="overflow-hidden rounded-md">
                     <img
                       src={service.image}
-                      alt={`${service.title} آیریک`}
+                      alt={`نمونه ${service.title} در آیریک`}
                       className="h-auto w-full object-cover"
+                      loading="eager"
                     />
                   </div>
                 ) : (
@@ -259,10 +351,10 @@ export default async function ServicePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* =====================================================
+        {/* ==========================================================
             QUICK ANSWER
             FEO / AI SEARCH
-        ====================================================== */}
+        =========================================================== */}
 
         <section
           className="py-14 sm:py-16"
@@ -286,7 +378,7 @@ export default async function ServicePage({ params }: PageProps) {
                 پاسخ کوتاه
               </p>
 
-              <p
+              <h2
                 className="mt-4 text-xl font-semibold sm:text-2xl"
                 style={{
                   color: "var(--color-text-dark)",
@@ -294,14 +386,26 @@ export default async function ServicePage({ params }: PageProps) {
                 }}
               >
                 {service.shortDescription}
+              </h2>
+
+              <p
+                className="mt-4 text-base"
+                style={{
+                  color: "var(--color-text-muted)",
+                  lineHeight: "var(--line-height-relaxed)",
+                }}
+              >
+                اگر درباره انتخاب روش چاپ برای این نوع سفارش مطمئن نیستید،
+                مشخصات محصول، طرح و تیراژ را برای آیریک ارسال کنید تا روش
+                مناسب بررسی شود.
               </p>
             </div>
           </div>
         </section>
 
-        {/* =====================================================
+        {/* ==========================================================
             ABOUT
-        ====================================================== */}
+        =========================================================== */}
 
         <section
           className="py-16 sm:py-20"
@@ -315,7 +419,6 @@ export default async function ServicePage({ params }: PageProps) {
                 <SectionHeading
                   eyebrow="درباره این خدمت"
                   title={`${service.title} چیست؟`}
-                  tone="dark"
                 />
               </div>
 
@@ -334,9 +437,9 @@ export default async function ServicePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* =====================================================
+        {/* ==========================================================
             BENEFITS
-        ====================================================== */}
+        =========================================================== */}
 
         <section
           className="py-16 sm:py-20"
@@ -348,8 +451,7 @@ export default async function ServicePage({ params }: PageProps) {
             <SectionHeading
               eyebrow="مزایا"
               title={`چرا ${service.title}؟`}
-              description="انتخاب روش مناسب چاپ باید بر اساس نوع محصول، طرح و هدف پروژه انجام شود."
-              tone="light"
+              description="انتخاب روش مناسب چاپ باید بر اساس نوع محصول، طرح، متریال و هدف پروژه انجام شود."
             />
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -389,9 +491,9 @@ export default async function ServicePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* =====================================================
+        {/* ==========================================================
             SUITABLE FOR
-        ====================================================== */}
+        =========================================================== */}
 
         <section
           className="py-16 sm:py-20"
@@ -405,7 +507,6 @@ export default async function ServicePage({ params }: PageProps) {
                 <SectionHeading
                   eyebrow="کاربرد"
                   title="برای چه پروژه‌هایی مناسب است؟"
-                  tone="dark"
                 />
               </div>
 
@@ -444,9 +545,9 @@ export default async function ServicePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* =====================================================
+        {/* ==========================================================
             APPLICATIONS
-        ====================================================== */}
+        =========================================================== */}
 
         <section
           className="py-16 sm:py-20"
@@ -458,7 +559,6 @@ export default async function ServicePage({ params }: PageProps) {
             <SectionHeading
               eyebrow="موارد استفاده"
               title={`${service.title} در چه محصولاتی استفاده می‌شود؟`}
-              tone="light"
             />
 
             <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -498,9 +598,9 @@ export default async function ServicePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* =====================================================
+        {/* ==========================================================
             KEY CONSIDERATIONS
-        ====================================================== */}
+        =========================================================== */}
 
         <section
           className="py-16 sm:py-20"
@@ -513,7 +613,6 @@ export default async function ServicePage({ params }: PageProps) {
               eyebrow="نکات مهم"
               title="قبل از سفارش چه چیزهایی مهم است؟"
               description="انتخاب روش چاپ فقط به ظاهر طرح محدود نمی‌شود. مشخصات تولید روی نتیجه نهایی تأثیر دارند."
-              tone="dark"
             />
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
@@ -559,9 +658,9 @@ export default async function ServicePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* =====================================================
+        {/* ==========================================================
             PRINTING METHODS
-        ====================================================== */}
+        =========================================================== */}
 
         {service.printingMethods.length > 0 && (
           <section
@@ -574,7 +673,6 @@ export default async function ServicePage({ params }: PageProps) {
               <SectionHeading
                 eyebrow="روش اجرا"
                 title="روش چاپ"
-                tone="light"
               />
 
               <div className="mt-10 grid gap-4">
@@ -623,7 +721,8 @@ export default async function ServicePage({ params }: PageProps) {
                         <p
                           className="mt-3 text-sm font-medium"
                           style={{
-                            color: "var(--color-text-dark)",
+                            color:
+                              "var(--color-text-dark)",
                           }}
                         >
                           مناسب برای:{" "}
@@ -645,9 +744,9 @@ export default async function ServicePage({ params }: PageProps) {
           </section>
         )}
 
-        {/* =====================================================
+        {/* ==========================================================
             PROCESS
-        ====================================================== */}
+        =========================================================== */}
 
         <section
           className="py-16 sm:py-20"
@@ -660,7 +759,6 @@ export default async function ServicePage({ params }: PageProps) {
               eyebrow="فرآیند"
               title="فرآیند اجرای سفارش"
               description="از دریافت مشخصات تا کنترل کیفیت، مراحل سفارش بر اساس نوع خدمت و محصول انجام می‌شود."
-              tone="dark"
             />
 
             <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -696,9 +794,9 @@ export default async function ServicePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* =====================================================
+        {/* ==========================================================
             FAQ
-        ====================================================== */}
+        =========================================================== */}
 
         {service.faqs.length > 0 && (
           <section
@@ -714,7 +812,6 @@ export default async function ServicePage({ params }: PageProps) {
                   <SectionHeading
                     eyebrow="سوالات متداول"
                     title={`سوالات درباره ${service.title}`}
-                    tone="light"
                   />
                 </div>
 
@@ -733,9 +830,9 @@ export default async function ServicePage({ params }: PageProps) {
           </section>
         )}
 
-        {/* =====================================================
+        {/* ==========================================================
             RELATED SERVICES
-        ====================================================== */}
+        =========================================================== */}
 
         {relatedServices.length > 0 && (
           <section
@@ -748,93 +845,80 @@ export default async function ServicePage({ params }: PageProps) {
               <SectionHeading
                 eyebrow="خدمات مرتبط"
                 title="ممکن است این خدمات هم برای شما مناسب باشند"
-                tone="dark"
               />
 
               <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {relatedServices.map((relatedService, index) => {
-                  if (!relatedService) return null;
-
-                  return (
-                    <Reveal
-                      key={relatedService.slug}
-                      delay={index * 50}
+                {relatedServices.map((relatedService, index) => (
+                  <Reveal
+                    key={relatedService.slug}
+                    delay={index * 50}
+                  >
+                    <Link
+                      href={`/خدمات/${relatedService.slug}`}
+                      className="group block h-full rounded-md border p-6 transition-transform duration-300 hover:-translate-y-1"
+                      style={{
+                        borderColor: "var(--color-border)",
+                        textDecoration: "none",
+                      }}
                     >
-                      <a
-                        href={`/خدمات/${relatedService.slug}`}
-                        className="group block h-full rounded-md border p-6 transition-transform duration-300 hover:-translate-y-1"
+                      <span
+                        className="text-xs"
                         style={{
-                          borderColor:
-                            "var(--color-border)",
-                          textDecoration: "none",
+                          color: "var(--color-text-faint)",
                         }}
                       >
+                        {String(index + 1).padStart(2, "۰")}
+                      </span>
+
+                      <h3
+                        className="mt-5 text-lg font-bold"
+                        style={{
+                          color: "var(--color-text)",
+                        }}
+                      >
+                        {relatedService.title}
+                      </h3>
+
+                      <p
+                        className="mt-3 text-sm"
+                        style={{
+                          color: "var(--color-text-muted)",
+                          lineHeight:
+                            "var(--line-height-relaxed)",
+                        }}
+                      >
+                        {relatedService.shortDescription}
+                      </p>
+
+                      <div
+                        className="mt-6 flex items-center gap-2 text-sm font-medium"
+                        style={{
+                          color: "var(--color-text)",
+                        }}
+                      >
+                        <span>مشاهده خدمت</span>
+
                         <span
-                          className="text-xs"
-                          style={{
-                            color:
-                              "var(--color-text-faint)",
-                          }}
+                          className="transition-transform duration-300 group-hover:-translate-x-1"
+                          aria-hidden="true"
                         >
-                          {String(index + 1).padStart(
-                            2,
-                            "۰"
-                          )}
+                          <IconArrow
+                            direction="left"
+                            size={16}
+                          />
                         </span>
-
-                        <h3
-                          className="mt-5 text-lg font-bold"
-                          style={{
-                            color: "var(--color-text)",
-                          }}
-                        >
-                          {relatedService.title}
-                        </h3>
-
-                        <p
-                          className="mt-3 text-sm"
-                          style={{
-                            color:
-                              "var(--color-text-muted)",
-                            lineHeight:
-                              "var(--line-height-relaxed)",
-                          }}
-                        >
-                          {
-                            relatedService.shortDescription
-                          }
-                        </p>
-
-                        <div
-                          className="mt-6 flex items-center gap-2 text-sm font-medium"
-                          style={{
-                            color: "var(--color-text)",
-                          }}
-                        >
-                          <span>مشاهده خدمت</span>
-
-                          <span
-                            className="transition-transform duration-300 group-hover:-translate-x-1"
-                            aria-hidden="true"
-                          >
-                            <IconArrow
-                              direction="left"
-                              size={16}
-                            />
-                          </span>
-                        </div>
-                      </a>
-                    </Reveal>
-                  );
-                })}
+                      </div>
+                    </Link>
+                  </Reveal>
+                ))}
               </div>
             </div>
           </section>
         )}
 
-        {/* =====================================================
+        {/* ==========================================================
             FINAL CTA
-        ====================================================== */}
+        =========================================================== */}
 
         <section
           className="py-20 sm:py-24"
