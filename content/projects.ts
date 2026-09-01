@@ -3,6 +3,7 @@ export type Project = {
   title: string;
   category: string;
   description: string;
+  image: string | null;
 };
 
 export const projects: Project[] = [
@@ -10,46 +11,42 @@ export const projects: Project[] = [
     slug: "packaging",
     title: "پروژه بسته‌بندی",
     category: "بسته‌بندی",
-    description:
-      "طراحی و تولید بسته‌بندی با تمرکز بر کیفیت اجرا، متریال و تجربه نهایی محصول.",
+    description: "نمونه‌ای از پروژه‌های چاپ و تولید بسته‌بندی.",
+    image: null,
   },
   {
     slug: "fashion-print",
     title: "چاپ برای برند پوشاک",
-    category: "چاپ روی لباس",
-    description:
-      "تولید چاپ روی لباس و پارچه با توجه به جنس متریال، جزئیات طرح و تیراژ سفارش.",
+    category: "پوشاک",
+    description: "اجرای چاپ برای محصولات یک برند پوشاک.",
+    image: null,
   },
   {
-    slug: "restaurant",
+    slug: "restaurant-print",
     title: "هویت چاپی رستوران",
     category: "رستوران",
-    description:
-      "تولید مجموعه‌ای از اقلام چاپی برای یک کسب‌وکار غذایی با تمرکز بر تجربه برند.",
+    description: "مجموعه‌ای از اقلام چاپی برای یک مجموعه رستورانی.",
+    image: null,
   },
   {
-    slug: "cafe",
+    slug: "cafe-print",
     title: "اقلام چاپی کافه",
     category: "کافه",
-    description:
-      "چاپ و تولید اقلام مورد استفاده در فضای کافه و سفارش‌های بیرون‌بر.",
+    description: "تولید اقلام چاپی برای یک مجموعه کافه.",
+    image: null,
   },
   {
-    slug: "corporate",
+    slug: "corporate-print",
     title: "پروژه سازمانی",
     category: "سازمانی",
-    description:
-      "تولید اقلام چاپی برای استفاده سازمانی، رویدادها و ارتباطات برند.",
+    description: "اجرای اقلام چاپی برای یک مجموعه سازمانی.",
+    image: null,
   },
   {
-    slug: "promotional",
+    slug: "promotional-products",
     title: "محصولات تبلیغاتی",
-    category: "تبلیغات",
-    description:
-      "تولید محصولات و متریال‌های چاپی برای کمپین‌ها، رویدادها و فعالیت‌های تبلیغاتی.",
+    category: "تبلیغاتی",
+    description: "تولید محصولات و اقلام تبلیغاتی.",
+    image: null,
   },
 ];
-
-export function getProject(slug: string) {
-  return projects.find((project) => project.slug === slug);
-}
