@@ -1,4 +1,4 @@
-import { faqs } from "@/content/faq";
+import { faqItems } from "@/content/faq";
 
 export default function FaqSection() {
   return (
@@ -63,7 +63,7 @@ export default function FaqSection() {
                 backgroundColor: "var(--color-bg)",
               }}
             >
-              {faqs.map((faq, index) => (
+              {faqItems.map((faq) => (
                 <details
                   key={faq.question}
                   className="group border-b last:border-b-0"
@@ -92,6 +92,7 @@ export default function FaqSection() {
                             backgroundColor: "currentColor",
                           }}
                         />
+
                         <span
                           className="absolute left-1/2 top-0 h-3 w-px -translate-x-1/2"
                           style={{
@@ -133,7 +134,7 @@ export default function FaqSection() {
                 className="text-xs"
                 style={{ color: "var(--color-text-faint)" }}
               >
-                {faqs.length} سوال و پاسخ
+                {faqItems.length} سوال و پاسخ
               </span>
 
               <span
