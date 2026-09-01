@@ -1,5 +1,13 @@
 interface IconArrowProps {
-  direction?: "left" | "right" | "up" | "down";
+  direction?:
+    | "left"
+    | "right"
+    | "up"
+    | "down"
+    | "up-left"
+    | "up-right"
+    | "down-left"
+    | "down-right";
   size?: number;
   className?: string;
 }
@@ -21,6 +29,18 @@ export default function IconArrow({
     },
     down: {
       d: "M12 5v14M19 12l-7 7-7-7",
+    },
+    "up-left": {
+      d: "M17 17 7 7M7 7h8M7 7v8",
+    },
+    "up-right": {
+      d: "M7 17 17 7M17 7H9M17 7v8",
+    },
+    "down-left": {
+      d: "M17 7 7 17M7 17h8M7 17V9",
+    },
+    "down-right": {
+      d: "M7 7l10 10M17 17H9M17 17V9",
     },
   };
 
