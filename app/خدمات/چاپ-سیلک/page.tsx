@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+
 import { generateMetadata } from "@/lib/seo";
-import Link from "next/link";
+
 import SectionHeading from "@/components/ui/SectionHeading";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import Button from "@/components/ui/Button";
@@ -9,147 +10,301 @@ import Accordion from "@/components/ui/Accordion";
 import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 import Reveal from "@/components/ui/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
+
 import { siteConfig } from "@/content/site";
 
 export const metadata: Metadata = generateMetadata({
-  title: "چاپ سیلک | آیریک",
+  title: "چاپ سیلک؛ چاپ روی لباس، بگ و بسته‌بندی | آیریک",
   description:
-    "خدمات چاپ سیلک (اسکرین) حرفه‌ای روی انواع پارچه، لباس، بگ، کارتن، جعبه پیتزا و ظروف. مشاوره تخصصی و کیفیت بالا.",
+    "خدمات چاپ سیلک و اسکرین آیریک برای چاپ روی لباس، بگ، پارچه، کارتن، بسته‌بندی و محصولات تبلیغاتی. مناسب برای طرح‌های ساده و تیراژ متوسط تا بالا.",
   path: "/خدمات/چاپ-سیلک",
 });
 
 const advantages = [
-  "کیفیت چاپ ثابت و یکنواخت",
-  "مناسب برای تیراژ بالا",
-  "ماندگاری بالا روی انواع متریال",
-  "امکان چاپ روی سطوح مختلف",
-  "هزینه مناسب در تیراژ بالا",
+  {
+    title: "ماندگاری بالا",
+    description:
+      "چاپ سیلک در صورت انتخاب مرکب و روش اجرای مناسب، چاپی بادوام و مناسب برای استفاده مکرر ایجاد می‌کند.",
+  },
+  {
+    title: "مناسب برای تیراژ",
+    description:
+      "هزینه آماده‌سازی شابلون باعث می‌شود چاپ سیلک در تیراژهای متوسط و بالا انتخاب اقتصادی‌تری باشد.",
+  },
+  {
+    title: "رنگ‌های پوشاننده",
+    description:
+      "امکان استفاده از مرکب‌های مناسب برای ایجاد رنگ‌های پررنگ و پوشاننده، حتی روی برخی سطوح و لباس‌های تیره.",
+  },
+  {
+    title: "تنوع متریال",
+    description:
+      "بسته به نوع مرکب و سطح، چاپ سیلک روی پارچه، لباس، کاغذ، کارتن، پلاستیک و برخی متریال دیگر قابل اجراست.",
+  },
+  {
+    title: "مناسب برای هویت برند",
+    description:
+      "برای چاپ لوگو، نوشته و عناصر گرافیکی ساده روی محصولات تبلیغاتی و بسته‌بندی کاربرد زیادی دارد.",
+  },
+  {
+    title: "تکرارپذیری",
+    description:
+      "پس از آماده‌سازی شابلون، امکان اجرای تعداد زیادی چاپ با طرح یکسان و کنترل‌شده وجود دارد.",
+  },
 ];
 
 const suitableProducts = [
+  "تیشرت",
+  "هودی",
+  "لباس و پوشاک",
   "بگ پارچه‌ای",
-  "تیشرت و هودی",
-  "کارتن بسته‌بندی",
+  "پارچه و منسوجات",
+  "کارتن",
+  "بسته‌بندی",
   "جعبه پیتزا",
   "لیوان کاغذی",
-  "ظروف گرد",
-  "پارچه و منسوجات",
+  "محصولات تبلیغاتی",
+];
+
+const bestFor = [
+  "لوگو و نشانه‌های برند",
+  "نوشته و تایپوگرافی",
+  "طرح‌های گرافیکی ساده",
+  "طرح‌های چندرنگ با رنگ‌های مشخص",
+  "سفارش‌های تیراژ متوسط و بالا",
+];
+
+const notIdealFor = [
+  "عکس‌های واقع‌گرایانه",
+  "تصاویر دارای جزئیات بسیار زیاد",
+  "گرادیان‌های پیچیده",
+  "سفارش‌های بسیار کم‌تیراژ که هزینه شابلون برایشان توجیه ندارد",
 ];
 
 const processSteps = [
-  { title: "مشاوره و بررسی نیاز", description: "شناخت محصول، طرح و تیراژ" },
-  { title: "آماده‌سازی فایل", description: "بررسی و آماده‌سازی طرح برای چاپ" },
-  { title: "شابلون‌سازی", description: "تهیه شابلون بر اساس طرح" },
-  { title: "ترکیب رنگ", description: "آماده‌سازی رنگ‌های مورد نیاز" },
-  { title: "اجرای چاپ", description: "چاپ با دقت و کنترل کیفیت" },
-  { title: "خشک‌کردن و تثبیت", description: "تثبیت چاپ برای ماندگاری" },
-  { title: "کنترل نهایی", description: "بررسی کیفیت و بسته‌بندی" },
+  {
+    title: "بررسی سفارش",
+    description:
+      "نوع محصول، جنس سطح، ابعاد چاپ، تعداد رنگ و تیراژ بررسی می‌شود.",
+  },
+  {
+    title: "بررسی فایل",
+    description:
+      "فایل گرافیکی بررسی می‌شود تا مشخص شود طرح برای چاپ سیلک مناسب است یا نیاز به آماده‌سازی دارد.",
+  },
+  {
+    title: "تفکیک رنگ",
+    description:
+      "در طرح‌های چندرنگ، رنگ‌ها برای آماده‌سازی شابلون تفکیک و تنظیم می‌شوند.",
+  },
+  {
+    title: "ساخت شابلون",
+    description:
+      "برای هر رنگ، شابلون مناسب آماده می‌شود تا طرح روی سطح منتقل شود.",
+  },
+  {
+    title: "آماده‌سازی مرکب",
+    description:
+      "نوع مرکب و رنگ متناسب با جنس محصول و نتیجه مورد انتظار انتخاب می‌شود.",
+  },
+  {
+    title: "اجرای چاپ",
+    description:
+      "چاپ با کنترل جای‌گذاری، رنگ و کیفیت اجرا انجام می‌شود.",
+  },
+  {
+    title: "کنترل نهایی",
+    description:
+      "نمونه‌ها و خروجی نهایی بررسی می‌شوند تا کیفیت چاپ و یکنواختی آن کنترل شود.",
+  },
 ];
 
 const faqs = [
   {
-    question: "چاپ سیلک برای چه طرح‌هایی مناسب است؟",
-    answer:
-      "چاپ سیلک برای طرح‌هایی با تعداد رنگ محدود (معمولاً ۱ تا ۴ رنگ) و بدون گرادیان یا عکس مناسب است. لوگوها و طرح‌های ساده بهترین نتیجه را می‌دهند.",
+    id: "what-is-screen-printing",
+    title: "چاپ سیلک چیست؟",
+    content:
+      "چاپ سیلک یا Screen Printing روشی برای انتقال مرکب از طریق یک توری و شابلون روی سطح مورد نظر است. این روش برای چاپ لوگو، نوشته و طرح‌های گرافیکی روی لباس، بگ، پارچه، بسته‌بندی و برخی محصولات تبلیغاتی کاربرد دارد.",
   },
   {
-    question: "آیا چاپ سیلک برای تیراژ کم هم صرفه دارد؟",
-    answer:
-      "برای تیراژ خیلی کم، هزینه آماده‌سازی شابلون ممکن است نسبت به تعداد بالا بیشتر باشد، اما برای تیراژ متوسط به بالا بسیار به‌صرفه است. تیراژهای مختلف بررسی می‌شوند.",
+    id: "screen-printing-products",
+    title: "چاپ سیلک روی چه محصولاتی انجام می‌شود؟",
+    content:
+      "بسته به جنس سطح و نوع مرکب، چاپ سیلک می‌تواند روی محصولاتی مانند تیشرت و هودی، بگ پارچه‌ای، پارچه و منسوجات، کارتن، برخی بسته‌بندی‌ها، جعبه پیتزا، لیوان کاغذی و بعضی محصولات تبلیغاتی انجام شود.",
   },
   {
-    question: "چاپ سیلک روی چه موادی قابل اجراست؟",
-    answer:
-      "روی انواع پارچه، کاغذ، کارتن، پلاستیک، چوب و بسیاری سطوح دیگر قابل اجراست. نوع مرکب بسته به جنس سطح انتخاب می‌شود.",
+    id: "screen-printing-design",
+    title: "چه طرح‌هایی برای چاپ سیلک مناسب‌تر هستند؟",
+    content:
+      "لوگو، نوشته، تایپوگرافی و طرح‌های گرافیکی با رنگ‌های مشخص معمولاً گزینه‌های مناسبی برای چاپ سیلک هستند. طرح‌های عکسی، گرادیان‌های پیچیده و تصاویر بسیار پرجزئیات ممکن است برای این روش مناسب نباشند یا به آماده‌سازی متفاوتی نیاز داشته باشند.",
   },
   {
-    question: "آیا امکان چاپ روی لباس‌های تیره وجود دارد؟",
-    answer:
-      "بله، با انتخاب مرکب مناسب و روش صحیح، چاپ روی لباس‌های تیره با کیفیت بالا انجام می‌شود.",
+    id: "screen-printing-quantity",
+    title: "چاپ سیلک برای چه تیراژی مناسب است؟",
+    content:
+      "به دلیل هزینه آماده‌سازی شابلون، چاپ سیلک معمولاً برای تیراژ متوسط و بالا اقتصادی‌تر می‌شود. با این حال، مناسب بودن آن به محصول، تعداد رنگ، ابعاد چاپ و نوع سفارش بستگی دارد.",
+  },
+  {
+    id: "screen-printing-dark-clothes",
+    title: "آیا امکان چاپ سیلک روی لباس تیره وجود دارد؟",
+    content:
+      "بله. چاپ سیلک روی لباس‌های تیره قابل انجام است، اما انتخاب مرکب، رنگ زمینه، تعداد لایه‌ها و روش اجرا روی نتیجه نهایی تأثیر مستقیم دارد.",
+  },
+  {
+    id: "screen-printing-price",
+    title: "قیمت چاپ سیلک چگونه محاسبه می‌شود؟",
+    content:
+      "قیمت چاپ سیلک به عواملی مانند نوع محصول، جنس سطح، ابعاد چاپ، تعداد رنگ، تیراژ و آماده‌سازی مورد نیاز بستگی دارد. برای اعلام قیمت دقیق، مشخصات سفارش باید بررسی شود.",
   },
 ];
 
 const relatedServices = [
-  { slug: "چاپ-dtf", title: "چاپ DTF" },
-  { slug: "چاپ-بگ", title: "چاپ روی بگ" },
-  { slug: "چاپ-روی-لباس", title: "چاپ روی لباس" },
-  { slug: "چاپ-کارتن", title: "چاپ روی کارتن" },
+  {
+    slug: "چاپ-dtf",
+    title: "چاپ DTF",
+    description: "برای طرح‌های رنگی و جزئیات بیشتر روی لباس و پارچه.",
+  },
+  {
+    slug: "چاپ-بگ",
+    title: "چاپ روی بگ",
+    description: "چاپ لوگو و هویت بصری روی انواع بگ و کیسه تبلیغاتی.",
+  },
+  {
+    slug: "چاپ-روی-لباس",
+    title: "چاپ روی لباس",
+    description: "راهکارهای چاپ برای تیشرت، هودی و محصولات پوشیدنی.",
+  },
+  {
+    slug: "چاپ-کارتن",
+    title: "چاپ روی کارتن",
+    description: "چاپ اطلاعات و هویت برند روی بسته‌بندی و کارتن.",
+  },
 ];
 
 export default function ScreenPrintingPage() {
-  const serviceData = {
-    title: "چاپ سیلک",
-    shortDescription:
-      "روش کلاسیک و ماندگار چاپ برای تیراژ بالا و طرح‌های ساده",
-    fullDescription:
-      "چاپ سیلک (اسکرین) یکی از پرکاربردترین روش‌های چاپ صنعتی است که برای چاپ روی انواع سطوح استفاده می‌شود. آیریک با استفاده از تجهیزات حرفه‌ای و تجربه کافی، خدمات چاپ سیلک با کیفیت بالا ارائه می‌دهد.",
-  };
+  const serviceName = "چاپ سیلک";
+
+  const serviceDescription =
+    "خدمات چاپ سیلک و اسکرین برای چاپ لوگو، نوشته و طرح‌های گرافیکی روی لباس، بگ، پارچه، بسته‌بندی و محصولات تبلیغاتی؛ مناسب برای سفارش‌هایی که دوام چاپ، تکرارپذیری و تیراژ اهمیت دارد.";
 
   return (
     <>
+      {/* Service structured data */}
       <JsonLd
         type="service"
         data={{
-          name: "چاپ سیلک",
-          description: serviceData.fullDescription,
-          provider: { "@type": "Organization", name: siteConfig.name },
+          name: serviceName,
+          description: serviceDescription,
+          provider: {
+            "@type": "Organization",
+            name: siteConfig.name,
+          },
+          areaServed: {
+            "@type": "Country",
+            name: "ایران",
+          },
+          serviceType: "چاپ سیلک و اسکرین",
         }}
       />
+
+      {/* FAQ structured data */}
       <JsonLd
         type="faq"
-        data={{ items: faqs }}
+        data={{
+          items: faqs.map((faq) => ({
+            question: faq.title,
+            answer: faq.content,
+          })),
+        }}
       />
+
+      {/* Breadcrumb structured data */}
       <JsonLd
         type="breadcrumb"
         data={{
           items: [
-            { label: "خانه", href: "/" },
-            { label: "خدمات چاپ", href: "/خدمات" },
-            { label: "چاپ سیلک", href: "/خدمات/چاپ-سیلک" },
+            {
+              label: "خانه",
+              href: "/",
+            },
+            {
+              label: "خدمات چاپ",
+              href: "/خدمات",
+            },
+            {
+              label: "چاپ سیلک",
+              href: "/خدمات/چاپ-سیلک",
+            },
           ],
         }}
       />
 
-      {/* Hero */}
+      {/* =========================================================
+          HERO
+      ========================================================== */}
       <section
-        className="pt-28 pb-16"
+        className="pt-28 pb-16 sm:pt-32 sm:pb-20"
         style={{ backgroundColor: "var(--color-bg)" }}
       >
         <div className="container-iric">
           <Breadcrumbs
             items={[
-              { label: "خدمات چاپ", href: "/خدمات" },
-              { label: "چاپ سیلک", href: "/خدمات/چاپ-سیلک" },
+              {
+                label: "خدمات چاپ",
+                href: "/خدمات",
+              },
+              {
+                label: "چاپ سیلک",
+                href: "/خدمات/چاپ-سیلک",
+              },
             ]}
           />
-          <div className="mt-6 grid gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-8">
-              <h1
-                className="text-4xl font-bold sm:text-5xl lg:text-6xl"
-                style={{ color: "var(--color-text)", lineHeight: "var(--line-height-tight)" }}
-              >
-                چاپ سیلک
-              </h1>
+
+          <div className="mt-8 grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-7">
               <p
-                className="mt-6 max-w-2xl text-lg"
-                style={{ color: "var(--color-text-muted)", lineHeight: "var(--line-height-relaxed)" }}
+                className="text-sm font-medium"
+                style={{ color: "var(--color-accent)" }}
               >
-                {serviceData.fullDescription}
+                چاپ سیلک / Screen Printing
               </p>
+
+              <h1
+                className="mt-5 text-4xl font-bold sm:text-5xl lg:text-6xl"
+                style={{
+                  color: "var(--color-text)",
+                  lineHeight: "var(--line-height-tight)",
+                }}
+              >
+                چاپ سیلک برای لباس، بگ و بسته‌بندی
+              </h1>
+
+              <p
+                className="mt-6 max-w-2xl text-lg sm:text-xl"
+                style={{
+                  color: "var(--color-text-muted)",
+                  lineHeight: "var(--line-height-relaxed)",
+                }}
+              >
+                {serviceDescription}
+              </p>
+
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button href="/استعلام-قیمت" size="lg">
                   استعلام قیمت چاپ سیلک
                   <IconArrow direction="up-left" size={16} />
                 </Button>
+
                 <Button href="#faq" variant="secondary" size="lg">
                   سوالات متداول
                 </Button>
               </div>
             </div>
-            <div className="lg:col-span-4">
+
+            <div className="lg:col-span-5">
               <MediaPlaceholder
                 aspectRatio="4/3"
-                label="چاپ سیلک"
+                label="تصویر اجرای چاپ سیلک"
                 tone="dark"
               />
             </div>
@@ -157,59 +312,124 @@ export default function ScreenPrintingPage() {
         </div>
       </section>
 
-      {/* What is Screen Printing */}
-      <section className="py-16" style={{ backgroundColor: "var(--color-bg-light)" }}>
+      {/* =========================================================
+          QUICK ANSWER — FEO / AI SEARCH
+      ========================================================== */}
+      <section
+        className="py-14 sm:py-16"
+        style={{ backgroundColor: "var(--color-bg-light)" }}
+      >
         <div className="container-iric">
-          <div className="grid gap-10 lg:grid-cols-12">
+          <div
+            className="max-w-4xl border-r-2 pr-6 sm:pr-8"
+            style={{ borderColor: "var(--color-accent)" }}
+          >
+            <p
+              className="text-sm font-medium"
+              style={{ color: "var(--color-accent)" }}
+            >
+              پاسخ کوتاه
+            </p>
+
+            <p
+              className="mt-4 text-xl font-semibold sm:text-2xl"
+              style={{
+                color: "var(--color-text-dark)",
+                lineHeight: "var(--line-height-relaxed)",
+              }}
+            >
+              چاپ سیلک یکی از روش‌های مناسب برای چاپ لوگو، نوشته و طرح‌های
+              گرافیکی روی لباس، بگ، پارچه و برخی بسته‌بندی‌هاست؛ به‌خصوص زمانی
+              که ماندگاری چاپ و اجرای تیراژ متوسط یا بالا اهمیت داشته باشد.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          WHAT IS
+      ========================================================== */}
+      <section
+        className="py-16 sm:py-20"
+        style={{ backgroundColor: "var(--color-bg)" }}
+      >
+        <div className="container-iric">
+          <div className="grid gap-10 lg:grid-cols-12 lg:gap-20">
             <div className="lg:col-span-4">
-              <h2
-                className="text-3xl font-bold"
-                style={{ color: "var(--color-text-dark)" }}
-              >
-                چاپ سیلک چیست؟
-              </h2>
+              <SectionHeading
+                eyebrow="شناخت روش"
+                title="چاپ سیلک چیست؟"
+                tone="dark"
+              />
             </div>
+
             <div className="lg:col-span-8">
               <p
                 className="text-lg"
-                style={{ color: "var(--color-text-dark-muted)", lineHeight: "var(--line-height-relaxed)" }}
+                style={{
+                  color: "var(--color-text-muted)",
+                  lineHeight: "var(--line-height-relaxed)",
+                }}
               >
-                چاپ سیلک (اسکرین پرینتینگ) روشی است که در آن مرکب از طریق یک شابلون توری
-                بر روی سطح مورد نظر منتقل می‌شود. این روش امکان چاپ طرح‌های با کیفیت بالا
-                و ماندگاری طولانی را بر روی انواع متریال فراهم می‌کند.
+                چاپ سیلک یا Screen Printing روشی است که در آن مرکب از طریق یک
+                توری و شابلون روی سطح مورد نظر منتقل می‌شود. هر رنگ در طرح
+                معمولاً به آماده‌سازی جداگانه نیاز دارد و نتیجه نهایی به نوع
+                سطح، مرکب، فایل و روش اجرای چاپ وابسته است.
               </p>
+
               <p
-                className="mt-4 text-lg"
-                style={{ color: "var(--color-text-dark-muted)", lineHeight: "var(--line-height-relaxed)" }}
+                className="mt-5 text-lg"
+                style={{
+                  color: "var(--color-text-muted)",
+                  lineHeight: "var(--line-height-relaxed)",
+                }}
               >
-                آیریک با بهره‌گیری از این روش، خدمات چاپ حرفه‌ای برای کسب‌وکارها ارائه می‌دهد.
-                از چاپ لوگو روی بگ و لباس تا چاپ روی کارتن و بسته‌بندی، همه با دقت و کنترل کیفیت انجام می‌شود.
+                این روش برای چاپ هویت بصری برند روی محصولاتی مانند لباس و بگ
+                و همچنین برخی انواع بسته‌بندی کاربرد دارد. انتخاب چاپ سیلک
+                باید بر اساس جنس محصول، تعداد رنگ، ابعاد طرح و تیراژ انجام شود.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Advantages */}
-      <section className="py-16" style={{ backgroundColor: "var(--color-bg)" }}>
+      {/* =========================================================
+          SUITABLE PRODUCTS
+      ========================================================== */}
+      <section
+        className="py-16 sm:py-20"
+        style={{ backgroundColor: "var(--color-bg-light)" }}
+      >
         <div className="container-iric">
           <SectionHeading
-            eyebrow="مزایا"
-            title="چرا چاپ سیلک؟"
-            tone="dark"
+            eyebrow="کاربردها"
+            title="چاپ سیلک روی چه محصولاتی انجام می‌شود؟"
+            description="بسته به جنس سطح و نوع مرکب، چاپ سیلک برای طیف مختلفی از محصولات قابل استفاده است."
+            tone="light"
           />
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {advantages.map((advantage, index) => (
-              <Reveal key={advantage} delay={index * 70}>
-                <div className="card-industrial h-full">
-                  <span className="text-sm font-bold" style={{ color: "var(--color-accent)" }}>
+
+          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {suitableProducts.map((product, index) => (
+              <Reveal key={product} delay={index * 40}>
+                <div
+                  className="h-full rounded-md border p-5"
+                  style={{
+                    borderColor: "var(--color-border-light)",
+                    backgroundColor: "var(--color-surface-light)",
+                  }}
+                >
+                  <span
+                    className="text-xs font-bold"
+                    style={{ color: "var(--color-accent)" }}
+                  >
                     {String(index + 1).padStart(2, "۰")}
                   </span>
+
                   <p
-                    className="mt-3 text-lg font-semibold"
-                    style={{ color: "var(--color-text)" }}
+                    className="mt-4 font-semibold"
+                    style={{ color: "var(--color-text-dark)" }}
                   >
-                    {advantage}
+                    {product}
                   </p>
                 </div>
               </Reveal>
@@ -218,51 +438,169 @@ export default function ScreenPrintingPage() {
         </div>
       </section>
 
-      {/* Suitable Products */}
-      <section className="py-16" style={{ backgroundColor: "var(--color-bg-light)" }}>
+      {/* =========================================================
+          BEST / NOT IDEAL
+      ========================================================== */}
+      <section
+        className="py-16 sm:py-20"
+        style={{ backgroundColor: "var(--color-bg)" }}
+      >
         <div className="container-iric">
           <SectionHeading
-            eyebrow="محصولات قابل چاپ"
-            title="روی چه چیزهایی می‌توان چاپ کرد؟"
+            eyebrow="انتخاب روش"
+            title="آیا چاپ سیلک برای پروژه شما مناسب است؟"
+            tone="dark"
+          />
+
+          <div className="mt-10 grid gap-5 lg:grid-cols-2">
+            <div className="card-industrial">
+              <p
+                className="text-sm font-medium"
+                style={{ color: "var(--color-accent)" }}
+              >
+                انتخاب مناسب برای
+              </p>
+
+              <ul className="mt-6 space-y-4">
+                {bestFor.map((item) => (
+                  <li
+                    key={item}
+                    className="flex gap-3"
+                    style={{ color: "var(--color-text)" }}
+                  >
+                    <span
+                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: "var(--color-accent)" }}
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="card-industrial">
+              <p
+                className="text-sm font-medium"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                ممکن است انتخاب ایده‌آلی نباشد برای
+              </p>
+
+              <ul className="mt-6 space-y-4">
+                {notIdealFor.map((item) => (
+                  <li
+                    key={item}
+                    className="flex gap-3"
+                    style={{ color: "var(--color-text-muted)" }}
+                  >
+                    <span
+                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: "var(--color-text-faint)" }}
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          ADVANTAGES
+      ========================================================== */}
+      <section
+        className="py-16 sm:py-20"
+        style={{ backgroundColor: "var(--color-bg-light)" }}
+      >
+        <div className="container-iric">
+          <SectionHeading
+            eyebrow="مزایا"
+            title="چرا چاپ سیلک؟"
+            description="چاپ سیلک زمانی ارزش خود را نشان می‌دهد که روش چاپ با نوع محصول و حجم سفارش هماهنگ باشد."
             tone="light"
           />
-          <div className="mt-10 flex flex-wrap gap-3">
-            {suitableProducts.map((product) => (
-              <span
-                key={product}
-                className="inline-flex items-center rounded-md px-4 py-2 text-sm font-medium"
-                style={{
-                  backgroundColor: "var(--color-surface-light)",
-                  border: "1px solid var(--color-border-light)",
-                  color: "var(--color-text-dark)",
-                }}
-              >
-                {product}
-              </span>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {advantages.map((advantage, index) => (
+              <Reveal key={advantage.title} delay={index * 60}>
+                <div
+                  className="h-full rounded-md border p-6"
+                  style={{
+                    borderColor: "var(--color-border-light)",
+                    backgroundColor: "var(--color-surface-light)",
+                  }}
+                >
+                  <span
+                    className="text-sm font-bold"
+                    style={{ color: "var(--color-accent)" }}
+                  >
+                    {String(index + 1).padStart(2, "۰")}
+                  </span>
+
+                  <h3
+                    className="mt-4 text-lg font-bold"
+                    style={{ color: "var(--color-text-dark)" }}
+                  >
+                    {advantage.title}
+                  </h3>
+
+                  <p
+                    className="mt-3 text-sm"
+                    style={{
+                      color: "var(--color-text-dark-muted)",
+                      lineHeight: "var(--line-height-relaxed)",
+                    }}
+                  >
+                    {advantage.description}
+                  </p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Process */}
-      <section className="py-16" style={{ backgroundColor: "var(--color-bg)" }}>
+      {/* =========================================================
+          PROCESS
+      ========================================================== */}
+      <section
+        className="py-16 sm:py-20"
+        style={{ backgroundColor: "var(--color-bg)" }}
+      >
         <div className="container-iric">
           <SectionHeading
-            eyebrow="فرآیند"
-            title="مراحل چاپ سیلک"
+            eyebrow="فرآیند سفارش"
+            title="چاپ سیلک چگونه انجام می‌شود؟"
+            description="از بررسی فایل تا کنترل نهایی، هر سفارش بر اساس محصول و مشخصات چاپ آماده می‌شود."
             tone="dark"
           />
+
           <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {processSteps.map((step, index) => (
-              <Reveal key={step.title} delay={index * 60}>
+              <Reveal key={step.title} delay={index * 50}>
                 <div className="card-industrial h-full">
-                  <span className="text-sm font-bold" style={{ color: "var(--color-accent)" }}>
+                  <span
+                    className="text-sm font-bold"
+                    style={{ color: "var(--color-accent)" }}
+                  >
                     {String(index + 1).padStart(2, "۰")}
                   </span>
-                  <h3 className="mt-3 text-lg font-bold" style={{ color: "var(--color-text)" }}>
+
+                  <h3
+                    className="mt-4 text-lg font-bold"
+                    style={{ color: "var(--color-text)" }}
+                  >
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+
+                  <p
+                    className="mt-3 text-sm"
+                    style={{
+                      color: "var(--color-text-muted)",
+                      lineHeight: "var(--line-height-relaxed)",
+                    }}
+                  >
                     {step.description}
                   </p>
                 </div>
@@ -272,80 +610,145 @@ export default function ScreenPrintingPage() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section id="faq" className="py-16" style={{ backgroundColor: "var(--color-bg-light)" }}>
-        <div className="container-iric max-w-3xl">
-          <SectionHeading
-            eyebrow="سوالات متداول"
-            title="پاسخ به سوالات شما"
-            tone="light"
-          />
-          <div className="mt-10">
-            <Accordion
-              items={faqs.map((faq, index) => ({
-                id: `silk-faq-${index}`,
-                title: faq.question,
-                content: faq.answer,
-              }))}
-              tone="light"
-            />
+      {/* =========================================================
+          FAQ
+      ========================================================== */}
+      <section
+        id="faq"
+        className="py-16 sm:py-20"
+        style={{ backgroundColor: "var(--color-bg-light)" }}
+      >
+        <div className="container-iric">
+          <div className="grid gap-10 lg:grid-cols-12 lg:gap-20">
+            <div className="lg:col-span-4">
+              <SectionHeading
+                eyebrow="سوالات متداول"
+                title="درباره چاپ سیلک"
+                description="پاسخ سوالات رایجی که قبل از سفارش چاپ سیلک ممکن است داشته باشید."
+                tone="light"
+              />
+            </div>
+
+            <div className="lg:col-span-8">
+              <Accordion
+                items={faqs}
+                tone="light"
+                defaultOpenId="what-is-screen-printing"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Related Services */}
-      <section className="py-16" style={{ backgroundColor: "var(--color-bg)" }}>
+      {/* =========================================================
+          RELATED SERVICES
+      ========================================================== */}
+      <section
+        className="py-16 sm:py-20"
+        style={{ backgroundColor: "var(--color-bg)" }}
+      >
         <div className="container-iric">
           <SectionHeading
             eyebrow="خدمات مرتبط"
-            title="شاید به این خدمات هم نیاز داشته باشید"
+            title="روش مناسب چاپ را انتخاب کنید"
+            description="اگر چاپ سیلک برای طرح یا محصول شما مناسب نیست، روش‌های دیگر چاپ را هم بررسی کنید."
             tone="dark"
           />
+
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {relatedServices.map((service) => (
-              <Link
-                key={service.slug}
-                href={`/خدمات/${service.slug}`}
-                className="card-industrial block transition-transform hover:-translate-y-1"
-                style={{ textDecoration: "none" }}
-              >
-                <h3
-                  className="text-lg font-bold"
-                  style={{ color: "var(--color-text)" }}
+            {relatedServices.map((service, index) => (
+              <Reveal key={service.slug} delay={index * 60}>
+                <a
+                  href={`/خدمات/${service.slug}`}
+                  className="group block h-full rounded-md border p-6 transition-transform duration-300 hover:-translate-y-1"
+                  style={{
+                    borderColor: "var(--color-border)",
+                    textDecoration: "none",
+                  }}
                 >
-                  {service.title}
-                </h3>
-                <div
-                  className="mt-3 flex items-center gap-2 text-sm font-medium"
-                  style={{ color: "var(--color-accent)" }}
-                >
-                  مشاهده
-                  <IconArrow direction="left" size={16} />
-                </div>
-              </Link>
+                  <span
+                    className="text-xs"
+                    style={{ color: "var(--color-text-faint)" }}
+                  >
+                    {String(index + 1).padStart(2, "۰")}
+                  </span>
+
+                  <h3
+                    className="mt-5 text-lg font-bold"
+                    style={{ color: "var(--color-text)" }}
+                  >
+                    {service.title}
+                  </h3>
+
+                  <p
+                    className="mt-3 text-sm"
+                    style={{
+                      color: "var(--color-text-muted)",
+                      lineHeight: "var(--line-height-relaxed)",
+                    }}
+                  >
+                    {service.description}
+                  </p>
+
+                  <div
+                    className="mt-6 flex items-center gap-2 text-sm font-medium"
+                    style={{ color: "var(--color-text)" }}
+                  >
+                    <span>مشاهده خدمت</span>
+
+                    <span
+                      className="transition-transform duration-300 group-hover:-translate-x-1"
+                      aria-hidden="true"
+                    >
+                      <IconArrow direction="left" size={16} />
+                    </span>
+                  </div>
+                </a>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20" style={{ backgroundColor: "var(--color-accent)" }}>
+      {/* =========================================================
+          FINAL CTA
+      ========================================================== */}
+      <section
+        className="py-20 sm:py-24"
+        style={{ backgroundColor: "var(--color-accent)" }}
+      >
         <div className="container-iric text-center">
-          <h2
-            className="text-4xl font-bold sm:text-5xl"
-            style={{ color: "var(--color-accent-contrast)", lineHeight: "var(--line-height-tight)" }}
-          >
-            آماده شروع چاپ سیلک هستید؟
-          </h2>
           <p
-            className="mt-5 text-lg mx-auto max-w-2xl"
-            style={{ color: "var(--color-accent-contrast)", opacity: 0.75 }}
+            className="text-sm font-medium"
+            style={{ color: "var(--color-text)" }}
           >
-            مشخصات سفارش خود را ارسال کنید تا مشاوره تخصصی دریافت کنید.
+            آماده سفارش هستید؟
           </p>
+
+          <h2
+            className="mx-auto mt-4 max-w-3xl text-3xl font-bold sm:text-4xl lg:text-5xl"
+            style={{
+              color: "var(--color-text)",
+              lineHeight: "var(--line-height-tight)",
+            }}
+          >
+            مشخصات پروژه‌تان را بفرستید تا روش مناسب چاپ را بررسی کنیم.
+          </h2>
+
+          <p
+            className="mx-auto mt-5 max-w-2xl text-base"
+            style={{
+              color: "var(--color-text-muted)",
+              lineHeight: "var(--line-height-relaxed)",
+            }}
+          >
+            نوع محصول، تعداد، ابعاد چاپ و فایل طرح را اعلام کنید تا بتوانیم
+            مناسب‌ترین روش چاپ و برآورد هزینه را بررسی کنیم.
+          </p>
+
           <div className="mt-8 flex justify-center">
             <Button href="/استعلام-قیمت" size="lg">
-              دریافت مشاوره و استعلام قیمت
+              استعلام قیمت چاپ سیلک
               <IconArrow direction="up-left" size={16} />
             </Button>
           </div>
