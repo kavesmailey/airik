@@ -2,74 +2,58 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import {
-  businessTypes,
-  getBusinessTypeBySlug,
-} from "@/content/business";
+import { businessSolutions } from "@/content/business";
 
-import { services } from "@/content/services";
-import { articles } from "@/content/articles";
-
-type BusinessPageProps = {
-  params: {
+type PageProps = {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
+function getBusiness(slug: string) {
+  return businessSolutions.find((item) => item.slug === slug);
+}
+
 export function generateStaticParams() {
-  return businessTypes.map((business) => ({
-    slug: business.slug,
+  return businessSolutions.map((item) => ({
+    slug: item.slug,
   }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
-}: BusinessPageProps): Metadata {
-  const business = getBusinessTypeBySlug(params.slug);
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const business = getBusiness(slug);
 
   if (!business) {
-    return {};
+    return {
+      title: "AIRIK",
+    };
   }
 
   return {
-    title: business.meta.title,
-    description: business.meta.description,
-    alternates: {
-      canonical: `/برای-کسب-و-کارها/${business.slug}`,
-    },
-    openGraph: {
-      title: business.meta.title,
-      description: business.meta.description,
-      type: "website",
-      locale: "fa_IR",
-      siteName: "AIRIK",
-      url: `/برای-کسب-و-کارها/${business.slug}`,
-      images: [
-        {
-          url: business.image,
-          alt: business.title,
-        },
-      ],
-    },
+    title: `${business.title} | AIRIK`,
+    description:
+      business.description ||
+      `راهکارهای چاپ AIRIK برای ${business.title}.`,
   };
 }
 
-export default function BusinessDetailPage({
+export default async function BusinessDetailPage({
   params,
-}: BusinessPageProps) {
-  const business = getBusinessTypeBySlug(params.slug);
+}: PageProps) {
+  const { slug } = await params;
+  const business = getBusiness(slug);
 
   if (!business) {
     notFound();
   }
 
-  const relatedServices = services.filter((service) =>
-    business.relevantServices.includes(service.slug)
-  );
-
-  const relatedArticles = articles.filter((article) =>
-    business.relevantArticles.includes(article.slug)
-  );
+  const title = business.title;
+  const description =
+    business.description ||
+    `راهکارهای چاپ متناسب با نیازهای ${title}.`;
 
   return (
     <main dir="rtl">
@@ -79,288 +63,241 @@ export default function BusinessDetailPage({
           <div className="max-w-5xl">
             <Link
               href="/برای-کسب-و-کارها"
-              className="mb-10 inline-flex items-center gap-3 text-sm text-black/45 transition-opacity hover:opacity-60"
+              className="mb-10 inline-flex items-center gap-3 text-sm text-black/40 transition-opacity hover:opacity-60"
             >
-              <span>→</span>
-              همه راهکارهای کسب‌وکار
+              <span aria-hidden="true">→</span>
+              راهکارهای کسب‌وکار
             </Link>
 
-            <p className="mb-7 text-sm font-medium text-black/40">
-              راهکارهای کسب‌وکار
+            <p className="mb-8 text-sm font-medium text-black/40">
+              راهکار چاپ
             </p>
 
             <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
-              {business.title}
+              چاپ برای
+              <br />
+              {title}
             </h1>
 
             <p className="mt-10 max-w-3xl text-lg leading-9 text-black/60 md:text-xl md:leading-10">
-              {business.description}
+              {description}
             </p>
 
-            <Link
-              href="/استعلام-قیمت"
-              className="mt-10 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
-            >
-              استعلام قیمت
-              <span aria-hidden="true">↗</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Introduction */}
-      <section>
-        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
-          <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
-            <div>
-              <p className="mb-7 text-sm font-medium text-black/40">
-                چاپ برای کسب‌وکار شما
-              </p>
-
-              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                چاپ فقط یک خروجی نیست؛
-                <br />
-                بخشی از تجربه برند است.
-              </h2>
-            </div>
-
-            <div className="space-y-7 text-lg leading-9 text-black/60 md:text-xl md:leading-10">
-              <p>
-                برای هر کسب‌وکار، نیاز چاپی از یک نقطه متفاوت شروع
-                می‌شود. ممکن است هدف، بسته‌بندی بهتر باشد، یا ایجاد
-                هویت یکپارچه در محصولات، لباس‌ها و اقلامی که مشتری
-                هر روز با آن‌ها روبه‌رو می‌شود.
-              </p>
-
-              <p>
-                AIRIK کمک می‌کند این نیاز به یک راهکار قابل اجرا تبدیل
-                شود؛ از انتخاب سرویس مناسب تا بررسی جزئیات تولید.
-              </p>
+            <div className="mt-10">
+              <Link
+                href="/استعلام-قیمت"
+                className="inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
+              >
+                استعلام قیمت
+                <span aria-hidden="true">↗</span>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services */}
-      {relatedServices.length > 0 && (
-        <section className="border-y border-black/10 bg-[#f5f3ef]">
-          <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
-            <div className="mb-16 md:mb-24">
-              <p className="mb-7 text-sm font-medium text-black/40">
-                خدمات پیشنهادی
-              </p>
-
-              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
-                خدماتی که برای این
-                <br />
-                نوع کسب‌وکار مناسب‌اند.
-              </h2>
-            </div>
-
-            <div className="border-t border-black/10">
-              {relatedServices.map((service, index) => (
-                <Link
-                  key={service.slug}
-                  href={`/خدمات/${service.slug}`}
-                  className="group block border-b border-black/10 py-9 transition-opacity hover:opacity-60 md:py-12"
-                >
-                  <div className="grid gap-6 md:grid-cols-[80px_1fr_40px]">
-                    <span className="text-xs text-black/30">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-
-                    <div>
-                      <h3 className="text-2xl font-medium tracking-tight md:text-3xl">
-                        {service.title}
-                      </h3>
-
-                      <p className="mt-4 max-w-3xl leading-8 text-black/50 md:text-lg">
-                        {service.shortDescription}
-                      </p>
-                    </div>
-
-                    <span
-                      aria-hidden="true"
-                      className="text-xl transition-transform group-hover:-translate-x-1"
-                    >
-                      ↗
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Why these services */}
+      {/* Context */}
       <section>
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
             <div>
               <p className="mb-7 text-sm font-medium text-black/40">
-                انتخاب راهکار
+                مسئله اصلی
               </p>
 
               <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                انتخاب درست،
+                چاپ باید با
                 <br />
-                از شناخت نیاز شروع می‌شود.
+                کسب‌وکار هماهنگ باشد.
               </h2>
             </div>
 
-            <div className="border-t border-black/10">
-              {[
-                [
-                  "محصول",
-                  "مشخص کنید قرار است چه چیزی چاپ شود و مشتری چگونه با آن تعامل خواهد داشت.",
-                ],
-                [
-                  "تیراژ",
-                  "تعداد سفارش روی انتخاب روش چاپ و هزینه نهایی تأثیر مستقیم دارد.",
-                ],
-                [
-                  "متریال",
-                  "جنس سطح چاپ یکی از مهم‌ترین عوامل در انتخاب روش و مواد مصرفی است.",
-                ],
-                [
-                  "کاربرد",
-                  "چاپ برای استفاده روزمره، بسته‌بندی، تبلیغات یا فروش محصول می‌تواند نیازهای متفاوتی داشته باشد.",
-                ],
-              ].map(([title, text], index) => (
-                <div
-                  key={title}
-                  className="grid gap-5 border-b border-black/10 py-8 md:grid-cols-[70px_160px_1fr] md:gap-8"
-                >
+            <div>
+              <p className="text-lg leading-9 text-black/60">
+                برای {title}، انتخاب روش چاپ فقط به ظاهر محصول محدود
+                نمی‌شود. تیراژ، دفعات سفارش، نوع استفاده، متریال و
+                زمان‌بندی همگی روی نتیجه نهایی تأثیر دارند.
+              </p>
+
+              <p className="mt-8 text-lg leading-9 text-black/60">
+                هدف این است که راهکار چاپی انتخاب شود که هم با نیاز
+                واقعی پروژه سازگار باشد و هم بتواند در تولیدهای بعدی
+                با ثبات تکرار شود.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Applications */}
+      <section className="border-y border-black/10 bg-[#f5f3ef]">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
+          <div className="mb-16 max-w-3xl md:mb-24">
+            <p className="mb-7 text-sm font-medium text-black/40">
+              کاربردهای پیشنهادی
+            </p>
+
+            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+              از نیاز روزمره
+              <br />
+              تا نقاط تماس برند.
+            </h2>
+          </div>
+
+          <div className="grid border-t border-black/10 md:grid-cols-2">
+            {[
+              {
+                title: "بسته‌بندی",
+                text: "جعبه، بسته‌بندی و اقلامی که محصول را در نقطه تماس با مشتری معرفی می‌کنند.",
+              },
+              {
+                title: "لباس و پارچه",
+                text: "چاپ روی لباس، پارچه و محصولات پوشیدنی با توجه به جنس و کاربرد.",
+              },
+              {
+                title: "اقلام تبلیغاتی",
+                text: "محصولات و متریال‌هایی برای کمپین‌ها، رویدادها و ارتباطات برند.",
+              },
+              {
+                title: "اقلام روزمره",
+                text: "محصولات چاپی که به‌صورت مداوم در عملیات روزانه کسب‌وکار استفاده می‌شوند.",
+              },
+            ].map((item, index) => (
+              <div
+                key={item.title}
+                className="border-b border-black/10 p-8 md:p-10"
+              >
+                <div className="mb-10 flex items-center justify-between">
                   <span className="text-xs text-black/30">
                     {String(index + 1).padStart(2, "0")}
                   </span>
 
-                  <h3 className="text-lg font-medium">
-                    {title}
-                  </h3>
-
-                  <p className="leading-8 text-black/55">
-                    {text}
-                  </p>
+                  <span className="text-black/25">↗</span>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Workflow */}
-      <section className="bg-black text-white">
-        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
-          <div className="mb-16 max-w-3xl md:mb-24">
-            <p className="mb-7 text-sm font-medium text-white/40">
-              فرآیند همکاری
-            </p>
+                <h3 className="text-2xl font-medium tracking-tight">
+                  {item.title}
+                </h3>
 
-            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
-              ساده شروع می‌کنیم،
-              <br />
-              دقیق تولید می‌کنیم.
-            </h2>
-          </div>
-
-          <div className="grid border-t border-white/15 md:grid-cols-2">
-            {[
-              {
-                title: "نیاز شما",
-                text: "نوع محصول، تعداد، ابعاد، متریال و زمان مورد نیاز را مشخص می‌کنیم.",
-              },
-              {
-                title: "پیشنهاد راهکار",
-                text: "روش چاپ و گزینه‌های مناسب بر اساس مشخصات پروژه بررسی می‌شوند.",
-              },
-              {
-                title: "آماده‌سازی",
-                text: "فایل و جزئیات سفارش برای ورود به مرحله تولید بررسی می‌شود.",
-              },
-              {
-                title: "تولید و تحویل",
-                text: "سفارش تولید شده و پس از کنترل، برای تحویل آماده می‌شود.",
-              },
-            ].map((step, index) => (
-              <div
-                key={step.title}
-                className="border-b border-white/15 py-9 md:py-11 md:[&:nth-child(odd)]:border-l md:[&:nth-child(odd)]:pl-10 md:[&:nth-child(even)]:pr-10"
-              >
-                <div className="flex gap-6">
-                  <span className="text-xs text-white/30">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-
-                  <div>
-                    <h3 className="text-xl font-medium">
-                      {step.title}
-                    </h3>
-
-                    <p className="mt-4 leading-8 text-white/55">
-                      {step.text}
-                    </p>
-                  </div>
-                </div>
+                <p className="mt-5 leading-8 text-black/50">
+                  {item.text}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Articles */}
-      {relatedArticles.length > 0 && (
-        <section>
-          <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
-            <div className="mb-16 md:mb-24">
+      {/* Services */}
+      <section>
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
+          <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
+            <div>
               <p className="mb-7 text-sm font-medium text-black/40">
-                راهنمای مرتبط
+                خدمات AIRIK
               </p>
 
-              <h2 className="text-3xl font-medium tracking-tight md:text-5xl">
-                قبل از سفارش بیشتر بدانید.
+              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
+                آنچه می‌توانیم
+                <br />
+                برایتان تولید کنیم.
               </h2>
             </div>
 
             <div className="border-t border-black/10">
-              {relatedArticles.map((article, index) => (
+              {[
+                "چاپ روی لباس و پارچه",
+                "چاپ بسته‌بندی",
+                "چاپ روی محصولات",
+                "چاپ تبلیغاتی",
+                "تولید سفارش‌های تیراژ بالا",
+                "سفارش‌های مستمر سازمانی",
+              ].map((service, index) => (
                 <Link
-                  key={article.slug}
-                  href={`/بلاگ/${article.slug}`}
-                  className="group block border-b border-black/10 py-9 transition-opacity hover:opacity-60 md:py-11"
+                  key={service}
+                  href="/خدمات"
+                  className="group flex items-center justify-between gap-6 border-b border-black/10 py-7 transition-opacity hover:opacity-60"
                 >
-                  <div className="grid gap-6 md:grid-cols-[80px_1fr_40px]">
+                  <div className="flex items-center gap-5">
                     <span className="text-xs text-black/30">
                       {String(index + 1).padStart(2, "0")}
                     </span>
 
-                    <div>
-                      <h3 className="text-xl font-medium leading-8 tracking-tight md:text-2xl">
-                        {article.title}
-                      </h3>
-
-                      <p className="mt-3 max-w-3xl leading-8 text-black/50">
-                        {article.excerpt}
-                      </p>
-                    </div>
-
-                    <span
-                      aria-hidden="true"
-                      className="text-xl transition-transform group-hover:-translate-x-1"
-                    >
-                      ↗
+                    <span className="text-lg font-medium">
+                      {service}
                     </span>
                   </div>
+
+                  <span
+                    aria-hidden="true"
+                    className="transition-transform group-hover:-translate-x-1"
+                  >
+                    ↗
+                  </span>
                 </Link>
               ))}
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
+
+      {/* Process */}
+      <section className="border-y border-black/10 bg-[#f5f3ef]">
+        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
+          <div className="mb-16 max-w-3xl md:mb-24">
+            <p className="mb-7 text-sm font-medium text-black/40">
+              فرآیند
+            </p>
+
+            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+              ساده، شفاف،
+              <br />
+              قابل پیش‌بینی.
+            </h2>
+          </div>
+
+          <div className="border-t border-black/10">
+            {[
+              [
+                "نیاز",
+                "مشخصات محصول، تعداد و کاربرد را بررسی می‌کنیم.",
+              ],
+              [
+                "راهکار",
+                "روش چاپ و متریال مناسب برای پروژه مشخص می‌شود.",
+              ],
+              [
+                "تأیید",
+                "جزئیات سفارش و خروجی مورد انتظار نهایی می‌شود.",
+              ],
+              [
+                "تولید",
+                "سفارش بر اساس مشخصات تأییدشده تولید می‌شود.",
+              ],
+            ].map(([title, text], index) => (
+              <div
+                key={title}
+                className="grid gap-6 border-b border-black/10 py-9 md:grid-cols-[90px_0.8fr_1.2fr] md:items-center md:py-12"
+              >
+                <span className="text-xs text-black/30">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <h3 className="text-xl font-medium md:text-2xl">
+                  {title}
+                </h3>
+
+                <p className="leading-8 text-black/50">
+                  {text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* FAQ */}
-      <section className="border-t border-black/10 bg-[#f5f3ef]">
+      <section>
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
             <div>
@@ -369,37 +306,29 @@ export default function BusinessDetailPage({
               </p>
 
               <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                چند سوال قبل از
+                چیزهایی که
                 <br />
-                شروع همکاری.
+                احتمالاً می‌پرسید.
               </h2>
             </div>
 
             <div className="border-t border-black/10">
               {[
                 {
-                  question: "برای دریافت قیمت چه اطلاعاتی لازم است؟",
-                  answer:
-                    "نوع محصول، تعداد، ابعاد، متریال و زمان مورد نیاز برای شروع کافی است. اگر روش چاپ را نمی‌دانید، لازم نیست از قبل آن را مشخص کنید.",
+                  q: `برای ${title} چه روش چاپی مناسب‌تر است؟`,
+                  a: "روش مناسب به نوع محصول، متریال، تعداد و کاربرد بستگی دارد. پس از دریافت مشخصات پروژه می‌توان گزینه مناسب را تعیین کرد.",
                 },
                 {
-                  question: "آیا سفارش‌های تیراژ بالا انجام می‌شود؟",
-                  answer:
-                    "بله. تیراژ یکی از عوامل اصلی در انتخاب روش چاپ است و سفارش‌های مختلف بر اساس مشخصات پروژه بررسی می‌شوند.",
+                  q: "آیا سفارش مستمر امکان‌پذیر است؟",
+                  a: "بله. سفارش‌های مستمر کسب‌وکارها را می‌توان بر اساس نیاز و تیراژ مورد بررسی قرار داد.",
                 },
                 {
-                  question: "اگر فایل نهایی آماده نباشد چه؟",
-                  answer:
-                    "می‌توانید مشخصات پروژه را ارسال کنید تا درباره آماده‌سازی فایل و الزامات فنی چاپ راهنمایی دریافت کنید.",
+                  q: "برای شروع چه اطلاعاتی لازم است؟",
+                  a: "نوع محصول، تعداد تقریبی، ابعاد و زمان مورد نیاز برای شروع کافی است.",
                 },
-                {
-                  question: "چطور روش چاپ مناسب را انتخاب کنیم؟",
-                  answer:
-                    "روش مناسب به محصول، متریال، تعداد، طرح و کاربرد نهایی بستگی دارد. این موارد هنگام بررسی پروژه در نظر گرفته می‌شوند.",
-                },
-              ].map((faq, index) => (
+              ].map((item, index) => (
                 <details
-                  key={faq.question}
+                  key={item.q}
                   className="group border-b border-black/10"
                 >
                   <summary className="flex cursor-pointer list-none items-start justify-between gap-8 py-7">
@@ -409,7 +338,7 @@ export default function BusinessDetailPage({
                       </span>
 
                       <span className="text-lg font-medium leading-8">
-                        {faq.question}
+                        {item.q}
                       </span>
                     </div>
 
@@ -418,9 +347,9 @@ export default function BusinessDetailPage({
                     </span>
                   </summary>
 
-                  <div className="pb-8 pr-9 text-base leading-8 text-black/55 md:pr-10">
-                    {faq.answer}
-                  </div>
+                  <p className="pb-8 pr-9 leading-8 text-black/55 md:pr-10">
+                    {item.a}
+                  </p>
                 </details>
               ))}
             </div>
@@ -429,28 +358,28 @@ export default function BusinessDetailPage({
       </section>
 
       {/* CTA */}
-      <section className="border-t border-black/10">
+      <section className="border-t border-black/10 bg-black text-white">
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="max-w-4xl">
-            <p className="mb-7 text-sm font-medium text-black/40">
-              شروع همکاری
+            <p className="mb-7 text-sm font-medium text-white/40">
+              شروع پروژه
             </p>
 
             <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl lg:text-6xl">
-              برای کسب‌وکارتان
+              برای {title}
               <br />
-              پروژه چاپی دارید؟
+              چیزی در ذهن دارید؟
             </h2>
 
-            <p className="mt-8 max-w-2xl text-lg leading-9 text-black/55">
-              مشخصات پروژه را برای AIRIK ارسال کنید. بر اساس نیاز شما،
-              خدمات و مسیر مناسب تولید را بررسی می‌کنیم.
+            <p className="mt-8 max-w-2xl text-lg leading-9 text-white/55">
+              مشخصات پروژه را برای ما ارسال کنید تا درباره روش چاپ،
+              تیراژ و زمان‌بندی مناسب صحبت کنیم.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
                 href="/استعلام-قیمت"
-                className="inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm text-black transition-transform hover:-translate-y-0.5"
               >
                 استعلام قیمت
                 <span aria-hidden="true">↗</span>
@@ -458,9 +387,9 @@ export default function BusinessDetailPage({
 
               <Link
                 href="/تماس-با-ما"
-                className="inline-flex items-center gap-3 rounded-full border border-black/15 px-7 py-4 text-sm transition-colors hover:border-black"
+                className="inline-flex items-center gap-3 rounded-full border border-white/20 px-7 py-4 text-sm text-white transition-colors hover:border-white"
               >
-                تماس با AIRIK
+                تماس با ما
                 <span aria-hidden="true">↗</span>
               </Link>
             </div>
