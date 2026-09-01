@@ -1,12 +1,12 @@
 import Link from "next/link";
 
-import { BusinessType } from "@/content/business";
+import type { BusinessSolution } from "@/content/business";
 
 import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 import IconArrow from "@/components/ui/IconArrow";
 
 interface BusinessTypeCardProps {
-  business: BusinessType;
+  business: BusinessSolution;
 }
 
 export default function BusinessTypeCard({
