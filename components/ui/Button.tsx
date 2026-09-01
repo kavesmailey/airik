@@ -5,7 +5,7 @@ type ButtonProps = {
   children: ReactNode;
   href?: string;
   type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "text";
+  variant?: "primary" | "secondary" | "outline" | "text";
   size?: "sm" | "md" | "lg";
   className?: string;
   onClick?: () => void;
@@ -16,6 +16,8 @@ const variants = {
     "bg-black text-white hover:-translate-y-0.5",
   secondary:
     "border border-black/15 text-black hover:border-black hover:bg-black hover:text-white",
+  outline:
+    "border border-black/20 bg-transparent text-black hover:border-black",
   text:
     "text-black hover:opacity-50",
 };
