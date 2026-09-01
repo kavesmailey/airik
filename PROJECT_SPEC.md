@@ -1,204 +1,119 @@
 AYRIC — PROJECT SPECIFICATION
 
-Master Development & Implementation Guide
+Master Product, Design & Development Specification
 
-این فایل مرجع اصلی پروژه است.
-
-قبل از هر تغییر در کد، ابتدا این فایل و ساختار واقعی Repository بررسی شود.
-هیچ فایل یا صفحه‌ای نباید بدون بررسی implementation موجود از صفر ساخته یا بازنویسی شود.
-
-Current Phase: Phase 6 — Portfolio / Case Studies
+Project: Ayric
+Persian: آیریک
+Current Phase: Phase 6 — Portfolio
+Deployment Target: cPanel Shared Hosting
+VPS: Not required
 
 ⸻
 
-1. Project Overview
+01 — PROJECT OVERVIEW
 
-Project: Ayric / آیریک
+Ayric is a professional printing and production website for businesses, brands and individuals looking for reliable, high-quality printing services.
 
-Ayric is a professional printing and production website focused on helping brands and businesses turn their ideas into high-quality physical outputs.
+The website should position Ayric as more than a conventional printing shop.
 
-The website should position Ayric as more than a traditional printing shop.
-
-The brand should communicate:
+The experience should communicate:
 
 * Quality
 * Precision
 * Reliability
-* Material knowledge
 * Production expertise
+* Material knowledge
 * Professional service
 * Clear communication
 
-The website should feel contemporary, minimal, editorial and premium without becoming overly decorative.
+The website should feel contemporary, minimal, confident and premium.
+
+It should avoid the visual language of generic printing-shop websites.
 
 ⸻
 
-2. Primary Language & Naming
+02 — BRAND NAME
 
-Brand name
-
-English:
+Correct English Name
 
 Ayric
 
-Persian:
+Correct Persian Name
 
 آیریک
 
-Important
-
-Always use:
-
-* Ayric in English contexts
-* آیریک in Persian contexts
+These spellings are mandatory.
 
 Never use:
 
-* Airik
-* Ayrik
-* آریک
+Airik
+Ayrik
+آریک
 
-The correct brand spelling is Ayric / آیریک.
+Language Rule
+
+When writing Persian copy:
+
+آیریک
+
+When writing English copy:
+
+Ayric
 
 ⸻
 
-3. Technology Stack
+03 — PROJECT PRINCIPLES
 
-Current stack:
+The website should follow these principles:
+
+01 — Clarity
+
+Visitors should immediately understand:
+
+* What Ayric does
+* What services are available
+* Who Ayric works with
+* How to request a quote
+* How to contact Ayric
+
+02 — Visual Quality
+
+Photography, typography, layout and spacing should communicate production quality.
+
+03 — Simplicity
+
+Do not add features simply because other websites have them.
+
+Every component should have a purpose.
+
+04 — Real Content
+
+Use real Ayric information and real project imagery whenever available.
+
+Never fabricate project facts.
+
+05 — Maintainability
+
+Prefer simple architecture over unnecessary technical complexity.
+
+06 — Deployment Simplicity
+
+The final website should be deployable on ordinary cPanel shared hosting without requiring a VPS.
+
+⸻
+
+04 — TECHNOLOGY STACK
+
+Current project stack:
 
 * Next.js
 * React
 * TypeScript
 * Tailwind CSS
-* App Router
-* File-based content
-* Static-friendly architecture
+* Next.js App Router
+* File-based content architecture
 
-The project currently uses:
-
-app/
-components/
-content/
-lib/
-public/
-
-Content is intentionally separated from UI implementation.
-
-⸻
-
-4. Deployment Decision — IMPORTANT
-
-Final deployment target
-
-The website will be deployed on:
-
-Shared hosting / cPanel
-
-The website will NOT require a VPS.
-
-Do not introduce infrastructure that requires:
-
-* VPS
-* Docker
-* persistent Node.js server
-* server-side process running continuously
-* custom backend server
-
-unless explicitly approved later.
-
-⸻
-
-5. Static Export Strategy
-
-The final website should be compatible with Next.js static export.
-
-Target architecture:
-
-GitHub
-   ↓
-Next.js build
-   ↓
-Static Export
-   ↓
-out/
-   ↓
-cPanel
-   ↓
-public_html/
-
-Expected configuration:
-
-output: "export"
-
-This should be implemented during the appropriate technical-hardening/deployment phase, not prematurely during visual/content phases.
-
-However:
-
-From Phase 6 onward, all new implementation must remain compatible with static export.
-
-Avoid introducing features that require a permanent Next.js server.
-
-⸻
-
-6. Backend / Form Strategy
-
-The main website should remain static.
-
-Forms must NOT depend on a custom Node.js backend running on the hosting server.
-
-Current inquiry form implementation is only a placeholder and does not actually persist/send submissions.
-
-Future production architecture should use an external endpoint/service for form submission.
-
-Potential destinations:
-
-* Email
-* Telegram
-* External automation endpoint
-* Serverless/API service
-* Other lightweight external service
-
-Final implementation will be decided during the technical/conversion phase.
-
-Do not build a VPS backend just for the inquiry form.
-
-⸻
-
-7. Repository Rules
-
-CRITICAL — Avoid Repetition
-
-Before creating or modifying anything:
-
-1. Inspect the existing repository.
-2. Check whether the requested file already exists.
-3. Check whether the requested component already exists.
-4. Check existing routes.
-5. Check existing content models.
-6. Check existing utilities.
-7. Reuse existing architecture whenever possible.
-
-Never:
-
-* recreate an existing page
-* recreate an existing component
-* create duplicate routes
-* create duplicate content models
-* replace working architecture unnecessarily
-* invent routes without checking app/
-* invent data without checking content/
-
-If an existing implementation is incomplete:
-
-Modify it.
-
-Do not create a second implementation.
-
-⸻
-
-8. Current Repository Structure
-
-The repository already contains:
+Primary project structure:
 
 app/
 components/
@@ -207,7 +122,59 @@ lib/
 public/
 PROJECT_SPEC.md
 
-Important existing content files include:
+The existing architecture should be reused wherever possible.
+
+⸻
+
+05 — GOLDEN RULE: REPOSITORY FIRST
+
+The repository is the source of truth.
+
+Before writing or changing code:
+
+1. Inspect the repository.
+2. Inspect the relevant route.
+3. Inspect existing components.
+4. Inspect existing content files.
+5. Inspect existing utilities.
+6. Inspect existing assets.
+7. Determine what is already implemented.
+8. Identify only what is missing.
+9. Modify existing implementation when appropriate.
+
+NEVER:
+
+* Create a duplicate page
+* Create a duplicate route
+* Create a second component that already exists
+* Create a second content model
+* Rewrite an existing system without a reason
+* Assume a file does not exist
+* Assume a feature is missing without checking Git
+* Invent a new architecture when the current architecture can support the requirement
+
+Rule
+
+Existing → Inspect → Reuse → Extend → Improve
+
+Not:
+
+Assume → Recreate → Duplicate
+
+⸻
+
+06 — CURRENT REPOSITORY STRUCTURE
+
+The repository already contains the following major areas:
+
+app/
+components/
+content/
+lib/
+public/
+PROJECT_SPEC.md
+
+The content directory includes:
 
 content/
 ├── articles.tsx
@@ -218,7 +185,7 @@ content/
 ├── services.ts
 └── site.ts
 
-Important existing components include:
+The component architecture includes areas such as:
 
 components/
 ├── cards/
@@ -228,13 +195,35 @@ components/
 ├── seo/
 └── ui/
 
-Do not recreate these systems without first inspecting them.
+These structures must be inspected before adding new files.
 
 ⸻
 
-9. Existing Route Architecture
+07 — CONTENT ARCHITECTURE
 
-The project already contains routes including:
+Ayric uses a file-based content system.
+
+Content should remain separated from presentation.
+
+Current content sources include:
+
+content/projects.ts
+content/services.ts
+content/articles.tsx
+content/business.ts
+content/categories.ts
+content/faq.ts
+content/site.ts
+
+Do not introduce a CMS unless explicitly requested.
+
+The current website does not require a database for its core content.
+
+⸻
+
+08 — ROUTE ARCHITECTURE
+
+Existing routes include areas such as:
 
 /استعلام-قیمت
 /برای-کسب-و-کارها
@@ -247,249 +236,268 @@ The project already contains routes including:
 /نمونه-کارها
 /وبلاگ
 
-There are also SEO-related files such as:
+SEO-related files also exist, including:
 
 app/robots.ts
 app/sitemap.ts
 
-Before creating any route, inspect whether an equivalent route already exists.
+Route rule
+
+Before creating a route:
+
+1. Search app/.
+2. Search existing navigation.
+3. Search existing links.
+4. Search Git history if necessary.
+
+Never create an alternative route simply because its name seems more appropriate.
 
 ⸻
 
-10. Content Architecture
+09 — PORTFOLIO ARCHITECTURE
 
-Content remains file-based.
+IMPORTANT
 
-Do not introduce a CMS unless explicitly requested.
+Ayric’s portfolio is intentionally a single-page portfolio.
 
-Current content sources include:
+The portfolio is not a case-study system.
 
-content/projects.ts
-content/services.ts
-content/articles.tsx
-content/business.ts
-content/categories.ts
-content/faq.ts
-content/site.ts
+The portfolio is not a project database.
 
-These files should remain the source of truth for structured content.
+The portfolio is a curated visual presentation of Ayric’s work.
 
-⸻
-
-11. Project Data Architecture
-
-Current state
-
-content/projects.ts already exists.
-
-Do NOT create another project data file.
-
-The current model is insufficient for full case studies and needs to be expanded.
-
-Target conceptual structure:
-
-Project
-├── slug
-├── title
-├── category
-├── description
-├── client
-├── challenge
-├── solution
-├── printingMethod
-├── material
-├── process
-├── result
-├── services
-├── images
-└── metadata
-
-Exact fields should be adapted to the actual projects and existing implementation.
-
-Important
-
-Do not invent project facts.
-
-If real information is unavailable:
-
-* use neutral wording
-* leave optional fields empty
-* mark content as pending
-* ask for the actual information when necessary
-
-Never fabricate:
-
-* clients
-* production methods
-* materials
-* quantities
-* results
-* project history
-
-⸻
-
-12. Asset Policy
-
-Real project imagery has priority.
-
-Before adding images:
-
-1. Inspect public/
-2. Inspect public/images/
-3. Map existing assets to projects.
-4. Reuse real project assets where available.
-
-Do not use generic stock imagery to pretend it is an Ayric project.
-
-If project photography is missing:
-
-Use a deliberate placeholder only temporarily.
-
-Placeholder imagery must eventually be replaced with real project photography.
-
-⸻
-
-13. CASE STUDY SYSTEM
-
-Phase 6 objective
-
-Transform the current portfolio into a professional case-study system.
-
-The portfolio should not be just a gallery.
-
-It should communicate:
-
-Problem
-↓
-Thinking
-↓
-Production decision
-↓
-Execution
-↓
-Result
-
-Each project should explain why the final production solution makes sense.
-
-⸻
-
-14. Case Study Structure
-
-Preferred narrative:
-
-01 — Overview
-
-What is the project?
-
-02 — Challenge
-
-What needed to be solved?
-
-03 — Approach
-
-What direction was taken?
-
-04 — Production
-
-What was produced and how?
-
-05 — Material / Technique
-
-What printing method, material or production decision mattered?
-
-06 — Result
-
-What was delivered?
-
-07 — Related Services
-
-Which Ayric services are connected to this project?
-
-08 — Gallery
-
-Real project imagery.
-
-09 — CTA
-
-Move the visitor toward requesting a quote.
-
-⸻
-
-15. Portfolio Index
-
-Route:
+Main route
 
 /نمونه-کارها
 
-The portfolio index should:
-
-* introduce Ayric’s work
-* display projects clearly
-* use real imagery
-* expose project categories
-* link to individual case studies
-* remain fast and static-friendly
-
-Avoid placeholder-heavy presentation once real assets are available.
+This is the canonical portfolio route.
 
 ⸻
 
-16. Individual Case Study
+10 — INDIVIDUAL PROJECT PAGES
 
-Route:
+Individual project pages are NOT REQUIRED.
+
+Do not create:
 
 /نمونه-کارها/[slug]
 
-This route already exists.
+Do not build individual project detail pages.
 
-Do NOT recreate it.
+Do not build:
 
-Instead, improve its existing implementation.
+* Case Studies
+* Project narratives
+* Project-specific SEO pages
+* Project detail routes
+* Long-form project stories
+* Challenge / Solution / Result systems
+* Individual project CTA pages
 
-The page should consume the project data from:
+If an existing [slug] route exists in the repository, it should be reviewed as part of Phase 6 and removed or deprecated if it is no longer needed.
+
+Do not keep unnecessary architecture merely because it already exists.
+
+⸻
+
+11 — PORTFOLIO PROJECT DATA
+
+The existing source is:
 
 content/projects.ts
 
-It should be generated statically wherever possible.
+This file already exists and must be inspected before modification.
 
-Dynamic project pages must remain compatible with:
+The project data model should remain lightweight.
 
-output: "export"
-
-Use existing generateStaticParams() architecture where appropriate.
-
-⸻
-
-17. Services ↔ Projects Connection
-
-Projects should connect to relevant services.
-
-Example conceptual relationship:
+Preferred structure:
 
 Project
-   ↓
-Related Services
-   ↓
-Service Page
+├── title
+├── category
+├── description
+└── image / images
 
-This creates:
+Optional fields may include:
 
-* better navigation
-* stronger SEO
-* better internal linking
-* stronger conversion paths
+client
+year
+service
+printingMethod
 
-Do not duplicate service content inside projects.
+but only when they are useful and the information is available.
 
-Reference the canonical service content where possible.
+Do NOT turn the project model into a case-study schema.
+
+Do NOT add unnecessary fields such as:
+
+challenge
+solution
+process
+result
+productionStory
+materialsStory
+strategy
+outcome
+
+unless a future project requirement explicitly calls for them.
 
 ⸻
 
-18. Current Services
+12 — PORTFOLIO CONTENT RULES
 
-The project already has a service content architecture.
+Each portfolio item should answer three basic questions:
 
-Known service categories include concepts such as:
+What is it?
+
+Project title.
+
+What kind of work is it?
+
+Category / service.
+
+What does it look like?
+
+Project imagery.
+
+The description should be short and useful.
+
+Portfolio copy should not become unnecessarily long.
+
+The imagery should carry a significant part of the communication.
+
+⸻
+
+13 — PORTFOLIO VISUAL DIRECTION
+
+The portfolio should prioritize:
+
+* Large imagery
+* Strong typography
+* Editorial composition
+* Clear hierarchy
+* Generous whitespace
+* Visual rhythm
+* High-quality project presentation
+
+Possible layout techniques:
+
+* asymmetric grids
+* featured projects
+* varying image ratios
+* large/small image rhythm
+* category grouping
+* editorial spacing
+
+Avoid:
+
+* Generic card grids everywhere
+* Excessive borders
+* Excessive shadows
+* Unnecessary UI decoration
+* Stock-photo aesthetics
+* Overly complicated interactions
+
+⸻
+
+14 — PORTFOLIO INTERACTION
+
+Projects may use lightweight interactions:
+
+* Hover image transitions
+* Subtle image scaling
+* Image reveals
+* Category labels
+* Smooth transitions
+
+Interactions must remain lightweight.
+
+Do not introduce unnecessary JavaScript.
+
+Do not introduce heavy animation libraries unless there is a clear reason.
+
+The portfolio must remain fast.
+
+⸻
+
+15 — PORTFOLIO FILTERING
+
+Filtering is optional.
+
+Only implement filtering if the number of projects makes it genuinely useful.
+
+Potential filters may include:
+
+همه
+بسته‌بندی
+پوشاک
+تبلیغاتی
+سازمانی
+...
+
+The actual categories must come from the existing project/content architecture.
+
+Do not create arbitrary categories just for the UI.
+
+⸻
+
+16 — PROJECT IMAGES
+
+Real project photography has priority.
+
+Before adding any image:
+
+1. Inspect public/.
+2. Inspect public/images/.
+3. Identify existing assets.
+4. Map assets to actual projects.
+5. Reuse existing assets wherever possible.
+
+Do not use stock images and present them as Ayric projects.
+
+If an image is missing:
+
+* use a deliberate temporary placeholder if necessary
+* do not fabricate the project
+* replace it with the real image when available
+
+⸻
+
+17 — PROJECT INFORMATION ACCURACY
+
+Never invent:
+
+* Client names
+* Production methods
+* Materials
+* Quantities
+* Project dates
+* Results
+* Testimonials
+* Business relationships
+* Project history
+
+If information is unknown, keep the copy general.
+
+Example:
+
+Instead of inventing:
+
+Printed 5,000 premium boxes for X company.
+
+use a neutral description if the facts are unavailable.
+
+⸻
+
+18 — SERVICES
+
+The canonical service content is:
+
+content/services.ts
+
+Do not create another service data source.
+
+Known service areas include services such as:
 
 * چاپ سیلک
 * چاپ روی لباس
@@ -502,71 +510,256 @@ Known service categories include concepts such as:
 * چاپ لیوان کاغذی
 * چاپ ظروف گرد
 
-The exact current list must always be read from:
+The exact current service list must always be read from:
 
 content/services.ts
 
-Do not invent a parallel service list.
+Do not assume this list is final.
 
 ⸻
 
-19. SEO / GEO Direction
+19 — PROJECT ↔ SERVICE RELATIONSHIP
 
-The website should eventually target:
+Projects may reference relevant services.
 
-SEO
+For example:
 
-* service-specific searches
-* local printing searches
-* product printing searches
-* printing method searches
-* long-tail commercial queries
+Project
+   ↓
+Service
 
-GEO
+This relationship can support:
 
-Optimize content so search engines and AI answer systems can clearly understand:
+* Category labels
+* Filtering
+* Internal linking
+* Contextual navigation
 
-* what Ayric does
-* where it operates
-* what services it provides
-* which printing methods it supports
-* who it serves
-* how users can contact/request a quote
+However:
 
-SEO/GEO implementation belongs primarily to later technical/content phases.
+Do not duplicate full service descriptions inside portfolio projects.
 
-Do not sacrifice UX or visual quality for keyword stuffing.
+The service page remains the canonical source for service information.
 
 ⸻
 
-20. Design Direction
+20 — HOMEPAGE
+
+The homepage already exists.
+
+Before changing it:
+
+1. Inspect app/page.tsx.
+2. Inspect existing homepage components.
+3. Inspect current content sources.
+4. Modify only what is required.
+
+Do not rebuild the homepage from scratch unless explicitly required.
+
+⸻
+
+21 — SERVICE PAGES
+
+Service pages already have an existing architecture.
+
+Before creating or modifying service pages:
+
+content/services.ts
+app/خدمات/
+components/
+
+must be inspected.
+
+Existing service architecture should be reused.
+
+⸻
+
+22 — BUSINESS PAGES
+
+Business-oriented pages already exist.
+
+Before modifying them:
+
+content/business.ts
+
+and the corresponding routes/components must be inspected.
+
+Do not create duplicate business landing pages.
+
+⸻
+
+23 — BLOG
+
+The website already contains blog/article architecture.
+
+Relevant content includes:
+
+content/articles.tsx
+
+and existing blog-related routes.
+
+Do not create another blog system.
+
+Do not create duplicate article architecture.
+
+Blog and SEO improvements belong to the relevant later phase unless an existing bug requires immediate correction.
+
+⸻
+
+24 — ABOUT / CONTACT / QUOTE
+
+Existing pages include:
+
+/درباره-آیریک
+/درباره-ما
+/تماس-با-ما
+/استعلام-قیمت
+
+Before modifying any of these:
+
+* inspect the existing implementation
+* determine which route is canonical
+* avoid creating duplicates
+* preserve existing working architecture
+
+⸻
+
+25 — FORM ARCHITECTURE
+
+The quote/inquiry form currently exists.
+
+The current form submission implementation is not a real backend persistence system.
+
+The final website should not require a dedicated VPS backend just to receive inquiries.
+
+The future production form may use an external endpoint/service such as:
+
+* Email
+* Telegram
+* Automation endpoint
+* Serverless API
+* Lightweight external service
+
+The final implementation should be decided during technical/conversion work.
+
+⸻
+
+26 — DEPLOYMENT TARGET
+
+Final hosting
+
+cPanel Shared Hosting
+
+The project should not require:
+
+VPS
+Docker
+Persistent Node.js process
+Custom application server
+
+unless explicitly approved later.
+
+⸻
+
+27 — STATIC EXPORT STRATEGY
+
+The preferred production architecture is:
+
+GitHub
+   ↓
+Next.js Build
+   ↓
+Static Export
+   ↓
+out/
+   ↓
+cPanel
+   ↓
+public_html/
+
+The project should eventually use:
+
+output: "export"
+
+in the appropriate Next.js configuration.
+
+This should be implemented during the technical hardening/deployment phase.
+
+However:
+
+All new features from Phase 6 onward must remain compatible with static export.
+
+⸻
+
+28 — STATIC COMPATIBILITY RULES
+
+New code should avoid dependencies on:
+
+* Persistent server processes
+* Runtime databases
+* Server-side file writes
+* Runtime-only rendering
+* VPS-specific infrastructure
+* Server-only APIs unless explicitly supported by the final architecture
+
+Prefer:
+
+* Build-time data
+* Static content
+* Static generation
+* Client-side interaction only where necessary
+* External services for forms
+
+⸻
+
+29 — SERVER / CLIENT RULES
+
+Prefer Server Components.
+
+Do not add:
+
+"use client"
+
+unless client-side functionality is actually required.
+
+Use Client Components for:
+
+* interactive state
+* browser APIs
+* complex client-side interactions
+
+Do not convert entire pages to Client Components unnecessarily.
+
+This is especially important because the final deployment is intended to be static.
+
+⸻
+
+30 — DESIGN DIRECTION
 
 The visual language should be:
 
 * Minimal
 * Editorial
-* Contemporary
 * Premium
+* Contemporary
 * Calm
 * Confident
 * Typography-led
-* Image-led where appropriate
+* Image-led
 
-Avoid:
+The website should feel like a modern professional production company.
 
-* generic printing-shop aesthetics
-* excessive gradients
-* unnecessary cards
-* excessive rounded UI
-* visual clutter
-* cheap-looking promotional design
-* stock-photo-heavy layouts
+It should NOT look like:
 
-The website should feel like a professional creative/production company rather than a commodity printing marketplace.
+* A generic local printing shop
+* A discount marketplace
+* A template website
+* A catalogue filled with promotional badges
+* A noisy e-commerce interface
 
 ⸻
 
-21. Color Direction
+31 — COLOR SYSTEM
 
 Primary background:
 
@@ -576,392 +769,520 @@ Supporting neutral:
 
 #E7E2D4
 
-Additional light visual tone:
+Supporting light tone:
 
 #D0D5EC
 
-The overall system should remain restrained.
+The visual system should remain restrained.
 
-Do not introduce black-heavy visual branding.
+Black can be used functionally for:
 
-Black may be used functionally for:
+* Typography
+* Buttons
+* High-contrast sections
 
-* typography
-* buttons
-* high-contrast CTA sections
-
-but should not become the dominant visual identity.
+but should not dominate the overall visual identity.
 
 ⸻
 
-22. Typography
+32 — TYPOGRAPHY
 
-Current implementation may use a safe system fallback where necessary.
+Before changing typography:
 
-Do not replace the project’s existing typography system without inspecting:
+1. Inspect current font implementation.
+2. Inspect:
 
 public/fonts/
 
-and existing font configuration first.
+3. Inspect Tailwind configuration.
+4. Reuse existing fonts where appropriate.
 
-If a local font is already implemented, reuse it.
+Do not introduce paid fonts unnecessarily.
+
+Typography should support the editorial and premium character of the website.
 
 ⸻
 
-23. Component Architecture
+33 — RESPONSIVE DESIGN
 
-Reuse existing components.
+Every new UI must work across:
 
-Before creating:
+* Mobile
+* Tablet
+* Desktop
+* Large desktop
 
-Button
-Card
-Header
-Footer
-Form
-Section
-Container
-SEO component
+Do not design desktop-first and treat mobile as an afterthought.
 
-search the existing component library first.
+Important areas:
+
+* Navigation
+* Typography
+* Portfolio grid
+* Images
+* Forms
+* CTA sections
+* Spacing
+
+⸻
+
+34 — ACCESSIBILITY
+
+New implementation should maintain:
+
+* Semantic HTML
+* Proper heading hierarchy
+* Accessible buttons
+* Accessible links
+* Meaningful alt text
+* Keyboard usability
+* Adequate contrast
+
+Do not sacrifice accessibility for visual effects.
+
+⸻
+
+35 — PERFORMANCE
+
+The website should remain lightweight.
 
 Prefer:
 
-existing component
-        ↓
-extend / adapt
+* Optimized images
+* Static content
+* Minimal JavaScript
+* Reusable components
+* Server Components
+* Simple CSS transitions
 
-instead of:
-
-new duplicate component
-
-⸻
-
-24. Server / Client Rules
-
-Avoid unnecessary "use client".
-
-Prefer Server Components.
-
-Only use Client Components when interaction genuinely requires client-side state/browser APIs.
-
-This is especially important because the final deployment target is static export.
+Avoid unnecessary dependencies.
 
 ⸻
 
-25. Static Export Compatibility Rules
+36 — SEO / GEO
 
-New code must avoid dependencies on:
+SEO and GEO are important but should not compromise the visual experience.
 
-* runtime server APIs
-* persistent server processes
-* filesystem writes at runtime
-* dynamic server-only rendering
-* unsupported middleware behavior
-* server-side databases directly from page rendering
+The website should eventually communicate clearly:
 
-Prefer:
+* What Ayric does
+* What services Ayric provides
+* Who Ayric serves
+* Where Ayric operates
+* How to request a quote
+* How to contact Ayric
 
-* static data
-* build-time generation
-* client-side interaction only where required
-* external APIs for form submission
+Target search intent should include:
 
-⸻
-
-26. Build Verification
-
-After meaningful implementation changes:
-
-npm run build
-
-must be run in the actual project environment.
-
-Do not claim that the build passes unless it has actually been executed.
-
-When static export is enabled, verify:
-
-out/
-
-is generated correctly.
+* Printing services
+* Specific printing methods
+* Product printing
+* Packaging printing
+* Business printing
+* Local printing queries
+* Long-tail commercial queries
 
 ⸻
 
-27. Deployment Target
+37 — INTERNAL LINKING
 
-Final deployment:
+Internal linking should connect:
 
-cPanel shared hosting
+Homepage
+   ↓
+Services
+   ↓
+Service Pages
+Homepage
+   ↓
+Portfolio
+   ↓
+Services
 
-Expected structure:
+Blog content should link to relevant service pages when contextually appropriate.
 
-public_html/
-├── index.html
-├── ...
-
-The build pipeline should eventually be:
-
-GitHub
-↓
-npm install
-↓
-npm run build
-↓
-out/
-↓
-upload contents of out/
-↓
-cPanel/public_html/
-
-No VPS is required for the main website.
+Do not create unnecessary links simply for SEO.
 
 ⸻
 
-28. Development Phases
+38 — SEO FILES
+
+Existing SEO architecture includes:
+
+app/robots.ts
+app/sitemap.ts
+
+Before changing these:
+
+* inspect existing implementation
+* preserve working behavior
+* update rather than duplicate
+
+⸻
+
+39 — DEVELOPMENT PHASES
 
 Phase 0 — Baseline & Safety
 
-Status:
+Status
 
-Completed / baseline established
+Complete
 
 Responsibilities:
 
-* understand existing architecture
-* inspect repository
-* avoid duplicate implementation
-* establish build/deployment constraints
+* Repository inspection
+* Architecture understanding
+* Existing implementation audit
+* Build awareness
+* Establishing deployment constraints
 
 ⸻
 
 Phase 1 — Content Architecture
 
-Status:
+Status
 
-Completed
+Complete
 
 Responsibilities:
 
-* content model
-* services
-* projects
-* articles
-* business content
-* FAQs
-* site information
+* Project content
+* Service content
+* Business content
+* Article content
+* FAQ
+* Site information
 
 ⸻
 
 Phase 2 — Homepage
 
-Status:
+Status
 
-Completed / existing implementation
+Complete / Existing implementation
 
-Do not recreate the homepage without reviewing current implementation.
+Do not rebuild unnecessarily.
 
 ⸻
 
 Phase 3 — Service Pages
 
-Status:
+Status
 
-Completed / existing implementation
+Complete / Existing implementation
 
-Existing service architecture should be reused and refined rather than recreated.
+Reuse the existing architecture.
 
 ⸻
 
-Phase 4 — Business Landing Pages
+Phase 4 — Business Pages
 
-Status:
+Status
 
-Completed / existing implementation
+Complete / Existing implementation
 
-Review and improve where necessary.
+Reuse the existing architecture.
 
 ⸻
 
 Phase 5 — Blog / SEO Content
 
-Status:
+Status
 
-Completed / existing implementation
+Complete / Existing implementation
 
-Existing:
-
-articles
-blog
-SEO
-sitemap
-
-architecture should be preserved.
+Existing blog/article/SEO architecture should be preserved.
 
 ⸻
 
-PHASE 6 — PORTFOLIO / CASE STUDIES
+PHASE 6 — PORTFOLIO
 
 CURRENT PHASE
 
 Objective
 
-Turn the existing portfolio into a professional case-study system.
+Create a strong, curated, visually compelling portfolio page.
 
-Tasks
+The portfolio is:
 
-6.1 Audit existing project data
+ONE PAGE
+
+It is NOT:
+
+Case Study System
+
+It is NOT:
+
+Individual Project Pages
+
+⸻
+
+Phase 6 Tasks
+
+6.1 Audit Existing Project Data
 
 Inspect:
 
 content/projects.ts
 
-Do not replace blindly.
+Determine:
+
+* Existing projects
+* Existing fields
+* Existing descriptions
+* Existing image references
+* Existing categories
+* Existing service relationships
+
+⸻
+
+6.2 Audit Existing Portfolio Page
+
+Inspect:
+
+app/نمونه-کارها/page.tsx
 
 Determine:
 
-* current fields
-* existing projects
-* missing fields
-* existing image references
-* existing service relationships
+* Current layout
+* Current components
+* Existing placeholders
+* Existing interactions
+* Existing responsive behavior
 
-6.2 Audit existing assets
+Modify the existing implementation rather than rebuilding unnecessarily.
+
+⸻
+
+6.3 Audit Existing Assets
 
 Inspect:
 
 public/images/
 
-Map real images to projects.
+Map available images to actual portfolio projects.
 
-6.3 Expand project data model
+⸻
 
-Add only fields that are actually needed for the case-study system.
+6.4 Finalize Lightweight Project Model
 
-6.4 Redesign portfolio index
+Keep only information useful for the portfolio.
 
-Improve:
+Target:
 
-/نمونه-کارها
+title
+category
+description
+image/images
 
-using real project information and imagery.
+Optional:
 
-6.5 Redesign case study
+client
+year
+service
+printingMethod
 
-Improve:
+Only when useful and verified.
+
+⸻
+
+6.5 Improve Portfolio Layout
+
+Create a strong visual presentation using:
+
+* Large imagery
+* Editorial grid
+* Typography
+* Spacing
+* Project hierarchy
+* Featured work where appropriate
+
+⸻
+
+6.6 Remove Placeholder Presentation
+
+Where real project information/assets exist:
+
+Replace:
+
+PROJECT IMAGE
+PROJECT TITLE
+GENERIC DESCRIPTION
+
+with real content.
+
+⸻
+
+6.7 Lightweight Interactions
+
+Add only useful interactions.
+
+Examples:
+
+* Hover
+* Image transition
+* Category indication
+* Subtle movement
+
+Do not over-engineer.
+
+⸻
+
+6.8 Remove Unnecessary Individual Project Architecture
+
+Review any existing:
 
 /نمونه-کارها/[slug]
 
-using the narrative structure defined above.
+implementation.
 
-6.6 Connect services
+Since individual project pages are not part of the final architecture:
 
-Add project → service relationships.
+* remove unnecessary navigation to them
+* remove unnecessary dependencies
+* remove unused components
+* remove unused project-detail code where safe
 
-6.7 Add real imagery
-
-Replace placeholders where real assets exist.
-
-6.8 Validate static generation
-
-Ensure project routes can be generated at build time.
+Do not break the rest of the site.
 
 ⸻
 
-IMPORTANT PHASE 6 WORKFLOW
+6.9 Static Compatibility
 
-Do NOT perform these tasks blindly.
+Ensure the portfolio works with:
 
-For every step:
+Next.js Static Export
 
-Inspect
-↓
-Understand existing implementation
-↓
-Identify only what is missing
-↓
-Modify existing code
-↓
-Build
-↓
-Continue
-
-Never:
-
-Assume
-↓
-Rewrite
-↓
-Create duplicate
+No portfolio functionality should require a server.
 
 ⸻
 
-Phase 7 — Visual Refinement
+PHASE 7 — VISUAL REFINEMENT
 
-After content architecture and case studies are stable:
+After Phase 6:
 
-* typography refinement
-* spacing
-* responsive behavior
-* animation
-* image treatment
-* transitions
-* visual consistency
-* accessibility
-
-⸻
-
-Phase 8 — SEO / GEO
-
-* metadata
-* structured data
-* canonical URLs
-* internal linking
-* service SEO
-* local SEO
-* GEO/AI discoverability
-* sitemap
-* robots
-* semantic HTML
+* Typography refinement
+* Spacing
+* Responsive design
+* Animation
+* Image treatment
+* Interaction polish
+* Accessibility
+* Visual consistency
 
 ⸻
 
-Phase 9 — Technical Hardening & Deployment
+PHASE 8 — SEO / GEO
 
-Main objective
+Responsibilities:
 
-Prepare the project for:
+* Metadata
+* Structured data
+* Canonical URLs
+* Internal linking
+* Service SEO
+* Local SEO
+* GEO
+* AI discoverability
+* Sitemap
+* Robots
+* Semantic HTML
 
-cPanel shared hosting without VPS
+⸻
+
+PHASE 9 — TECHNICAL HARDENING & DEPLOYMENT
+
+Objective
+
+Prepare the website for:
+
+cPanel Shared Hosting
+
+without VPS.
 
 Tasks:
 
-1. Static export configuration
-2. next.config
-3. build verification
-4. route verification
-5. asset verification
-6. image optimization compatibility
-7. form endpoint
-8. production environment variables
-9. security headers where applicable
-10. final deployment test
+9.1 Static Export
+
+Configure:
+
+output: "export"
+
+when the project is ready.
+
+9.2 Build
+
+Run:
+
+npm run build
+
+9.3 Verify Output
+
+Confirm:
+
+out/
+
+is generated correctly.
+
+9.4 Route Testing
+
+Test:
+
+* Homepage
+* Services
+* Portfolio
+* Blog
+* Contact
+* Quote
+* About
+* Business pages
+
+9.5 Asset Testing
+
+Verify:
+
+* Images
+* Fonts
+* CSS
+* JavaScript
+* Icons
+
+9.6 Form Testing
+
+Connect the inquiry form to the selected external submission system.
+
+9.7 cPanel Deployment
+
+Expected deployment:
+
+Build
+↓
+out/
+↓
+Upload contents
+↓
+public_html/
 
 ⸻
 
-Phase 10 — Conversion & Polish
+PHASE 10 — CONVERSION & FINAL POLISH
 
-* quote CTA
-* contact flow
-* inquiry UX
-* trust signals
-* conversion optimization
-* final QA
-* mobile QA
-* performance optimization
+Responsibilities:
+
+* Quote CTA
+* Contact flow
+* Inquiry UX
+* Trust signals
+* Conversion improvements
+* Mobile QA
+* Final visual QA
+* Performance
+* Accessibility
+* Production testing
 
 ⸻
 
-29. Current Status
+40 — CURRENT PROJECT STATUS
 
 Phase 0  ██████████  Complete
 Phase 1  ██████████  Complete
@@ -977,61 +1298,199 @@ Phase 10 ░░░░░░░░░░  Pending
 
 ⸻
 
-30. Immediate Next Step
-
-The next task is NOT to create a new page.
+41 — CURRENT IMMEDIATE TASK
 
 The next task is:
 
-Audit and update content/projects.ts
+Portfolio Audit
 
-Specifically:
+Before writing code:
 
-1. Read the current project data.
-2. Identify all existing projects.
-3. Identify the existing fields.
-4. Inspect available project images.
-5. Determine which project data is real and which is placeholder.
-6. Define the minimum additional fields required for Phase 6.
-7. Update the existing data model.
-8. Do not fabricate missing project facts.
+Step 1
 
-Only after this audit should the portfolio UI be modified.
+Inspect:
 
-⸻
+content/projects.ts
 
-31. Golden Rule
+Step 2
 
-The repository is the source of truth.
+Inspect:
 
-This document is the development roadmap.
+app/نمونه-کارها/page.tsx
 
-Existing code must always be inspected before new code is written.
+Step 3
 
-If something already exists, improve it.
+Inspect:
 
-If something does not exist, create it.
+public/images/
 
-Never create a second version of something that already exists.
+Step 4
 
-⸻
+Identify:
 
-32. Deployment Golden Rule
+* What already exists
+* What is incomplete
+* What is placeholder
+* What can be reused
+* What should be removed
+* What needs modification
 
-Ayric is being built for cPanel shared hosting, not a VPS.
+Step 5
 
-Every new feature must be evaluated against static-export compatibility.
-
-Do not introduce server infrastructure unless explicitly approved.
+Only then modify the portfolio.
 
 ⸻
 
-33. Brand Golden Rule
+42 — DO NOT DO
+
+From this point forward, do NOT:
+
+* Create individual project pages
+* Create Case Studies
+* Create project detail routes
+* Create a second project data file
+* Create duplicate components
+* Create duplicate routes
+* Invent project information
+* Add unnecessary backend infrastructure
+* Introduce VPS requirements
+* Introduce unnecessary dependencies
+* Rewrite working systems without inspection
+* Claim build success without actually running the build
+
+⸻
+
+43 — DECISION LOG
+
+Decision 01
+
+Brand name
+
+Correct:
 
 Ayric / آیریک
 
-This is the correct brand name and spelling.
+⸻
 
-English: Ayric
+Decision 02
 
-Persian: آیریک
+Portfolio architecture
+
+Portfolio is a single page.
+
+No individual project pages.
+
+⸻
+
+Decision 03
+
+Case Studies
+
+Case Studies are out of scope.
+
+They are not required for the current Ayric website.
+
+⸻
+
+Decision 04
+
+Project content
+
+Projects need:
+
+* Image
+* Title
+* Category
+* Short description
+
+Optional metadata may be added when useful.
+
+⸻
+
+Decision 05
+
+Hosting
+
+The final website will run on:
+
+cPanel Shared Hosting
+
+No VPS is required for the main website.
+
+⸻
+
+Decision 06
+
+Architecture
+
+The website should be compatible with:
+
+Next.js Static Export
+
+⸻
+
+Decision 07
+
+Backend
+
+The main website should not depend on a persistent server.
+
+Forms may use an external endpoint/service.
+
+⸻
+
+Decision 08
+
+Repository workflow
+
+Before every implementation:
+
+Inspect Git
+↓
+Understand existing code
+↓
+Identify missing part
+↓
+Modify existing implementation
+↓
+Build/Test
+↓
+Continue
+
+⸻
+
+44 — MASTER RULE
+
+Do not build what already exists.
+
+Do not create what is not needed.
+
+Do not invent information that is not known.
+
+Do not introduce infrastructure that the final deployment does not require.
+
+Always inspect the repository before writing code.
+
+Ayric’s portfolio is a single-page curated gallery, not a case-study system.
+
+The final website must be deployable on cPanel shared hosting without a VPS.
+
+⸻
+
+45 — NEXT ACTION
+
+Current task:
+
+PHASE 6
+↓
+Audit content/projects.ts
+↓
+Audit app/نمونه‌کارها/page.tsx
+↓
+Audit public/images/
+↓
+Determine exact missing work
+↓
+Implement portfolio
+
+No new page should be created until this audit is complete.
