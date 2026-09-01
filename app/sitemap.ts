@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { services } from "@/content/services";
-import { businessTypes } from "@/content/business";
+import { businessSolutions } from "@/content/business";
 import { articles } from "@/content/articles";
 import { projects } from "@/content/projects";
 
@@ -53,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const businessPages: MetadataRoute.Sitemap = businessTypes.map(
+  const businessPages: MetadataRoute.Sitemap = businessSolutions.map(
     (business) => ({
       url: `${baseUrl}/برای-کسب-و-کارها/${business.slug}`,
       lastModified: new Date(),
