@@ -1,164 +1,112 @@
 import Link from "next/link";
+
 import { projects } from "@/content/projects";
 
-export default function ProjectsPreview() {
-  const featuredProjects = projects.slice(0, 4);
+import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
+import IconArrow from "@/components/ui/IconArrow";
 
+export default function ProjectsPreview() {
   return (
     <section
-      className="py-28 sm:py-32 lg:py-40"
+      className="py-24 sm:py-32 lg:py-40"
       style={{ backgroundColor: "var(--color-bg)" }}
+      aria-labelledby="projects-preview-heading"
     >
       <div className="container-iric">
         {/* Header */}
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3">
-              <span
-                className="h-px w-10"
-                style={{ backgroundColor: "var(--color-accent)" }}
-              />
-
-              <p
-                className="text-sm font-medium"
-                style={{ color: "var(--color-text-muted)" }}
-              >
-                نمونه‌کارها
-              </p>
-            </div>
+        <div className="mb-12 flex flex-col gap-6 sm:mb-16 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p
+              className="text-sm font-medium"
+              style={{ color: "var(--color-accent)" }}
+            >
+              نمونه‌کارها
+            </p>
 
             <h2
-              className="mt-7 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
+              id="projects-preview-heading"
+              className="mt-4 text-3xl font-bold sm:text-4xl lg:text-5xl"
               style={{
                 color: "var(--color-text)",
-                lineHeight: "1.2",
+                lineHeight: "var(--line-height-tight)",
               }}
             >
-              چاپ وقتی مهم است
-              <br />
-              <span style={{ color: "var(--color-text-muted)" }}>
-                که روی محصول واقعی دیده شود.
-              </span>
+              بخشی از کارهای ما
             </h2>
-
-            <p
-              className="mt-7 max-w-2xl text-base sm:text-lg"
-              style={{
-                color: "var(--color-text-muted)",
-                lineHeight: "2",
-              }}
-            >
-              نمونه‌کارهای آیریک را بر اساس محصول، متریال و روش چاپ ببینید و با
-              کیفیت اجرای واقعی پروژه‌ها آشنا شوید.
-            </p>
           </div>
 
           <Link
             href="/نمونه-کارها"
-            className="inline-flex shrink-0 items-center gap-3 text-sm font-bold transition-opacity hover:opacity-60"
-            style={{ color: "var(--color-text)" }}
+            className="group inline-flex w-fit items-center gap-3 text-sm font-medium"
+            style={{
+              color: "var(--color-text)",
+              textDecoration: "none",
+            }}
           >
-            مشاهده همه نمونه‌کارها
-            <span aria-hidden="true">←</span>
+            <span>مشاهده همه نمونه‌کارها</span>
+
+            <span
+              className="transition-transform duration-300 group-hover:-translate-x-1"
+              aria-hidden="true"
+            >
+              <IconArrow direction="left" size={18} />
+            </span>
           </Link>
         </div>
 
         {/* Projects */}
-        <div className="mt-20 grid gap-8 md:grid-cols-2">
-          {featuredProjects.map((project, index) => (
-            <Link
-              key={project.slug}
-              href={`/نمونه-کارها/${project.slug}`}
-              className="group"
-            >
-              {/* Image */}
-              <div
-                className="relative aspect-[4/3] overflow-hidden rounded-md"
-                style={{ backgroundColor: "var(--color-bg-light)" }}
-              >
-                <div
-                  className="absolute inset-0 flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]"
-                  style={{ color: "var(--color-text-faint)" }}
-                >
-                  <span className="text-xs">{project.title}</span>
-                </div>
-
-                <div
-                  className="absolute inset-x-0 bottom-0 h-px origin-right scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
-                  style={{ backgroundColor: "var(--color-accent)" }}
+        <div className="grid gap-8 md:grid-cols-2">
+          {projects.slice(0, 4).map((project, index) => (
+            <article key={project.slug} className="group">
+              <div className="overflow-hidden">
+                <MediaPlaceholder
+                  aspectRatio="4/3"
+                  label={project.title}
+                  tone="dark"
+                  className="transition-transform duration-500 group-hover:scale-[1.02]"
                 />
               </div>
 
-              {/* Information */}
-              <div className="mt-6">
+              <div className="mt-5">
                 <div className="flex items-start justify-between gap-6">
                   <div>
                     <p
                       className="text-xs"
                       style={{ color: "var(--color-text-faint)" }}
                     >
-                      {String(index + 1).padStart(2, "0")} · {project.product}
+                      {String(index + 1).padStart(2, "0")} ·{" "}
+                      {project.category}
                     </p>
 
                     <h3
-                      className="mt-3 text-xl font-bold sm:text-2xl"
-                      style={{
-                        color: "var(--color-text)",
-                        lineHeight: "1.4",
-                      }}
+                      className="mt-3 text-xl font-bold"
+                      style={{ color: "var(--color-text)" }}
                     >
                       {project.title}
                     </h3>
+
+                    <p
+                      className="mt-3 max-w-xl text-sm"
+                      style={{
+                        color: "var(--color-text-muted)",
+                        lineHeight: "var(--line-height-relaxed)",
+                      }}
+                    >
+                      {project.description}
+                    </p>
                   </div>
 
                   <span
-                    className="mt-1 shrink-0 text-xl transition-transform duration-300 group-hover:-translate-x-1"
-                    style={{ color: "var(--color-text-faint)" }}
+                    className="mt-1 shrink-0 opacity-40 transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100"
+                    style={{ color: "var(--color-text)" }}
                     aria-hidden="true"
                   >
-                    ↗
+                    <IconArrow direction="up-left" size={20} />
                   </span>
                 </div>
-
-                <p
-                  className="mt-3 text-sm"
-                  style={{
-                    color: "var(--color-text-muted)",
-                    lineHeight: "1.8",
-                  }}
-                >
-                  {project.objective}
-                </p>
               </div>
-            </Link>
+            </article>
           ))}
-        </div>
-
-        {/* Bottom statement */}
-        <div
-          className="mt-20 border-t pt-8"
-          style={{ borderColor: "var(--color-border)" }}
-        >
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <p
-              className="max-w-2xl text-sm"
-              style={{
-                color: "var(--color-text-faint)",
-                lineHeight: "1.9",
-              }}
-            >
-              هر پروژه داستان، محدودیت و نیاز خودش را دارد. جزئیات هر سفارش
-              مسیر اجرای آن را مشخص می‌کند.
-            </p>
-
-            <Link
-              href="/استعلام-قیمت"
-              className="shrink-0 text-sm font-bold transition-opacity hover:opacity-60"
-              style={{ color: "var(--color-text)" }}
-            >
-              پروژه شما چیست؟ →
-            </Link>
-          </div>
         </div>
       </div>
     </section>
