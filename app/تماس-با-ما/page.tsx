@@ -2,43 +2,125 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "تماس با ما | Ayric",
+  title: "تماس با آیریک | سفارش و استعلام قیمت چاپ",
   description:
-    "برای دریافت مشاوره، ثبت سفارش و استعلام قیمت خدمات چاپ با آیریک در ارتباط باشید.",
+    "برای سفارش چاپ، دریافت مشاوره یا استعلام قیمت خدمات چاپ آیریک با ما در ارتباط باشید. مشخصات پروژه خود را ارسال کنید تا راهنمایی و برآورد اولیه انجام شود.",
+  alternates: {
+    canonical: "/تماس-با-ما",
+  },
+  openGraph: {
+    title: "تماس با آیریک | سفارش و استعلام قیمت چاپ",
+    description:
+      "برای سفارش چاپ، دریافت مشاوره یا استعلام قیمت پروژه با آیریک در ارتباط باشید.",
+    type: "website",
+  },
 };
 
+function JsonLd({ data }: { data: Record<string, unknown> }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(data),
+      }}
+    />
+  );
+}
+
 export default function ContactPage() {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "خانه",
+        item: "/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "تماس با ما",
+        item: "/تماس-با-ما",
+      },
+    ],
+  };
+
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "تماس با آیریک",
+    description:
+      "راه‌های ارتباط با آیریک برای سفارش چاپ، دریافت مشاوره و استعلام قیمت.",
+    url: "/تماس-با-ما",
+    mainEntity: {
+      "@type": "Organization",
+      name: "آیریک",
+      email: "hello@ayric.ir",
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer service",
+        email: "hello@ayric.ir",
+        availableLanguage: ["fa"],
+      },
+    },
+  };
+
   return (
     <main dir="rtl">
-      {/* Hero */}
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={contactSchema} />
+
+      {/* HERO */}
       <section className="border-b border-black/10">
-        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
+        <div className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 sm:py-28 md:px-10 md:py-36 lg:px-12 lg:py-40">
           <div className="max-w-5xl">
-            <p className="mb-8 text-sm font-medium text-black/40">
+            <p className="mb-7 text-xs font-medium text-black/40 sm:text-sm">
               تماس با آیریک
             </p>
 
-            <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
+            <h1 className="text-[clamp(2.5rem,7vw,6.5rem)] font-medium leading-[1.12] tracking-[-0.045em]">
               درباره پروژه‌تان
               <br />
               صحبت کنیم.
             </h1>
 
-            <p className="mt-10 max-w-3xl text-lg leading-9 text-black/60 md:text-xl md:leading-10">
-              برای استعلام قیمت، دریافت مشاوره یا شروع یک سفارش چاپی،
-              اطلاعات پروژه‌تان را برای ما ارسال کنید.
+            <p className="mt-8 max-w-3xl text-base leading-8 text-black/55 sm:mt-10 sm:text-lg sm:leading-9">
+              برای سفارش چاپ، دریافت مشاوره یا استعلام قیمت،
+              مشخصات پروژه‌تان را برای ما ارسال کنید. اطلاعات شما
+              بررسی می‌شود و برای انتخاب روش مناسب چاپ و ادامه
+              فرایند با شما در ارتباط خواهیم بود.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Contact + Form */}
+      {/* QUICK ANSWER — FEO / GEO */}
+      <section className="border-b border-black/10 bg-[#f7f5f1]">
+        <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 sm:py-20 md:px-10 lg:px-12">
+          <div className="max-w-4xl">
+            <p className="mb-4 text-xs font-medium text-black/40 sm:text-sm">
+              ارتباط با آیریک
+            </p>
+
+            <p className="text-lg leading-9 text-black/65 sm:text-xl">
+              آیریک برای سفارش‌های چاپی برندها و کسب‌وکارها،
+              مشاوره، بررسی مشخصات پروژه و استعلام قیمت ارائه
+              می‌دهد. برای شروع کافی است نوع محصول، تعداد تقریبی،
+              ابعاد و زمان مورد نیاز خود را با ما در میان بگذارید.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT + FORM */}
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+        <div className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 sm:py-24 md:px-10 md:py-32 lg:px-12">
           <div className="grid gap-20 md:grid-cols-[0.75fr_1.25fr] md:gap-28">
-            {/* Contact Info */}
+            {/* CONTACT INFO */}
             <div>
-              <p className="mb-7 text-sm font-medium text-black/40">
+              <p className="mb-7 text-xs font-medium text-black/40 sm:text-sm">
                 اطلاعات تماس
               </p>
 
@@ -83,16 +165,24 @@ export default function ContactPage() {
                   </p>
                 </div>
               </div>
+
+              {/* Small guidance */}
+              <div className="mt-10">
+                <p className="text-sm leading-8 text-black/45">
+                  اگر هنوز درباره روش چاپ، متریال یا تعداد مناسب
+                  مطمئن نیستید، می‌توانید اطلاعات اولیه پروژه را
+                  ارسال کنید. قبل از ثبت سفارش، جزئیات بررسی می‌شود.
+                </p>
+              </div>
             </div>
 
-            {/* Form */}
+            {/* FORM */}
             <div>
-              <p className="mb-7 text-sm font-medium text-black/40">
+              <p className="mb-7 text-xs font-medium text-black/40 sm:text-sm">
                 درخواست شما
               </p>
 
               <form
-                action="#"
                 method="post"
                 className="border-t border-black/10"
               >
@@ -106,6 +196,7 @@ export default function ContactPage() {
                       type="text"
                       name="name"
                       required
+                      autoComplete="name"
                       placeholder="نام شما"
                       className="w-full border-b border-black/15 bg-transparent px-0 py-4 text-base outline-none transition-colors placeholder:text-black/25 focus:border-black"
                     />
@@ -120,6 +211,7 @@ export default function ContactPage() {
                       type="tel"
                       name="phone"
                       required
+                      autoComplete="tel"
                       placeholder="۰۹۱۲..."
                       className="w-full border-b border-black/15 bg-transparent px-0 py-4 text-base outline-none transition-colors placeholder:text-black/25 focus:border-black"
                     />
@@ -134,6 +226,7 @@ export default function ContactPage() {
                   <input
                     type="email"
                     name="email"
+                    autoComplete="email"
                     placeholder="you@example.com"
                     dir="ltr"
                     className="w-full border-b border-black/15 bg-transparent px-0 py-4 text-base outline-none transition-colors placeholder:text-black/25 focus:border-black"
@@ -189,7 +282,7 @@ export default function ContactPage() {
                     name="message"
                     required
                     rows={6}
-                    placeholder="کمی درباره پروژه، تعداد و زمان مورد نیاز بنویسید..."
+                    placeholder="نوع محصول، تعداد، ابعاد، زمان مورد نیاز و هر اطلاعاتی که درباره پروژه دارید..."
                     className="w-full resize-none border-b border-black/15 bg-transparent px-0 py-4 text-base leading-8 outline-none transition-colors placeholder:text-black/25 focus:border-black"
                   />
                 </label>
@@ -209,24 +302,25 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Quote CTA */}
+      {/* QUOTE CTA */}
       <section className="border-y border-black/10 bg-[#f5f3ef]">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+        <div className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 sm:py-28 md:px-10 md:py-36 lg:px-12">
           <div className="grid gap-12 md:grid-cols-[1fr_auto] md:items-end">
             <div>
-              <p className="mb-7 text-sm font-medium text-black/40">
+              <p className="mb-7 text-xs font-medium text-black/40 sm:text-sm">
                 استعلام قیمت
               </p>
 
-              <h2 className="max-w-4xl text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
-                اگر فقط قیمت می‌خواهید،
+              <h2 className="max-w-4xl text-3xl font-medium leading-[1.4] tracking-[-0.035em] sm:text-4xl md:text-5xl">
+                برای دریافت قیمت،
                 <br />
-                از اینجا شروع کنید.
+                از مشخصات پروژه شروع کنید.
               </h2>
 
-              <p className="mt-7 max-w-2xl leading-8 text-black/50">
-                برای دریافت قیمت دقیق‌تر، مشخصات محصول، تعداد و ابعاد
-                تقریبی را ارسال کنید.
+              <p className="mt-7 max-w-2xl text-base leading-8 text-black/50">
+                نوع محصول، تعداد، ابعاد و زمان مورد نیاز را مشخص کنید
+                تا بتوانیم قیمت و روش مناسب اجرای پروژه را دقیق‌تر
+                بررسی کنیم.
               </p>
             </div>
 
@@ -243,14 +337,14 @@ export default function ContactPage() {
 
       {/* FAQ */}
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+        <div className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 sm:py-24 md:px-10 md:py-32 lg:px-12">
           <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
             <div>
-              <p className="mb-7 text-sm font-medium text-black/40">
+              <p className="mb-7 text-xs font-medium text-black/40 sm:text-sm">
                 قبل از تماس
               </p>
 
-              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
+              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight sm:text-4xl md:text-5xl">
                 چند سؤال
                 <br />
                 متداول.
@@ -269,7 +363,11 @@ export default function ContactPage() {
                 },
                 {
                   q: "آیا امکان سفارش برای کسب‌وکارها وجود دارد؟",
-                  a: "بله. سفارش‌های سازمانی و تولیدهای مستمر نیز قابل بررسی هستند.",
+                  a: "بله. سفارش‌های برندها، کسب‌وکارها و مجموعه‌های سازمانی قابل بررسی هستند.",
+                },
+                {
+                  q: "آیا قبل از سفارش می‌توان درباره پروژه مشاوره گرفت؟",
+                  a: "بله. می‌توانید مشخصات اولیه پروژه را ارسال کنید تا درباره روش چاپ، متریال و جزئیات اجرا راهنمایی دریافت کنید.",
                 },
               ].map((item, index) => (
                 <details
@@ -292,7 +390,7 @@ export default function ContactPage() {
                     </span>
                   </summary>
 
-                  <p className="pb-8 pr-9 leading-8 text-black/50 md:pr-10">
+                  <p className="pb-8 pr-9 text-sm leading-8 text-black/50 sm:text-base md:pr-10">
                     {item.a}
                   </p>
                 </details>
