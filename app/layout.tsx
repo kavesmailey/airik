@@ -36,9 +36,7 @@ export default function RootLayout({
     <html lang="fa" dir="rtl">
       <body className="min-h-screen bg-[#f7f5f1] text-black antialiased">
         <Header />
-
-        <main>{children}</main>
-
+        {children}
         <Footer />
       </body>
     </html>
