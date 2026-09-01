@@ -1,362 +1,887 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
-const services = [
-  {
-    slug: "چاپ-روی-لباس",
-    title: "چاپ روی لباس",
-    eyebrow: "چاپ روی لباس",
-    description:
-      "چاپ طرح، لوگو و گرافیک روی انواع لباس برای برندها، تیم‌ها، رویدادها و پروژه‌های شخصی.",
-    intro:
-      "لباس فقط یک سطح برای چاپ نیست. جنس پارچه، نوع استفاده، تعداد و کیفیت مورد انتظار، همگی روی انتخاب روش مناسب تأثیر می‌گذارند.",
-    applications: [
-      "لباس برندها",
-      "یونیفرم سازمانی",
-      "لباس رویداد",
-      "تیشرت و هودی",
-      "لباس تبلیغاتی",
-    ],
-  },
-  {
-    slug: "چاپ-روی-پارچه",
-    title: "چاپ روی پارچه",
-    eyebrow: "چاپ روی پارچه",
-    description:
-      "راهکارهای چاپ روی پارچه با توجه به جنس متریال، نوع طرح، کاربرد و تیراژ پروژه.",
-    intro:
-      "برای چاپ روی پارچه، جنس و ساختار پارچه اهمیت زیادی دارد. روش مناسب باید با نوع پارچه، طرح و کاربرد نهایی هماهنگ باشد.",
-    applications: [
-      "پارچه پوشاک",
-      "پارچه دکوراتیو",
-      "پارچه تبلیغاتی",
-      "تولیدات فشن",
-      "محصولات پارچه‌ای",
-    ],
-  },
-  {
-    slug: "بسته-بندی",
-    title: "بسته‌بندی",
-    eyebrow: "بسته‌بندی",
-    description:
-      "تولید بسته‌بندی چاپی برای برندها؛ از جعبه و کیسه تا سایر نقاط تماس محصول با مشتری.",
-    intro:
-      "بسته‌بندی اولین تجربه فیزیکی بسیاری از مشتریان با محصول است. کیفیت چاپ، متریال و جزئیات اجرا باید در کنار هویت برند دیده شوند.",
-    applications: [
-      "جعبه محصول",
-      "پاکت و کیسه",
-      "لیبل",
-      "بسته‌بندی فروشگاهی",
-      "بسته‌بندی اختصاصی برند",
-    ],
-  },
-  {
-    slug: "چاپ-روی-محصول",
-    title: "چاپ روی محصول",
-    eyebrow: "چاپ روی محصول",
-    description:
-      "چاپ روی محصولات و سطوح مختلف برای ساخت محصول برندشده، هدیه سازمانی و پروژه‌های تبلیغاتی.",
-    intro:
-      "هر محصول سطح، فرم و محدودیت خودش را دارد. روش چاپ باید با شکل، جنس و کاربرد محصول هماهنگ شود.",
-    applications: [
-      "محصولات برندشده",
-      "هدایای سازمانی",
-      "محصولات تبلیغاتی",
-      "لوازم فروشگاهی",
-      "پروژه‌های اختصاصی",
-    ],
-  },
-  {
-    slug: "اقلام-تبلیغاتی",
-    title: "اقلام تبلیغاتی",
-    eyebrow: "اقلام تبلیغاتی",
-    description:
-      "تولید اقلام چاپی برای کمپین‌ها، رویدادها، معرفی برند و ارتباط مستقیم با مخاطب.",
-    intro:
-      "اقلام تبلیغاتی زمانی مؤثرند که فقط لوگو را روی یک محصول قرار ندهند؛ بلکه بخشی از تجربه برند باشند.",
-    applications: [
-      "کمپین تبلیغاتی",
-      "رویدادها",
-      "هدایای تبلیغاتی",
-      "اقلام نمایشگاهی",
-      "پکیج‌های برند",
-    ],
-  },
-  {
-    slug: "چاپ-کاغذ-و-مقوا",
-    title: "چاپ کاغذ و مقوا",
-    eyebrow: "چاپ کاغذ و مقوا",
-    description:
-      "چاپ انواع متریال کاغذی و مقوایی برای کاربردهای تجاری، تبلیغاتی و سازمانی.",
-    intro:
-      "از یک کارت ساده تا یک مجموعه کامل چاپی، انتخاب کاغذ، تکنیک چاپ و پرداخت نهایی می‌تواند تفاوت بزرگی در نتیجه ایجاد کند.",
-    applications: [
-      "کارت ویزیت",
-      "بروشور",
-      "کاتالوگ",
-      "فولدر",
-      "اقلام سازمانی",
-    ],
-  },
-];
+import { services } from "@/content/services";
+import { siteConfig } from "@/content/site";
+
+import Button from "@/components/ui/Button";
+import IconArrow from "@/components/ui/IconArrow";
+import SectionHeading from "@/components/ui/SectionHeading";
+import Accordion from "@/components/ui/Accordion";
+import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
+import Reveal from "@/components/ui/Reveal";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import JsonLd from "@/components/seo/JsonLd";
+
+type PageProps = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
 
 function getService(slug: string) {
   return services.find((service) => service.slug === slug);
 }
 
+/*
+ * Static generation
+ *
+ * تمام صفحات خدمات در زمان build ساخته می‌شوند.
+ * این برای معماری نهایی cPanel / static export مناسب است.
+ */
 export function generateStaticParams() {
   return services.map((service) => ({
     slug: service.slug,
   }));
 }
 
+/*
+ * SEO Metadata
+ *
+ * Metadata از content/services.ts می‌آید تا
+ * محتوا فقط در یک محل مدیریت شود.
+ */
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const service = getService(slug);
 
   if (!service) {
     return {
-      title: "خدمت پیدا نشد | Ayric",
+      title: "خدمت پیدا نشد | آیریک",
     };
   }
 
   return {
-    title: `${service.title} | Ayric`,
-    description: service.description,
+    title: service.meta.title,
+    description: service.meta.description,
+
+    alternates: {
+      canonical: `/خدمات/${service.slug}`,
+    },
+
+    openGraph: {
+      title: service.meta.title,
+      description: service.meta.description,
+      type: "website",
+      url: `/خدمات/${service.slug}`,
+      images: service.image
+        ? [
+            {
+              url: service.image,
+              alt: service.title,
+            },
+          ]
+        : undefined,
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: service.meta.title,
+      description: service.meta.description,
+      images: service.image ? [service.image] : undefined,
+    },
   };
 }
 
-export default async function ServicePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ServicePage({ params }: PageProps) {
   const { slug } = await params;
+
   const service = getService(slug);
 
   if (!service) {
     notFound();
   }
 
+  const relatedServices = service.relatedServiceSlugs
+    .map((relatedSlug) => getService(relatedSlug))
+    .filter(Boolean);
+
+  /*
+   * ------------------------------------------------------------
+   * Structured Data
+   * ------------------------------------------------------------
+   */
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title,
+    description: service.meta.description,
+    provider: {
+      "@type": "Organization",
+      name: siteConfig.name,
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "ایران",
+    },
+    serviceType: service.title,
+    url: `/خدمات/${service.slug}`,
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "خانه",
+        item: "/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "خدمات",
+        item: "/خدمات",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.title,
+        item: `/خدمات/${service.slug}`,
+      },
+    ],
+  };
+
+  const faqSchema =
+    service.faqs.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: service.faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: faq.answer,
+            },
+          })),
+        }
+      : null;
+
   return (
-    <main dir="rtl">
-      {/* Hero */}
-      <section className="border-b border-black/10">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <Link
-            href="/خدمات"
-            className="mb-14 inline-flex items-center gap-3 text-sm text-black/40 transition-opacity hover:opacity-60"
-          >
-            <span aria-hidden="true">→</span>
-            بازگشت به خدمات
-          </Link>
+    <>
+      <JsonLd type="service" data={serviceSchema} />
 
-          <div className="grid gap-12 md:grid-cols-[1.2fr_0.8fr] md:items-end">
-            <div>
-              <p className="mb-7 text-sm font-medium text-black/40">
-                {service.eyebrow}
-              </p>
+      <JsonLd type="breadcrumb" data={breadcrumbSchema} />
 
-              <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
-                {service.title}
-              </h1>
-            </div>
+      {faqSchema && <JsonLd type="faq" data={faqSchema} />}
 
-            <p className="text-lg leading-9 text-black/60 md:text-xl">
-              {service.description}
-            </p>
-          </div>
-        </div>
-      </section>
+      <main dir="rtl">
+        {/* =====================================================
+            HERO
+        ====================================================== */}
 
-      {/* Visual Placeholder */}
-      <section>
-        <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20 lg:px-12">
-          <div className="flex min-h-[420px] items-center justify-center rounded-[2rem] bg-[#f5f3ef] md:min-h-[620px]">
-            <div className="text-center">
-              <span className="block text-xs tracking-[0.2em] text-black/30">
-                AYRIC
-              </span>
-
-              <span className="mt-5 block text-5xl font-medium tracking-tight text-black/10 md:text-8xl">
-                {service.title.slice(0, 1)}
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Introduction */}
-      <section className="border-y border-black/10">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
-            <div>
-              <p className="mb-7 text-sm font-medium text-black/40">
-                درباره این خدمت
-              </p>
-
-              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                روش مناسب،
-                <br />
-                برای نتیجه بهتر.
-              </h2>
-            </div>
-
-            <div>
-              <p className="text-lg leading-9 text-black/60 md:text-xl md:leading-10">
-                {service.intro}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Applications */}
-      <section>
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="mb-16 md:mb-24">
-            <p className="mb-7 text-sm font-medium text-black/40">
-              کاربردها
-            </p>
-
-            <h2 className="text-3xl font-medium tracking-tight md:text-5xl">
-              برای چه پروژه‌هایی؟
-            </h2>
-          </div>
-
-          <div className="grid border-t border-black/10 md:grid-cols-2">
-            {service.applications.map((application, index) => (
-              <div
-                key={application}
-                className="flex items-center gap-6 border-b border-black/10 py-8 md:py-10 md:[&:nth-child(odd)]:border-l md:[&:nth-child(odd)]:pl-10 md:[&:nth-child(even)]:pr-10"
-              >
-                <span className="text-xs text-black/30">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-
-                <span className="text-xl font-medium">
-                  {application}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Process */}
-      <section className="border-y border-black/10 bg-[#f5f3ef]">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
-            <div>
-              <p className="mb-7 text-sm font-medium text-black/40">
-                فرآیند
-              </p>
-
-              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                از مشخصات
-                <br />
-                تا تولید.
-              </h2>
-            </div>
-
-            <div className="border-t border-black/10">
-              {[
+        <section
+          className="pt-28 pb-16 sm:pt-32 sm:pb-20"
+          style={{
+            backgroundColor: "var(--color-bg)",
+          }}
+        >
+          <div className="container-iric">
+            <Breadcrumbs
+              items={[
                 {
-                  title: "بررسی",
-                  text: "نوع محصول، متریال، تعداد و کاربرد نهایی بررسی می‌شود.",
+                  label: "خدمات",
+                  href: "/خدمات",
                 },
                 {
-                  title: "پیشنهاد",
-                  text: "راهکار و روش مناسب بر اساس نیاز پروژه پیشنهاد می‌شود.",
+                  label: service.title,
+                  href: `/خدمات/${service.slug}`,
                 },
-                {
-                  title: "تأیید",
-                  text: "جزئیات فنی، هزینه و زمان‌بندی پیش از تولید نهایی می‌شود.",
-                },
-                {
-                  title: "اجرا",
-                  text: "سفارش طبق مشخصات تأییدشده تولید و آماده تحویل می‌شود.",
-                },
-              ].map((step, index) => (
-                <div
-                  key={step.title}
-                  className="grid gap-5 border-b border-black/10 py-8 md:grid-cols-[80px_0.7fr_1.3fr] md:items-center md:py-10"
+              ]}
+            />
+
+            <div className="mt-8 grid items-end gap-10 lg:grid-cols-12 lg:gap-16">
+              <div className="lg:col-span-7">
+                <p
+                  className="text-sm font-medium"
+                  style={{
+                    color: "var(--color-accent)",
+                  }}
                 >
-                  <span className="text-xs text-black/30">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                  {service.title}
+                </p>
 
-                  <h3 className="text-xl font-medium">
-                    {step.title}
-                  </h3>
+                <h1
+                  className="mt-5 text-4xl font-bold sm:text-5xl lg:text-6xl"
+                  style={{
+                    color: "var(--color-text)",
+                    lineHeight: "var(--line-height-tight)",
+                  }}
+                >
+                  {service.title}
+                </h1>
 
-                  <p className="leading-8 text-black/50">
-                    {step.text}
-                  </p>
+                <p
+                  className="mt-6 max-w-2xl text-lg sm:text-xl"
+                  style={{
+                    color: "var(--color-text-muted)",
+                    lineHeight: "var(--line-height-relaxed)",
+                  }}
+                >
+                  {service.fullDescription}
+                </p>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Button href="/استعلام-قیمت" size="lg">
+                    استعلام قیمت
+                    <IconArrow direction="left" size={16} />
+                  </Button>
+
+                  <Button href="#faq" variant="secondary" size="lg">
+                    سوالات متداول
+                  </Button>
                 </div>
+              </div>
+
+              <div className="lg:col-span-5">
+                {service.image ? (
+                  <div className="overflow-hidden rounded-md">
+                    <img
+                      src={service.image}
+                      alt={`${service.title} آیریک`}
+                      className="h-auto w-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <MediaPlaceholder
+                    aspectRatio="4/3"
+                    label={`تصویر ${service.title}`}
+                    tone="dark"
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================
+            QUICK ANSWER
+            FEO / AI SEARCH
+        ====================================================== */}
+
+        <section
+          className="py-14 sm:py-16"
+          style={{
+            backgroundColor: "var(--color-bg-light)",
+          }}
+        >
+          <div className="container-iric">
+            <div
+              className="max-w-4xl border-r-2 pr-6 sm:pr-8"
+              style={{
+                borderColor: "var(--color-accent)",
+              }}
+            >
+              <p
+                className="text-sm font-medium"
+                style={{
+                  color: "var(--color-accent)",
+                }}
+              >
+                پاسخ کوتاه
+              </p>
+
+              <p
+                className="mt-4 text-xl font-semibold sm:text-2xl"
+                style={{
+                  color: "var(--color-text-dark)",
+                  lineHeight: "var(--line-height-relaxed)",
+                }}
+              >
+                {service.shortDescription}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================
+            ABOUT
+        ====================================================== */}
+
+        <section
+          className="py-16 sm:py-20"
+          style={{
+            backgroundColor: "var(--color-bg)",
+          }}
+        >
+          <div className="container-iric">
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-20">
+              <div className="lg:col-span-4">
+                <SectionHeading
+                  eyebrow="درباره این خدمت"
+                  title={`${service.title} چیست؟`}
+                  tone="dark"
+                />
+              </div>
+
+              <div className="lg:col-span-8">
+                <p
+                  className="text-lg"
+                  style={{
+                    color: "var(--color-text-muted)",
+                    lineHeight: "var(--line-height-relaxed)",
+                  }}
+                >
+                  {service.aboutText}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================
+            BENEFITS
+        ====================================================== */}
+
+        <section
+          className="py-16 sm:py-20"
+          style={{
+            backgroundColor: "var(--color-bg-light)",
+          }}
+        >
+          <div className="container-iric">
+            <SectionHeading
+              eyebrow="مزایا"
+              title={`چرا ${service.title}؟`}
+              description="انتخاب روش مناسب چاپ باید بر اساس نوع محصول، طرح و هدف پروژه انجام شود."
+              tone="light"
+            />
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {service.benefits.map((benefit, index) => (
+                <Reveal
+                  key={benefit}
+                  delay={index * 50}
+                >
+                  <div
+                    className="h-full rounded-md border p-6"
+                    style={{
+                      borderColor: "var(--color-border-light)",
+                      backgroundColor: "var(--color-surface-light)",
+                    }}
+                  >
+                    <span
+                      className="text-sm font-bold"
+                      style={{
+                        color: "var(--color-accent)",
+                      }}
+                    >
+                      {String(index + 1).padStart(2, "۰")}
+                    </span>
+
+                    <h3
+                      className="mt-4 text-lg font-bold"
+                      style={{
+                        color: "var(--color-text-dark)",
+                      }}
+                    >
+                      {benefit}
+                    </h3>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Quote CTA */}
-      <section className="border-t border-black/10 bg-black text-white">
-        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
-          <div className="max-w-4xl">
-            <p className="mb-7 text-sm font-medium text-white/40">
-              شروع پروژه
-            </p>
+        {/* =====================================================
+            SUITABLE FOR
+        ====================================================== */}
 
-            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl lg:text-6xl">
-              برای این خدمت
-              <br />
-              استعلام قیمت بگیرید.
-            </h2>
+        <section
+          className="py-16 sm:py-20"
+          style={{
+            backgroundColor: "var(--color-bg)",
+          }}
+        >
+          <div className="container-iric">
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-20">
+              <div className="lg:col-span-4">
+                <SectionHeading
+                  eyebrow="کاربرد"
+                  title="برای چه پروژه‌هایی مناسب است؟"
+                  tone="dark"
+                />
+              </div>
 
-            <p className="mt-8 max-w-2xl text-lg leading-9 text-white/55">
-              مشخصات پروژه‌تان را ارسال کنید تا بر اساس نوع محصول،
-              تعداد و شرایط تولید، قیمت مناسب را برایتان بررسی کنیم.
-            </p>
+              <div className="lg:col-span-8">
+                <div className="grid gap-x-8 border-t md:grid-cols-2">
+                  {service.suitableFor.map((item, index) => (
+                    <div
+                      key={item}
+                      className="flex gap-5 border-b py-6"
+                      style={{
+                        borderColor: "var(--color-border)",
+                      }}
+                    >
+                      <span
+                        className="text-xs"
+                        style={{
+                          color: "var(--color-text-faint)",
+                        }}
+                      >
+                        {String(index + 1).padStart(2, "۰")}
+                      </span>
 
-            <div className="mt-10 flex flex-wrap gap-3">
-              <Link
-                href="/استعلام-قیمت"
-                className="inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm text-black transition-transform hover:-translate-y-0.5"
-              >
-                استعلام قیمت
-                <span aria-hidden="true">↗</span>
-              </Link>
-
-              <Link
-                href="/تماس-با-ما"
-                className="inline-flex items-center gap-3 rounded-full border border-white/20 px-7 py-4 text-sm transition-colors hover:border-white"
-              >
-                تماس با ما
-                <span aria-hidden="true">↗</span>
-              </Link>
+                      <span
+                        className="font-medium"
+                        style={{
+                          color: "var(--color-text)",
+                        }}
+                      >
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Back */}
-      <section>
-        <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 lg:px-12">
-          <Link
-            href="/خدمات"
-            className="inline-flex items-center gap-3 text-sm text-black/40 transition-opacity hover:opacity-60"
+        {/* =====================================================
+            APPLICATIONS
+        ====================================================== */}
+
+        <section
+          className="py-16 sm:py-20"
+          style={{
+            backgroundColor: "var(--color-bg-light)",
+          }}
+        >
+          <div className="container-iric">
+            <SectionHeading
+              eyebrow="موارد استفاده"
+              title={`${service.title} در چه محصولاتی استفاده می‌شود؟`}
+              tone="light"
+            />
+
+            <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {service.applications.map((application, index) => (
+                <Reveal
+                  key={application}
+                  delay={index * 40}
+                >
+                  <div
+                    className="rounded-md border p-5"
+                    style={{
+                      borderColor: "var(--color-border-light)",
+                      backgroundColor: "var(--color-surface-light)",
+                    }}
+                  >
+                    <span
+                      className="text-xs font-bold"
+                      style={{
+                        color: "var(--color-accent)",
+                      }}
+                    >
+                      {String(index + 1).padStart(2, "۰")}
+                    </span>
+
+                    <p
+                      className="mt-4 font-semibold"
+                      style={{
+                        color: "var(--color-text-dark)",
+                      }}
+                    >
+                      {application}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================
+            KEY CONSIDERATIONS
+        ====================================================== */}
+
+        <section
+          className="py-16 sm:py-20"
+          style={{
+            backgroundColor: "var(--color-bg)",
+          }}
+        >
+          <div className="container-iric">
+            <SectionHeading
+              eyebrow="نکات مهم"
+              title="قبل از سفارش چه چیزهایی مهم است؟"
+              description="انتخاب روش چاپ فقط به ظاهر طرح محدود نمی‌شود. مشخصات تولید روی نتیجه نهایی تأثیر دارند."
+              tone="dark"
+            />
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              {service.keyConsiderations.map(
+                (consideration, index) => (
+                  <Reveal
+                    key={consideration.label}
+                    delay={index * 60}
+                  >
+                    <div className="card-industrial h-full">
+                      <span
+                        className="text-xs"
+                        style={{
+                          color: "var(--color-accent)",
+                        }}
+                      >
+                        {String(index + 1).padStart(2, "۰")}
+                      </span>
+
+                      <h3
+                        className="mt-4 text-lg font-bold"
+                        style={{
+                          color: "var(--color-text)",
+                        }}
+                      >
+                        {consideration.label}
+                      </h3>
+
+                      <p
+                        className="mt-3 text-sm"
+                        style={{
+                          color: "var(--color-text-muted)",
+                          lineHeight: "var(--line-height-relaxed)",
+                        }}
+                      >
+                        {consideration.description}
+                      </p>
+                    </div>
+                  </Reveal>
+                )
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================
+            PRINTING METHODS
+        ====================================================== */}
+
+        {service.printingMethods.length > 0 && (
+          <section
+            className="py-16 sm:py-20"
+            style={{
+              backgroundColor: "var(--color-bg-light)",
+            }}
           >
-            <span aria-hidden="true">→</span>
-            مشاهده همه خدمات
-          </Link>
-        </div>
-      </section>
-    </main>
+            <div className="container-iric">
+              <SectionHeading
+                eyebrow="روش اجرا"
+                title="روش چاپ"
+                tone="light"
+              />
+
+              <div className="mt-10 grid gap-4">
+                {service.printingMethods.map(
+                  (method, index) => (
+                    <div
+                      key={method.name}
+                      className="grid gap-5 rounded-md border p-6 md:grid-cols-[80px_0.8fr_1.2fr]"
+                      style={{
+                        borderColor: "var(--color-border-light)",
+                        backgroundColor:
+                          "var(--color-surface-light)",
+                      }}
+                    >
+                      <span
+                        className="text-xs"
+                        style={{
+                          color: "var(--color-accent)",
+                        }}
+                      >
+                        {String(index + 1).padStart(2, "۰")}
+                      </span>
+
+                      <h3
+                        className="font-bold"
+                        style={{
+                          color: "var(--color-text-dark)",
+                        }}
+                      >
+                        {method.name}
+                      </h3>
+
+                      <div>
+                        <p
+                          className="text-sm"
+                          style={{
+                            color:
+                              "var(--color-text-dark-muted)",
+                            lineHeight:
+                              "var(--line-height-relaxed)",
+                          }}
+                        >
+                          {method.description}
+                        </p>
+
+                        <p
+                          className="mt-3 text-sm font-medium"
+                          style={{
+                            color: "var(--color-text-dark)",
+                          }}
+                        >
+                          مناسب برای:{" "}
+                          <span
+                            style={{
+                              color:
+                                "var(--color-text-dark-muted)",
+                            }}
+                          >
+                            {method.suitableFor}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* =====================================================
+            PROCESS
+        ====================================================== */}
+
+        <section
+          className="py-16 sm:py-20"
+          style={{
+            backgroundColor: "var(--color-bg)",
+          }}
+        >
+          <div className="container-iric">
+            <SectionHeading
+              eyebrow="فرآیند"
+              title="فرآیند اجرای سفارش"
+              description="از دریافت مشخصات تا کنترل کیفیت، مراحل سفارش بر اساس نوع خدمت و محصول انجام می‌شود."
+              tone="dark"
+            />
+
+            <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {service.processSteps.map((step, index) => (
+                <Reveal
+                  key={step}
+                  delay={index * 40}
+                >
+                  <div className="card-industrial h-full">
+                    <span
+                      className="text-sm font-bold"
+                      style={{
+                        color: "var(--color-accent)",
+                      }}
+                    >
+                      {String(index + 1).padStart(2, "۰")}
+                    </span>
+
+                    <p
+                      className="mt-4 font-medium"
+                      style={{
+                        color: "var(--color-text)",
+                        lineHeight:
+                          "var(--line-height-relaxed)",
+                      }}
+                    >
+                      {step}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================
+            FAQ
+        ====================================================== */}
+
+        {service.faqs.length > 0 && (
+          <section
+            id="faq"
+            className="py-16 sm:py-20"
+            style={{
+              backgroundColor: "var(--color-bg-light)",
+            }}
+          >
+            <div className="container-iric">
+              <div className="grid gap-10 lg:grid-cols-12 lg:gap-20">
+                <div className="lg:col-span-4">
+                  <SectionHeading
+                    eyebrow="سوالات متداول"
+                    title={`سوالات درباره ${service.title}`}
+                    tone="light"
+                  />
+                </div>
+
+                <div className="lg:col-span-8">
+                  <Accordion
+                    items={service.faqs.map((faq, index) => ({
+                      id: `${service.slug}-faq-${index}`,
+                      title: faq.question,
+                      content: faq.answer,
+                    }))}
+                    tone="light"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* =====================================================
+            RELATED SERVICES
+        ====================================================== */}
+
+        {relatedServices.length > 0 && (
+          <section
+            className="py-16 sm:py-20"
+            style={{
+              backgroundColor: "var(--color-bg)",
+            }}
+          >
+            <div className="container-iric">
+              <SectionHeading
+                eyebrow="خدمات مرتبط"
+                title="ممکن است این خدمات هم برای شما مناسب باشند"
+                tone="dark"
+              />
+
+              <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {relatedServices.map((relatedService, index) => {
+                  if (!relatedService) return null;
+
+                  return (
+                    <Reveal
+                      key={relatedService.slug}
+                      delay={index * 50}
+                    >
+                      <a
+                        href={`/خدمات/${relatedService.slug}`}
+                        className="group block h-full rounded-md border p-6 transition-transform duration-300 hover:-translate-y-1"
+                        style={{
+                          borderColor:
+                            "var(--color-border)",
+                          textDecoration: "none",
+                        }}
+                      >
+                        <span
+                          className="text-xs"
+                          style={{
+                            color:
+                              "var(--color-text-faint)",
+                          }}
+                        >
+                          {String(index + 1).padStart(
+                            2,
+                            "۰"
+                          )}
+                        </span>
+
+                        <h3
+                          className="mt-5 text-lg font-bold"
+                          style={{
+                            color: "var(--color-text)",
+                          }}
+                        >
+                          {relatedService.title}
+                        </h3>
+
+                        <p
+                          className="mt-3 text-sm"
+                          style={{
+                            color:
+                              "var(--color-text-muted)",
+                            lineHeight:
+                              "var(--line-height-relaxed)",
+                          }}
+                        >
+                          {
+                            relatedService.shortDescription
+                          }
+                        </p>
+
+                        <div
+                          className="mt-6 flex items-center gap-2 text-sm font-medium"
+                          style={{
+                            color: "var(--color-text)",
+                          }}
+                        >
+                          <span>مشاهده خدمت</span>
+
+                          <span
+                            className="transition-transform duration-300 group-hover:-translate-x-1"
+                            aria-hidden="true"
+                          >
+                            <IconArrow
+                              direction="left"
+                              size={16}
+                            />
+                          </span>
+                        </div>
+                      </a>
+                    </Reveal>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* =====================================================
+            FINAL CTA
+        ====================================================== */}
+
+        <section
+          className="py-20 sm:py-24"
+          style={{
+            backgroundColor: "var(--color-accent)",
+          }}
+        >
+          <div className="container-iric text-center">
+            <p
+              className="text-sm font-medium"
+              style={{
+                color: "var(--color-text)",
+              }}
+            >
+              آماده شروع پروژه هستید؟
+            </p>
+
+            <h2
+              className="mx-auto mt-4 max-w-3xl text-3xl font-bold sm:text-4xl lg:text-5xl"
+              style={{
+                color: "var(--color-text)",
+                lineHeight: "var(--line-height-tight)",
+              }}
+            >
+              مشخصات پروژه‌تان را بفرستید تا مناسب‌ترین راهکار را بررسی کنیم.
+            </h2>
+
+            <p
+              className="mx-auto mt-5 max-w-2xl text-base"
+              style={{
+                color: "var(--color-text-muted)",
+                lineHeight: "var(--line-height-relaxed)",
+              }}
+            >
+              نوع محصول، تعداد، ابعاد، فایل طرح و هر اطلاعاتی که درباره پروژه
+              دارید را ارسال کنید.
+            </p>
+
+            <div className="mt-8 flex justify-center">
+              <Button href="/استعلام-قیمت" size="lg">
+                استعلام قیمت
+                <IconArrow direction="left" size={16} />
+              </Button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
