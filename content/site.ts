@@ -1,20 +1,20 @@
 export const siteConfig = {
   name: "آیریک",
-  englishName: "IRIC",
+  englishName: "Ayric",
+
   tagline: "چاپ تخصصی برای برندهایی که کیفیت اهمیت دارد",
 
   description:
     "آیریک یک مجموعه تخصصی چاپ برای برندها، کسب‌وکارها و سازمان‌هاست؛ از چاپ سیلک و DTF روی لباس و پارچه تا چاپ روی بگ، بسته‌بندی و محصولات تبلیغاتی.",
 
-  siteUrl:
-    process.env.NEXT_PUBLIC_SITE_URL || "https://airik-xi.vercel.app",
+  siteUrl: "https://ayricchap.ir",
 
   contact: {
     phone: "",
     phoneDisplay: "",
     email: "",
     address: "",
-    city: "",
+    city: "کرج",
     country: "ایران",
     workingHours: "",
     mapEmbedUrl: "",
