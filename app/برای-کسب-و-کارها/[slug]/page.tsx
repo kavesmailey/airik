@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { businessSolutions } from "@/content/business";
+import { siteConfig } from "@/content/site";
 
 type PageProps = {
   params: Promise<{
@@ -28,15 +29,36 @@ export async function generateMetadata({
 
   if (!business) {
     return {
-      title: "AIRIK",
+      title: `آیریک | راهکارهای چاپ`,
     };
   }
 
+  const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
+  const canonicalUrl = `${siteUrl}/برای-کسب-و-کارها/${business.slug}`;
+
+  const description =
+    business.description ||
+    `راهکارهای چاپ آیریک برای ${business.title}.`;
+
   return {
-    title: `${business.title} | AIRIK`,
-    description:
-      business.description ||
-      `راهکارهای چاپ AIRIK برای ${business.title}.`,
+    title: `${business.title} | راهکارهای چاپ آیریک`,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${business.title} | راهکارهای چاپ آیریک`,
+      description,
+      url: canonicalUrl,
+      siteName: siteConfig.name,
+      locale: "fa_IR",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${business.title} | راهکارهای چاپ آیریک`,
+      description,
+    },
   };
 }
 
@@ -50,13 +72,113 @@ export default async function BusinessDetailPage({
     notFound();
   }
 
+  const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
+  const canonicalUrl = `${siteUrl}/برای-کسب-و-کارها/${business.slug}`;
+
   const title = business.title;
   const description =
     business.description ||
     `راهکارهای چاپ متناسب با نیازهای ${title}.`;
 
+  const faqItems = [
+    {
+      q: `برای ${title} چه روش چاپی مناسب‌تر است؟`,
+      a: "روش مناسب به نوع محصول، متریال، تعداد و کاربرد بستگی دارد. پس از دریافت مشخصات پروژه می‌توان گزینه مناسب را تعیین کرد.",
+    },
+    {
+      q: "آیا سفارش مستمر امکان‌پذیر است؟",
+      a: "بله. سفارش‌های مستمر کسب‌وکارها را می‌توان بر اساس نیاز و تیراژ مورد بررسی قرار داد.",
+    },
+    {
+      q: "برای شروع چه اطلاعاتی لازم است؟",
+      a: "نوع محصول، تعداد تقریبی، ابعاد و زمان مورد نیاز برای شروع کافی است.",
+    },
+  ];
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "خانه",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "برای کسب‌وکارها",
+        item: `${siteUrl}/برای-کسب-و-کارها`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: title,
+        item: canonicalUrl,
+      },
+    ],
+  };
+
+  const businessPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `چاپ برای ${title}`,
+    description,
+    url: canonicalUrl,
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: siteUrl,
+    },
+    about: {
+      "@type": "Thing",
+      name: title,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteUrl,
+    },
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+
   return (
     <main dir="rtl">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(businessPageSchema),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema),
+        }}
+      />
+
       {/* Hero */}
       <section className="border-b border-black/10">
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
@@ -194,7 +316,7 @@ export default async function BusinessDetailPage({
           <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
             <div>
               <p className="mb-7 text-sm font-medium text-black/40">
-                خدمات AIRIK
+                خدمات آیریک
               </p>
 
               <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
@@ -313,20 +435,7 @@ export default async function BusinessDetailPage({
             </div>
 
             <div className="border-t border-black/10">
-              {[
-                {
-                  q: `برای ${title} چه روش چاپی مناسب‌تر است؟`,
-                  a: "روش مناسب به نوع محصول، متریال، تعداد و کاربرد بستگی دارد. پس از دریافت مشخصات پروژه می‌توان گزینه مناسب را تعیین کرد.",
-                },
-                {
-                  q: "آیا سفارش مستمر امکان‌پذیر است؟",
-                  a: "بله. سفارش‌های مستمر کسب‌وکارها را می‌توان بر اساس نیاز و تیراژ مورد بررسی قرار داد.",
-                },
-                {
-                  q: "برای شروع چه اطلاعاتی لازم است؟",
-                  a: "نوع محصول، تعداد تقریبی، ابعاد و زمان مورد نیاز برای شروع کافی است.",
-                },
-              ].map((item, index) => (
+              {faqItems.map((item, index) => (
                 <details
                   key={item.q}
                   className="group border-b border-black/10"
