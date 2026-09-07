@@ -1,18 +1,32 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { siteConfig } from "@/content/site";
+
+const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
+const canonicalUrl = `${siteUrl}/استعلام-قیمت`;
+
 export const metadata: Metadata = {
   title: "استعلام قیمت چاپ | آیریک",
   description:
     "برای استعلام قیمت خدمات چاپ آیریک، نوع محصول، تعداد، ابعاد و زمان مورد نیاز پروژه را ارسال کنید تا درخواست شما بررسی شود.",
   alternates: {
-    canonical: "/استعلام-قیمت",
+    canonical: canonicalUrl,
   },
   openGraph: {
     title: "استعلام قیمت چاپ | آیریک",
     description:
       "مشخصات پروژه چاپی خود را برای آیریک ارسال کنید و برای انتخاب روش چاپ و برآورد قیمت راهنمایی بگیرید.",
+    url: canonicalUrl,
+    siteName: siteConfig.name,
+    locale: "fa_IR",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "استعلام قیمت چاپ | آیریک",
+    description:
+      "مشخصات پروژه چاپی خود را برای آیریک ارسال کنید و برای انتخاب روش چاپ و برآورد قیمت راهنمایی بگیرید.",
   },
 };
 
@@ -74,13 +88,13 @@ export default function QuotePage() {
         "@type": "ListItem",
         position: 1,
         name: "خانه",
-        item: "/",
+        item: siteUrl,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "استعلام قیمت",
-        item: "/استعلام-قیمت",
+        item: canonicalUrl,
       },
     ],
   };
@@ -91,13 +105,13 @@ export default function QuotePage() {
     name: "استعلام قیمت چاپ",
     description:
       "صفحه استعلام قیمت خدمات چاپ آیریک برای سفارش‌های چاپی برندها و کسب‌وکارها.",
-    url: "/استعلام-قیمت",
+    url: canonicalUrl,
     mainEntity: {
       "@type": "Service",
       name: "استعلام قیمت خدمات چاپ",
       provider: {
         "@type": "Organization",
-        name: "آیریک",
+        name: siteConfig.name,
       },
       areaServed: {
         "@type": "Country",
