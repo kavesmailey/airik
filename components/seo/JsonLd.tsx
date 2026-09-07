@@ -1,26 +1,38 @@
 import { siteConfig } from "@/content/site";
 
 interface JsonLdProps {
-  type: "organization" | "localBusiness" | "service" | "article" | "breadcrumb" | "faq";
-  data?: any;
+  type:
+    | "organization"
+    | "localBusiness"
+    | "service"
+    | "article"
+    | "breadcrumb"
+    | "faq";
+  data?: Record<string, any>;
 }
 
 export default function JsonLd({ type, data }: JsonLdProps) {
   let jsonLd: Record<string, any> | null = null;
-  const baseUrl = siteConfig.siteUrl;
+
+  const baseUrl = siteConfig.siteUrl.replace(/\/$/, "");
 
   switch (type) {
     case "organization":
       jsonLd = {
         "@context": "https://schema.org",
         "@type": "Organization",
+        "@id": `${baseUrl}/#organization`,
         name: siteConfig.name,
         url: baseUrl,
         logo: `${baseUrl}${siteConfig.logo}`,
         description: siteConfig.description,
         slogan: siteConfig.tagline,
-        ...(siteConfig.contact.phone && { telephone: siteConfig.contact.phone }),
-        ...(siteConfig.contact.email && { email: siteConfig.contact.email }),
+        ...(siteConfig.contact.phone && {
+          telephone: siteConfig.contact.phone,
+        }),
+        ...(siteConfig.contact.email && {
+          email: siteConfig.contact.email,
+        }),
         ...(siteConfig.contact.address && {
           address: {
             "@type": "PostalAddress",
@@ -29,7 +41,9 @@ export default function JsonLd({ type, data }: JsonLdProps) {
             addressCountry: siteConfig.contact.country,
           },
         }),
-        ...(siteConfig.social.instagram || siteConfig.social.linkedin || siteConfig.social.telegram
+        ...(siteConfig.social.instagram ||
+        siteConfig.social.linkedin ||
+        siteConfig.social.telegram
           ? {
               sameAs: [
                 siteConfig.social.instagram,
@@ -45,13 +59,18 @@ export default function JsonLd({ type, data }: JsonLdProps) {
       jsonLd = {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
+        "@id": `${baseUrl}/#localbusiness`,
         name: siteConfig.name,
         url: baseUrl,
         logo: `${baseUrl}${siteConfig.logo}`,
         image: `${baseUrl}${siteConfig.logo}`,
         description: siteConfig.description,
-        ...(siteConfig.contact.phone && { telephone: siteConfig.contact.phone }),
-        ...(siteConfig.contact.email && { email: siteConfig.contact.email }),
+        ...(siteConfig.contact.phone && {
+          telephone: siteConfig.contact.phone,
+        }),
+        ...(siteConfig.contact.email && {
+          email: siteConfig.contact.email,
+        }),
         ...(siteConfig.contact.address && {
           address: {
             "@type": "PostalAddress",
@@ -60,8 +79,12 @@ export default function JsonLd({ type, data }: JsonLdProps) {
             addressCountry: siteConfig.contact.country,
           },
         }),
-        ...(siteConfig.contact.workingHours && { openingHours: siteConfig.contact.workingHours }),
-        ...(siteConfig.social.instagram || siteConfig.social.linkedin || siteConfig.social.telegram
+        ...(siteConfig.contact.workingHours && {
+          openingHours: siteConfig.contact.workingHours,
+        }),
+        ...(siteConfig.social.instagram ||
+        siteConfig.social.linkedin ||
+        siteConfig.social.telegram
           ? {
               sameAs: [
                 siteConfig.social.instagram,
@@ -79,9 +102,14 @@ export default function JsonLd({ type, data }: JsonLdProps) {
         "@type": "Service",
         name: data?.title || data?.name,
         description: data?.shortDescription || data?.description,
+        ...(data?.url && {
+          url: data.url,
+        }),
         provider: {
           "@type": "LocalBusiness",
+          "@id": `${baseUrl}/#localbusiness`,
           name: siteConfig.name,
+          url: baseUrl,
         },
         areaServed: {
           "@type": "Country",
@@ -96,17 +124,32 @@ export default function JsonLd({ type, data }: JsonLdProps) {
         "@type": "BlogPosting",
         headline: data?.headline || data?.title,
         description: data?.description,
-        image: data?.image ? `${baseUrl}${data.image}` : undefined,
+        ...(data?.image && {
+          image: data.image.startsWith("http")
+            ? data.image
+            : `${baseUrl}${data.image}`,
+        }),
         datePublished: data?.datePublished,
         dateModified: data?.dateModified || data?.datePublished,
-        author: data?.author ? { "@type": "Organization", name: data.author } : undefined,
+        ...(data?.author && {
+          author: {
+            "@type": "Organization",
+            name: data.author,
+          },
+        }),
         publisher: {
           "@type": "Organization",
+          "@id": `${baseUrl}/#organization`,
           name: siteConfig.name,
+          url: baseUrl,
+          logo: {
+            "@type": "ImageObject",
+            url: `${baseUrl}${siteConfig.logo}`,
+          },
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": `${baseUrl}/وبلاگ/${data?.slug || ""}`,
+          "@id": data?.url || `${baseUrl}/وبلاگ/${data?.slug || ""}`,
         },
       };
       break;
@@ -115,14 +158,21 @@ export default function JsonLd({ type, data }: JsonLdProps) {
       jsonLd = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
-        itemListElement: data?.items?.map(
-          (item: { label: string; href: string }, index: number) => ({
-            "@type": "ListItem",
-            position: index + 1,
-            name: item.label,
-            item: item.href,
-          })
-        ),
+        itemListElement: Array.isArray(data?.items)
+          ? data.items.map(
+              (
+                item: { label: string; href: string },
+                index: number,
+              ) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                name: item.label,
+                item: item.href.startsWith("http")
+                  ? item.href
+                  : `${baseUrl}${item.href}`,
+              }),
+            )
+          : [],
       };
       break;
 
@@ -130,16 +180,18 @@ export default function JsonLd({ type, data }: JsonLdProps) {
       jsonLd = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        mainEntity: data?.items?.map(
-          (item: { question: string; answer: string }) => ({
-            "@type": "Question",
-            name: item.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: item.answer,
-            },
-          })
-        ),
+        mainEntity: Array.isArray(data?.items)
+          ? data.items.map(
+              (item: { question: string; answer: string }) => ({
+                "@type": "Question",
+                name: item.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: item.answer,
+                },
+              }),
+            )
+          : [],
       };
       break;
   }
@@ -149,7 +201,9 @@ export default function JsonLd({ type, data }: JsonLdProps) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(jsonLd),
+      }}
     />
   );
 }
