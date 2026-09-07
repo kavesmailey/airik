@@ -1,4 +1,61 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+import { siteConfig } from "@/content/site";
+import JsonLd from "@/components/seo/JsonLd";
+
+const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
+
+export const metadata: Metadata = {
+  title: "آیریک | راهکارهای چاپ برای برندها و کسب‌وکارها",
+  description:
+    "آیریک ارائه‌دهنده راهکارهای چاپ و تولید برای برندها و کسب‌وکارها؛ از چاپ روی لباس و پارچه تا بسته‌بندی و چاپ روی محصولات.",
+  alternates: {
+    canonical: siteUrl,
+  },
+  openGraph: {
+    title: "آیریک | راهکارهای چاپ برای برندها و کسب‌وکارها",
+    description:
+      "آیریک ارائه‌دهنده راهکارهای چاپ و تولید برای برندها و کسب‌وکارها؛ از چاپ روی لباس و پارچه تا بسته‌بندی و چاپ روی محصولات.",
+    url: siteUrl,
+    siteName: siteConfig.name,
+    locale: "fa_IR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "آیریک | راهکارهای چاپ برای برندها و کسب‌وکارها",
+    description:
+      "آیریک ارائه‌دهنده راهکارهای چاپ و تولید برای برندها و کسب‌وکارها؛ از چاپ روی لباس و پارچه تا بسته‌بندی و چاپ روی محصولات.",
+  },
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${siteUrl}#organization`,
+  name: siteConfig.name,
+  url: siteUrl,
+  logo: `${siteUrl}${siteConfig.logo}`,
+  description: siteConfig.description,
+  areaServed: {
+    "@type": "Country",
+    name: "ایران",
+  },
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}#website`,
+  name: siteConfig.name,
+  url: siteUrl,
+  description: siteConfig.description,
+  inLanguage: "fa-IR",
+  publisher: {
+    "@id": `${siteUrl}#organization`,
+  },
+};
 
 const services = [
   {
@@ -48,6 +105,9 @@ const principles = [
 export default function HomePage() {
   return (
     <main dir="rtl">
+      <JsonLd type="organization" data={organizationSchema} />
+      <JsonLd type="organization" data={websiteSchema} />
+
       {/* Hero */}
       <section className="border-b border-black/10">
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40 lg:px-12 lg:py-48">
