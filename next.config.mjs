@@ -1,9 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+
   poweredByHeader: false,
+
+  output: "export",
+
+  trailingSlash: true,
+
   images: {
-    formats: ['image/avif', 'image/webp'],
+    unoptimized: true,
+    formats: ["image/avif", "image/webp"],
   },
 };
 
