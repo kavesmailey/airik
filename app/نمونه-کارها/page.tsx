@@ -1,18 +1,31 @@
 import type { Metadata } from "next";
 import { projects } from "@/content/projects";
+import { siteConfig } from "@/content/site";
+
+const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
+const canonicalUrl = `${siteUrl}/نمونه-کارها`;
 
 export const metadata: Metadata = {
   title: "نمونه‌کارهای چاپ آیریک | پروژه‌های چاپ و تولید",
   description:
     "نمونه‌کارهای آیریک در زمینه چاپ و تولید برای برندها و کسب‌وکارها؛ شامل چاپ پوشاک، بسته‌بندی، رستوران، کافه، پروژه‌های سازمانی و محصولات تبلیغاتی.",
   alternates: {
-    canonical: "/نمونه-کارها",
+    canonical: canonicalUrl,
   },
   openGraph: {
     title: "نمونه‌کارهای چاپ آیریک",
     description:
       "نگاهی به پروژه‌های چاپ و تولید آیریک برای برندها و کسب‌وکارها.",
+    url: canonicalUrl,
+    siteName: siteConfig.name,
+    locale: "fa_IR",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "نمونه‌کارهای چاپ آیریک",
+    description:
+      "نگاهی به پروژه‌های چاپ و تولید آیریک برای برندها و کسب‌وکارها.",
   },
 };
 
@@ -36,13 +49,13 @@ export default function ProjectsPage() {
         "@type": "ListItem",
         position: 1,
         name: "خانه",
-        item: "/",
+        item: siteUrl,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "نمونه‌کارها",
-        item: "/نمونه-کارها",
+        item: canonicalUrl,
       },
     ],
   };
@@ -50,10 +63,17 @@ export default function ProjectsPage() {
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
+    "@id": `${canonicalUrl}#collection`,
     name: "نمونه‌کارهای چاپ آیریک",
     description:
       "مجموعه‌ای از پروژه‌های چاپ و تولید آیریک برای برندها و کسب‌وکارها.",
-    url: "/نمونه-کارها",
+    url: canonicalUrl,
+    inLanguage: "fa-IR",
+    isPartOf: {
+      "@type": "WebSite",
+      url: siteUrl,
+      name: siteConfig.name,
+    },
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: projects.length,
@@ -66,10 +86,42 @@ export default function ProjectsPage() {
     },
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "چه نوع پروژه‌هایی در نمونه‌کارهای آیریک وجود دارد؟",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "نمونه‌کارهای آیریک شامل پروژه‌های چاپ برای پوشاک، بسته‌بندی، رستوران، کافه، مجموعه‌های سازمانی و محصولات تبلیغاتی است.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "آیا آیریک برای برندها و کسب‌وکارها هم چاپ انجام می‌دهد؟",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "بله. خدمات آیریک برای برندها، کسب‌وکارها و مجموعه‌هایی طراحی شده است که به چاپ و تولید اقلام مختلف نیاز دارند.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "آیا امکان سفارش پروژه مشابه نمونه‌کارها وجود دارد؟",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "بله. برای بررسی امکان اجرا، کافی است مشخصات محصول، تعداد، ابعاد و فایل طرح را ارسال کنید تا روش مناسب چاپ و جزئیات تولید بررسی شود.",
+        },
+      },
+    ],
+  };
+
   return (
     <main dir="rtl" className="overflow-hidden">
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={collectionSchema} />
+      <JsonLd data={faqSchema} />
 
       {/* HERO */}
       <section className="border-b border-black/10">
@@ -317,13 +369,13 @@ export default function ProjectsPage() {
               اجرا و هزینه با شما صحبت کنیم.
             </p>
 
-            <a
+            <Link
               href="/استعلام-قیمت"
               className="mt-9 inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-medium text-black transition-transform duration-300 hover:-translate-y-0.5"
             >
               <span>استعلام قیمت</span>
               <span aria-hidden="true">↗</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
