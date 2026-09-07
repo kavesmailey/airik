@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://airik-xi.vercel.app";
+import { siteConfig } from "@/content/site";
+
+const baseUrl = siteConfig.siteUrl;
 
 export default function robots(): MetadataRoute.Robots {
   return {
