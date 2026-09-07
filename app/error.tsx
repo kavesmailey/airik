@@ -10,7 +10,7 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("AIRIK application error");
+    console.error("Ayric application error");
   }, []);
 
   return (
