@@ -154,27 +154,6 @@ export default function ServicePage({ params }: PageProps) {
     inLanguage: "fa-IR",
   };
 
-  const webPageSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": `${pageUrl}#webpage`,
-    name: service.meta.title,
-    description: service.meta.description,
-    url: pageUrl,
-    inLanguage: "fa-IR",
-
-    isPartOf: {
-      "@type": "WebSite",
-      "@id": `${siteUrl}#website`,
-      name: siteConfig.name,
-      url: siteUrl,
-    },
-
-    about: {
-      "@id": `${pageUrl}#service`,
-    },
-  };
-
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -225,8 +204,6 @@ export default function ServicePage({ params }: PageProps) {
       {/* Structured Data */}
 
       <JsonLd type="service" data={serviceSchema} />
-
-      <JsonLd type="webpage" data={webPageSchema} />
 
       <JsonLd type="breadcrumb" data={breadcrumbSchema} />
 
