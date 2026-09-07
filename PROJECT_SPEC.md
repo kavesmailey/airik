@@ -1,18 +1,19 @@
-# AYRIC — PROJECT SPECIFICATION
+AYRIC — PROJECT SPECIFICATION
 
-## Master Product, Design, Development & SEO Specification
+Master Product, Design, Development & SEO Specification
 
-**Project:** Ayric  
-**Persian:** آیریک  
-**Current Phase:** Phase 7 — SEO / GEO / FEO  
-**Phase Status:** In Progress  
-**Deployment Target:** cPanel Shared Hosting  
-**Preferred Production Architecture:** Static Export  
-**Repository:** `kavesmailey/airik`
+Project: Ayric
+Persian: آیریک
+Repository: kavesmailey/airik
+Current Phase: Phase 7 — SEO / GEO / FEO
+Current Sub-Phase: Service Expansion → Technical SEO Audit
+Phase Status: In Progress
+Deployment Target: cPanel Shared Hosting
+Preferred Production Architecture: Static Export
 
----
+⸻
 
-# 01 — PROJECT OVERVIEW
+01 — PROJECT OVERVIEW
 
 Ayric is a professional printing and production website for businesses, brands and individuals looking for reliable, high-quality printing services.
 
@@ -20,27 +21,27 @@ The website should position Ayric as more than a conventional printing shop.
 
 The experience should communicate:
 
-- Quality
-- Precision
-- Reliability
-- Production expertise
-- Material knowledge
-- Professional service
-- Clear communication
+* Quality
+* Precision
+* Reliability
+* Production expertise
+* Material knowledge
+* Professional service
+* Clear communication
 
 The website should feel contemporary, minimal, confident and premium.
 
 It should avoid the visual language of generic printing-shop websites.
 
----
+⸻
 
-# 02 — BRAND NAME
+02 — BRAND NAME
 
-## Correct English Name
+Correct English Name
 
 Ayric
 
-## Correct Persian Name
+Correct Persian Name
 
 آیریک
 
@@ -48,11 +49,11 @@ These spellings are mandatory.
 
 Never use:
 
-- Airik
-- Ayrik
-- آریک
+* Airik
+* Ayrik
+* آریک
 
-## Language Rule
+Language Rule
 
 Persian:
 
@@ -62,79 +63,77 @@ English:
 
 Ayric
 
----
+⸻
 
-# 03 — PROJECT PRINCIPLES
+03 — PROJECT PRINCIPLES
 
-## 01 — Clarity
+01 — Clarity
 
 Visitors should immediately understand:
 
-- What Ayric does
-- What services are available
-- Who Ayric works with
-- How to request a quote
-- How to contact Ayric
+* What Ayric does
+* What services are available
+* Who Ayric works with
+* How to request a quote
+* How to contact Ayric
 
-## 02 — Visual Quality
+02 — Visual Quality
 
 Photography, typography, layout and spacing should communicate production quality.
 
-## 03 — Simplicity
+03 — Simplicity
 
 Do not add features simply because other websites have them.
 
 Every component should have a purpose.
 
-## 04 — Real Content
+04 — Real Content
 
 Use real Ayric information and real project imagery whenever available.
 
 Never fabricate project facts.
 
-## 05 — Maintainability
+05 — Maintainability
 
 Prefer simple architecture over unnecessary technical complexity.
 
-## 06 — SEO Without Visual Compromise
+06 — SEO Without Visual Compromise
 
 SEO content must feel native to the experience.
 
 Do not add keyword-stuffed sections merely for search engines.
 
-## 07 — Deployment Simplicity
+07 — Deployment Simplicity
 
 The final website should be deployable on ordinary cPanel shared hosting without requiring a VPS.
 
----
+⸻
 
-# 04 — TECHNOLOGY STACK
+04 — TECHNOLOGY STACK
 
 Current stack:
 
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-- Next.js App Router
-- File-based content architecture
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* Next.js App Router
+* File-based content architecture
 
 Primary structure:
 
-```text
 app/
 components/
 content/
 lib/
 public/
 PROJECT_SPEC.md
-```
 
 Existing architecture must be reused wherever possible.
 
----
+⸻
 
-# 05 — GOLDEN RULE: REPOSITORY FIRST
+05 — GOLDEN RULE: REPOSITORY FIRST
 
 The repository is the source of truth.
 
@@ -153,51 +152,44 @@ Before writing or changing code:
 
 NEVER:
 
-- Create a duplicate page
-- Create a duplicate route
-- Create a duplicate component
-- Create a second content model
-- Rewrite an existing system without a reason
-- Assume a file does not exist
-- Assume a feature is missing without checking Git
-- Create a new architecture when the current architecture can support the requirement
+* Create a duplicate page
+* Create a duplicate route
+* Create a duplicate component
+* Create a second content model
+* Rewrite an existing system without a reason
+* Assume a file does not exist
+* Assume a feature is missing without checking Git
+* Create a new architecture when the current architecture can support the requirement
 
 Rule:
 
-```text
 Existing
 → Inspect
 → Reuse
 → Extend
 → Improve
-```
 
 Not:
 
-```text
 Assume
 → Recreate
 → Duplicate
-```
 
----
+⸻
 
-# 06 — CURRENT REPOSITORY STRUCTURE
+06 — CURRENT REPOSITORY STRUCTURE
 
 The repository contains:
 
-```text
 app/
 components/
 content/
 lib/
 public/
 PROJECT_SPEC.md
-```
 
 Major content sources:
 
-```text
 content/
 ├── articles.tsx
 ├── blog.ts
@@ -207,11 +199,9 @@ content/
 ├── projects.ts
 ├── services.ts
 └── site.ts
-```
 
 Major component areas:
 
-```text
 components/
 ├── cards/
 ├── forms/
@@ -219,28 +209,24 @@ components/
 ├── layout/
 ├── seo/
 └── ui/
-```
 
-SEO-related utilities currently include:
+SEO-related utilities include:
 
-```text
 components/seo/JsonLd.tsx
 lib/seo.ts
 app/robots.ts
 app/sitemap.ts
-```
 
----
+⸻
 
-# 07 — CONTENT ARCHITECTURE
+07 — CONTENT ARCHITECTURE
 
 Ayric uses file-based content.
 
 Content must remain separated from presentation.
 
-Current sources include:
+Primary content sources:
 
-```text
 content/services.ts
 content/projects.ts
 content/business.ts
@@ -249,19 +235,17 @@ content/blog.ts
 content/categories.ts
 content/faq.ts
 content/site.ts
-```
 
 Do not introduce a CMS unless explicitly requested.
 
 Do not introduce a database for core website content.
 
----
+⸻
 
-# 08 — ROUTE ARCHITECTURE
+08 — ROUTE ARCHITECTURE
 
-Current major routes include:
+Major routes include:
 
-```text
 /
 /استعلام-قیمت
 /برای-کسب-و-کارها
@@ -277,17 +261,16 @@ Current major routes include:
 /درباره-آیریک
 /مجله
 /نمونه-کارها
-```
 
 IMPORTANT:
 
 The repository currently contains duplicate/legacy route architectures.
 
-These must be consolidated during Phase 7.
+These must be consolidated during the Technical SEO phase.
 
 Before creating any route:
 
-1. Search `app/`.
+1. Search app/.
 2. Search navigation.
 3. Search links.
 4. Search sitemap.
@@ -297,70 +280,61 @@ Before creating any route:
 
 Never create an alternative route without checking the existing architecture.
 
----
+⸻
 
-# 09 — PORTFOLIO ARCHITECTURE
+09 — PORTFOLIO ARCHITECTURE
 
-## STATUS: COMPLETE
+STATUS: COMPLETE
 
-Ayric's portfolio is intentionally a single-page portfolio.
+Ayric’s portfolio is intentionally a single-page portfolio.
 
-Main route:
+Canonical route:
 
-```text
 /نمونه-کارها
-```
-
-This is the canonical portfolio route.
 
 The portfolio is:
 
-- Not a case-study system
-- Not a project database
-- Not an individual project SEO system
+* Not a case-study system
+* Not a project database
+* Not an individual project SEO system
 
----
+Do not restart or redesign the portfolio unless a concrete bug is found.
 
-# 10 — INDIVIDUAL PROJECT PAGES
+⸻
 
-## STATUS: NOT REQUIRED
+10 — INDIVIDUAL PROJECT PAGES
+
+STATUS: NOT REQUIRED
 
 Do NOT create:
 
-```text
 /نمونه-کارها/[slug]
-```
 
 Do not build:
 
-- Individual project pages
-- Case studies
-- Project narratives
-- Project-specific SEO pages
-- Project detail routes
-- Project-specific CTA pages
+* Individual project pages
+* Case studies
+* Project narratives
+* Project-specific SEO pages
+* Project detail routes
+* Project-specific CTA pages
 
-IMPORTANT:
+Existing sitemap implementations may still reference project detail URLs.
 
-Existing sitemap implementations still generate project detail URLs.
+These must be removed from the canonical sitemap.
 
-This must be removed during Phase 7 Technical SEO cleanup.
+⸻
 
----
+11 — SERVICES ARCHITECTURE
 
-# 11 — SERVICES
+Canonical service content source:
 
-Canonical service content:
-
-```text
 content/services.ts
-```
 
 Do not create another service data source.
 
-The service model currently includes SEO-related fields:
+The service model currently includes:
 
-```text
 slug
 title
 shortDescription
@@ -376,555 +350,610 @@ faqs
 image
 relatedServiceSlugs
 meta
-```
 
-The `meta` object is currently used for service-page SEO.
+Service pages are generated through the existing dynamic route:
 
-Service pages have already received substantial SEO/FEO work.
+/خدمات/[slug]
 
----
+The existing service-page template should be reused for all services.
 
-# 12 — SERVICE SEO STATUS
+Do NOT create individual page files for each service unless technically necessary.
 
-## STATUS: SUBSTANTIALLY IMPLEMENTED
+⸻
 
-Service architecture currently includes:
+12 — CURRENT SERVICE CATALOG
 
-- Page-specific Metadata
-- Canonical URLs
-- Robots directives
-- Open Graph
-- Twitter metadata
-- Service Schema
-- WebPage Schema
-- Breadcrumb Schema
-- FAQ Schema
-- Quick Answer / FEO content
-- Search-intent-oriented copy
-- Internal links
-- Related services
-- Service-specific FAQ
-- Service-specific applications
-- Service-specific printing methods
+The existing service catalog must be retained and expanded.
 
-Remaining work:
+Existing core services include:
 
-- Final domain normalization
-- Absolute canonical consistency
-- Schema centralization
-- Image SEO
-- GEO signals
-- Final technical audit
+* چاپ سیلک
+* چاپ DTF
+* چاپ روی لباس
+* چاپ روی تیشرت
+* چاپ روی پارچه
+* چاپ بگ
+* چاپ کارتن
+* چاپ جعبه پیتزا
+* چاپ لیوان کاغذی
+* چاپ ظروف گرد
 
----
+NEW SERVICES TO ADD
 
-# 13 — SERVICE INDEX
+The following services are now required:
+
+01 — خدمات ساخت شابلون چاپ سیلک
+
+Suggested slug:
+
+ساخت-شابلون-چاپ-سیلک
+
+02 — توری‌کشی و عکاسی
+
+Suggested slug:
+
+توری-کشی-و-عکاسی
+
+This service should clearly explain its relationship to screen-printing preparation.
+
+03 — خدمات طراحی اختصاصی چاپ سیلک
+
+Suggested slug:
+
+طراحی-اختصاصی-چاپ-سیلک
+
+This should target customers who need artwork specifically prepared for screen printing.
+
+04 — چاپ کیسه پارچه‌ای
+
+Suggested slug:
+
+چاپ-کیسه-پارچه-ای
+
+05 — چاپ نایلون
+
+Suggested slug:
+
+چاپ-نایلون
+
+06 — تولید و چاپ توت‌بگ
+
+Suggested slug:
+
+تولید-و-چاپ-توت-بگ
+
+07 — چاپ لیوان
+
+Suggested slug:
+
+چاپ-لیوان
+
+This must remain distinct from:
+
+چاپ-لیوان-کاغذی
+
+because they represent different search intents/services.
+
+08 — چاپ روی فلز
+
+Suggested slug:
+
+چاپ-روی-فلز
+
+09 — چاپ روی چوب
+
+Suggested slug:
+
+چاپ-روی-چوب
+
+10 — چاپ روی استیل
+
+Suggested slug:
+
+چاپ-روی-استیل
+
+11 — چاپ روی پلکسی
+
+Suggested slug:
+
+چاپ-روی-پلکسی
+
+⸻
+
+13 — SERVICE EXPANSION RULES
+
+The new services must NOT be added as simple cards with one-line descriptions.
+
+Every new service should use the existing full service content model.
+
+Each service should eventually contain:
+
+slug
+title
+shortDescription
+fullDescription
+aboutText
+benefits
+suitableFor
+applications
+keyConsiderations
+printingMethods
+processSteps
+faqs
+image
+relatedServiceSlugs
+meta
+
+Each new service needs:
+
+* Unique search intent
+* Unique title
+* Unique meta title
+* Unique meta description
+* Useful introductory answer
+* Practical explanation
+* Applications
+* Suitable materials where known
+* Design considerations
+* Pricing factors
+* Process
+* FAQ
+* Related services
+* Quote CTA
+
+Do not duplicate generic text across all services.
+
+⸻
+
+14 — SERVICE SEO STATUS
+
+STATUS: SUBSTANTIALLY IMPLEMENTED + EXPANSION IN PROGRESS
+
+The existing service architecture already includes:
+
+* Page-specific Metadata
+* Canonical URLs
+* Open Graph
+* Twitter metadata
+* Service Schema
+* WebPage Schema
+* Breadcrumb Schema
+* FAQ Schema
+* Quick Answer / FEO content
+* Search-intent-oriented copy
+* Internal links
+* Related services
+* Service-specific FAQ
+* Service-specific applications
+* Service-specific printing methods
+
+The current service data model is strong enough to support the new service catalog.
+
+CURRENT SERVICE TASK
+
+Add the 11 new services to:
+
+content/services.ts
+
+Then verify:
+
+generateStaticParams()
+getServiceBySlug()
+getRelatedServices()
+
+continue to work correctly.
+
+Do not create a second service system.
+
+⸻
+
+15 — SERVICE INDEX
 
 Canonical route:
 
-```text
 /خدمات
-```
 
-The service index currently includes:
+The service index should include:
 
-- Metadata
-- Canonical
-- Open Graph
-- Organization Schema
-- Breadcrumb Schema
-- ItemList Schema
-- Quick Answer / FEO section
-- Internal links to individual services
-- Method comparison content
-- Business-oriented CTA
-- Internal linking
+* Metadata
+* Canonical
+* Open Graph
+* Organization Schema
+* Breadcrumb Schema
+* ItemList Schema
+* Quick Answer / FEO section
+* Internal links to all canonical services
+* Method comparison content
+* Business-oriented CTA
+* Internal linking
 
-STATUS:
+After adding the new services, verify that all services are represented.
 
-## SUBSTANTIALLY IMPLEMENTED
+The service index must not become visually overcrowded.
 
-Remaining work belongs to the Phase 7 technical audit.
+Use grouping/categories where useful.
 
----
+Potential logical groupings:
 
-# 14 — BUSINESS PAGES
+چاپ روی پوشاک و پارچه
+چاپ سیلک و آماده‌سازی
+چاپ روی بسته‌بندی و محصولات
+چاپ روی متریال‌های سخت
+چاپ بگ و محصولات پارچه‌ای
 
-Business architecture exists under:
+Grouping must not create duplicate SEO pages unless there is a real search intent.
 
-```text
+⸻
+
+16 — BUSINESS PAGES
+
+Business architecture:
+
 /برای-کسب-و-کارها
 /برای-کسب-و-کارها/[slug]
-```
 
 Content source:
 
-```text
 content/business.ts
-```
 
 Business pages communicate:
 
-- B2B printing
-- Repeat production
-- Business applications
-- Production consistency
-- Printing solutions
-- Workflow
-- Relevant services
-- FAQ
+* B2B printing
+* Repeat production
+* Business applications
+* Production consistency
+* Printing solutions
+* Workflow
+* Relevant services
+* FAQ
 
 STATUS:
 
-## PARTIALLY SEO OPTIMIZED
+PARTIALLY SEO OPTIMIZED
 
-Business pages have basic Metadata.
+Remaining:
 
-Business detail pages still require:
+* Canonical normalization
+* Open Graph normalization
+* Structured Data
+* Breadcrumb Schema
+* WebPage Schema
+* Internal-link refinement
+* GEO signals
+* Search-intent refinement
 
-- Canonical normalization
-- Open Graph normalization
-- Structured Data
-- Breadcrumb Schema
-- WebPage Schema
-- Internal-link refinement
-- GEO signals
-- Search-intent refinement
+⸻
 
----
-
-# 15 — BLOG ARCHITECTURE
-
-IMPORTANT:
+17 — BLOG ARCHITECTURE
 
 The repository currently contains two blog systems:
 
-```text
 /بلاگ
 /وبلاگ
-```
 
 and two content sources:
 
-```text
 content/articles.tsx
 content/blog.ts
-```
 
-The current SEO-focused implementation exists primarily under:
+The current SEO-focused direction favors:
 
-```text
 /وبلاگ
 /وبلاگ/[slug]
-```
 
-The older architecture exists under:
+The duplicate legacy system must eventually be consolidated.
 
-```text
-/بلاگ
-/بلاگ/[slug]
-```
+Preferred final architecture:
 
-This duplication must be resolved.
-
-## Required Phase 7 Decision
-
-Choose one canonical blog architecture.
-
-The current SEO implementation strongly favors:
-
-```text
 /وبلاگ
 /وبلاگ/[slug]
-```
 
-If this remains canonical:
+Potential legacy handling:
 
-- `/بلاگ` should become a legacy redirect
-- `/بلاگ/[slug]` should not remain as an independent SEO page
-- `content/blog.ts` should become the canonical article source
-- `content/articles.tsx` should be deprecated or migrated
-- Sitemap should contain only canonical blog URLs
+/بلاگ → redirect → /وبلاگ
+/بلاگ/[slug] → redirect → /وبلاگ/[slug]
 
 Do not maintain two parallel blog systems.
 
----
+⸻
 
-# 16 — BLOG SEO STATUS
+18 — BLOG SEO STATUS
 
-## STATUS: SUBSTANTIALLY IMPLEMENTED
+STATUS: SUBSTANTIALLY IMPLEMENTED
 
-Current SEO implementation includes:
+Existing work includes:
 
-- Page Metadata
-- Canonical
-- Open Graph
-- CollectionPage / ItemList Schema
-- Breadcrumb Schema
-- FAQ Schema
-- Quick Answer content
-- Editorial SEO content
-- Internal linking
-- Article detail Metadata
-- Article Schema
-- Breadcrumb Schema
-- Related articles
-- CTA links
-- Search-intent-oriented content
+* Page Metadata
+* Canonical
+* Open Graph
+* CollectionPage / ItemList Schema
+* Breadcrumb Schema
+* FAQ Schema
+* Quick Answer content
+* Editorial SEO content
+* Internal linking
+* Article detail Metadata
+* Article Schema
+* Breadcrumb Schema
+* Related articles
+* CTA links
+* Search-intent-oriented content
 
 Remaining:
 
-- Canonical blog architecture consolidation
-- Article schema normalization
-- Image architecture
-- Author/publisher identity
-- Internal-link strategy
-- Topic clusters
-- Pillar/supporting article structure
-- Final content quality audit
+* Canonical blog consolidation
+* Article schema normalization
+* Image architecture
+* Author/publisher identity
+* Internal-link strategy
+* Topic clusters
+* Pillar/supporting article structure
+* Final content quality audit
 
----
+⸻
 
-# 17 — ABOUT / CONTACT / QUOTE
+19 — ABOUT / CONTACT / QUOTE
 
-Existing canonical routes:
+Canonical routes:
 
-```text
 /درباره-ما
 /تماس-با-ما
 /استعلام-قیمت
-```
 
 Legacy route:
 
-```text
 /درباره-آیریک
-```
 
-The legacy About route currently redirects to:
+The legacy About architecture must not create duplicate indexable content.
 
-```text
-/درباره-ما
-```
+/مجله must also be evaluated as a legacy/redirect route.
 
-`/مجله` also redirects to:
+⸻
 
-```text
-/بلاگ
-```
-
-These redirects must be reviewed during canonical architecture cleanup.
-
----
-
-# 18 — QUOTE PAGE SEO
+20 — QUOTE PAGE
 
 Canonical route:
 
-```text
 /استعلام-قیمت
-```
 
 Current implementation includes:
 
-- Metadata
-- Canonical
-- Open Graph
-- WebPage Schema
-- Service Schema
-- Breadcrumb Schema
-- FAQ Schema
-- Quick Answer / FEO content
-- Search-intent-oriented copy
-- Quote form
-- File upload
-- FAQ content
-- Conversion CTA
+* Metadata
+* Canonical
+* Open Graph
+* WebPage Schema
+* Service Schema
+* Breadcrumb Schema
+* FAQ Schema
+* Quick Answer / FEO content
+* Search-intent-oriented copy
+* Quote form
+* File upload
+* FAQ
+* Conversion CTA
 
 STATUS:
 
-## SUBSTANTIALLY IMPLEMENTED
+SUBSTANTIALLY IMPLEMENTED
 
-Technical form submission remains a separate production concern.
+Important:
 
----
+The current form submission implementation is not yet a real production backend.
 
-# 19 — CONTACT PAGE SEO
+lib/submitInquiry.ts currently simulates successful submission.
+
+Production submission must be implemented later.
+
+⸻
+
+21 — CONTACT PAGE
 
 Canonical route:
 
-```text
 /تماس-با-ما
-```
 
 Current implementation includes:
 
-- Metadata
-- Canonical
-- Open Graph
-- ContactPage Schema
-- Organization information
-- Breadcrumb Schema
-- Quick Answer / GEO content
-- Contact information
-- Inquiry form
-- Quote CTA
-- FAQ
+* Metadata
+* Canonical
+* Open Graph
+* ContactPage Schema
+* Organization information
+* Breadcrumb Schema
+* Quick Answer / GEO content
+* Contact information
+* Inquiry form
+* Quote CTA
+* FAQ
 
 STATUS:
 
-## SUBSTANTIALLY IMPLEMENTED
+SUBSTANTIALLY IMPLEMENTED
 
 Remaining:
 
-- Final NAP data
-- GEO information
-- LocalBusiness Schema where appropriate
-- Final domain normalization
+* Final NAP data
+* GEO information
+* LocalBusiness Schema where appropriate
+* Final domain normalization
 
----
+Never invent missing contact information.
 
-# 20 — HOMEPAGE
+⸻
 
-Homepage route:
+22 — HOMEPAGE
 
-```text
+Homepage:
+
 /
-```
 
-The homepage is complete from a visual/product perspective.
+Visual/product work is considered substantially complete.
 
-Current homepage contains:
+Do not redesign the homepage as part of the current SEO phase.
 
-- Hero
-- Services
-- Principles
-- Portfolio preview
-- CTA
-- Internal links
+SEO work still requires:
 
-However:
+* Dedicated metadata verification
+* Canonical verification
+* Open Graph
+* WebSite Schema
+* Organization relationship
+* FEO answer
+* Stronger service linking
+* Search-intent alignment
+* Heading hierarchy audit
 
-## SEO STATUS: INCOMPLETE
+⸻
 
-The homepage currently relies heavily on root-level Metadata.
-
-Phase 7 must add:
-
-- Dedicated homepage Metadata
-- Canonical
-- Open Graph
-- WebSite Schema
-- Organization / LocalBusiness relationship where appropriate
-- Homepage FEO answer
-- Stronger service/internal linking
-- Primary search-intent alignment
-- Final heading hierarchy audit
-
-Do not redesign the homepage.
-
----
-
-# 21 — SEO ARCHITECTURE
-
-SEO is now a first-class project layer.
+23 — SEO ARCHITECTURE
 
 Current SEO-related files:
 
-```text
 components/seo/JsonLd.tsx
 lib/seo.ts
 app/robots.ts
 app/sitemap.ts
-```
 
-Existing pages also contain inline Schema implementations.
+Some pages also contain inline JSON-LD.
 
-## Current Problem
+Technical SEO phase must determine:
 
-There are two approaches:
+* Which utilities should remain centralized
+* Which page-specific schemas should remain inline
+* Whether duplicate implementations exist
+* Whether schemas are accurate
+* Whether URLs are absolute
+* Whether schema content matches visible page content
 
-1. Reusable SEO utilities/components
-2. Inline page-specific SEO implementations
+Do not perform a blind global rewrite.
 
-These should be gradually unified.
+⸻
 
-Do not rewrite all pages blindly.
+24 — METADATA SYSTEM
 
-First determine which implementation is more reusable, then migrate only where beneficial.
+Every canonical indexable page should have deliberate:
 
----
+* Title
+* Description
+* Canonical
+* Open Graph title
+* Open Graph description
+* OG image where appropriate
+* Robots behavior
+* Language consistency
 
-# 22 — METADATA SYSTEM
+Avoid relying on generic root metadata where page-specific intent matters.
 
-Current root Metadata exists in:
+⸻
 
-```text
-app/layout.tsx
-```
+25 — DOMAIN / URL NORMALIZATION
 
-Current root metadata includes:
+There is currently a production-domain inconsistency that must be resolved.
 
-- Default title
-- Title template
-- Description
-- Keywords
-- Robots
+The repository contains references to:
 
-Some pages additionally define:
-
-- Title
-- Description
-- Canonical
-- Open Graph
-- Twitter
-
-## Phase 7 Requirements
-
-Every indexable canonical page should have deliberate:
-
-- Title
-- Description
-- Canonical
-- Open Graph title
-- Open Graph description
-- Appropriate OG image where available
-- Robots behavior
-- Language consistency
-
-Do not rely on generic defaults when page-specific metadata is important.
-
----
-
-# 23 — DOMAIN / URL NORMALIZATION
-
-## CURRENT PROBLEM
-
-The repository still contains:
-
-```text
 https://airik-xi.vercel.app
-```
 
-in multiple SEO-related places.
+while the GitHub repository About currently references:
 
-Examples include:
+https://airik-coral.vercel.app
 
-```text
-content/site.ts
-app/robots.ts
-app/sitemap.ts
-app/sitemap.xml
-```
+The final production URL has not yet been normalized.
 
-## REQUIRED
+REQUIRED
 
-There must be one canonical site URL source.
+Create one canonical source:
 
-Preferred pattern:
-
-```text
 siteConfig.siteUrl
-```
 
-or a single environment variable consumed consistently.
+or a single environment variable.
 
-Do not hard-code multiple domains.
+All of the following must use the same canonical domain:
 
-The final production domain must be decided before final deployment.
+* Metadata
+* Canonical URLs
+* Open Graph
+* JSON-LD
+* Sitemap
+* Robots
+* Internal absolute URLs
+* Search Console configuration
 
----
+Do not hard-code multiple production domains.
 
-# 24 — SITEMAP
+⸻
 
-Current sitemap architecture is not yet final.
+26 — SITEMAP
 
-There are currently two files:
+Current sitemap architecture requires technical cleanup.
 
-```text
+Potential overlapping implementations include:
+
 app/sitemap.ts
 app/sitemap.xml
-```
 
-These overlap in purpose.
+Final implementation must have one authoritative sitemap.
 
-## Required
+Sitemap should contain:
 
-Use one canonical sitemap implementation.
+* Homepage
+* /خدمات
+* All canonical service pages
+* Canonical business pages
+* Canonical blog index
+* Canonical article pages
+* /استعلام-قیمت
+* /تماس-با-ما
+* /درباره-ما
+* /نمونه-کارها
 
-The sitemap must contain:
+Sitemap must NOT contain:
 
-- Homepage
-- Canonical services index
-- Canonical service pages
-- Canonical business pages
-- Canonical blog index
-- Canonical article pages
-- Canonical quote page
-- Canonical contact page
-- Canonical about page
-- Canonical portfolio page
-
-The sitemap must NOT contain:
-
-```text
 /نمونه-کارها/[slug]
-```
 
-because individual portfolio pages are not part of the final architecture.
+Sitemap must NOT contain deprecated duplicate blog URLs.
 
-The sitemap must NOT contain deprecated duplicate blog routes.
+Sitemap must NOT contain redirect-only URLs.
 
----
+Sitemap must use the final canonical domain.
 
-# 25 — ROBOTS
+⸻
+
+27 — ROBOTS
 
 Current implementation:
 
-```text
 app/robots.ts
-```
 
-There is also a static:
+There may also be a static robots implementation.
 
-```text
-app/robots.txt
-```
+Technical SEO audit must determine which is authoritative.
 
-These need to be evaluated as part of the same technical cleanup.
+Final robots behavior must:
 
-There should be one authoritative robots implementation.
+* Allow public indexable pages
+* Avoid blocking important resources
+* Reference the canonical sitemap
+* Use the final production domain
 
-Robots must:
+⸻
 
-- Allow indexable public pages
-- Prevent inappropriate technical routes
-- Reference the canonical sitemap
-- Use the final production domain
+28 — STRUCTURED DATA
 
-Do not block resources required for rendering or indexing.
+Structured data currently exists for several page types, including:
 
----
+* Organization
+* LocalBusiness
+* Service
+* Article
+* BreadcrumbList
+* FAQPage
+* WebPage
 
-# 26 — STRUCTURED DATA
+The final implementation should form a coherent schema graph.
 
-Structured data currently exists for:
+Conceptually:
 
-- Organization
-- LocalBusiness
-- Service
-- Article
-- BreadcrumbList
-- FAQPage
-- WebPage
-
-## Phase 7 Goal
-
-Create a coherent schema graph.
-
-Preferred conceptual relationship:
-
-```text
 WebSite
    ↓
 Organization / LocalBusiness
@@ -932,36 +961,29 @@ Organization / LocalBusiness
 WebPage
    ↓
 Service / Article
-```
 
 Breadcrumbs and FAQs should support the relevant page.
 
-Do not add schema simply for the sake of adding schema.
-
-Only use structured data that accurately represents visible page content.
-
 Never fabricate:
 
-- Reviews
-- Ratings
-- Prices
-- Locations
-- Employees
-- Clients
-- Awards
-- Testimonials
+* Reviews
+* Ratings
+* Prices
+* Locations
+* Employees
+* Clients
+* Awards
+* Testimonials
+* Certifications
 
----
+⸻
 
-# 27 — FEO / AI SEARCH
+29 — FEO / AI SEARCH
 
-FEO means optimizing content so search engines and AI answer systems can understand and extract useful answers.
-
-The project has already started implementing FEO.
+FEO means structuring content so search engines and AI answer systems can understand and extract useful answers.
 
 Current pattern:
 
-```text
 Quick Answer
 ↓
 Direct answer
@@ -973,49 +995,40 @@ FAQ
 Internal link
 ↓
 CTA
-```
 
-This pattern has already been introduced into several important pages.
+This pattern has already been implemented on several core pages.
 
-## Phase 7 Requirements
+Important service pages should answer:
 
-Important pages should answer the primary intent quickly.
+* What is this service?
+* What is this method?
+* Who is it suitable for?
+* What materials can be used?
+* What affects price?
+* What should the customer provide?
+* Which alternative method may be better?
 
-Examples:
+Do not keyword-stuff pages.
 
-- What is this service?
-- What is this printing method?
-- Who is it suitable for?
-- What affects price?
-- Which method should I choose?
-- What information is needed for quotation?
-- Does Ayric serve businesses?
-- Where does Ayric operate?
+⸻
 
-Avoid keyword stuffing.
+30 — GEO / LOCAL SEO
 
-Write for humans first.
+GEO must be based only on confirmed real business information.
 
----
+Potential signals:
 
-# 28 — GEO
+* Business identity
+* Country
+* City
+* Service area
+* Contact information
+* Business type
+* Services
+* Organization relationship
 
-GEO / local search optimization must be implemented carefully.
+Current siteConfig may contain fields such as:
 
-The website should communicate:
-
-- Business identity
-- Country
-- City/location when confirmed
-- Service area
-- Contact information
-- Business type
-- Services
-- Relationship between organization and services
-
-Current `siteConfig` includes:
-
-```text
 country
 serviceArea
 phone
@@ -1023,35 +1036,17 @@ email
 address
 city
 workingHours
-```
 
-Several fields are still empty.
+Empty or unknown fields must remain empty.
 
-Do not invent missing business information.
+Never invent an address, phone number, city, working hours or service area.
 
-When real information becomes available, update the canonical source:
+⸻
 
-```text
-content/site.ts
-```
+31 — INTERNAL LINKING
 
-Then propagate it through:
+Primary:
 
-- Metadata
-- Schema
-- Contact page
-- Footer
-- GEO content
-
----
-
-# 29 — INTERNAL LINKING
-
-Internal linking is an important Phase 7 task.
-
-Primary relationship:
-
-```text
 Homepage
    ↓
 Services
@@ -1059,11 +1054,9 @@ Services
 Service Detail
    ↓
 Quote
-```
 
-Secondary relationship:
+Secondary:
 
-```text
 Blog
    ↓
 Article
@@ -1071,175 +1064,202 @@ Article
 Service
    ↓
 Quote
-```
 
-Business relationship:
+Business:
 
-```text
 Business Solution
    ↓
 Relevant Services
    ↓
 Quote
-```
 
-Portfolio relationship:
+Portfolio:
 
-```text
 Portfolio
    ↓
-Services
-```
+Relevant Services
 
-Internal links should use meaningful anchor text.
+With the expanded service catalog, internal linking must be updated so related services naturally reference each other.
 
-Avoid excessive repetition.
+Examples:
 
----
+چاپ سیلک
+→ ساخت شابلون چاپ سیلک
+→ توری‌کشی و عکاسی
+→ طراحی اختصاصی چاپ سیلک
+چاپ بگ
+→ چاپ کیسه پارچه‌ای
+→ تولید و چاپ توت‌بگ
+چاپ لیوان کاغذی
+→ چاپ لیوان
+چاپ روی فلز
+→ چاپ روی استیل
+چاپ روی چوب
+→ چاپ روی پلکسی
 
-# 30 — IMAGE SEO
+These relationships should be used only where technically and commercially accurate.
 
-Current image architecture is incomplete.
+⸻
 
-Real project imagery has priority.
+32 — IMAGE SEO
+
+Real Ayric production imagery has priority.
 
 Before adding images:
 
-1. Inspect `public/`.
-2. Inspect `public/images/`.
+1. Inspect public/.
+2. Inspect public/images/.
 3. Map images to real content.
 4. Use meaningful filenames.
 5. Use meaningful alt text.
 6. Avoid decorative alt text for informative images.
 7. Do not fabricate project imagery.
 
-Future optimization includes:
+Future optimization:
 
-- Image dimensions
-- Proper formats
-- Compression
-- Lazy loading where appropriate
-- Eager loading for key hero images
-- Alt text
-- OG images
-- Social preview images
+* Proper dimensions
+* Modern formats
+* Compression
+* Lazy loading
+* Eager loading for important hero imagery
+* Alt text
+* OG imagery
+* Image performance
 
----
+⸻
 
-# 31 — CONTENT SEO
+33 — CONTENT SEO
 
-Content must target real search intent.
+Current service/content expansion creates new search-intent opportunities.
 
-Priority topics include:
+Priority service topics now include:
 
-- چاپ سیلک
-- چاپ DTF
-- چاپ روی لباس
-- چاپ روی پارچه
-- چاپ بگ
-- چاپ بسته‌بندی
-- چاپ جعبه
-- چاپ محصولات
-- انتخاب روش چاپ
-- قیمت چاپ
-- تیراژ
-- آماده‌سازی فایل
-- RGB و CMYK
-- چاپ دیجیتال
-- چاپ افست
+Screen Printing
+
+* چاپ سیلک
+* ساخت شابلون چاپ سیلک
+* توری کشی و عکاسی
+* طراحی اختصاصی چاپ سیلک
+
+Clothing / Fabric
+
+* چاپ روی لباس
+* چاپ روی تیشرت
+* چاپ روی پارچه
+* چاپ DTF
+
+Bags
+
+* چاپ بگ
+* چاپ کیسه پارچه‌ای
+* تولید و چاپ توت‌بگ
+
+Packaging / Cups
+
+* چاپ کارتن
+* چاپ جعبه پیتزا
+* چاپ لیوان کاغذی
+* چاپ لیوان
+
+Hard Materials
+
+* چاپ روی فلز
+* چاپ روی چوب
+* چاپ روی استیل
+* چاپ روی پلکسی
+
+Each service should have a distinct purpose.
 
 Do not create pages merely because a keyword exists.
 
-Each page must have a distinct purpose.
+⸻
 
----
-
-# 32 — BLOG CONTENT STRATEGY
+34 — BLOG CONTENT STRATEGY
 
 The blog should eventually form topical clusters.
 
 Example:
 
-```text
 Pillar:
 راهنمای انتخاب روش چاپ
-
 Supporting:
 چاپ سیلک چیست؟
 چاپ DTF چیست؟
 تفاوت سیلک و DTF
 چاپ دیجیتال یا افست
-```
 
-Another cluster:
+Screen-printing cluster:
 
-```text
 Pillar:
-راهنمای چاپ روی لباس
-
+راهنمای کامل چاپ سیلک
 Supporting:
-چاپ روی پارچه
+چاپ سیلک چیست؟
+ساخت شابلون چاپ سیلک
+توری‌کشی و عکاسی
+طراحی فایل برای چاپ سیلک
 چاپ سیلک روی لباس
-چاپ DTF
-آماده‌سازی فایل لباس
-```
+تفاوت سیلک و DTF
 
-Another:
+Bag cluster:
 
-```text
 Pillar:
-راهنمای چاپ بسته‌بندی
-
+راهنمای چاپ و تولید بگ
 Supporting:
-چاپ جعبه
-چاپ جعبه پیتزا
-چاپ لیوان کاغذی
-انتخاب متریال بسته‌بندی
-```
+چاپ بگ
+چاپ کیسه پارچه‌ای
+تولید و چاپ توت‌بگ
+انتخاب پارچه برای بگ
+
+Hard-material cluster:
+
+Pillar:
+راهنمای چاپ روی متریال‌های سخت
+Supporting:
+چاپ روی فلز
+چاپ روی استیل
+چاپ روی چوب
+چاپ روی پلکسی
 
 Internal links should connect these clusters naturally.
 
----
+⸻
 
-# 33 — ACCESSIBILITY
+35 — ACCESSIBILITY
 
 Maintain:
 
-- Semantic HTML
-- Proper heading hierarchy
-- Accessible buttons
-- Accessible links
-- Meaningful alt text
-- Keyboard usability
-- Adequate contrast
-- Correct language attributes
+* Semantic HTML
+* Proper heading hierarchy
+* Accessible buttons
+* Accessible links
+* Meaningful alt text
+* Keyboard usability
+* Adequate contrast
+* Correct language attributes
 
-Do not sacrifice accessibility for SEO or visual effects.
+Do not sacrifice accessibility for SEO.
 
----
+⸻
 
-# 34 — PERFORMANCE
-
-The website should remain lightweight.
+36 — PERFORMANCE
 
 Prefer:
 
-- Static content
-- Server Components
-- Minimal JavaScript
-- Optimized images
-- Simple CSS transitions
-- Reusable components
+* Static content
+* Server Components
+* Minimal JavaScript
+* Optimized images
+* Simple CSS transitions
+* Reusable components
 
 Avoid unnecessary dependencies.
 
----
+⸻
 
-# 35 — STATIC EXPORT
+37 — STATIC EXPORT
 
-Final production architecture:
+Final deployment target:
 
-```text
 GitHub
    ↓
 Next.js Build
@@ -1251,482 +1271,390 @@ out/
 cPanel
    ↓
 public_html/
-```
 
-Target configuration:
+Target:
 
-```text
 output: "export"
-```
 
-This has NOT been finalized yet.
+This has not yet been finalized.
 
-It belongs to:
+It belongs to Phase 8.
 
-## Phase 8 — Technical Hardening & Deployment
+Do not implement deployment-specific architecture before Phase 7 SEO cleanup is stable.
 
-Do not prematurely implement deployment-specific changes while SEO architecture is still being normalized.
+⸻
 
----
+38 — STATIC COMPATIBILITY
 
-# 36 — STATIC COMPATIBILITY
-
-All future features must remain compatible with static export.
+Future implementation should remain compatible with static export.
 
 Avoid:
 
-- Persistent server processes
-- Runtime databases
-- Server-side file writes
-- VPS-only infrastructure
-- Runtime-only rendering
-- Persistent backend requirements
+* Persistent server processes
+* Runtime databases for core content
+* Server-side file writes
+* VPS-only infrastructure
+* Runtime-only rendering
+* Persistent backend requirements
 
 Prefer:
 
-- Build-time content
-- Static generation
-- Client-side interaction only where necessary
-- External form services
-- Lightweight APIs only when compatible with final deployment
+* Build-time content
+* Static generation
+* Client-side interaction where necessary
+* External form services
+* Lightweight APIs where compatible
 
----
+⸻
 
-# 37 — FORMS
+39 — FORMS
 
-Current forms include:
+Current form architecture:
 
-```text
 components/forms/
 ├── FileUploadInput.tsx
 ├── FormField.tsx
 ├── PrintingInquiryForm.tsx
 └── QuoteForm.tsx
-```
 
-The current form architecture exists but production persistence is not yet finalized.
+Current forms exist but production persistence is not finalized.
 
-The final solution should not require a dedicated VPS merely to receive inquiries.
+lib/submitInquiry.ts currently simulates submission.
 
-Potential production solutions:
+Production options may include:
 
-- Email
-- Telegram
-- Automation endpoint
-- Serverless endpoint
-- External form service
+* Email
+* Telegram
+* Automation endpoint
+* Serverless endpoint
+* External form service
 
-Final decision belongs to technical/conversion phase.
+Final choice belongs to the technical/conversion phase.
 
----
+⸻
 
-# 38 — DESIGN DIRECTION
+40 — DESIGN DIRECTION
 
 Visual language:
 
-- Minimal
-- Editorial
-- Premium
-- Contemporary
-- Calm
-- Confident
-- Typography-led
-- Image-led
+* Minimal
+* Editorial
+* Premium
+* Contemporary
+* Calm
+* Confident
+* Typography-led
+* Image-led
 
 Avoid:
 
-- Generic printing-shop aesthetics
-- Discount marketplace aesthetics
-- Promotional badge overload
-- Excessive shadows
-- Excessive UI decoration
-- Template-like layouts
+* Generic printing-shop aesthetics
+* Discount marketplace aesthetics
+* Promotional badge overload
+* Excessive shadows
+* Excessive UI decoration
+* Template-like layouts
 
----
+⸻
 
-# 39 — COLOR SYSTEM
+41 — COLOR SYSTEM
 
 Primary background:
 
-```text
 #F7F5F1
-```
 
 Supporting neutral:
 
-```text
 #E7E2D4
-```
 
 Supporting light tone:
 
-```text
 #D0D5EC
-```
 
 Black may be used functionally for:
 
-- Typography
-- Buttons
-- High contrast sections
+* Typography
+* Buttons
+* High contrast sections
 
 It should not dominate the entire visual identity.
 
----
+⸻
 
-# 40 — TYPOGRAPHY
+42 — TYPOGRAPHY
 
 Current fonts are stored under:
 
-```text
 public/fonts/
-```
 
-Current font family includes Lahzeh weights.
-
-Before changing typography:
-
-1. Inspect existing font files.
-2. Inspect `globals.css`.
-3. Inspect Tailwind configuration.
-4. Reuse existing implementation.
+Current implementation must be inspected before changing typography.
 
 Do not introduce paid fonts unnecessarily.
 
----
+⸻
 
-# 41 — RESPONSIVE DESIGN
+43 — RESPONSIVE DESIGN
 
 Every new implementation must work across:
 
-- Mobile
-- Tablet
-- Desktop
-- Large desktop
+* Mobile
+* Tablet
+* Desktop
+* Large desktop
 
 Important areas:
 
-- Navigation
-- Typography
-- Forms
-- Images
-- CTAs
-- Tables/lists
-- Blog
-- Service pages
+* Navigation
+* Typography
+* Forms
+* Images
+* CTAs
+* Service grids
+* Blog
+* Service pages
 
----
+⸻
 
-# 42 — CURRENT PHASE STATUS
+44 — CURRENT PHASE STATUS
 
-# PHASE 1 — Foundation
+PHASE 1 — FOUNDATION
 
-## DONE
+DONE
 
 Project foundation and Next.js architecture established.
 
----
+⸻
 
-# PHASE 2 — Core Design System
+PHASE 2 — CORE DESIGN SYSTEM
 
-## DONE
+DONE
 
 Core visual language, typography, spacing and reusable UI architecture established.
 
----
+⸻
 
-# PHASE 3 — Core Pages
+PHASE 3 — CORE PAGES
 
-## DONE
+DONE / SUBSTANTIALLY DONE
 
 Primary website pages and content architecture implemented.
 
----
+⸻
 
-# PHASE 4 — Services / Business / Content
+PHASE 4 — SERVICES / BUSINESS / CONTENT
 
-## DONE
+SUBSTANTIALLY DONE — SERVICE EXPANSION IN PROGRESS
 
-Services and business-oriented architecture implemented.
+Existing services and business architecture are implemented.
 
----
+The service system now needs expansion with 11 additional services.
 
-# PHASE 5 — Forms / Conversion
+⸻
 
-## SUBSTANTIALLY DONE
+PHASE 5 — FORMS / CONVERSION
+
+SUBSTANTIALLY DONE
 
 Quote/contact flows and conversion-oriented pages implemented.
 
-Production form backend remains a later technical decision.
+Production form backend remains pending.
 
----
+⸻
 
-# PHASE 6 — Portfolio
+PHASE 6 — PORTFOLIO
 
-## DONE
+DONE
 
 Portfolio is complete.
 
 Canonical route:
 
-```text
 /نمونه-کارها
-```
 
-No individual project pages are required.
+Do not restart portfolio work.
 
----
+⸻
 
-# PHASE 7 — SEO / GEO / FEO
+PHASE 7 — SEO / GEO / FEO
 
-## IN PROGRESS
+IN PROGRESS
 
 A significant portion of SEO work has already been implemented.
 
-### DONE / SUBSTANTIALLY IMPLEMENTED
+DONE / SUBSTANTIALLY IMPLEMENTED
 
-- Page Metadata on several core routes
-- Canonical URLs on several core routes
-- Open Graph on several core routes
-- Twitter metadata on service pages
-- Service Schema
-- Article Schema
-- FAQ Schema
-- Breadcrumb Schema
-- WebPage Schema
-- Organization Schema
-- LocalBusiness Schema utility
-- Quick Answer sections
-- FEO-oriented content
-- Search-intent-oriented service content
-- SEO service metadata
-- Blog SEO structure
-- Article SEO structure
-- Internal linking foundations
-- Robots implementation
-- Sitemap implementation
-- SEO utility
-- Reusable JSON-LD component
-- Semantic heading improvements
-- FAQ content improvements
+* Service metadata
+* Service page SEO
+* Service FEO
+* Service FAQ
+* Service structured data
+* Canonical foundations
+* Open Graph foundations
+* Article SEO foundations
+* Blog SEO foundations
+* Internal linking foundations
+* Quick Answer sections
+* Semantic heading improvements
+* FAQ content improvements
+* Reusable JSON-LD infrastructure
+* Sitemap/robots foundations
 
-### CURRENTLY REMAINING
+CURRENTLY IN PROGRESS
 
-#### 01 — Canonical Architecture
+01 — SERVICE EXPANSION
 
-- Finalize canonical domain
-- Normalize absolute URLs
-- Resolve duplicate routes
-- Resolve duplicate blog architecture
-- Resolve legacy redirects
+Add:
 
-#### 02 — Sitemap Cleanup
+1. ساخت شابلون چاپ سیلک
+2. توری‌کشی و عکاسی
+3. طراحی اختصاصی چاپ سیلک
+4. چاپ کیسه پارچه‌ای
+5. چاپ نایلون
+6. تولید و چاپ توت‌بگ
+7. چاپ لیوان
+8. چاپ روی فلز
+9. چاپ روی چوب
+10. چاپ روی استیل
+11. چاپ روی پلکسی
 
-- Keep one sitemap implementation
-- Remove project detail URLs
-- Remove duplicate blog URLs
-- Include all canonical indexable pages
-- Normalize domain
+02 — TECHNICAL SEO
 
-#### 03 — Robots Cleanup
+* Canonical domain
+* Absolute URLs
+* Sitemap cleanup
+* Robots cleanup
+* Duplicate route cleanup
+* Blog architecture consolidation
+* Schema consistency
+* Internal linking
+* Image SEO
+* GEO
+* Homepage SEO
+* Business SEO
+* Final SEO validation
 
-- Keep one authoritative implementation
-- Normalize sitemap URL
-- Verify indexing behavior
+⸻
 
-#### 04 — Homepage SEO
+45 — NEXT IMMEDIATE TASK
 
-- Dedicated Metadata
-- Canonical
-- WebSite Schema
-- Organization relationship
-- FEO content
-- Internal linking
+The immediate sequence is:
 
-#### 05 — Business SEO
-
-- Canonical
-- OG
-- WebPage Schema
-- Breadcrumb
-- Business-specific structured data
-- GEO
-- Internal links
-
-#### 06 — Blog Consolidation
-
-Choose one canonical architecture.
-
-Preferred current direction:
-
-```text
-/وبلاگ
-/وبلاگ/[slug]
-```
-
-Then migrate/deprecate:
-
-```text
-/بلاگ
-/بلاگ/[slug]
-```
-
-#### 07 — SEO Architecture Cleanup
-
-Evaluate:
-
-```text
-components/seo/JsonLd.tsx
-lib/seo.ts
-inline JSON-LD
-```
-
-Centralize only where it improves maintainability.
-
-#### 08 — Image SEO
-
-- Real imagery
-- Alt text
-- Dimensions
-- Formats
-- OG images
-- Performance
-
-#### 09 — GEO
-
-- Final business identity
-- NAP
-- Service area
-- LocalBusiness
-- Organization
-- Location signals
-
-#### 10 — Content SEO
-
-- Keyword/search intent mapping
-- Topic clusters
-- Internal links
-- Article hierarchy
-- Service/article relationships
-
----
-
-# 43 — NEXT IMMEDIATE TASK
-
-The next task is NOT:
-
-- Portfolio
-- New portfolio pages
-- New visual redesign
-- New case studies
-
-The next task is:
-
-# SEO TECHNICAL AUDIT
-
-Order:
-
-```text
-1. Canonical domain
+1. Expand content/services.ts
         ↓
-2. Sitemap duplication
+2. Add all 11 new services
         ↓
-3. Robots duplication
+3. Verify service dynamic routing
         ↓
-4. Duplicate routes
+4. Verify related-service links
         ↓
-5. Blog architecture
+5. Verify service index
         ↓
-6. Homepage metadata
+6. Audit service metadata/schema
         ↓
-7. Business SEO
+7. Canonical domain normalization
         ↓
-8. Schema consistency
+8. Sitemap cleanup
         ↓
-9. Internal linking
+9. Robots cleanup
         ↓
-10. Image SEO
+10. Duplicate route cleanup
         ↓
-11. GEO
+11. Blog architecture consolidation
         ↓
-12. FEO / AI Search refinement
+12. Homepage SEO
         ↓
-13. Final SEO validation
-```
+13. Business SEO
+        ↓
+14. Schema consistency
+        ↓
+15. Internal linking
+        ↓
+16. Image SEO
+        ↓
+17. GEO
+        ↓
+18. Final FEO / AI-search refinement
+        ↓
+19. Final SEO validation
 
-Do not skip directly to deployment.
+Do NOT skip the service expansion.
 
----
+Do NOT restart portfolio work.
 
-# 44 — PHASE 8 — TECHNICAL HARDENING & DEPLOYMENT
+Do NOT redesign the whole website.
 
-This phase begins only after Phase 7 SEO is stable.
+⸻
 
-Tasks:
+46 — PHASE 8 — TECHNICAL HARDENING & DEPLOYMENT
 
-- `output: "export"`
-- Static export validation
-- Build validation
-- Broken route detection
-- 404 validation
-- Asset path validation
-- Image compatibility
-- Form strategy
-- Environment variables
-- Production domain
-- cPanel deployment
-- `public_html`
-- Final production test
+After Phase 7 is stable:
 
----
+* output: "export"
+* Static export validation
+* Build validation
+* Broken route detection
+* 404 validation
+* Asset path validation
+* Image compatibility
+* Form strategy
+* Environment variables
+* Production domain
+* cPanel deployment
+* public_html
+* Final production test
 
-# 45 — PHASE 9 — SEARCH CONSOLE & PRODUCTION SEO
+⸻
+
+47 — PHASE 9 — SEARCH CONSOLE & PRODUCTION SEO
 
 After deployment:
 
-- Google Search Console
-- Sitemap submission
-- Indexing inspection
-- Canonical inspection
-- Coverage review
-- Core Web Vitals
-- Search queries
-- CTR
-- Ranking baseline
-- GEO visibility
-- AI-search visibility
+* Google Search Console
+* Sitemap submission
+* Indexing inspection
+* Canonical inspection
+* Coverage review
+* Core Web Vitals
+* Search queries
+* CTR
+* Ranking baseline
+* GEO visibility
+* AI-search visibility
 
-Do not treat SEO as finished at deployment.
+SEO is not considered finished at deployment.
 
----
+⸻
 
-# 46 — INFORMATION ACCURACY RULE
+48 — INFORMATION ACCURACY RULE
 
 Never invent:
 
-- Client names
-- Production methods
-- Materials
-- Quantities
-- Project dates
-- Testimonials
-- Reviews
-- Ratings
-- Business relationships
-- Physical addresses
-- Phone numbers
-- Awards
-- Certifications
+* Client names
+* Production methods
+* Materials
+* Quantities
+* Project dates
+* Testimonials
+* Reviews
+* Ratings
+* Business relationships
+* Physical addresses
+* Phone numbers
+* Awards
+* Certifications
+* Production capacities
+* Equipment specifications
 
 Unknown information must remain unknown.
 
----
+If a technical detail is not confirmed, write the content in a way that remains accurate without inventing a specification.
 
-# 47 — FINAL DEVELOPMENT RULE
+⸻
+
+49 — DEVELOPMENT RULE
 
 Before every new task:
 
-```text
 READ PROJECT_SPEC.md
         ↓
 INSPECT REPOSITORY
@@ -1744,7 +1672,6 @@ IMPLEMENT
 VALIDATE
         ↓
 UPDATE PROJECT_SPEC.md
-```
 
 Never assume the project has returned to an earlier phase.
 
@@ -1752,50 +1679,68 @@ Never rebuild completed systems.
 
 Never create duplicate architecture.
 
----
+⸻
 
-# 48 — CURRENT PROJECT POSITION
+50 — CURRENT PROJECT POSITION
 
-## CURRENT PHASE
+CURRENT PHASE
 
-**Phase 7 — SEO / GEO / FEO**
+Phase 7 — SEO / GEO / FEO
 
-## CURRENT SUB-PHASE
+CURRENT SUB-PHASE
 
-**Technical SEO Audit & Architecture Cleanup**
+Service Expansion → Technical SEO Audit & Architecture Cleanup
 
-## COMPLETED
+COMPLETED
 
-Portfolio: **100%**
+Portfolio: 100%
 
-SEO/FEO foundation: **substantially implemented**
+Core service architecture: DONE
 
-Core service SEO: **substantially implemented**
+Core service SEO/FEO: SUBSTANTIALLY DONE
 
-Blog SEO: **substantially implemented but architecture duplicated**
+Quote page SEO: SUBSTANTIALLY DONE
 
-## NOT YET COMPLETE
+Blog SEO foundation: SUBSTANTIALLY DONE
 
-Technical SEO normalization
+Core SEO infrastructure: SUBSTANTIALLY DONE
 
-Canonical architecture
+CURRENTLY IN PROGRESS
 
-Sitemap/robots cleanup
+Service catalog expansion with 11 new services.
 
-Duplicate route cleanup
+NOT YET COMPLETE
 
-Homepage SEO
+* Technical SEO normalization
+* Canonical architecture
+* Sitemap/robots cleanup
+* Duplicate route cleanup
+* Blog route consolidation
+* Homepage SEO
+* Business SEO
+* Image SEO
+* GEO
+* Final FEO refinement
+* Final SEO validation
+* Production form backend
+* Static-export hardening
+* cPanel deployment
 
-Business SEO
+NEXT ACTION
 
-Image SEO
+First complete the service catalog expansion in content/services.ts.
 
-GEO
+Then continue Phase 7 Technical SEO Audit:
 
-Final FEO refinement
+Canonical Domain
+→ Sitemap
+→ Robots
+→ Duplicate Routes
+→ Blog Architecture
+→ Schema
+→ Internal Links
+→ Image SEO
+→ GEO
+→ Final SEO Audit
 
-SEO validation
-
-## NEXT ACTION
-
-**Continue Phase 7 with Technical SEO Audit — starting with canonical domain + sitemap/robots + duplicate route architecture.**
+Do not restart completed work.
