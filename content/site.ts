@@ -1,7 +1,6 @@
 export const siteConfig = {
   name: "آیریک",
   englishName: "IRIC",
-
   tagline: "چاپ تخصصی برای برندهایی که کیفیت اهمیت دارد",
 
   description:
@@ -32,30 +31,12 @@ export const siteConfig = {
   logo: "/images/logo/iric-logo.svg",
 
   navigation: [
-    {
-      label: "خانه",
-      href: "/",
-    },
-    {
-      label: "خدمات چاپ",
-      href: "/خدمات",
-    },
-    {
-      label: "نمونه‌کارها",
-      href: "/نمونه-کارها",
-    },
-    {
-      label: "بلاگ",
-      href: "/بلاگ",
-    },
-    {
-      label: "درباره ما",
-      href: "/درباره-ما",
-    },
-    {
-      label: "تماس با ما",
-      href: "/تماس-با-ما",
-    },
+    { label: "خانه", href: "/" },
+    { label: "خدمات چاپ", href: "/خدمات" },
+    { label: "نمونه‌کارها", href: "/نمونه-کارها" },
+    { label: "بلاگ", href: "/وبلاگ" },
+    { label: "درباره ما", href: "/درباره-ما" },
+    { label: "تماس با ما", href: "/تماس-با-ما" },
   ],
 
   cta: {
