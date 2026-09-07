@@ -57,7 +57,8 @@ export async function generateMetadata({
     };
   }
 
-  const canonicalUrl = `/خدمات/${service.slug}`;
+  const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
+  const canonicalUrl = `${siteUrl}/خدمات/${service.slug}`;
 
   return {
     title: service.meta.title,
@@ -117,19 +118,11 @@ export default function ServicePage({ params }: PageProps) {
 
   /*
   |--------------------------------------------------------------------------
-  | Absolute URL
+  | Absolute URLs
   |--------------------------------------------------------------------------
-  |
-  | برای Schema بهتر است URLها absolute باشند.
-  | اگر siteConfig.url در پروژه شما وجود داشته باشد از آن استفاده می‌شود.
-  |
   */
 
-  const siteUrl =
-    "url" in siteConfig && typeof siteConfig.url === "string"
-      ? siteConfig.url.replace(/\/$/, "")
-      : "";
-
+  const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
   const pageUrl = `${siteUrl}/خدمات/${service.slug}`;
 
   /*
@@ -150,11 +143,7 @@ export default function ServicePage({ params }: PageProps) {
     provider: {
       "@type": "Organization",
       name: siteConfig.name,
-      ...(siteUrl
-        ? {
-            url: siteUrl,
-          }
-        : {}),
+      url: siteUrl,
     },
 
     areaServed: {
@@ -174,16 +163,12 @@ export default function ServicePage({ params }: PageProps) {
     url: pageUrl,
     inLanguage: "fa-IR",
 
-    ...(siteUrl
-      ? {
-          isPartOf: {
-            "@type": "WebSite",
-            "@id": `${siteUrl}#website`,
-            name: siteConfig.name,
-            url: siteUrl,
-          },
-        }
-      : {}),
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      name: siteConfig.name,
+      url: siteUrl,
+    },
 
     about: {
       "@id": `${pageUrl}#service`,
@@ -199,33 +184,21 @@ export default function ServicePage({ params }: PageProps) {
         "@type": "ListItem",
         position: 1,
         name: "خانه",
-        ...(siteUrl
-          ? {
-              item: siteUrl,
-            }
-          : {}),
+        item: siteUrl,
       },
 
       {
         "@type": "ListItem",
         position: 2,
         name: "خدمات",
-        ...(siteUrl
-          ? {
-              item: `${siteUrl}/خدمات`,
-            }
-          : {}),
+        item: `${siteUrl}/خدمات`,
       },
 
       {
         "@type": "ListItem",
         position: 3,
         name: service.title,
-        ...(siteUrl
-          ? {
-              item: pageUrl,
-            }
-          : {}),
+        item: pageUrl,
       },
     ],
   };
@@ -456,10 +429,7 @@ export default function ServicePage({ params }: PageProps) {
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {service.benefits.map((benefit, index) => (
-                <Reveal
-                  key={benefit}
-                  delay={index * 50}
-                >
+                <Reveal key={benefit} delay={index * 50}>
                   <div
                     className="h-full rounded-md border p-6"
                     style={{
@@ -563,10 +533,7 @@ export default function ServicePage({ params }: PageProps) {
 
             <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {service.applications.map((application, index) => (
-                <Reveal
-                  key={application}
-                  delay={index * 40}
-                >
+                <Reveal key={application} delay={index * 40}>
                   <div
                     className="rounded-md border p-5"
                     style={{
@@ -616,44 +583,39 @@ export default function ServicePage({ params }: PageProps) {
             />
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
-              {service.keyConsiderations.map(
-                (consideration, index) => (
-                  <Reveal
-                    key={consideration.label}
-                    delay={index * 60}
-                  >
-                    <div className="card-industrial h-full">
-                      <span
-                        className="text-xs"
-                        style={{
-                          color: "var(--color-accent)",
-                        }}
-                      >
-                        {String(index + 1).padStart(2, "۰")}
-                      </span>
+              {service.keyConsiderations.map((consideration, index) => (
+                <Reveal key={consideration.label} delay={index * 60}>
+                  <div className="card-industrial h-full">
+                    <span
+                      className="text-xs"
+                      style={{
+                        color: "var(--color-accent)",
+                      }}
+                    >
+                      {String(index + 1).padStart(2, "۰")}
+                    </span>
 
-                      <h3
-                        className="mt-4 text-lg font-bold"
-                        style={{
-                          color: "var(--color-text)",
-                        }}
-                      >
-                        {consideration.label}
-                      </h3>
+                    <h3
+                      className="mt-4 text-lg font-bold"
+                      style={{
+                        color: "var(--color-text)",
+                      }}
+                    >
+                      {consideration.label}
+                    </h3>
 
-                      <p
-                        className="mt-3 text-sm"
-                        style={{
-                          color: "var(--color-text-muted)",
-                          lineHeight: "var(--line-height-relaxed)",
-                        }}
-                      >
-                        {consideration.description}
-                      </p>
-                    </div>
-                  </Reveal>
-                )
-              )}
+                    <p
+                      className="mt-3 text-sm"
+                      style={{
+                        color: "var(--color-text-muted)",
+                        lineHeight: "var(--line-height-relaxed)",
+                      }}
+                    >
+                      {consideration.description}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
             </div>
           </div>
         </section>
@@ -670,75 +632,65 @@ export default function ServicePage({ params }: PageProps) {
             }}
           >
             <div className="container-iric">
-              <SectionHeading
-                eyebrow="روش اجرا"
-                title="روش چاپ"
-              />
+              <SectionHeading eyebrow="روش اجرا" title="روش چاپ" />
 
               <div className="mt-10 grid gap-4">
-                {service.printingMethods.map(
-                  (method, index) => (
-                    <div
-                      key={method.name}
-                      className="grid gap-5 rounded-md border p-6 md:grid-cols-[80px_0.8fr_1.2fr]"
+                {service.printingMethods.map((method, index) => (
+                  <div
+                    key={method.name}
+                    className="grid gap-5 rounded-md border p-6 md:grid-cols-[80px_0.8fr_1.2fr]"
+                    style={{
+                      borderColor: "var(--color-border-light)",
+                      backgroundColor: "var(--color-surface-light)",
+                    }}
+                  >
+                    <span
+                      className="text-xs"
                       style={{
-                        borderColor: "var(--color-border-light)",
-                        backgroundColor:
-                          "var(--color-surface-light)",
+                        color: "var(--color-accent)",
                       }}
                     >
-                      <span
-                        className="text-xs"
+                      {String(index + 1).padStart(2, "۰")}
+                    </span>
+
+                    <h3
+                      className="font-bold"
+                      style={{
+                        color: "var(--color-text-dark)",
+                      }}
+                    >
+                      {method.name}
+                    </h3>
+
+                    <div>
+                      <p
+                        className="text-sm"
                         style={{
-                          color: "var(--color-accent)",
+                          color: "var(--color-text-dark-muted)",
+                          lineHeight: "var(--line-height-relaxed)",
                         }}
                       >
-                        {String(index + 1).padStart(2, "۰")}
-                      </span>
+                        {method.description}
+                      </p>
 
-                      <h3
-                        className="font-bold"
+                      <p
+                        className="mt-3 text-sm font-medium"
                         style={{
                           color: "var(--color-text-dark)",
                         }}
                       >
-                        {method.name}
-                      </h3>
-
-                      <div>
-                        <p
-                          className="text-sm"
+                        مناسب برای:{" "}
+                        <span
                           style={{
-                            color:
-                              "var(--color-text-dark-muted)",
-                            lineHeight:
-                              "var(--line-height-relaxed)",
+                            color: "var(--color-text-dark-muted)",
                           }}
                         >
-                          {method.description}
-                        </p>
-
-                        <p
-                          className="mt-3 text-sm font-medium"
-                          style={{
-                            color:
-                              "var(--color-text-dark)",
-                          }}
-                        >
-                          مناسب برای:{" "}
-                          <span
-                            style={{
-                              color:
-                                "var(--color-text-dark-muted)",
-                            }}
-                          >
-                            {method.suitableFor}
-                          </span>
-                        </p>
-                      </div>
+                          {method.suitableFor}
+                        </span>
+                      </p>
                     </div>
-                  )
-                )}
+                  </div>
+                ))}
               </div>
             </div>
           </section>
@@ -763,10 +715,7 @@ export default function ServicePage({ params }: PageProps) {
 
             <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {service.processSteps.map((step, index) => (
-                <Reveal
-                  key={step}
-                  delay={index * 40}
-                >
+                <Reveal key={step} delay={index * 40}>
                   <div className="card-industrial h-full">
                     <span
                       className="text-sm font-bold"
@@ -781,8 +730,7 @@ export default function ServicePage({ params }: PageProps) {
                       className="mt-4 font-medium"
                       style={{
                         color: "var(--color-text)",
-                        lineHeight:
-                          "var(--line-height-relaxed)",
+                        lineHeight: "var(--line-height-relaxed)",
                       }}
                     >
                       {step}
@@ -849,10 +797,7 @@ export default function ServicePage({ params }: PageProps) {
 
               <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {relatedServices.map((relatedService, index) => (
-                  <Reveal
-                    key={relatedService.slug}
-                    delay={index * 50}
-                  >
+                  <Reveal key={relatedService.slug} delay={index * 50}>
                     <Link
                       href={`/خدمات/${relatedService.slug}`}
                       className="group block h-full rounded-md border p-6 transition-transform duration-300 hover:-translate-y-1"
@@ -883,8 +828,7 @@ export default function ServicePage({ params }: PageProps) {
                         className="mt-3 text-sm"
                         style={{
                           color: "var(--color-text-muted)",
-                          lineHeight:
-                            "var(--line-height-relaxed)",
+                          lineHeight: "var(--line-height-relaxed)",
                         }}
                       >
                         {relatedService.shortDescription}
@@ -902,10 +846,7 @@ export default function ServicePage({ params }: PageProps) {
                           className="transition-transform duration-300 group-hover:-translate-x-1"
                           aria-hidden="true"
                         >
-                          <IconArrow
-                            direction="left"
-                            size={16}
-                          />
+                          <IconArrow direction="left" size={16} />
                         </span>
                       </div>
                     </Link>
