@@ -11,19 +11,29 @@ import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 import Reveal from "@/components/ui/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
 
+const canonicalUrl = `${siteConfig.siteUrl}/خدمات`;
+
 export const metadata: Metadata = {
   title: "خدمات چاپ آیریک | چاپ لباس، پارچه، بسته‌بندی و محصولات",
   description:
     "خدمات چاپ آیریک برای برندها و کسب‌وکارها؛ از چاپ سیلک و DTF تا چاپ روی لباس، پارچه، بگ، بسته‌بندی و محصولات. انتخاب روش چاپ بر اساس محصول، متریال، طرح و تیراژ.",
   alternates: {
-    canonical: "/خدمات",
+    canonical: canonicalUrl,
   },
   openGraph: {
     title: "خدمات چاپ آیریک | راهکارهای چاپ برای برندها و کسب‌وکارها",
     description:
       "از انتخاب روش چاپ تا تولید نهایی؛ خدمات چاپ آیریک برای پوشاک، پارچه، بسته‌بندی، محصولات و اقلام تبلیغاتی.",
     type: "website",
-    url: "/خدمات",
+    url: canonicalUrl,
+    siteName: siteConfig.name,
+    locale: "fa_IR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "خدمات چاپ آیریک | راهکارهای چاپ برای برندها و کسب‌وکارها",
+    description:
+      "از انتخاب روش چاپ تا تولید نهایی؛ خدمات چاپ آیریک برای پوشاک، پارچه، بسته‌بندی، محصولات و اقلام تبلیغاتی.",
   },
 };
 
@@ -34,11 +44,13 @@ export default function ServicesPage() {
     name: "خدمات چاپ آیریک",
     description:
       "فهرست خدمات چاپ آیریک برای برندها و کسب‌وکارها.",
+    url: canonicalUrl,
+    numberOfItems: services.length,
     itemListElement: services.map((service, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: service.title,
-      url: `/خدمات/${service.slug}`,
+      url: `${siteConfig.siteUrl}/خدمات/${service.slug}`,
       description: service.shortDescription,
     })),
   };
@@ -51,13 +63,13 @@ export default function ServicesPage() {
         "@type": "ListItem",
         position: 1,
         name: "خانه",
-        item: "/",
+        item: siteConfig.siteUrl,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "خدمات",
-        item: "/خدمات",
+        item: canonicalUrl,
       },
     ],
   };
@@ -66,7 +78,27 @@ export default function ServicesPage() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: siteConfig.name,
-    url: "/",
+    url: siteConfig.siteUrl,
+    logo: `${siteConfig.siteUrl}${siteConfig.logo}`,
+  };
+
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "خدمات چاپ آیریک",
+    description:
+      "خدمات چاپ آیریک برای برندها و کسب‌وکارها؛ از چاپ روی لباس و پارچه تا بسته‌بندی، بگ و محصولات.",
+    url: canonicalUrl,
+    inLanguage: "fa-IR",
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: siteConfig.siteUrl,
+    },
+    about: {
+      "@type": "Thing",
+      name: "خدمات چاپ",
+    },
   };
 
   return (
@@ -84,6 +116,11 @@ export default function ServicesPage() {
       <JsonLd
         type="organization"
         data={organizationSchema}
+      />
+
+      <JsonLd
+        type="website"
+        data={webPageSchema}
       />
 
       {/* =====================================================
