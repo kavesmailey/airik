@@ -1,10 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { siteConfig } from "@/content/site";
+import JsonLd from "@/components/seo/JsonLd";
+
+const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
+const canonicalUrl = `${siteUrl}/درباره-ما`;
+
 export const metadata: Metadata = {
   title: "درباره ما | Ayric",
   description:
     "درباره آیریک؛ مجموعه‌ای برای ارائه راهکارهای چاپ و تولید برای برندها و کسب‌وکارها.",
+  alternates: {
+    canonical: canonicalUrl,
+  },
+  openGraph: {
+    title: "درباره ما | Ayric",
+    description:
+      "درباره آیریک؛ مجموعه‌ای برای ارائه راهکارهای چاپ و تولید برای برندها و کسب‌وکارها.",
+    url: canonicalUrl,
+    siteName: siteConfig.name,
+    locale: "fa_IR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "درباره ما | Ayric",
+    description:
+      "درباره آیریک؛ مجموعه‌ای برای ارائه راهکارهای چاپ و تولید برای برندها و کسب‌وکارها.",
+  },
 };
 
 const values = [
@@ -30,9 +54,52 @@ const values = [
   },
 ];
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "خانه",
+      item: siteUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "درباره ما",
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const aboutPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": `${canonicalUrl}#about`,
+  url: canonicalUrl,
+  name: "درباره ما | Ayric",
+  description:
+    "درباره آیریک؛ مجموعه‌ای برای ارائه راهکارهای چاپ و تولید برای برندها و کسب‌وکارها.",
+  inLanguage: "fa-IR",
+  isPartOf: {
+    "@type": "WebSite",
+    url: siteUrl,
+    name: siteConfig.name,
+  },
+  about: {
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteUrl,
+  },
+};
+
 export default function AboutPage() {
   return (
     <main dir="rtl">
+      <JsonLd type="breadcrumb" data={breadcrumbSchema} />
+      <JsonLd type="organization" data={aboutPageSchema} />
+
       {/* Hero */}
       <section className="border-b border-black/10">
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
