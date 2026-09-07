@@ -11,7 +11,8 @@ import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 import Reveal from "@/components/ui/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
 
-const canonicalUrl = `${siteConfig.siteUrl}/خدمات`;
+const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
+const canonicalUrl = `${siteUrl}/خدمات`;
 
 export const metadata: Metadata = {
   title: "خدمات چاپ آیریک | چاپ لباس، پارچه، بسته‌بندی و محصولات",
@@ -42,15 +43,14 @@ export default function ServicesPage() {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "خدمات چاپ آیریک",
-    description:
-      "فهرست خدمات چاپ آیریک برای برندها و کسب‌وکارها.",
+    description: "فهرست خدمات چاپ آیریک برای برندها و کسب‌وکارها.",
     url: canonicalUrl,
     numberOfItems: services.length,
     itemListElement: services.map((service, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: service.title,
-      url: `${siteConfig.siteUrl}/خدمات/${service.slug}`,
+      url: `${siteUrl}/خدمات/${service.slug}`,
       description: service.shortDescription,
     })),
   };
@@ -63,7 +63,7 @@ export default function ServicesPage() {
         "@type": "ListItem",
         position: 1,
         name: "خانه",
-        item: siteConfig.siteUrl,
+        item: siteUrl,
       },
       {
         "@type": "ListItem",
@@ -78,27 +78,8 @@ export default function ServicesPage() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: siteConfig.name,
-    url: siteConfig.siteUrl,
-    logo: `${siteConfig.siteUrl}${siteConfig.logo}`,
-  };
-
-  const webPageSchema = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "خدمات چاپ آیریک",
-    description:
-      "خدمات چاپ آیریک برای برندها و کسب‌وکارها؛ از چاپ روی لباس و پارچه تا بسته‌بندی، بگ و محصولات.",
-    url: canonicalUrl,
-    inLanguage: "fa-IR",
-    isPartOf: {
-      "@type": "WebSite",
-      name: siteConfig.name,
-      url: siteConfig.siteUrl,
-    },
-    about: {
-      "@type": "Thing",
-      name: "خدمات چاپ",
-    },
+    url: siteUrl,
+    logo: `${siteUrl}${siteConfig.logo}`,
   };
 
   return (
@@ -116,11 +97,6 @@ export default function ServicesPage() {
       <JsonLd
         type="organization"
         data={organizationSchema}
-      />
-
-      <JsonLd
-        type="website"
-        data={webPageSchema}
       />
 
       {/* =====================================================
@@ -278,8 +254,7 @@ export default function ServicesPage() {
                       className="text-sm sm:text-base"
                       style={{
                         color: "var(--color-text-muted)",
-                        lineHeight:
-                          "var(--line-height-relaxed)",
+                        lineHeight: "var(--line-height-relaxed)",
                       }}
                     >
                       {service.shortDescription}
