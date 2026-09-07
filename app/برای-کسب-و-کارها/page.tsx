@@ -2,16 +2,129 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { businessSolutions } from "@/content/business";
+import { siteConfig } from "@/content/site";
+
+const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
+const canonicalUrl = `${siteUrl}/برای-کسب-و-کارها`;
 
 export const metadata: Metadata = {
-  title: "راهکارهای چاپ برای کسب‌وکارها | AIRIK",
+  title: "راهکارهای چاپ برای کسب‌وکارها | آیریک",
   description:
-    "راهکارهای چاپ AIRIK برای برندها، فروشگاه‌ها، رستوران‌ها، کافه‌ها و شرکت‌هایی که به تولید مستمر و قابل اتکا نیاز دارند.",
+    "راهکارهای چاپ آیریک برای برندها، فروشگاه‌ها، رستوران‌ها، کافه‌ها و شرکت‌هایی که به تولید مستمر و قابل اتکا نیاز دارند.",
+  alternates: {
+    canonical: canonicalUrl,
+  },
+  openGraph: {
+    title: "راهکارهای چاپ برای کسب‌وکارها | آیریک",
+    description:
+      "راهکارهای چاپ آیریک برای برندها، فروشگاه‌ها، رستوران‌ها، کافه‌ها و شرکت‌هایی که به تولید مستمر و قابل اتکا نیاز دارند.",
+    url: canonicalUrl,
+    siteName: siteConfig.name,
+    locale: "fa_IR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "راهکارهای چاپ برای کسب‌وکارها | آیریک",
+    description:
+      "راهکارهای چاپ آیریک برای برندها، فروشگاه‌ها، رستوران‌ها، کافه‌ها و شرکت‌هایی که به تولید مستمر و قابل اتکا نیاز دارند.",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "خانه",
+      item: siteUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "برای کسب‌وکارها",
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const businessPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "راهکارهای چاپ برای کسب‌وکارها",
+  description:
+    "راهکارهای چاپ آیریک برای برندها، فروشگاه‌ها، رستوران‌ها، کافه‌ها و شرکت‌هایی که به تولید مستمر و قابل اتکا نیاز دارند.",
+  url: canonicalUrl,
+  isPartOf: {
+    "@type": "WebSite",
+    name: siteConfig.name,
+    url: siteUrl,
+  },
+  about: {
+    "@type": "Thing",
+    name: "راهکارهای چاپ برای کسب‌وکارها",
+  },
+};
+
+const faqItems = [
+  {
+    q: "آیا سفارش‌های تیراژ بالا انجام می‌دهید؟",
+    a: "بله. تیراژ یکی از عوامل اصلی در انتخاب روش چاپ و برآورد پروژه است و سفارش‌های حجیم به‌صورت جداگانه بررسی می‌شوند.",
+  },
+  {
+    q: "آیا امکان سفارش مستمر وجود دارد؟",
+    a: "بله. برای کسب‌وکارهایی که به تولید چاپی مداوم نیاز دارند، امکان بررسی همکاری مستمر وجود دارد.",
+  },
+  {
+    q: "آیا می‌توانیم روش چاپ را به شما بسپاریم؟",
+    a: "بله. کافی است محصول، متریال، تعداد و کاربرد نهایی را مشخص کنید. انتخاب روش چاپ را می‌توان بر اساس این عوامل انجام داد.",
+  },
+  {
+    q: "برای شروع چه اطلاعاتی لازم است؟",
+    a: "نوع محصول، تعداد تقریبی، ابعاد، متریال در صورت مشخص بودن و زمان مورد نیاز برای شروع کافی است.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
 };
 
 export default function BusinessPage() {
   return (
     <main dir="rtl">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(businessPageSchema),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema),
+        }}
+      />
+
       {/* Hero */}
       <section className="border-b border-black/10">
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
@@ -105,7 +218,7 @@ export default function BusinessPage() {
         </div>
       </section>
 
-      {/* Why AIRIK */}
+      {/* Why Ayric */}
       <section className="border-y border-black/10 bg-[#f5f3ef]">
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
@@ -293,24 +406,7 @@ export default function BusinessPage() {
             </div>
 
             <div className="border-t border-black/10">
-              {[
-                {
-                  q: "آیا سفارش‌های تیراژ بالا انجام می‌دهید؟",
-                  a: "بله. تیراژ یکی از عوامل اصلی در انتخاب روش چاپ و برآورد پروژه است و سفارش‌های حجیم به‌صورت جداگانه بررسی می‌شوند.",
-                },
-                {
-                  q: "آیا امکان سفارش مستمر وجود دارد؟",
-                  a: "بله. برای کسب‌وکارهایی که به تولید چاپی مداوم نیاز دارند، امکان بررسی همکاری مستمر وجود دارد.",
-                },
-                {
-                  q: "آیا می‌توانیم روش چاپ را به شما بسپاریم؟",
-                  a: "بله. کافی است محصول، متریال، تعداد و کاربرد نهایی را مشخص کنید. انتخاب روش چاپ را می‌توان بر اساس این عوامل انجام داد.",
-                },
-                {
-                  q: "برای شروع چه اطلاعاتی لازم است؟",
-                  a: "نوع محصول، تعداد تقریبی، ابعاد، متریال در صورت مشخص بودن و زمان مورد نیاز برای شروع کافی است.",
-                },
-              ].map((item, index) => (
+              {faqItems.map((item, index) => (
                 <details
                   key={item.q}
                   className="group border-b border-black/10"
@@ -346,7 +442,7 @@ export default function BusinessPage() {
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="max-w-4xl">
             <p className="mb-7 text-sm font-medium text-white/40">
-              همکاری با AIRIK
+              همکاری با Ayric
             </p>
 
             <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl lg:text-6xl">
