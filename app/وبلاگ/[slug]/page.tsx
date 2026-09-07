@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
 import { blogPosts } from "@/content/blog";
+import { siteConfig } from "@/content/site";
 
 interface ArticlePageProps {
   params: {
@@ -26,16 +28,29 @@ export function generateMetadata({
     };
   }
 
+  const canonicalUrl = `${siteConfig.siteUrl}/وبلاگ/${post.slug}`;
+
   return {
     title: `${post.title} | آیریک`,
     description: post.excerpt,
+
     alternates: {
-      canonical: `/وبلاگ/${post.slug}`,
+      canonical: canonicalUrl,
     },
+
     openGraph: {
       title: `${post.title} | آیریک`,
       description: post.excerpt,
+      url: canonicalUrl,
+      siteName: siteConfig.name,
+      locale: "fa_IR",
       type: "article",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.title} | آیریک`,
+      description: post.excerpt,
     },
   };
 }
@@ -94,7 +109,8 @@ export default function ArticlePage({
     notFound();
   }
 
-  const articleUrl = `/وبلاگ/${post.slug}`;
+  const articleUrl = `${siteConfig.siteUrl}/وبلاگ/${post.slug}`;
+  const blogUrl = `${siteConfig.siteUrl}/وبلاگ`;
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -113,12 +129,12 @@ export default function ArticlePage({
 
     author: {
       "@type": "Organization",
-      name: "آیریک",
+      name: siteConfig.name,
     },
 
     publisher: {
       "@type": "Organization",
-      name: "آیریک",
+      name: siteConfig.name,
     },
   };
 
@@ -131,14 +147,14 @@ export default function ArticlePage({
         "@type": "ListItem",
         position: 1,
         name: "خانه",
-        item: "/",
+        item: siteConfig.siteUrl,
       },
 
       {
         "@type": "ListItem",
         position: 2,
         name: "مجله چاپ",
-        item: "/وبلاگ",
+        item: blogUrl,
       },
 
       {
@@ -160,36 +176,23 @@ export default function ArticlePage({
 
   return (
     <main dir="rtl">
-
       <JsonLd data={articleSchema} />
 
       <JsonLd data={breadcrumbSchema} />
 
-      {/* HEADER */}
-
       <section className="border-b border-black/10">
-
         <div className="mx-auto max-w-5xl px-6 py-24 md:px-10 md:py-32">
-
           <nav
             aria-label="مسیر صفحه"
             className="mb-12 flex flex-wrap items-center gap-2 text-xs text-black/40"
           >
-            <Link href="/">
-              خانه
-            </Link>
+            <Link href="/">خانه</Link>
 
-            <span aria-hidden="true">
-              /
-            </span>
+            <span aria-hidden="true">/</span>
 
-            <Link href="/وبلاگ">
-              مجله چاپ
-            </Link>
+            <Link href="/وبلاگ">مجله چاپ</Link>
 
-            <span aria-hidden="true">
-              /
-            </span>
+            <span aria-hidden="true">/</span>
 
             <span className="line-clamp-1">
               {post.title}
@@ -197,19 +200,11 @@ export default function ArticlePage({
           </nav>
 
           <div className="flex flex-wrap items-center gap-3 text-sm text-black/40">
+            <span>{post.category}</span>
 
-            <span>
-              {post.category}
-            </span>
+            <span aria-hidden="true">·</span>
 
-            <span aria-hidden="true">
-              ·
-            </span>
-
-            <time>
-              {post.date}
-            </time>
-
+            <time>{post.date}</time>
           </div>
 
           <h1 className="mt-7 max-w-4xl text-4xl font-medium leading-[1.35] tracking-tight md:text-6xl">
@@ -219,20 +214,12 @@ export default function ArticlePage({
           <p className="mt-9 max-w-3xl text-lg leading-9 text-black/60 md:text-xl">
             {post.excerpt}
           </p>
-
         </div>
-
       </section>
 
-
-      {/* QUICK ANSWER — FEO / GEO */}
-
       <section className="border-b border-black/10 bg-[#f5f3ef]">
-
         <div className="mx-auto max-w-5xl px-6 py-14 md:px-10 md:py-20">
-
           <div className="grid gap-6 md:grid-cols-[0.3fr_1fr] md:gap-14">
-
             <p className="text-sm font-medium text-black/45">
               خلاصه مطلب
             </p>
@@ -240,35 +227,21 @@ export default function ArticlePage({
             <p className="text-lg leading-9 text-black/65 md:text-xl">
               {post.excerpt}
             </p>
-
           </div>
-
         </div>
-
       </section>
 
-
-      {/* ARTICLE */}
-
       <article>
-
         <div className="mx-auto max-w-3xl px-6 py-24 md:px-10 md:py-32">
-
           <div>
             {renderContent(post.content)}
           </div>
 
-
-          {/* INTERNAL LINK */}
-
           <div className="mt-16 border-y border-black/10 py-8">
-
             <p className="text-sm leading-8 text-black/50">
-
               برای انتخاب روش مناسب چاپ، فقط یک عامل تعیین‌کننده
               نیست؛ نوع محصول، متریال، تیراژ و نتیجه مورد انتظار
               هم باید در نظر گرفته شوند.
-
             </p>
 
             <Link
@@ -277,27 +250,15 @@ export default function ArticlePage({
             >
               مشاهده خدمات چاپ
 
-              <span aria-hidden="true">
-                ↗
-              </span>
-
+              <span aria-hidden="true">↗</span>
             </Link>
-
           </div>
-
         </div>
-
       </article>
 
-
-      {/* CTA */}
-
       <section className="bg-[#f5f3ef]">
-
         <div className="mx-auto max-w-5xl px-6 py-24 md:px-10 md:py-32">
-
           <div className="max-w-3xl">
-
             <p className="mb-6 text-sm font-medium text-black/45">
               برای پروژه خودتان
             </p>
@@ -307,11 +268,9 @@ export default function ArticlePage({
             </h2>
 
             <p className="mt-7 max-w-2xl text-lg leading-9 text-black/60">
-
               مشخصات پروژه را بفرستید تا بر اساس محصول،
               متریال، تیراژ و نتیجه مورد انتظار، گزینه مناسب
               را بررسی کنیم.
-
             </p>
 
             <Link
@@ -320,29 +279,16 @@ export default function ArticlePage({
             >
               استعلام قیمت
 
-              <span aria-hidden="true">
-                ↗
-              </span>
-
+              <span aria-hidden="true">↗</span>
             </Link>
-
           </div>
-
         </div>
-
       </section>
 
-
-      {/* RELATED ARTICLES */}
-
       {relatedPosts.length > 0 && (
-
         <section>
-
           <div className="mx-auto max-w-5xl px-6 py-24 md:px-10 md:py-32">
-
             <div className="mb-12">
-
               <p className="mb-5 text-sm font-medium text-black/45">
                 مطالب مرتبط
               </p>
@@ -350,20 +296,15 @@ export default function ArticlePage({
               <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
                 بیشتر بخوانید
               </h2>
-
             </div>
 
-
             <div className="grid gap-8 md:grid-cols-2">
-
               {relatedPosts.map((related) => (
-
                 <Link
                   key={related.slug}
                   href={`/وبلاگ/${related.slug}`}
                   className="group border-t border-black/10 pt-6"
                 >
-
                   <p className="text-xs text-black/40">
                     {related.category}
                   </p>
@@ -375,43 +316,25 @@ export default function ArticlePage({
                   <p className="mt-3 text-sm leading-7 text-black/50">
                     {related.excerpt}
                   </p>
-
                 </Link>
-
               ))}
-
             </div>
-
           </div>
-
         </section>
-
       )}
 
-
-      {/* BACK TO BLOG */}
-
       <section className="border-t border-black/10">
-
         <div className="mx-auto max-w-5xl px-6 py-16 md:px-10">
-
           <Link
             href="/وبلاگ"
             className="inline-flex items-center gap-2 text-sm text-black/50 transition-colors hover:text-black"
           >
-
-            <span aria-hidden="true">
-              →
-            </span>
+            <span aria-hidden="true">→</span>
 
             بازگشت به مجله چاپ
-
           </Link>
-
         </div>
-
       </section>
-
     </main>
   );
 }
