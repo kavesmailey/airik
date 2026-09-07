@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { projects } from "@/content/projects";
 import { siteConfig } from "@/content/site";
 
