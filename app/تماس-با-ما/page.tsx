@@ -1,18 +1,32 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { siteConfig } from "@/content/site";
+
+const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
+const canonicalUrl = `${siteUrl}/تماس-با-ما`;
+
 export const metadata: Metadata = {
   title: "تماس با آیریک | سفارش و استعلام قیمت چاپ",
   description:
     "برای سفارش چاپ، دریافت مشاوره یا استعلام قیمت خدمات چاپ آیریک با ما در ارتباط باشید. مشخصات پروژه خود را ارسال کنید تا راهنمایی و برآورد اولیه انجام شود.",
   alternates: {
-    canonical: "/تماس-با-ما",
+    canonical: canonicalUrl,
   },
   openGraph: {
     title: "تماس با آیریک | سفارش و استعلام قیمت چاپ",
     description:
       "برای سفارش چاپ، دریافت مشاوره یا استعلام قیمت پروژه با آیریک در ارتباط باشید.",
+    url: canonicalUrl,
+    siteName: siteConfig.name,
+    locale: "fa_IR",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "تماس با آیریک | سفارش و استعلام قیمت چاپ",
+    description:
+      "برای سفارش چاپ، دریافت مشاوره یا استعلام قیمت پروژه با آیریک در ارتباط باشید.",
   },
 };
 
@@ -36,13 +50,13 @@ export default function ContactPage() {
         "@type": "ListItem",
         position: 1,
         name: "خانه",
-        item: "/",
+        item: siteUrl,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "تماس با ما",
-        item: "/تماس-با-ما",
+        item: canonicalUrl,
       },
     ],
   };
@@ -53,10 +67,10 @@ export default function ContactPage() {
     name: "تماس با آیریک",
     description:
       "راه‌های ارتباط با آیریک برای سفارش چاپ، دریافت مشاوره و استعلام قیمت.",
-    url: "/تماس-با-ما",
+    url: canonicalUrl,
     mainEntity: {
       "@type": "Organization",
-      name: "آیریک",
+      name: siteConfig.name,
       email: "hello@ayric.ir",
       contactPoint: {
         "@type": "ContactPoint",
@@ -67,10 +81,43 @@ export default function ContactPage() {
     },
   };
 
+  const faqItems = [
+    {
+      q: "برای دریافت قیمت چه اطلاعاتی لازم است؟",
+      a: "نوع محصول، تعداد تقریبی، ابعاد، متریال در صورت مشخص بودن و زمان مورد نیاز برای شروع کافی است.",
+    },
+    {
+      q: "اگر روش چاپ مناسب را ندانیم چه؟",
+      a: "اشکالی ندارد. کافی است محصول و کاربرد آن را توضیح دهید؛ روش مناسب چاپ را می‌توان بر اساس مشخصات پروژه پیشنهاد کرد.",
+    },
+    {
+      q: "آیا امکان سفارش برای کسب‌وکارها وجود دارد؟",
+      a: "بله. سفارش‌های برندها، کسب‌وکارها و مجموعه‌های سازمانی قابل بررسی هستند.",
+    },
+    {
+      q: "آیا قبل از سفارش می‌توان درباره پروژه مشاوره گرفت؟",
+      a: "بله. می‌توانید مشخصات اولیه پروژه را ارسال کنید تا درباره روش چاپ، متریال و جزئیات اجرا راهنمایی دریافت کنید.",
+    },
+  ];
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+
   return (
     <main dir="rtl">
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={contactSchema} />
+      <JsonLd data={faqSchema} />
 
       {/* HERO */}
       <section className="border-b border-black/10">
@@ -352,24 +399,7 @@ export default function ContactPage() {
             </div>
 
             <div className="border-t border-black/10">
-              {[
-                {
-                  q: "برای دریافت قیمت چه اطلاعاتی لازم است؟",
-                  a: "نوع محصول، تعداد تقریبی، ابعاد، متریال در صورت مشخص بودن و زمان مورد نیاز برای شروع کافی است.",
-                },
-                {
-                  q: "اگر روش چاپ مناسب را ندانیم چه؟",
-                  a: "اشکالی ندارد. کافی است محصول و کاربرد آن را توضیح دهید؛ روش مناسب چاپ را می‌توان بر اساس مشخصات پروژه پیشنهاد کرد.",
-                },
-                {
-                  q: "آیا امکان سفارش برای کسب‌وکارها وجود دارد؟",
-                  a: "بله. سفارش‌های برندها، کسب‌وکارها و مجموعه‌های سازمانی قابل بررسی هستند.",
-                },
-                {
-                  q: "آیا قبل از سفارش می‌توان درباره پروژه مشاوره گرفت؟",
-                  a: "بله. می‌توانید مشخصات اولیه پروژه را ارسال کنید تا درباره روش چاپ، متریال و جزئیات اجرا راهنمایی دریافت کنید.",
-                },
-              ].map((item, index) => (
+              {faqItems.map((item, index) => (
                 <details
                   key={item.q}
                   className="group border-b border-black/10"
