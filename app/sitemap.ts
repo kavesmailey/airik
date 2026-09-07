@@ -1,46 +1,61 @@
 import type { MetadataRoute } from "next";
+
 import { services } from "@/content/services";
 import { businessSolutions } from "@/content/business";
-import { articles } from "@/content/articles";
-import { projects } from "@/content/projects";
+import { blogPosts } from "@/content/blog";
+import { siteConfig } from "@/content/site";
 
-const baseUrl = "https://airik-xi.vercel.app";
+const baseUrl = siteConfig.siteUrl;
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${baseUrl}/خدمات`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/برای-کسب-و-کارها`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/بلاگ`,
-      lastModified: new Date(),
+      url: `${baseUrl}/وبلاگ`,
+      lastModified: now,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/نمونه-کارها`,
-      lastModified: new Date(),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/درباره-ما`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/تماس-با-ما`,
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/استعلام-قیمت`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.9,
     },
@@ -48,7 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const servicePages: MetadataRoute.Sitemap = services.map((service) => ({
     url: `${baseUrl}/خدمات/${service.slug}`,
-    lastModified: new Date(),
+    lastModified: now,
     changeFrequency: "monthly",
     priority: 0.8,
   }));
@@ -56,31 +71,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const businessPages: MetadataRoute.Sitemap = businessSolutions.map(
     (business) => ({
       url: `${baseUrl}/برای-کسب-و-کارها/${business.slug}`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
     }),
   );
 
-  const articlePages: MetadataRoute.Sitemap = articles.map((article) => ({
-    url: `${baseUrl}/بلاگ/${article.slug}`,
-    lastModified: new Date(),
+  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${baseUrl}/وبلاگ/${post.slug}`,
+    lastModified: now,
     changeFrequency: "monthly",
     priority: 0.7,
-  }));
-
-  const projectPages: MetadataRoute.Sitemap = projects.map((project) => ({
-    url: `${baseUrl}/نمونه-کارها/${project.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.6,
   }));
 
   return [
     ...staticPages,
     ...servicePages,
     ...businessPages,
-    ...articlePages,
-    ...projectPages,
+    ...blogPages,
   ];
 }
