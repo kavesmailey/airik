@@ -28,7 +28,15 @@ export const siteConfig = {
     whatsapp: "",
   },
 
-  logo: "/images/logo/iric-logo.svg",
+  /**
+   * Brand assets
+   *
+   * These paths are intentionally empty until the actual
+   * brand assets are added to /public/images/brand/.
+   */
+  logo: "",
+  logoMark: "",
+  ogImage: "",
 
   navigation: [
     { label: "خانه", href: "/" },
