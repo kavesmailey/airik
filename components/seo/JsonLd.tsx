@@ -16,6 +16,19 @@ export default function JsonLd({ type, data }: JsonLdProps) {
 
   const baseUrl = siteConfig.siteUrl.replace(/\/$/, "");
 
+  const logoUrl = siteConfig.logo
+    ? siteConfig.logo.startsWith("http")
+      ? siteConfig.logo
+      : `${baseUrl}${siteConfig.logo}`
+    : "";
+
+  const socialProfiles = [
+    siteConfig.social.instagram,
+    siteConfig.social.linkedin,
+    siteConfig.social.telegram,
+    siteConfig.social.whatsapp,
+  ].filter(Boolean);
+
   switch (type) {
     case "organization":
       jsonLd = {
@@ -24,7 +37,9 @@ export default function JsonLd({ type, data }: JsonLdProps) {
         "@id": `${baseUrl}/#organization`,
         name: siteConfig.name,
         url: baseUrl,
-        logo: `${baseUrl}${siteConfig.logo}`,
+        ...(logoUrl && {
+          logo: logoUrl,
+        }),
         description: siteConfig.description,
         slogan: siteConfig.tagline,
         ...(siteConfig.contact.phone && {
@@ -37,21 +52,17 @@ export default function JsonLd({ type, data }: JsonLdProps) {
           address: {
             "@type": "PostalAddress",
             streetAddress: siteConfig.contact.address,
-            addressLocality: siteConfig.contact.city,
-            addressCountry: siteConfig.contact.country,
+            ...(siteConfig.contact.city && {
+              addressLocality: siteConfig.contact.city,
+            }),
+            ...(siteConfig.contact.country && {
+              addressCountry: siteConfig.contact.country,
+            }),
           },
         }),
-        ...(siteConfig.social.instagram ||
-        siteConfig.social.linkedin ||
-        siteConfig.social.telegram
-          ? {
-              sameAs: [
-                siteConfig.social.instagram,
-                siteConfig.social.linkedin,
-                siteConfig.social.telegram,
-              ].filter(Boolean),
-            }
-          : {}),
+        ...(socialProfiles.length > 0 && {
+          sameAs: socialProfiles,
+        }),
       };
       break;
 
@@ -62,8 +73,10 @@ export default function JsonLd({ type, data }: JsonLdProps) {
         "@id": `${baseUrl}/#localbusiness`,
         name: siteConfig.name,
         url: baseUrl,
-        logo: `${baseUrl}${siteConfig.logo}`,
-        image: `${baseUrl}${siteConfig.logo}`,
+        ...(logoUrl && {
+          logo: logoUrl,
+          image: logoUrl,
+        }),
         description: siteConfig.description,
         ...(siteConfig.contact.phone && {
           telephone: siteConfig.contact.phone,
@@ -75,24 +88,20 @@ export default function JsonLd({ type, data }: JsonLdProps) {
           address: {
             "@type": "PostalAddress",
             streetAddress: siteConfig.contact.address,
-            addressLocality: siteConfig.contact.city,
-            addressCountry: siteConfig.contact.country,
+            ...(siteConfig.contact.city && {
+              addressLocality: siteConfig.contact.city,
+            }),
+            ...(siteConfig.contact.country && {
+              addressCountry: siteConfig.contact.country,
+            }),
           },
         }),
         ...(siteConfig.contact.workingHours && {
           openingHours: siteConfig.contact.workingHours,
         }),
-        ...(siteConfig.social.instagram ||
-        siteConfig.social.linkedin ||
-        siteConfig.social.telegram
-          ? {
-              sameAs: [
-                siteConfig.social.instagram,
-                siteConfig.social.linkedin,
-                siteConfig.social.telegram,
-              ].filter(Boolean),
-            }
-          : {}),
+        ...(socialProfiles.length > 0 && {
+          sameAs: socialProfiles,
+        }),
       };
       break;
 
@@ -103,7 +112,9 @@ export default function JsonLd({ type, data }: JsonLdProps) {
         name: data?.title || data?.name,
         description: data?.shortDescription || data?.description,
         ...(data?.url && {
-          url: data.url,
+          url: data.url.startsWith("http")
+            ? data.url
+            : `${baseUrl}${data.url}`,
         }),
         provider: {
           "@type": "LocalBusiness",
@@ -142,14 +153,20 @@ export default function JsonLd({ type, data }: JsonLdProps) {
           "@id": `${baseUrl}/#organization`,
           name: siteConfig.name,
           url: baseUrl,
-          logo: {
-            "@type": "ImageObject",
-            url: `${baseUrl}${siteConfig.logo}`,
-          },
+          ...(logoUrl && {
+            logo: {
+              "@type": "ImageObject",
+              url: logoUrl,
+            },
+          }),
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": data?.url || `${baseUrl}/وبلاگ/${data?.slug || ""}`,
+          "@id": data?.url?.startsWith("http")
+            ? data.url
+            : data?.url
+              ? `${baseUrl}${data.url}`
+              : `${baseUrl}/وبلاگ/${data?.slug || ""}`,
         },
       };
       break;
