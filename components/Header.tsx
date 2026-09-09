@@ -14,7 +14,7 @@ const navItems = [
     href: "/نمونه-کارها",
   },
   {
-    label: "بلاگ",
+    label: "وبلاگ",
     href: "/بلاگ",
   },
   {
