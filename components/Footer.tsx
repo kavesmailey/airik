@@ -7,7 +7,7 @@ const footerLinks = [
       { label: "خانه", href: "/" },
       { label: "خدمات", href: "/خدمات" },
       { label: "نمونه‌کارها", href: "/نمونه-کارها" },
-      { label: "بلاگ", href: "/بلاگ" },
+      { label: "وبلاگ", href: "/بلاگ" },
       { label: "درباره ما", href: "/درباره-ما" },
     ],
   },
@@ -91,7 +91,7 @@ export default function Footer() {
           <div className="flex items-center gap-5">
             <span>چاپ و تولید</span>
             <span aria-hidden="true">·</span>
-            <span>تهران</span>
+            <span>کرج</span>
           </div>
         </div>
       </div>
