@@ -15,7 +15,7 @@ const navItems = [
   },
   {
     label: "وبلاگ",
-    href: "/بلاگ",
+    href: "/وبلاگ",
   },
   {
     label: "درباره ما",
