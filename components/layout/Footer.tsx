@@ -1,12 +1,23 @@
 import Link from "next/link";
 
-const navigation = [
-  { label: "خدمات", href: "/خدمات" },
-  { label: "برای کسب‌وکارها", href: "/برای-کسب-و-کارها" },
-  { label: "نمونه‌کارها", href: "/نمونه-کارها" },
-  { label: "بلاگ", href: "/بلاگ" },
-  { label: "درباره ما", href: "/درباره-ما" },
-  { label: "تماس با ما", href: "/تماس-با-ما" },
+const footerLinks = [
+  {
+    title: "صفحات",
+    links: [
+      { label: "خانه", href: "/" },
+      { label: "خدمات", href: "/خدمات" },
+      { label: "نمونه‌کارها", href: "/نمونه-کارها" },
+      { label: "وبلاگ", href: "/وبلاگ" },
+      { label: "درباره ما", href: "/درباره-ما" },
+    ],
+  },
+  {
+    title: "ارتباط",
+    links: [
+      { label: "تماس با ما", href: "/تماس-با-ما" },
+      { label: "استعلام قیمت", href: "/استعلام-قیمت" },
+    ],
+  },
 ];
 
 export default function Footer() {
@@ -15,55 +26,74 @@ export default function Footer() {
       dir="rtl"
       className="border-t border-black/10 bg-[#f7f5f1]"
     >
-      <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28 lg:px-12">
-        <div className="grid gap-16 md:grid-cols-[1.3fr_0.7fr] md:gap-24">
-          <div>
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 md:px-10 lg:px-12">
+        {/* Main footer */}
+        <div className="grid gap-16 py-20 sm:py-24 md:grid-cols-[1.5fr_1fr_1fr] md:gap-12 md:py-28">
+          
+          {/* Brand */}
+          <div className="max-w-md">
             <Link
               href="/"
-              className="text-3xl font-semibold tracking-[-0.04em]"
+              className="inline-block text-2xl font-semibold tracking-[-0.05em] transition-opacity duration-300 hover:opacity-55"
             >
-              AIRIK
+              آیریک
             </Link>
 
-            <p className="mt-7 max-w-xl text-lg leading-9 text-black/55">
-              راهکارهای چاپ برای برندها و کسب‌وکارها؛ از انتخاب روش و متریال
-              تا تولید نهایی.
+            <p className="mt-6 max-w-sm text-sm leading-7 text-black/50">
+              راهکارهای چاپ و تولید برای برندها و کسب‌وکارهایی که
+              به کیفیت و جزئیات اهمیت می‌دهند.
             </p>
 
             <Link
               href="/استعلام-قیمت"
-              className="mt-9 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
+              className="group mt-8 inline-flex items-center gap-3 rounded-full bg-black px-6 py-3.5 text-sm font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-black/85"
             >
-              استعلام قیمت
-              <span>↗</span>
+              <span>شروع یک پروژه</span>
+
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:-translate-x-0.5"
+              >
+                ↗
+              </span>
             </Link>
           </div>
 
-          <div>
-            <p className="mb-7 text-xs text-black/35">
-              دسترسی سریع
-            </p>
+          {/* Navigation columns */}
+          {footerLinks.map((column) => (
+            <div key={column.title}>
+              <p className="mb-6 text-xs font-medium text-black/35">
+                {column.title}
+              </p>
 
-            <nav className="grid grid-cols-2 gap-x-8 gap-y-5">
-              {navigation.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-sm text-black/55 transition-colors hover:text-black"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+              <nav className="flex flex-col items-start gap-4">
+                {column.links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="group relative text-sm text-black/60 transition-colors duration-300 hover:text-black"
+                  >
+                    <span>{link.label}</span>
+
+                    <span className="absolute bottom-0 right-0 h-px w-0 bg-black transition-all duration-300 group-hover:w-full" />
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          ))}
         </div>
 
-        <div className="mt-20 flex flex-col gap-4 border-t border-black/10 pt-7 text-xs text-black/40 md:mt-28 md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} AIRIK. تمامی حقوق محفوظ است.</p>
-
+        {/* Bottom */}
+        <div className="flex flex-col gap-5 border-t border-black/10 py-6 text-xs text-black/35 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            چاپ برای چیزهایی که قرار است دیده و ماندگار شوند.
+            © {new Date().getFullYear()} آیریک. تمامی حقوق محفوظ است.
           </p>
+
+          <div className="flex items-center gap-5">
+            <span>چاپ و تولید</span>
+            <span aria-hidden="true">·</span>
+            <span>کرج</span>
+          </div>
         </div>
       </div>
     </footer>
