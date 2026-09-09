@@ -7,7 +7,7 @@ const footerLinks = [
       { label: "خانه", href: "/" },
       { label: "خدمات", href: "/خدمات" },
       { label: "نمونه‌کارها", href: "/نمونه-کارها" },
-      { label: "وبلاگ", href: "/بلاگ" },
+      { label: "وبلاگ", href: "/وبلاگ" },
       { label: "درباره ما", href: "/درباره-ما" },
     ],
   },
