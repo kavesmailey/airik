@@ -9,14 +9,14 @@ const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
 export const metadata: Metadata = {
   title: "آیریک | راهکارهای چاپ برای برندها و کسب‌وکارها",
   description:
-    "آیریک ارائه‌دهنده راهکارهای چاپ و تولید برای برندها و کسب‌وکارها؛ از چاپ روی لباس و پارچه تا بسته‌بندی و چاپ روی محصولات.",
+    "آیریک ارائه‌دهنده راهکارهای چاپ برای برندها و کسب‌وکارها؛ تخصص ما چاپ سیلک و چاپ DTF است.",
   alternates: {
     canonical: siteUrl,
   },
   openGraph: {
     title: "آیریک | راهکارهای چاپ برای برندها و کسب‌وکارها",
     description:
-      "آیریک ارائه‌دهنده راهکارهای چاپ و تولید برای برندها و کسب‌وکارها؛ از چاپ روی لباس و پارچه تا بسته‌بندی و چاپ روی محصولات.",
+      "آیریک ارائه‌دهنده راهکارهای چاپ برای برندها و کسب‌وکارها؛ تخصص ما چاپ سیلک و چاپ DTF است.",
     url: siteUrl,
     siteName: siteConfig.name,
     locale: "fa_IR",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "آیریک | راهکارهای چاپ برای برندها و کسب‌وکارها",
     description:
-      "آیریک ارائه‌دهنده راهکارهای چاپ و تولید برای برندها و کسب‌وکارها؛ از چاپ روی لباس و پارچه تا بسته‌بندی و چاپ روی محصولات.",
+      "آیریک ارائه‌دهنده راهکارهای چاپ برای برندها و کسب‌وکارها؛ تخصص ما چاپ سیلک و چاپ DTF است.",
   },
 };
 
@@ -60,27 +60,94 @@ const websiteSchema = {
 const services = [
   {
     number: "01",
-    title: "چاپ روی لباس",
-    text: "برای برندها، تیم‌ها، رویدادها و پروژه‌های شخصی.",
-    href: "/خدمات/چاپ-روی-لباس",
+    title: "چاپ سیلک",
+    text: "چاپ با کیفیت و ماندگار برای لباس، پارچه، بگ و بسته‌بندی.",
+    href: "/خدمات/چاپ-سیلک",
   },
   {
     number: "02",
+    title: "چاپ DTF",
+    text: "چاپ طرح‌های رنگی، تصویری و متنوع روی لباس و بگ.",
+    href: "/خدمات/چاپ-dtf",
+  },
+];
+
+const otherServices = [
+  {
+    title: "چاپ روی لباس",
+    href: "/خدمات/چاپ-روی-لباس",
+  },
+  {
+    title: "چاپ روی بگ",
+    href: "/خدمات/چاپ-بگ",
+  },
+  {
+    title: "چاپ روی کارتن",
+    href: "/خدمات/چاپ-کارتن",
+  },
+  {
+    title: "چاپ روی جعبه پیتزا",
+    href: "/خدمات/چاپ-جعبه-پیتزا",
+  },
+  {
+    title: "چاپ روی لیوان کاغذی",
+    href: "/خدمات/چاپ-لیوان-کاغذی",
+  },
+  {
+    title: "چاپ روی ظروف گرد",
+    href: "/خدمات/چاپ-ظروف-گرد",
+  },
+  {
+    title: "چاپ روی تیشرت",
+    href: "/خدمات/چاپ-روی-تیشرت",
+  },
+  {
     title: "چاپ روی پارچه",
-    text: "راهکار چاپ متناسب با جنس پارچه، طرح و تیراژ.",
     href: "/خدمات/چاپ-روی-پارچه",
   },
   {
-    number: "03",
-    title: "بسته‌بندی",
-    text: "بسته‌بندی چاپی که بخشی از تجربه برند باشد.",
-    href: "/خدمات/بسته-بندی",
+    title: "ساخت شابلون چاپ سیلک",
+    href: "/خدمات/ساخت-شابلون-چاپ-سیلک",
   },
   {
-    number: "04",
-    title: "چاپ روی محصول",
-    text: "برای محصولات برندشده و پروژه‌های اختصاصی.",
-    href: "/خدمات/چاپ-روی-محصول",
+    title: "توری‌کشی و عکاسی",
+    href: "/خدمات/توری-کشی-و-عکاسی",
+  },
+  {
+    title: "طراحی اختصاصی چاپ سیلک",
+    href: "/خدمات/طراحی-اختصاصی-چاپ-سیلک",
+  },
+  {
+    title: "چاپ کیسه پارچه‌ای",
+    href: "/خدمات/چاپ-کیسه-پارچه-ای",
+  },
+  {
+    title: "چاپ نایلون",
+    href: "/خدمات/چاپ-نایلون",
+  },
+  {
+    title: "تولید و چاپ توت‌بگ",
+    href: "/خدمات/تولید-و-چاپ-توت-بگ",
+  },
+  {
+    title: "چاپ لیوان",
+    href: "/خدمات/چاپ-لیوان",
+  },
+  {
+    title: "چاپ روی فلز",
+    href: "/خدمات/چاپ-روی-فلز",
+  },
+  {
+    title: "چاپ روی چوب",
+    href: "/خدمات/چاپ-روی-چوب",
+  },
+  {
+    title: "چاپ روی استیل",
+    href: "/خدمات/چاپ-روی-استیل",
+  },
+  {
+    title: "چاپ روی پلکسی",
+    href: "/خدمات/چاپ-روی-پلکسی",
   },
 ];
 
@@ -231,6 +298,7 @@ export default function HomePage() {
             </Link>
           </div>
 
+          {/* Featured Services */}
           <div className="border-t border-black/10">
             {services.map((service) => (
               <Link
@@ -260,6 +328,53 @@ export default function HomePage() {
                 </div>
               </Link>
             ))}
+          </div>
+
+          {/* Other Services */}
+          <div className="mt-24 border-t border-black/10 pt-10 md:mt-32 md:pt-12">
+            <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+              <div>
+                <p className="mb-4 text-sm font-medium text-black/40">
+                  سایر خدمات آیریک
+                </p>
+
+                <h3 className="text-2xl font-medium tracking-tight md:text-3xl">
+                  خدمات چاپ و تولید
+                </h3>
+              </div>
+
+              <Link
+                href="/خدمات"
+                className="inline-flex w-fit items-center gap-3 text-sm text-black/50 transition-colors hover:text-black"
+              >
+                مشاهده همه خدمات
+                <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
+
+            <nav
+              aria-label="سایر خدمات آیریک"
+              className="grid grid-cols-1 border-t border-black/10 sm:grid-cols-2 lg:grid-cols-3"
+            >
+              {otherServices.map((service) => (
+                <Link
+                  key={service.href}
+                  href={service.href}
+                  className="group border-b border-black/10 py-5 text-sm transition-opacity hover:opacity-50 sm:px-5 sm:first:pr-0 lg:px-6 lg:first:pr-0"
+                >
+                  <span className="flex items-center justify-between gap-4">
+                    <span>{service.title}</span>
+
+                    <span
+                      aria-hidden="true"
+                      className="text-black/30 transition-transform group-hover:-translate-x-1"
+                    >
+                      ↗
+                    </span>
+                  </span>
+                </Link>
+              ))}
+            </nav>
           </div>
         </div>
       </section>
