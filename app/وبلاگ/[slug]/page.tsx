@@ -117,8 +117,8 @@ export default function ArticlePage({
     "@type": "Article",
     headline: post.title,
     description: post.excerpt,
-    datePublished: post.date,
-    dateModified: post.date,
+datePublished: post.dateISO,
+dateModified: post.dateISO,
     articleSection: post.category,
     inLanguage: "fa-IR",
 
