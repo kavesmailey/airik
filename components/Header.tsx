@@ -4,30 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const navItems = [
-  {
-    label: "خدمات",
-    href: "/خدمات",
-  },
-  {
-    label: "نمونه‌کارها",
-    href: "/نمونه-کارها",
-  },
-  {
-    label: "وبلاگ",
-    href: "/وبلاگ",
-  },
-  {
-    label: "درباره ما",
-    href: "/درباره-ما",
-  },
-];
+import { siteConfig } from "@/content/site";
 
 export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
   const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
@@ -42,33 +29,35 @@ export default function Header() {
           href="/"
           onClick={() => setIsOpen(false)}
           className="group relative z-10 flex items-center"
-          aria-label="آیریک"
+          aria-label={siteConfig.name}
         >
           <span className="text-[22px] font-semibold tracking-[-0.05em] transition-opacity duration-300 group-hover:opacity-55">
-            آیریک
+            {siteConfig.name}
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 md:flex lg:gap-9">
-          {navItems.map((item) => {
+        <nav
+          aria-label="ناوبری اصلی"
+          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 md:flex lg:gap-7"
+        >
+          {siteConfig.navigation.map((item) => {
             const active = isActive(item.href);
 
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className="group relative py-3 text-[13px] text-black/50 transition-colors duration-300 hover:text-black"
+                className="group relative whitespace-nowrap py-3 text-[12px] text-black/50 transition-colors duration-300 hover:text-black lg:text-[13px]"
               >
                 <span className={active ? "text-black" : ""}>
                   {item.label}
                 </span>
 
                 <span
+                  aria-hidden="true"
                   className={`absolute bottom-0 right-0 h-px bg-black transition-all duration-300 ${
-                    active
-                      ? "w-full"
-                      : "w-0 group-hover:w-full"
+                    active ? "w-full" : "w-0 group-hover:w-full"
                   }`}
                 />
               </Link>
@@ -79,10 +68,10 @@ export default function Header() {
         {/* Desktop CTA */}
         <div className="hidden md:block">
           <Link
-            href="/استعلام-قیمت"
+            href={siteConfig.cta.href}
             className="group inline-flex items-center gap-2.5 rounded-full bg-black px-5 py-2.5 text-[12px] font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-black/85"
           >
-            <span>استعلام قیمت</span>
+            <span>{siteConfig.cta.label}</span>
 
             <span
               aria-hidden="true"
@@ -98,31 +87,26 @@ export default function Header() {
           type="button"
           aria-label={isOpen ? "بستن منو" : "باز کردن منو"}
           aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
           onClick={() => setIsOpen((value) => !value)}
           className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-black/10 transition-colors duration-300 hover:bg-black/5 md:hidden"
         >
           <span className="relative block h-4 w-5">
             <span
               className={`absolute right-0 top-0 block h-px w-5 bg-black transition-all duration-300 ${
-                isOpen
-                  ? "top-2 rotate-45"
-                  : ""
+                isOpen ? "top-2 rotate-45" : ""
               }`}
             />
 
             <span
               className={`absolute right-0 top-2 block h-px w-5 bg-black transition-all duration-300 ${
-                isOpen
-                  ? "opacity-0"
-                  : "opacity-100"
+                isOpen ? "opacity-0" : "opacity-100"
               }`}
             />
 
             <span
               className={`absolute right-0 top-4 block h-px w-5 bg-black transition-all duration-300 ${
-                isOpen
-                  ? "top-2 -rotate-45"
-                  : ""
+                isOpen ? "top-2 -rotate-45" : ""
               }`}
             />
           </span>
@@ -131,14 +115,18 @@ export default function Header() {
 
       {/* Mobile Navigation */}
       <div
+        id="mobile-navigation"
         className={`overflow-hidden border-t border-black/10 transition-[max-height,opacity] duration-400 ease-out md:hidden ${
           isOpen
-            ? "max-h-[520px] opacity-100"
+            ? "max-h-[700px] opacity-100"
             : "max-h-0 opacity-0"
         }`}
       >
-        <nav className="mx-auto max-w-[1440px] px-5 pb-6 pt-2 sm:px-8">
-          {navItems.map((item) => {
+        <nav
+          aria-label="ناوبری موبایل"
+          className="mx-auto max-w-[1440px] px-5 pb-6 pt-2 sm:px-8"
+        >
+          {siteConfig.navigation.map((item) => {
             const active = isActive(item.href);
 
             return (
@@ -152,16 +140,12 @@ export default function Header() {
                     : "text-black/55 hover:text-black"
                 }`}
               >
-                <span className="text-lg">
-                  {item.label}
-                </span>
+                <span className="text-lg">{item.label}</span>
 
                 <span
                   aria-hidden="true"
                   className={`text-sm transition-transform duration-300 group-hover:-translate-x-1 ${
-                    active
-                      ? "text-black"
-                      : "text-black/25"
+                    active ? "text-black" : "text-black/25"
                   }`}
                 >
                   ↗
@@ -171,11 +155,11 @@ export default function Header() {
           })}
 
           <Link
-            href="/استعلام-قیمت"
+            href={siteConfig.cta.href}
             onClick={() => setIsOpen(false)}
             className="mt-6 flex items-center justify-center gap-3 rounded-full bg-black px-6 py-4 text-sm font-medium text-white transition-transform duration-300 active:scale-[0.98]"
           >
-            <span>استعلام قیمت</span>
+            <span>{siteConfig.cta.label}</span>
             <span aria-hidden="true">↗</span>
           </Link>
         </nav>
