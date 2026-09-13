@@ -8,16 +8,16 @@ const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
 const canonicalUrl = `${siteUrl}/برای-کسب-و-کارها`;
 
 export const metadata: Metadata = {
-  title: "راهکارهای چاپ برای کسب‌وکارها | آیریک",
+  title: "چاپ برای کسب‌وکارها | خدمات چاپ تخصصی آیریک",
   description:
-    "راهکارهای چاپ آیریک برای برندها، فروشگاه‌ها، رستوران‌ها، کافه‌ها و شرکت‌هایی که به تولید مستمر و قابل اتکا نیاز دارند.",
+    "خدمات و راهکارهای چاپ آیریک برای رستوران‌ها، کافه‌ها، برندهای پوشاک، فروشگاه‌ها، برندها، شرکت‌ها، رویدادها و کسب‌وکارهای آنلاین.",
   alternates: {
     canonical: canonicalUrl,
   },
   openGraph: {
-    title: "راهکارهای چاپ برای کسب‌وکارها | آیریک",
+    title: "چاپ برای کسب‌وکارها | خدمات چاپ تخصصی آیریک",
     description:
-      "راهکارهای چاپ آیریک برای برندها، فروشگاه‌ها، رستوران‌ها، کافه‌ها و شرکت‌هایی که به تولید مستمر و قابل اتکا نیاز دارند.",
+      "خدمات و راهکارهای چاپ آیریک برای انواع کسب‌وکارها؛ از چاپ روی لباس و بسته‌بندی تا لیوان، بگ، جعبه و سایر محصولات چاپی.",
     url: canonicalUrl,
     siteName: siteConfig.name,
     locale: "fa_IR",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "راهکارهای چاپ برای کسب‌وکارها | آیریک",
+    title: "چاپ برای کسب‌وکارها | خدمات چاپ تخصصی آیریک",
     description:
-      "راهکارهای چاپ آیریک برای برندها، فروشگاه‌ها، رستوران‌ها، کافه‌ها و شرکت‌هایی که به تولید مستمر و قابل اتکا نیاز دارند.",
+      "خدمات و راهکارهای چاپ آیریک برای انواع کسب‌وکارها.",
   },
 };
 
@@ -44,7 +44,7 @@ const breadcrumbSchema = {
     {
       "@type": "ListItem",
       position: 2,
-      name: "برای کسب‌وکارها",
+      name: "چاپ برای کسب‌وکارها",
       item: canonicalUrl,
     },
   ],
@@ -53,9 +53,9 @@ const breadcrumbSchema = {
 const businessPageSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  name: "راهکارهای چاپ برای کسب‌وکارها",
+  name: "چاپ برای کسب‌وکارها",
   description:
-    "راهکارهای چاپ آیریک برای برندها، فروشگاه‌ها، رستوران‌ها، کافه‌ها و شرکت‌هایی که به تولید مستمر و قابل اتکا نیاز دارند.",
+    "خدمات و راهکارهای چاپ آیریک برای انواع کسب‌وکارها.",
   url: canonicalUrl,
   isPartOf: {
     "@type": "WebSite",
@@ -64,26 +64,26 @@ const businessPageSchema = {
   },
   about: {
     "@type": "Thing",
-    name: "راهکارهای چاپ برای کسب‌وکارها",
+    name: "خدمات چاپ برای کسب‌وکارها",
   },
 };
 
 const faqItems = [
   {
-    q: "آیا سفارش‌های تیراژ بالا انجام می‌دهید؟",
-    a: "بله. تیراژ یکی از عوامل اصلی در انتخاب روش چاپ و برآورد پروژه است و سفارش‌های حجیم به‌صورت جداگانه بررسی می‌شوند.",
+    q: "آیا برای کسب‌وکارها سفارش‌های مستمر چاپ انجام می‌دهید؟",
+    a: "بله. اگر چاپ بخشی از نیاز مستمر کسب‌وکار شما باشد، جزئیات پروژه، محصول، تیراژ و زمان‌بندی بررسی می‌شود.",
   },
   {
-    q: "آیا امکان سفارش مستمر وجود دارد؟",
-    a: "بله. برای کسب‌وکارهایی که به تولید چاپی مداوم نیاز دارند، امکان بررسی همکاری مستمر وجود دارد.",
+    q: "برای انتخاب روش چاپ مناسب چه اطلاعاتی لازم است؟",
+    a: "نوع محصول، متریال، تعداد، ابعاد، کاربرد نهایی و زمان مورد نیاز برای شروع اطلاعات مناسبی برای بررسی پروژه هستند.",
   },
   {
-    q: "آیا می‌توانیم روش چاپ را به شما بسپاریم؟",
-    a: "بله. کافی است محصول، متریال، تعداد و کاربرد نهایی را مشخص کنید. انتخاب روش چاپ را می‌توان بر اساس این عوامل انجام داد.",
+    q: "آیا می‌توانیم انتخاب روش چاپ را به آیریک بسپاریم؟",
+    a: "بله. می‌توانید مشخصات پروژه و محصول موردنظر را اعلام کنید تا روش مناسب چاپ بر اساس نیاز پروژه بررسی شود.",
   },
   {
-    q: "برای شروع چه اطلاعاتی لازم است؟",
-    a: "نوع محصول، تعداد تقریبی، ابعاد، متریال در صورت مشخص بودن و زمان مورد نیاز برای شروع کافی است.",
+    q: "آیا امکان استعلام قیمت وجود دارد؟",
+    a: "بله. برای دریافت اطلاعات و استعلام قیمت می‌توانید از طریق صفحه استعلام قیمت درخواست خود را ارسال کنید.",
   },
 ];
 
@@ -100,10 +100,76 @@ const faqSchema = {
   })),
 };
 
+const businessLinks: Record<string, string[]> = {
+  restaurants: [
+    "چاپ جعبه پیتزا",
+    "چاپ روی لیوان کاغذی",
+    "چاپ روی ظروف گرد",
+    "چاپ سیلک",
+  ],
+  cafes: [
+    "چاپ روی لیوان کاغذی",
+    "چاپ لیوان",
+    "چاپ روی ظروف گرد",
+    "چاپ سیلک",
+  ],
+  fashion: [
+    "چاپ روی لباس",
+    "چاپ روی تیشرت",
+    "چاپ روی پارچه",
+    "چاپ DTF",
+  ],
+  retail: [
+    "چاپ روی بگ",
+    "چاپ کیسه پارچه‌ای",
+    "تولید و چاپ توت‌بگ",
+    "چاپ روی کارتن",
+  ],
+  brands: [
+    "چاپ سیلک",
+    "چاپ DTF",
+    "چاپ روی بگ",
+    "چاپ روی کارتن",
+  ],
+  companies: [
+    "چاپ سیلک",
+    "چاپ DTF",
+    "چاپ روی لباس",
+    "چاپ روی بگ",
+  ],
+  events: [
+    "چاپ روی لباس",
+    "چاپ روی تیشرت",
+    "چاپ روی بگ",
+    "چاپ سیلک",
+  ],
+  "online-businesses": [
+    "چاپ روی کارتن",
+    "چاپ روی بگ",
+    "چاپ کیسه پارچه‌ای",
+    "تولید و چاپ توت‌بگ",
+  ],
+};
+
+const serviceSlugMap: Record<string, string> = {
+  "چاپ جعبه پیتزا": "چاپ-جعبه-پیتزا",
+  "چاپ روی لیوان کاغذی": "چاپ-لیوان-کاغذی",
+  "چاپ روی ظروف گرد": "چاپ-ظروف-گرد",
+  "چاپ سیلک": "چاپ-سیلک",
+  "چاپ لیوان": "چاپ-لیوان",
+  "چاپ روی لباس": "چاپ-روی-لباس",
+  "چاپ روی تیشرت": "چاپ-روی-تیشرت",
+  "چاپ روی پارچه": "چاپ-روی-پارچه",
+  "چاپ DTF": "چاپ-dtf",
+  "چاپ روی بگ": "چاپ-بگ",
+  "چاپ کیسه پارچه‌ای": "چاپ-کیسه-پارچه-ای",
+  "تولید و چاپ توت‌بگ": "تولید-و-چاپ-توت-بگ",
+  "چاپ روی کارتن": "چاپ-کارتن",
+};
+
 export default function BusinessPage() {
   return (
     <main dir="rtl">
-      {/* Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -130,19 +196,19 @@ export default function BusinessPage() {
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="max-w-5xl">
             <p className="mb-8 text-sm font-medium text-black/40">
-              راهکارهای کسب‌وکار
+              چاپ برای کسب‌وکارها
             </p>
 
             <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
               چاپ برای کسب‌وکارهایی
               <br />
-              که تولید مستمر دارند.
+              که کیفیت اهمیت دارد.
             </h1>
 
             <p className="mt-10 max-w-3xl text-lg leading-9 text-black/60 md:text-xl md:leading-10">
-              وقتی چاپ بخشی از عملیات روزمره یک کسب‌وکار است، موضوع فقط
-              تولید یک سفارش نیست. ثبات کیفیت، زمان‌بندی، تیراژ و انتخاب
-              درست روش چاپ اهمیت پیدا می‌کند.
+              هر کسب‌وکار نیاز چاپی متفاوتی دارد. از بسته‌بندی و لیوان
+              گرفته تا لباس، بگ، کارتن و محصولات تبلیغاتی؛ آیریک کمک
+              می‌کند راهکار چاپ متناسب با محصول و نیاز شما انتخاب شود.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-3">
@@ -150,7 +216,7 @@ export default function BusinessPage() {
                 href="/استعلام-قیمت"
                 className="inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
               >
-                شروع یک پروژه
+                استعلام قیمت
                 <span aria-hidden="true">↗</span>
               </Link>
 
@@ -158,7 +224,7 @@ export default function BusinessPage() {
                 href="/خدمات"
                 className="inline-flex items-center gap-3 rounded-full border border-black/15 px-7 py-4 text-sm transition-colors hover:border-black"
               >
-                مشاهده خدمات
+                مشاهده خدمات چاپ
                 <span aria-hidden="true">↗</span>
               </Link>
             </div>
@@ -166,7 +232,7 @@ export default function BusinessPage() {
         </div>
       </section>
 
-      {/* Business Solutions */}
+      {/* Business Types */}
       <section>
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
           <div className="mb-16 max-w-3xl md:mb-24">
@@ -175,44 +241,62 @@ export default function BusinessPage() {
             </p>
 
             <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
-              یک راهکار ثابت
+              نیاز هر کسب‌وکار
               <br />
-              برای همه وجود ندارد.
+              متفاوت است.
             </h2>
+
+            <p className="mt-7 max-w-2xl text-base leading-8 text-black/55 md:text-lg">
+              بخشی از خدمات و راهکارهای چاپ آیریک را می‌توانید بر اساس
+              نوع کسب‌وکار خود پیدا کنید. این دسته‌بندی برای ساده‌تر
+              شدن مسیر انتخاب خدمات ایجاد شده است.
+            </p>
           </div>
 
           <div className="border-t border-black/10">
             {businessSolutions.map((solution, index) => (
-              <Link
+              <article
                 key={solution.slug}
-                href={`/برای-کسب-و-کارها/${solution.slug}`}
-                className="group block border-b border-black/10 py-9 transition-opacity hover:opacity-60 md:py-12"
+                className="border-b border-black/10 py-10 md:py-14"
               >
-                <div className="grid gap-6 md:grid-cols-[90px_1fr_40px] md:items-start">
+                <div className="grid gap-8 md:grid-cols-[90px_1fr]">
                   <span className="text-xs text-black/30">
                     {String(index + 1).padStart(2, "0")}
                   </span>
 
                   <div>
-                    <h3 className="text-2xl font-medium tracking-tight md:text-3xl">
+                    <h2 className="text-2xl font-medium tracking-tight md:text-3xl">
                       {solution.title}
-                    </h3>
+                    </h2>
 
-                    {solution.description && (
-                      <p className="mt-4 max-w-3xl text-base leading-8 text-black/50 md:text-lg">
-                        {solution.description}
-                      </p>
-                    )}
+                    <p className="mt-5 max-w-3xl text-base leading-8 text-black/55 md:text-lg">
+                      {solution.description}
+                    </p>
+
+                    {businessLinks[solution.slug]?.length ? (
+                      <div className="mt-7 flex flex-wrap gap-2">
+                        {businessLinks[solution.slug].map((service) => {
+                          const slug = serviceSlugMap[service];
+
+                          if (!slug) {
+                            return null;
+                          }
+
+                          return (
+                            <Link
+                              key={service}
+                              href={`/خدمات/${slug}`}
+                              className="rounded-full border border-black/10 px-4 py-2.5 text-sm transition-colors hover:border-black/40"
+                            >
+                              {service}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    ) : null}
                   </div>
-
-                  <span
-                    aria-hidden="true"
-                    className="text-xl transition-transform duration-300 group-hover:-translate-x-1"
-                  >
-                    ↗
-                  </span>
                 </div>
-              </Link>
+              </article>
             ))}
           </div>
         </div>
@@ -224,166 +308,63 @@ export default function BusinessPage() {
           <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
             <div>
               <p className="mb-7 text-sm font-medium text-black/40">
-                همکاری B2B
+                همکاری با آیریک
               </p>
 
               <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                وقتی سفارش چاپ
+                وقتی چاپ بخشی
                 <br />
-                تکرار می‌شود.
+                از کسب‌وکار شماست.
               </h2>
             </div>
 
             <div className="space-y-10">
               <div className="border-t border-black/10 pt-7">
                 <p className="mb-3 text-xs text-black/40">
-                  01 — ثبات
+                  01 — انتخاب
                 </p>
 
                 <h3 className="text-xl font-medium">
-                  کیفیت قابل تکرار
+                  انتخاب روش مناسب چاپ
                 </h3>
 
                 <p className="mt-4 leading-8 text-black/55">
-                  در سفارش‌های مستمر، نتیجه هر بار باید تا حد ممکن
-                  قابل پیش‌بینی باشد. انتخاب روش و متریال مناسب از
-                  ابتدا بخشی از این فرآیند است.
+                  نوع محصول، متریال، تیراژ و کاربرد نهایی در انتخاب
+                  روش چاپ اهمیت دارند. پروژه بر اساس همین نیازها
+                  بررسی می‌شود.
                 </p>
               </div>
 
               <div className="border-t border-black/10 pt-7">
                 <p className="mb-3 text-xs text-black/40">
-                  02 — برنامه‌ریزی
+                  02 — اجرا
                 </p>
 
                 <h3 className="text-xl font-medium">
-                  تولید متناسب با زمان‌بندی
+                  تمرکز روی خروجی نهایی
                 </h3>
 
                 <p className="mt-4 leading-8 text-black/55">
-                  برای کسب‌وکارها، زمان تحویل بخشی از مسئله تولید است.
-                  سفارش‌ها بر اساس تیراژ و زمان مورد نیاز بررسی
-                  می‌شوند.
+                  هدف فقط چاپ کردن نیست؛ خروجی باید با محصول و کاربرد
+                  نهایی آن هماهنگ باشد.
                 </p>
               </div>
 
               <div className="border-t border-black/10 pt-7">
                 <p className="mb-3 text-xs text-black/40">
-                  03 — مقیاس
+                  03 — همکاری
                 </p>
 
                 <h3 className="text-xl font-medium">
-                  مناسب برای سفارش‌های مستمر
+                  مناسب برای نیازهای مستمر
                 </h3>
 
                 <p className="mt-4 leading-8 text-black/55">
                   اگر محصولات چاپی بخشی از عملیات کسب‌وکار شما هستند،
-                  می‌توانیم سفارش را بر اساس نیاز واقعی و تیراژ
-                  موردنظر بررسی کنیم.
+                  می‌توانید نیاز و مشخصات پروژه را برای بررسی ارسال
+                  کنید.
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Workflow */}
-      <section>
-        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
-          <div className="mb-16 max-w-3xl md:mb-24">
-            <p className="mb-7 text-sm font-medium text-black/40">
-              فرآیند همکاری
-            </p>
-
-            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
-              از مشخصات اولیه
-              <br />
-              تا تولید.
-            </h2>
-          </div>
-
-          <div className="border-t border-black/10">
-            {[
-              {
-                title: "شناخت نیاز",
-                text: "نوع محصول، کاربرد، تیراژ و زمان‌بندی مشخص می‌شود.",
-              },
-              {
-                title: "انتخاب راهکار",
-                text: "روش چاپ و متریال متناسب با پروژه بررسی و پیشنهاد می‌شود.",
-              },
-              {
-                title: "نمونه و تأیید",
-                text: "جزئیات تولید و خروجی مورد انتظار پیش از تولید نهایی مشخص می‌شود.",
-              },
-              {
-                title: "تولید",
-                text: "پس از تأیید، سفارش طبق مشخصات نهایی وارد فرآیند تولید می‌شود.",
-              },
-              {
-                title: "تحویل",
-                text: "خروجی نهایی بر اساس زمان‌بندی توافق‌شده آماده و تحویل می‌شود.",
-              },
-            ].map((step, index) => (
-              <div
-                key={step.title}
-                className="grid gap-6 border-b border-black/10 py-9 md:grid-cols-[90px_0.8fr_1.2fr] md:items-center md:py-12"
-              >
-                <span className="text-xs text-black/30">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-
-                <h3 className="text-xl font-medium tracking-tight md:text-2xl">
-                  {step.title}
-                </h3>
-
-                <p className="leading-8 text-black/50">
-                  {step.text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Industries */}
-      <section className="border-y border-black/10 bg-[#f5f3ef]">
-        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
-          <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
-            <div>
-              <p className="mb-7 text-sm font-medium text-black/40">
-                کاربردها
-              </p>
-
-              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                چاپ بخشی از
-                <br />
-                تجربه برند است.
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-2 border-t border-black/10">
-              {[
-                "برندها",
-                "فروشگاه‌ها",
-                "رستوران‌ها",
-                "کافه‌ها",
-                "شرکت‌ها",
-                "فروش آنلاین",
-                "رویدادها",
-                "محصولات تبلیغاتی",
-              ].map((item, index) => (
-                <div
-                  key={item}
-                  className="border-b border-black/10 py-7 text-lg font-medium"
-                >
-                  <span className="ml-4 text-xs text-black/30">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-
-                  {item}
-                </div>
-              ))}
             </div>
           </div>
         </div>
@@ -391,85 +372,73 @@ export default function BusinessPage() {
 
       {/* FAQ */}
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
-          <div className="grid gap-16 md:grid-cols-[0.8fr_1.2fr] md:gap-28">
-            <div>
-              <p className="mb-7 text-sm font-medium text-black/40">
-                سوالات متداول
-              </p>
+        <div className="mx-auto max-w-5xl px-6 py-32 md:px-10 md:py-40">
+          <div className="mb-16">
+            <p className="mb-7 text-sm font-medium text-black/40">
+              سوالات متداول
+            </p>
 
-              <h2 className="text-3xl font-medium leading-[1.45] tracking-tight md:text-5xl">
-                قبل از شروع
-                <br />
-                همکاری.
-              </h2>
-            </div>
+            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
+              قبل از شروع
+              <br />
+              پروژه بدانید.
+            </h2>
+          </div>
 
-            <div className="border-t border-black/10">
-              {faqItems.map((item, index) => (
-                <details
-                  key={item.q}
-                  className="group border-b border-black/10"
-                >
-                  <summary className="flex cursor-pointer list-none items-start justify-between gap-8 py-7">
-                    <div className="flex gap-5">
-                      <span className="pt-1 text-xs text-black/30">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-
-                      <span className="text-lg font-medium leading-8">
-                        {item.q}
-                      </span>
-                    </div>
-
-                    <span className="text-xl text-black/40 transition-transform group-open:rotate-45">
-                      +
+          <div className="border-t border-black/10">
+            {faqItems.map((item, index) => (
+              <details
+                key={item.q}
+                className="group border-b border-black/10"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-8 py-7 text-lg font-medium marker:hidden md:py-9 md:text-xl">
+                  <span>
+                    <span className="ml-4 text-xs font-normal text-black/30">
+                      {String(index + 1).padStart(2, "0")}
                     </span>
-                  </summary>
+                    {item.q}
+                  </span>
 
-                  <p className="pb-8 pr-9 text-base leading-8 text-black/55 md:pr-10">
-                    {item.a}
-                  </p>
-                </details>
-              ))}
-            </div>
+                  <span
+                    aria-hidden="true"
+                    className="shrink-0 text-xl transition-transform duration-300 group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+
+                <div className="pb-8 pr-8 text-base leading-8 text-black/55 md:pr-12 md:text-lg">
+                  {item.a}
+                </div>
+              </details>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="border-t border-black/10 bg-black text-white">
+      <section className="border-t border-black/10">
         <div className="mx-auto max-w-7xl px-6 py-32 md:px-10 md:py-40 lg:px-12">
-          <div className="max-w-4xl">
-            <p className="mb-7 text-sm font-medium text-white/40">
-              همکاری با Ayric
-            </p>
+          <div className="rounded-[2rem] bg-black px-7 py-16 text-white md:px-14 md:py-20">
+            <div className="max-w-3xl">
+              <p className="mb-7 text-sm text-white/45">
+                پروژه شما چیست؟
+              </p>
 
-            <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl lg:text-6xl">
-              اگر چاپ بخشی از
-              <br />
-              کسب‌وکار شماست، شروع کنیم.
-            </h2>
+              <h2 className="text-3xl font-medium leading-[1.35] tracking-tight md:text-5xl">
+                محصول، تیراژ و نیازتان را بگویید.
+              </h2>
 
-            <p className="mt-8 max-w-2xl text-lg leading-9 text-white/55">
-              مشخصات پروژه یا نیاز چاپی خود را ارسال کنید. بر اساس
-              محصول، تیراژ و زمان‌بندی، راهکار مناسب را بررسی می‌کنیم.
-            </p>
+              <p className="mt-7 max-w-2xl text-base leading-8 text-white/60 md:text-lg">
+                مشخصات پروژه را ارسال کنید تا برای انتخاب روش چاپ و
+                استعلام قیمت بررسی شود.
+              </p>
 
-            <div className="mt-10 flex flex-wrap gap-3">
               <Link
                 href="/استعلام-قیمت"
-                className="inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm text-black transition-transform hover:-translate-y-0.5"
+                className="mt-10 inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm text-black transition-transform hover:-translate-y-0.5"
               >
                 استعلام قیمت
-                <span aria-hidden="true">↗</span>
-              </Link>
-
-              <Link
-                href="/تماس-با-ما"
-                className="inline-flex items-center gap-3 rounded-full border border-white/20 px-7 py-4 text-sm text-white transition-colors hover:border-white"
-              >
-                تماس با ما
                 <span aria-hidden="true">↗</span>
               </Link>
             </div>
