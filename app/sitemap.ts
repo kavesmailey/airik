@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 
 import { services } from "@/content/services";
-import { businessSolutions } from "@/content/business";
 import { blogPosts } from "@/content/blog";
 import { siteConfig } from "@/content/site";
 
@@ -22,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/برای-کسب-و-کارها`,
       changeFrequency: "monthly",
-      priority: 0.8,
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/وبلاگ`,
@@ -57,14 +56,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const businessPages: MetadataRoute.Sitemap = businessSolutions.map(
-    (business) => ({
-      url: `${baseUrl}/برای-کسب-و-کارها/${business.slug}`,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    }),
-  );
-
   const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${baseUrl}/وبلاگ/${post.slug}`,
     lastModified: post.dateISO,
@@ -75,7 +66,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticPages,
     ...servicePages,
-    ...businessPages,
     ...blogPages,
   ];
 }
