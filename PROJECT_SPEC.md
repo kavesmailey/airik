@@ -1,911 +1,817 @@
-Ayric — Project Specification
+AYRIC WEBSITE — PROJECT SPEC
 
-Final Development Status & Launch Roadmap
-
-Version: 2.0
+Project: Ayric / آیریک
+Website: https://ayricchap.ir
+Repository: kavesmailey/airik
+Location: Karaj, Iran
 Status: Pre-Launch / Final QA
-Brand: Ayric / آیریک
-Domain: https://ayricchap.ir
-Repository: https://github.com/kavesmailey/airik
+Last Updated: September 2026
 
 ⸻
 
-1. Project Overview
+01 — PROJECT GOAL
 
-Ayric (آیریک) is a professional printing and production website focused on brands, businesses, and organizations.
-
-Positioning
-
-آیریک یک مجموعه تخصصی چاپ برای برندها، کسب‌وکارها و سازمان‌هاست؛ با تمرکز بر چاپ باکیفیت و انتخاب روش مناسب برای هر پروژه.
-
-Core Services
+طراحی و توسعه وب‌سایت رسمی آیریک به‌عنوان یک مجموعه تخصصی چاپ، با تمرکز اصلی روی:
 
 * چاپ سیلک
 * چاپ DTF
-* چاپ روی لباس و پوشاک
-* چاپ روی پارچه
-* چاپ روی بگ و توت‌بگ
-* چاپ نایلون
-* چاپ لیوان
-* چاپ روی فلز
-* چاپ روی چوب
-* چاپ روی استیل
-* چاپ روی پلکسی
-* خدمات آماده‌سازی چاپ سیلک
-* طراحی و آماده‌سازی طرح چاپ
+* معرفی سایر خدمات تخصصی آیریک
+* نمایش نمونه‌کارها
+* تولید محتوای آموزشی و SEO
+* معرفی مجموعه
+* ایجاد مسیر ارتباط و درخواست استعلام قیمت
 
-Target Audience
-
-* برندهای پوشاک
-* برندهای فشن
-* کسب‌وکارهای کوچک و متوسط
-* شرکت‌ها
-* سازمان‌ها
-* آژانس‌های تبلیغاتی
-* استارتاپ‌ها
-* پروژه‌های برندینگ
-* سفارش‌های تبلیغاتی و سازمانی
+سایت باید فارسی، RTL، سریع، responsive و مناسب SEO/GEO باشد.
 
 ⸻
 
-2. Technology Stack
+02 — BRAND POSITIONING
 
-Next.js 14.2.15
-React 18.3.1
-TypeScript 5.5.4
-Tailwind CSS 3.4.10
-PostCSS
-Static Export
+Brand: آیریک / Ayric
 
-Production
+Core positioning:
 
-Hosting: cPanel Shared Hosting
-Output: Static Export
-Domain: ayricchap.ir
+آیریک؛ چاپ تخصصی برای برندهایی که کیفیت اهمیت دارد
 
-Current Next.js Configuration
+آیریک نباید به‌عنوان یک چاپخانه عمومی با خدماتی مثل چاپ افست یا چاپ دیجیتال معرفی شود.
 
-output: "export"
-trailingSlash: true
-images.unoptimized: true
+تمرکز محتوایی سایت باید روی خدمات واقعی موجود در مجموعه باشد.
 
 ⸻
 
-3. Core Architecture
+03 — ACTUAL SERVICES
 
-The website uses a data-driven architecture.
+منبع اصلی خدمات، فایل services.ts است.
 
-Services
+در مجموع ۲۱ سرویس واقعی در سایت وجود دارد:
 
-Service content lives in:
+Featured Services
 
-content/services.ts
+این دو سرویس باید در Home به‌عنوان خدمات اصلی نمایش داده شوند:
 
-All service detail pages are generated through:
+1. چاپ سیلک
+2. چاپ DTF
 
-app/خدمات/[slug]/page.tsx
+Other Services
 
-Do NOT create individual hard-coded service page templates unless specifically required.
+۱۹ سرویس دیگر:
 
-⸻
+1. چاپ روی لباس
+2. چاپ روی بگ
+3. چاپ روی کارتن
+4. چاپ روی جعبه پیتزا
+5. چاپ روی لیوان کاغذی
+6. چاپ روی ظروف گرد
+7. چاپ روی تیشرت
+8. چاپ روی پارچه
+9. خدمات ساخت شابلون چاپ سیلک
+10. توری‌کشی و عکاسی
+11. خدمات طراحی اختصاصی چاپ سیلک
+12. چاپ کیسه پارچه‌ای
+13. چاپ نایلون
+14. تولید و چاپ توت‌بگ
+15. چاپ لیوان
+16. چاپ روی فلز
+17. چاپ روی چوب
+18. چاپ روی استیل
+19. چاپ روی پلکسی
 
-4. Canonical Routes
-
-The final route architecture is:
-
-/
- /استعلام-قیمت
- /برای-کسب-و-کارها
- /برای-کسب-و-کارها/[slug]
- /خدمات
- /خدمات/[slug]
- /نمونه-کارها
- /وبلاگ
- /وبلاگ/[slug]
- /درباره-ما
- /تماس-با-ما
-
-⸻
-
-5. Routes That Must NOT Exist
-
-The following are legacy/duplicate routes.
-
-/بلاگ
-/بلاگ/[slug]
-/درباره-آیریک
-/مجله
-/مجله/[slug]
-
-Expected behavior:
-
-/بلاگ → /وبلاگ
-/درباره-آیریک → /درباره-ما
-/مجله → /وبلاگ
-
-/مجله/[slug] was removed because it was incompatible with the static export architecture.
+هیچ سرویس ساختگی یا عمومی خارج از این لیست نباید به سایت اضافه شود.
 
 ⸻
 
-6. Portfolio Architecture
+04 — HOME PAGE DECISION
 
-Portfolio is intentionally a single page.
+ساختار نهایی Home:
 
-Final route:
+1. Hero
+2. معرفی آیریک
+3. Featured Services
+    * چاپ سیلک
+    * چاپ DTF
+4. سایر خدمات آیریک
+5. نمونه‌کارها
+6. چرا آیریک
+7. CTA
+8. Footer
 
-/نمونه-کارها
+Important
 
-There must NOT be:
+در Home:
 
-/نمونه-کارها/[slug]
+نمایش داده شود:
 
-Individual portfolio project pages are not part of the project scope.
+* چاپ سیلک
+* چاپ DTF
 
-Current Status
+در بخش «سایر خدمات آیریک»:
 
-Portfolio architecture: ✅ DONE
-Portfolio page: ✅ DONE
-Portfolio data: ⚠️ Needs final real content/images
+۱۹ سرویس دیگر فقط به‌صورت نام + لینک نمایش داده شوند.
 
-⸻
+برای این بخش:
 
-7. Services
+* توضیح نوشته نشود
+* تصویر استفاده نشود
+* کارت‌های سنگین ساخته نشود
+* هر مورد به صفحه واقعی خودش لینک شود
 
-The service system is data-driven.
+هدف این بخش علاوه بر navigation، تقویت internal linking و SEO است.
 
-Current file:
+حذف شود:
 
-content/services.ts
+مفاهیم یا سرویس‌هایی مانند:
 
-Current service count:
+* «بسته‌بندی»
+* «چاپ روی محصول»
 
-21 services
-
-The service expansion is COMPLETE.
-
-Existing service categories include:
-
-چاپ سیلک
-چاپ DTF
-چاپ روی لباس
-چاپ روی تیشرت
-چاپ روی پارچه
-چاپ بگ
-ساخت شابلون چاپ سیلک
-توری‌کشی و عکاسی
-طراحی اختصاصی چاپ سیلک
-چاپ کیسه پارچه‌ای
-چاپ نایلون
-تولید و چاپ توت‌بگ
-چاپ لیوان
-چاپ روی فلز
-چاپ روی چوب
-چاپ روی استیل
-چاپ روی پلکسی
-...
-
-The exact final service list is already implemented in:
-
-content/services.ts
-
-Service architecture
-
-app/خدمات/page.tsx
-        ↓
-content/services.ts
-        ↓
-app/خدمات/[slug]/page.tsx
-
-Status
-
-Service data: ✅ DONE
-21 services: ✅ DONE
-Service detail template: ✅ DONE
-Metadata: ✅ DONE
-Schema: ✅ DONE
-FAQ: ✅ DONE
-Related services: ✅ DONE
-Internal links: ✅ DONE
+به‌عنوان سرویس مستقل در Home نباید نمایش داده شوند، چون جزو سرویس‌های واقعی تعریف‌شده نیستند.
 
 ⸻
 
-8. Business Pages
+05 — SERVICE PAGES
 
-Routes:
+Service architecture بر اساس content/services.ts ساخته شده است.
 
-/برای-کسب-و-کارها
-/برای-کسب-و-کارها/[slug]
+هر سرویس صفحه مستقل دارد و slug فارسی خودش را دارد.
 
-Purpose:
+صفحات اصلی:
 
-Create landing pages targeting different business/customer types.
+* /خدمات
+* /خدمات/چاپ-سیلک
+* /خدمات/چاپ-dtf
+* و سایر ۱۹ سرویس
 
-Status
+صفحات سرویس باید از اطلاعات موجود در services.ts استفاده کنند.
 
-Main business page: ✅ DONE
-Business detail pages: ✅ DONE
-SEO metadata: ✅ DONE
-Structured data: ✅ DONE
-Internal linking: ✅ DONE
+محتوا شامل مواردی مانند:
 
-⸻
+* معرفی سرویس
+* کاربردها
+* مزایا
+* روش چاپ
+* مراحل کار
+* FAQ
+* سرویس‌های مرتبط
+* CTA
 
-9. Blog
+باشد.
 
-Final architecture:
-
-content/blog.ts
-app/وبلاگ/page.tsx
-app/وبلاگ/[slug]/page.tsx
-
-Status
-
-Blog listing: ✅ DONE
-Blog detail: ✅ DONE
-Metadata: ✅ DONE
-Canonical: ✅ DONE
-Article schema: ✅ DONE
-Breadcrumb: ✅ DONE
-Internal links: ✅ DONE
-
-Legacy blog architecture
-
-Old article architecture should not be reintroduced.
-
-Potential obsolete files:
-
-content/articles.tsx
-components/cards/ArticleCard.tsx
-
-These should be removed only after confirming they are not used anywhere.
+از ادعاهای فنی یا تجاری‌ای که در منبع پروژه وجود ندارند نباید استفاده شود.
 
 ⸻
 
-10. Homepage
+06 — BLOG / SEO
 
-Route:
+Blog route نهایی:
 
-/
+/وبلاگ
 
-Status
+صفحات:
 
-Design: ✅ DONE
-Responsive structure: ✅ DONE
-Content: ✅ DONE
-SEO metadata: ✅ DONE
-Open Graph: ✅ DONE
-Twitter metadata: ✅ DONE
-Structured data: ✅ DONE
-CTA: ✅ DONE
+* /وبلاگ
+* /وبلاگ/[slug]
 
-Do not redesign the homepage unless final QA identifies a real issue.
+Legacy route:
 
-⸻
+* /مجله → redirect به /وبلاگ
 
-11. About Page
+سه مقاله فعلی:
 
-Route:
+01
 
-/درباره-ما
+چطور روش چاپ مناسب پروژه‌مان را انتخاب کنیم؟
 
-Status
+Slug:
 
-Design: ✅ DONE
-Content: ✅ DONE
-SEO: ✅ DONE
-Canonical: ✅ DONE
-Breadcrumb: ✅ DONE
-Schema: ✅ DONE
+راهنمای-انتخاب-روش-چاپ
 
-⸻
+02
 
-12. Contact Page
+چاپ سیلک چیست و چه زمانی انتخاب مناسبی است؟
 
-Route:
+Slug:
 
-/تماس-با-ما
+چاپ-سیلک-چیست
 
-Status
+03
 
-Design: ✅ DONE
-SEO: ✅ DONE
-Canonical: ✅ DONE
-OG/Twitter: ✅ DONE
-ContactPage schema: ✅ DONE
-FAQ schema: ✅ DONE
+چاپ سیلک یا DTF؛ برای پروژه ما کدام مناسب‌تر است؟
+
+Slug:
+
+تفاوت-چاپ-سیلک-و-dtf
+
+محتوای Blog باید در راستای خدمات واقعی آیریک باشد.
+
+مقاله‌های عمومی نامرتبط یا محتوایی مثل مقایسه «چاپ دیجیتال و افست» که با positioning فعلی آیریک همخوان نیستند، استفاده نشوند.
 
 ⸻
 
-13. Quote / Inquiry Page
+07 — NAVIGATION
 
-Route:
+Navigation اصلی:
+
+* خانه
+* خدمات چاپ
+* نمونه‌کارها
+* بلاگ
+* درباره ما
+* تماس با ما
+
+CTA اصلی:
+
+استعلام قیمت
+
+مسیر:
 
 /استعلام-قیمت
 
-Important Business Rule
+⸻
 
-There is no online price calculator.
+08 — QUOTE / PRICE REQUEST
 
-The website does NOT calculate prices automatically.
+نکته بسیار مهم:
 
-For price inquiry, the user must:
+سایت Price Calculator ندارد.
 
-Call
-or
-Contact Ayric
+«استعلام قیمت» به معنی محاسبه آنلاین قیمت نیست.
 
-Do not introduce a fake “instant price estimate” system.
+کاربر برای استعلام باید از طریق مسیر ارتباطی مجموعه درخواست خود را ارسال کند.
 
-Current status
+بنابراین:
 
-UI: ✅ DONE
-SEO: ✅ DONE
-Form UI: ✅ DONE
-Real submission backend: ❌ NOT DONE
+* calculator ساخته نشود
+* قیمت‌گذاری خودکار ساخته نشود
+* فرمول قیمت در frontend قرار نگیرد
 
-The form currently simulates successful submission.
-
-A real submission mechanism still needs to be implemented.
+مرحله اتصال فرم واقعی هنوز باقی مانده است.
 
 ⸻
 
-14. SEO
+09 — VISUAL DIRECTION
 
-SEO foundation has already been implemented.
+Visual direction سایت بر اساس نمونه‌ای که کاربر انتخاب کرده، به‌خصوص:
 
-Completed
+creative-design-24.aura.build
 
-Global metadata                  ✅
-MetadataBase                    ✅
-Page titles                     ✅
-Meta descriptions               ✅
-Canonical URLs                  ✅
-Open Graph                      ✅
-Twitter metadata                ✅
-Sitemap                         ✅
-Robots                          ✅
-Service metadata                ✅
-Blog metadata                   ✅
-Article metadata                ✅
-Breadcrumb schema               ✅
-Service schema                  ✅
-Organization schema             ✅
-FAQ schema                      ✅
-Business page schema            ✅
+است.
 
-Important
+ویژگی‌های موردنظر:
 
-Do NOT restart SEO from scratch.
+* مینیمال
+* editorial
+* typography-led
+* whitespace مناسب
+* motion و transitionهای نرم
+* interactionهای ظریف
+* responsive
+* بدون شلوغی غیرضروری
 
-Only fix SEO issues if they are discovered during final QA.
+Responsive بودن باید در تمام صفحات از ابتدا در نظر گرفته شود:
+
+* Mobile
+* Tablet
+* Desktop
 
 ⸻
 
-15. Sitemap
+10 — CURRENT HOME IMPLEMENTATION
 
-Final sitemap:
+Home بازطراحی شده و ساختار آن اصلاح شده است.
 
-app/sitemap.ts
+ویژگی‌های فعلی:
 
-The sitemap contains:
-
-Canonical static pages
-All services
-Business pages
-Blog posts
-
-It must NOT contain:
-
-/بلاگ
-/مجله
-/dynamic portfolio detail pages
-other legacy routes
-
-Status
-
-Sitemap: ✅ DONE
+* فقط دو Featured Service
+* بخش «سایر خدمات آیریک»
+* لینک‌دهی به ۱۹ سرویس دیگر
+* responsive grid
+* responsive typography
+* responsive spacing
+* mobile-friendly buttons
+* portfolio grid responsive
+* جلوگیری از overflow افقی
+* حذف مسیرهای سرویس اشتباه
 
 ⸻
 
-16. Robots
+11 — BLOG IMPLEMENTATION
 
-Correct system:
+Blog list و article page بازطراحی شده‌اند.
 
-app/robots.ts
+Implemented:
 
-Expected configuration:
+* responsive layout
+* category navigation
+* article grid
+* article page
+* related posts
+* CTA
+* FAQ
+* FAQ JSON-LD
+* Breadcrumb structured data
+* static params
+* metadata
 
-Allow /
-Disallow /api/
-/_next/
-Sitemap: https://ayricchap.ir/sitemap.xml
-Host: https://ayricchap.ir
+QA note
 
-Important cleanup
-
-There is an old:
-
-app/robots.txt
-
-which references the old domain:
-
-https://iric.print
-
-This is obsolete and should be removed.
-
-Final system must use:
-
-app/robots.ts
-
-only.
+تاریخ‌های فارسی فعلی در blog.ts برای نمایش مناسب هستند، اما در structured data باید بررسی شود که datePublished و dateModified در نهایت فرمت معتبر Schema.org داشته باشند.
 
 ⸻
 
-17. JSON-LD
+12 — TECHNICAL ARCHITECTURE
 
-Current component:
+Framework:
 
-components/seo/JsonLd.tsx
+Next.js
 
-Supported schema types:
-
-organization
-localBusiness
-service
-article
-breadcrumb
-faq
-
-The current implementation is already compiling.
-
-Important
-
-Do not casually introduce:
-
-type="website"
-type="webpage"
-
-because the current typed component does not support those types.
-
-Previous build errors were caused by exactly this issue.
-
-⸻
-
-18. Site Configuration
-
-Main configuration:
-
-content/site.ts
-
-Current important values:
-
-Brand:
-آیریک
-English:
-Ayric
-Domain:
-https://ayricchap.ir
-City:
-کرج
-Country:
-ایران
-
-Tagline:
-
-چاپ تخصصی برای برندهایی که کیفیت اهمیت دارد
-
-Do not use:
-
-AIRIK
-Airik
-Ayrik
-آریک
-
-The correct brand spelling is:
-
-Ayric
-آیریک
-
-⸻
-
-19. Brand Assets
-
-Standard structure created:
-
-public/images/brand
-public/images/services
-public/images/portfolio
-public/images/blog
-
-Expected assets:
-
-public/images/brand/logo.svg
-public/images/brand/logo-mark.svg
-public/images/brand/og-image.jpg
-
-Current status
-
-Folders: ✅ DONE
-Real logo assets: ❌ NOT FINALIZED
-OG image: ❌ NOT FINALIZED
-Service images: ❌ NOT FINALIZED
-Portfolio images: ❌ NOT FINALIZED
-Blog images: ⚠️ Needs final review
-
-Do not invent fake stock images unless explicitly approved.
-
-⸻
-
-20. Visual / Design Direction
-
-The visual language should remain consistent with the current approved design.
-
-Do not redesign the entire website at this stage.
-
-The current priority is:
-
-Finish
-Polish
-QA
-Deploy
-
-not:
-
-Start another redesign
-
-Animations and transitions should remain sophisticated and restrained.
-
-⸻
-
-21. Legacy / Duplicate Files To Clean
-
-The current project still contains some potentially obsolete architecture.
-
-These need verification before deletion:
-
-app/خدمات/چاپ-سیلک/page.tsx
-app/robots.txt
-components/layout/Header.tsx
-components/layout/Footer.tsx
-components/cards/ArticleCard.tsx
-content/articles.tsx
-
-Known issue
-
-There is a dedicated old:
-
-app/خدمات/چاپ-سیلک/page.tsx
-
-while the correct architecture is:
-
-app/خدمات/[slug]/page.tsx
-
-Since چاپ-سیلک already exists in services.ts, the old dedicated page is duplicate and should be removed.
-
-⸻
-
-22. Footer Content
-
-Current Footer contains outdated location information.
-
-It currently references:
-
-تهران
-
-The current project configuration is:
-
-کرج
-
-This must be corrected during cleanup.
-
-⸻
-
-23. Form Architecture
-
-Current files include:
-
-components/forms/QuoteForm.tsx
-components/forms/PrintingInquiryForm.tsx
-lib/submitInquiry.ts
-
-There appear to be two generations of form architecture.
-
-Current situation
-
-PrintingInquiryForm is the newer intended flow.
-
-QuoteForm appears to be legacy.
-
-submitInquiry.ts currently simulates successful submission rather than actually storing/sending the inquiry.
-
-Final goal
-
-Choose one final form system.
-
-Then connect it to a real submission mechanism.
-
-Possible implementation options can be evaluated later based on:
-
-* Free tier
-* Iran accessibility
-* No credit card
-* Reliability
-* Email / Telegram / database
-* Ease of maintenance
-
-Do not build unnecessary infrastructure.
-
-⸻
-
-24. Content / Images
-
-Before launch we need to replace placeholder/null media where applicable.
-
-Services
-
-Service records already contain image paths such as:
-
-/images/services/dtf-printing.jpg
-
-But the actual image files are not all present.
-
-Portfolio
-
-Portfolio data currently contains projects with missing/placeholder images.
-
-This is not an architecture problem.
-
-The final phase is to add actual project visuals.
-
-⸻
-
-25. Static Export
-
-Current configuration:
+Export mode:
 
 output: "export"
 
-Static export is the intended production architecture.
+Trailing slash:
 
-Status
+trailingSlash: true
 
-Static export configuration: ✅ DONE
-Build compatibility: ✅ DONE
+Images:
 
-Important:
+unoptimized: true
 
-Do not add server-dependent features that break static export unless we deliberately change the architecture.
+هدف نهایی:
 
-⸻
-
-26. Deployment
-
-Production target:
-
-cPanel shared hosting
-
-Deployment has not yet been finalized.
-
-Remaining:
-
-Build final
-↓
-Generate /out
-↓
-Upload to cPanel
-↓
-Connect domain
-↓
-Test production
+Static Export → cPanel
 
 ⸻
 
-27. Final QA
+13 — CLEANUP ALREADY DONE
 
-This has not been completed yet.
+Legacy architecture بررسی و حذف شده است.
 
-Final QA must cover:
+موارد حذف‌شده:
 
-Routes
+* components/layout/
+* components/cards/ArticleCard.tsx
+* content/articles.tsx
+* app/robots.txt
+* legacy service page:
+    * app/خدمات/چاپ-سیلک/page.tsx
 
-Test every canonical route.
+Architecture فعلی از:
 
-Navigation
+* components/Header.tsx
+* components/Footer.tsx
 
-Check:
+استفاده می‌کند.
 
-Header
-Footer
-CTA buttons
-Service links
-Blog links
-Business links
-Breadcrumbs
-
-Responsive
-
-Test:
-
-Desktop
-Tablet
-Mobile
-
-Visual
-
-Check:
-
-Typography
-Spacing
-Overflow
-Images
-Animations
-Hover states
-Mobile menus
-Forms
-Footer
-
-Technical
-
-Check:
-
-404
-Broken links
-Console errors
-Missing assets
-Static export
-Build
+Blog route نیز روی /وبلاگ تثبیت شده است.
 
 ⸻
 
-28. Final Launch Checklist
+14 — LOCATION / BRAND CLEANUP
 
-Phase A — Cleanup
+اطلاعات قدیمی بررسی شده‌اند.
 
-[ ] Remove old dedicated چاپ-سیلک page
-[ ] Remove old robots.txt
-[ ] Verify/remove duplicate Header
-[ ] Verify/remove duplicate Footer
-[ ] Verify/remove old ArticleCard
-[ ] Verify/remove old articles.tsx
-[ ] Fix Tehran → Karaj
+Location صحیح:
 
-⸻
+کرج
 
-Phase B — Real Content
+نباید در سایت اطلاعات قدیمی مثل Tehran / تهران باقی مانده باشد.
 
-[ ] Final logo
-[ ] Logo mark
-[ ] OG image
-[ ] Service images
-[ ] Portfolio images
-[ ] Blog images
-[ ] Final copy review
+Brand spelling صحیح:
 
-⸻
+Ayric
 
-Phase C — Form
+و فارسی:
 
-[ ] Choose final inquiry form
-[ ] Remove legacy QuoteForm if unused
-[ ] Implement real submission
-[ ] Test successful submission
-[ ] Test failed submission
-[ ] Test mobile form
+آیریک
+
+نباید variationهای اشتباه مانند:
+
+* AIRIK
+* iric
+
+در کد، metadata یا محتوای نهایی باقی بمانند.
 
 ⸻
 
-Phase D — Final QA
+15 — IMAGES & LOGO — DEFERRED
 
-[ ] Desktop QA
-[ ] Mobile QA
-[ ] Tablet QA
-[ ] Navigation QA
-[ ] Link QA
-[ ] Image QA
-[ ] Animation QA
-[ ] Console QA
-[ ] 404 QA
-[ ] Metadata spot-check
-[ ] Sitemap check
-[ ] Robots check
+IMPORTANT
 
-⸻
+تصاویر و فایل لوگوی نهایی هنوز در اختیار پروژه نیستند.
 
-Phase E — Production
+بنابراین تمام کارهای مربوط به Assetهای واقعی فعلاً متوقف می‌شوند و به مرحله آخر منتقل می‌شوند.
 
-[ ] npm run build
-[ ] Verify /out
-[ ] Upload to cPanel
-[ ] Connect ayricchap.ir
-[ ] SSL
-[ ] Production test
-[ ] Mobile production test
-[ ] Final launch
+فعلاً انجام نشود:
+
+* تهیه تصاویر
+* انتخاب عکس نهایی
+* تولید تصاویر placeholder به‌عنوان asset نهایی
+* جایگزینی logo
+* طراحی OG image
+* نهایی‌سازی portfolio images
+* نهایی‌سازی service images
+* نهایی‌سازی blog images
+* نهایی‌سازی hero image
 
 ⸻
 
-29. Things That Are DONE — Do Not Rebuild
+16 — FINAL ASSET PACKAGE
 
-These are officially considered completed:
+وقتی تصاویر و لوگو چند روز دیگر آماده شدند، در مرحله نهایی این Assetها وارد پروژه می‌شوند.
 
-✅ Core Next.js architecture
-✅ Design system
-✅ Homepage
-✅ About
-✅ Contact
-✅ Quote page UI
-✅ Services architecture
-✅ 21 services
-✅ Service detail template
-✅ Business pages
-✅ Portfolio architecture
-✅ Blog architecture
-✅ Blog detail
-✅ Metadata foundation
-✅ Canonical URLs
-✅ Open Graph
-✅ Twitter metadata
-✅ Sitemap
-✅ Robots system
-✅ JSON-LD foundation
-✅ Legacy blog redirect strategy
-✅ Static export configuration
+Logo
 
-Do not restart these phases unless final QA finds a concrete bug.
+public/images/brand/logo.svg
+
+فایل نهایی لوگوی آیریک.
 
 ⸻
 
-30. Current Project Status
+Hero
 
-                    STATUS
-────────────────────────────────────
-Design                  ✅ COMPLETE
-Architecture            ✅ COMPLETE
-Pages                   ✅ COMPLETE
-Services                ✅ COMPLETE
-Business Pages          ✅ COMPLETE
-Blog                    ✅ COMPLETE
-Portfolio               ✅ COMPLETE
-SEO Foundation          ✅ COMPLETE
-Static Export           ✅ COMPLETE
-Technical Cleanup       ⚠️ NEXT
-Real Assets             ❌ NEXT
-Forms                   ❌ NEXT
-Final QA                ❌ NEXT
-cPanel Deployment       ❌ NEXT
-Launch                  ❌ FINAL
+public/images/hero.jpg
+
+هدف:
+
+* real printing / production atmosphere
+* مناسب Hero
+* فضای کافی برای متن
+* کیفیت بالا
+* responsive crop
+
+پیشنهاد ابعاد:
+
+1920 × 1080 یا بزرگ‌تر
 
 ⸻
 
-31. NEXT ACTION
+Service Images
 
-Do not go back to SEO.
+فقط برای Featured Services:
 
-The next task is:
+public/images/services/silk.jpg
+public/images/services/dtf.jpg
 
-PHASE 8 — TECHNICAL CLEANUP
+نسبت پیشنهادی:
 
-Order:
+4:3
 
-1. Remove duplicate/legacy files
-2. Fix outdated content
-3. Clean unused architecture
-4. Verify there are no broken imports
-5. Build
-6. Move to real assets
+حداقل:
 
-After that:
+1600 × 1200
 
-PHASE 9 — REAL CONTENT & IMAGES
-↓
-PHASE 10 — REAL INQUIRY FORM
-↓
-PHASE 11 — FINAL QA
-↓
-PHASE 12 — cPanel DEPLOYMENT
-↓
-🚀 LAUNCH.
+⸻
 
-نقطه شروع بعد از آپدیت Spec:
+Portfolio Images
 
-PHASE 8 — TECHNICAL CLEANUP → Item 1: بررسی و حذف فایل‌های Legacy/Duplicate
+برای ۶ پروژه:
+
+public/images/portfolio/
+
+فایل‌های موردنظر:
+
+packaging.jpg
+fashion-print.jpg
+restaurant-print.jpg
+cafe-print.jpg
+corporate-print.jpg
+promotional-products.jpg
+
+اما این تصاویر تا زمانی که عکس واقعی پروژه‌ها در اختیار نباشد، نهایی نیستند.
+
+نباید پروژه ساختگی یا تصویر stock به‌عنوان نمونه‌کار واقعی آیریک معرفی شود.
+
+⸻
+
+Blog Images
+
+سه تصویر:
+
+public/images/blog/choosing-print-method.jpg
+public/images/blog/screen-printing-guide.jpg
+public/images/blog/screen-printing-vs-dtf.jpg
+
+نسبت:
+
+16:9
+
+⸻
+
+OG Image
+
+public/images/og.jpg
+
+نسبت:
+
+1200 × 630
+
+شامل:
+
+* لوگوی آیریک
+* پیام کوتاه برند
+* composition مناسب social sharing
+
+⸻
+
+17 — PLACEHOLDERS
+
+تا زمان دریافت Assetهای واقعی، placeholderها قابل قبول هستند.
+
+Placeholder نباید در مرحله Production نهایی باقی بماند.
+
+MediaPlaceholder نیز باید در مرحله Asset Replacement بررسی شود.
+
+⸻
+
+18 — SITE CONFIG / METADATA
+
+content/site.ts باید در مرحله نهایی Assetها بررسی و تکمیل شود.
+
+موارد مرتبط با Asset که فعلاً نباید نهایی شوند:
+
+* logo
+* logoMark
+* ogImage
+
+اطلاعات غیر Asset مانند:
+
+* نام برند
+* tagline
+* شهر
+* service area
+* navigation
+
+باید مستقل از دریافت تصاویر قابل تکمیل باشند.
+
+⸻
+
+19 — FORMS
+
+Form implementation هنوز نهایی نشده است.
+
+باقی‌مانده:
+
+1. انتخاب سیستم فرم
+2. اتصال فرم استعلام قیمت
+3. بررسی ارسال موفق
+4. بررسی خطا
+5. success state
+6. failure state
+7. تست روی mobile
+8. تست روی production
+
+QuoteForm قدیمی بررسی شده و مورد استفاده فعلی ندارد.
+
+⸻
+
+20 — FINAL TECHNICAL QA
+
+بعد از اتمام بخش‌های فعلی:
+
+باید بررسی شود:
+
+* TypeScript errors
+* unused imports
+* broken links
+* broken routes
+* missing routes
+* metadata
+* canonical URLs
+* robots
+* sitemap
+* structured data
+* responsive behavior
+* mobile navigation
+* accessibility basics
+* image alt text
+* 404 behavior
+* redirectها
+* فارسی/RTL
+* SEO/GEO
+* Static Export
+
+سپس:
+
+npm run build
+
+باید بدون error اجرا شود.
+
+⸻
+
+21 — FINAL QA ORDER
+
+ترتیب نهایی کار از اینجا:
+
+STEP 1 — Technical Cleanup
+
+* بررسی نهایی architecture
+* بررسی legacy files
+* بررسی imports
+* بررسی routes
+* بررسی metadata
+* build
+
+بدون نیاز به تصاویر و لوگو
+
+⸻
+
+STEP 2 — Content QA
+
+* بررسی تمام متن‌های Home
+* بررسی تمام service pages
+* بررسی Blog
+* بررسی About
+* بررسی Contact
+* بررسی CTAها
+* بررسی اطلاعات کرج
+* بررسی نام Ayric / آیریک
+
+بدون نیاز به تصاویر و لوگوی نهایی
+
+⸻
+
+STEP 3 — Form
+
+* انتخاب فرم نهایی
+* اتصال فرم
+* تست ارسال
+* تست error/success
+
+بدون وابستگی به Assetها
+
+⸻
+
+STEP 4 — FINAL ASSETS
+
+وقتی لوگو و تصاویر واقعی دریافت شدند:
+
+1. Logo
+2. Hero
+3. Silk image
+4. DTF image
+5. Portfolio images
+6. Blog images
+7. OG image
+8. بررسی alt text
+9. بررسی crop و responsive behavior
+10. حذف placeholderهای باقی‌مانده
+
+⸻
+
+STEP 5 — FINAL SEO / GEO
+
+بعد از ورود Assetها:
+
+* title
+* description
+* canonical
+* OG
+* Twitter card
+* image metadata
+* structured data
+* sitemap
+* robots
+* internal linking
+* service/entity signals
+* local signals for Karaj
+
+⸻
+
+STEP 6 — FINAL BUILD
+
+npm run build
+
+بررسی خروجی Static Export.
+
+⸻
+
+STEP 7 — PRODUCTION
+
+بعد از تأیید کامل:
+
+1. Static files
+2. cPanel
+3. Domain
+4. SSL
+5. Production test
+6. Mobile test
+7. Final link check
+8. Final SEO check
+
+⸻
+
+22 — CURRENT STATUS
+
+DONE
+
+* Next.js architecture
+* Static export setup
+* Main navigation
+* Header
+* Footer
+* Services architecture
+* 21 actual services
+* Home restructuring
+* Silk featured service
+* DTF featured service
+* Other services SEO section
+* Blog route
+* Blog content restructuring
+* Blog article pages
+* Responsive Home
+* Responsive Blog
+* Legacy cleanup
+* Tehran → Karaj cleanup
+* Ayric naming cleanup
+* Quote calculator removed / not part of product
+* Build/deployment previously verified successfully
+
+CURRENT
+
+* Technical final QA
+* Content final QA
+* Form implementation
+* Final SEO/GEO QA
+
+WAITING FOR USER ASSETS
+
+* Final logo
+* Hero image
+* Silk image
+* DTF image
+* Portfolio images
+* Blog images
+* OG image
+
+FINAL
+
+* Asset integration
+* Final build
+* cPanel deployment
+* Domain connection
+* Production QA
+
+⸻
+
+23 — IMPORTANT WORKING RULES
+
+Rule 1
+
+Do not invent services.
+
+Only use the 21 services defined in services.ts.
+
+Rule 2
+
+Do not turn «استعلام قیمت» into an online calculator.
+
+Rule 3
+
+Home’s featured services are only:
+
+* چاپ سیلک
+* چاپ DTF
+
+Rule 4
+
+The other 19 services appear in Home only as text links in:
+
+سایر خدمات آیریک
+
+Rule 5
+
+Do not use packaging or generic product printing as standalone services unless explicitly defined in the service source.
+
+Rule 6
+
+Do not use fake portfolio projects or pretend stock imagery is real Ayric work.
+
+Rule 7
+
+Images and final logo are FINAL-STAGE tasks.
+
+Do not block current technical/content work waiting for them.
+
+Rule 8
+
+All pages must remain responsive.
+
+Rule 9
+
+When modifying a file, provide the complete file, not an instruction to insert code into an existing section.
+
+Rule 10
+
+Do not change already-approved architecture or decisions without a concrete reason.
+
+⸻
+
+CURRENT PROJECT STATE
+
+The website is structurally built and approaching final QA.
+
+The immediate work is not images or logo.
+
+The immediate work is:
+
+Technical QA → Content QA → Forms → Final Asset Integration → SEO/GEO QA → Build → cPanel → Production.
