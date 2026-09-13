@@ -3,6 +3,7 @@ export type BlogPost = {
   title: string;
   category: string;
   date: string;
+  dateISO: string;
   excerpt: string;
   content: string;
 };
@@ -13,6 +14,7 @@ export const blogPosts: BlogPost[] = [
     title: "چطور روش چاپ مناسب پروژه‌مان را انتخاب کنیم؟",
     category: "راهنمای چاپ",
     date: "۱۴۰۵/۰۶/۰۱",
+    dateISO: "2026-08-23",
     excerpt:
       "انتخاب روش چاپ به تیراژ، جنس متریال، نوع طرح و نتیجه مورد انتظار بستگی دارد. در این راهنما مهم‌ترین معیارها را بررسی می‌کنیم.",
     content: `
@@ -49,6 +51,7 @@ export const blogPosts: BlogPost[] = [
     title: "چاپ سیلک چیست و چه زمانی انتخاب مناسبی است؟",
     category: "تکنیک‌های چاپ",
     date: "۱۴۰۵/۰۵/۲۵",
+    dateISO: "2026-08-16",
     excerpt:
       "چاپ سیلک یکی از روش‌های پرکاربرد برای چاپ روی لباس، پارچه، بگ و سطوح مختلف است. در این مطلب با ویژگی‌ها و کاربردهای آن آشنا می‌شویم.",
     content: `
@@ -83,6 +86,7 @@ export const blogPosts: BlogPost[] = [
     title: "چاپ سیلک یا DTF؛ برای پروژه ما کدام مناسب‌تر است؟",
     category: "راهنمای چاپ",
     date: "۱۴۰۵/۰۵/۱۸",
+    dateISO: "2026-08-09",
     excerpt:
       "سیلک و DTF هرکدام ویژگی‌های متفاوتی دارند. نوع طرح، تعداد رنگ، متریال و تیراژ مشخص می‌کنند کدام روش برای پروژه شما مناسب‌تر است.",
     content: `
