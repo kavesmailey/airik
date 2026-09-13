@@ -52,11 +52,6 @@ const faqs = [
       "نیازی نیست روش چاپ را از قبل مشخص کنید. کافی است محصول و کاربرد آن را توضیح دهید تا بر اساس مشخصات پروژه، روش مناسب چاپ بررسی شود.",
   },
   {
-    question: "آیا می‌توانم فایل طراحی را همراه درخواست ارسال کنم؟",
-    answer:
-      "بله. اگر فایل طراحی یا نمونه‌ای از محصول دارید، می‌توانید آن را همراه درخواست خود ارسال کنید تا بررسی و برآورد دقیق‌تر انجام شود.",
-  },
-  {
     question: "قیمت چاپ بر چه اساسی تعیین می‌شود؟",
     answer:
       "قیمت نهایی به عواملی مانند نوع چاپ، محصول یا متریال، تعداد، ابعاد، تعداد رنگ، جزئیات اجرا و زمان مورد نیاز بستگی دارد.",
@@ -175,8 +170,8 @@ export default function QuotePage() {
             <p className="text-lg leading-9 text-black/65 sm:text-xl">
               برای استعلام قیمت چاپ در آیریک، کافی است نوع محصول،
               تعداد تقریبی، ابعاد و زمان مورد نیاز را مشخص کنید.
-              در صورت نیاز می‌توانید فایل طراحی و توضیحات فنی پروژه
-              را نیز ارسال کنید تا امکان بررسی دقیق‌تر وجود داشته باشد.
+              توضیحات فنی پروژه را نیز می‌توانید در فرم وارد کنید
+              تا امکان بررسی دقیق‌تر وجود داشته باشد.
             </p>
           </div>
         </div>
@@ -212,7 +207,6 @@ export default function QuotePage() {
                   "تعداد تقریبی",
                   "ابعاد",
                   "زمان مورد نیاز",
-                  "فایل یا نمونه",
                 ].map((item, index) => (
                   <div
                     key={item}
@@ -230,11 +224,7 @@ export default function QuotePage() {
 
             {/* FORM */}
             <div>
-              <form
-                method="post"
-                encType="multipart/form-data"
-                className="border-t border-black/10"
-              >
+              <form method="post" className="border-t border-black/10">
                 {/* NAME + PHONE */}
                 <div className="grid gap-8 py-8 md:grid-cols-2">
                   <label className="block">
@@ -380,27 +370,6 @@ export default function QuotePage() {
                   />
                 </label>
 
-                {/* FILE */}
-                <div className="border-t border-black/10 py-8">
-                  <label className="block">
-                    <span className="mb-3 block text-sm text-black/50">
-                      فایل پروژه
-                    </span>
-
-                    <input
-                      type="file"
-                      name="file"
-                      accept=".jpg,.jpeg,.png,.pdf,.ai,.psd,.zip"
-                      className="block w-full text-sm text-black/50 file:ml-4 file:rounded-full file:border-0 file:bg-black file:px-5 file:py-3 file:text-sm file:text-white"
-                    />
-
-                    <span className="mt-3 block text-xs leading-6 text-black/35">
-                      در صورت داشتن فایل طراحی، نمونه یا مشخصات
-                      پروژه می‌توانید آن را ارسال کنید.
-                    </span>
-                  </label>
-                </div>
-
                 {/* SUBMIT */}
                 <div className="border-t border-black/10 pt-8">
                   <button
@@ -443,7 +412,7 @@ export default function QuotePage() {
               {[
                 {
                   title: "بررسی پروژه",
-                  text: "اطلاعات و فایل‌های ارسال‌شده بررسی می‌شوند.",
+                  text: "اطلاعات ارسال‌شده بررسی می‌شوند.",
                 },
                 {
                   title: "انتخاب روش مناسب",
