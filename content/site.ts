@@ -28,12 +28,6 @@ export const siteConfig = {
     whatsapp: "",
   },
 
-  /**
-   * Brand assets
-   *
-   * These paths remain empty until the actual
-   * brand assets are added to /public/images/brand/.
-   */
   logo: "",
   logoMark: "",
   ogImage: "",
@@ -41,6 +35,10 @@ export const siteConfig = {
   navigation: [
     { label: "خانه", href: "/" },
     { label: "خدمات چاپ", href: "/خدمات" },
+    {
+      label: "چاپ برای کسب‌وکارها",
+      href: "/برای-کسب-و-کارها",
+    },
     { label: "نمونه‌کارها", href: "/نمونه-کارها" },
     { label: "بلاگ", href: "/وبلاگ" },
     { label: "درباره ما", href: "/درباره-ما" },
