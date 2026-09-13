@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import "./globals.css";
 
 import Header from "@/components/Header";
@@ -11,22 +12,22 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "آیریک | راهکارهای چاپ",
-    template: "%s | آیریک",
+    default: `${siteConfig.name} | ${siteConfig.tagline}`,
+    template: `%s | ${siteConfig.name}`,
   },
 
-  description:
-    "آیریک؛ ارائه‌دهنده راهکارهای چاپ برای برندها و کسب‌وکارها، از چاپ روی لباس و پارچه تا بسته‌بندی و اقلام تبلیغاتی.",
+  description: siteConfig.description,
 
   keywords: [
     "آیریک",
     "Ayric",
-    "چاپ",
-    "چاپخانه",
+    "چاپ آیریک",
+    "چاپ سیلک",
+    "چاپ DTF",
     "چاپ روی لباس",
     "چاپ روی پارچه",
-    "بسته بندی",
-    "چاپ تبلیغاتی",
+    "چاپ روی بگ",
+    "چاپ در کرج",
   ],
 
   robots: {
@@ -34,21 +35,23 @@ export const metadata: Metadata = {
     follow: true,
   },
 
+  alternates: {
+    canonical: siteUrl,
+  },
+
   openGraph: {
-    title: "آیریک | راهکارهای چاپ",
-    description:
-      "آیریک؛ ارائه‌دهنده راهکارهای چاپ برای برندها و کسب‌وکارها، از چاپ روی لباس و پارچه تا بسته‌بندی و اقلام تبلیغاتی.",
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    description: siteConfig.description,
     url: siteUrl,
-    siteName: "آیریک",
+    siteName: siteConfig.name,
     locale: "fa_IR",
     type: "website",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "آیریک | راهکارهای چاپ",
-    description:
-      "آیریک؛ ارائه‌دهنده راهکارهای چاپ برای برندها و کسب‌وکارها، از چاپ روی لباس و پارچه تا بسته‌بندی و اقلام تبلیغاتی.",
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    description: siteConfig.description,
   },
 };
 
