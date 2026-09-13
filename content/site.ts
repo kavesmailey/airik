@@ -5,7 +5,7 @@ export const siteConfig = {
   tagline: "چاپ تخصصی برای برندهایی که کیفیت اهمیت دارد",
 
   description:
-    "آیریک یک مجموعه تخصصی چاپ برای برندها، کسب‌وکارها و سازمان‌هاست؛ از چاپ سیلک و DTF روی لباس و پارچه تا چاپ روی بگ، بسته‌بندی و محصولات تبلیغاتی.",
+    "آیریک یک مجموعه تخصصی چاپ در کرج است؛ با تمرکز بر چاپ سیلک و چاپ DTF و ارائه خدمات چاپ روی لباس، پارچه، بگ و سایر سطوح و محصولات تعریف‌شده در مجموعه.",
 
   siteUrl: "https://ayricchap.ir",
 
@@ -31,7 +31,7 @@ export const siteConfig = {
   /**
    * Brand assets
    *
-   * These paths are intentionally empty until the actual
+   * These paths remain empty until the actual
    * brand assets are added to /public/images/brand/.
    */
   logo: "",
