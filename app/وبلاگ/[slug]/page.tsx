@@ -117,8 +117,8 @@ export default function ArticlePage({
     "@type": "Article",
     headline: post.title,
     description: post.excerpt,
-datePublished: post.dateISO,
-dateModified: post.dateISO,
+    datePublished: post.dateISO,
+    dateModified: post.dateISO,
     articleSection: post.category,
     inLanguage: "fa-IR",
 
@@ -153,7 +153,7 @@ dateModified: post.dateISO,
       {
         "@type": "ListItem",
         position: 2,
-        name: "مجله چاپ",
+        name: "بلاگ",
         item: blogUrl,
       },
 
@@ -190,7 +190,7 @@ dateModified: post.dateISO,
 
             <span aria-hidden="true">/</span>
 
-            <Link href="/وبلاگ">مجله چاپ</Link>
+            <Link href="/وبلاگ">بلاگ</Link>
 
             <span aria-hidden="true">/</span>
 
@@ -331,7 +331,7 @@ dateModified: post.dateISO,
           >
             <span aria-hidden="true">→</span>
 
-            بازگشت به مجله چاپ
+            بازگشت به بلاگ
           </Link>
         </div>
       </section>
