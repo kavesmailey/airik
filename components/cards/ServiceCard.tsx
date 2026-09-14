@@ -36,6 +36,8 @@ export default function ServiceCard({
             aspectRatio="4/3"
             label={service.title}
             tone={isDark ? "dark" : "light"}
+            src={service.image}
+            alt={`${service.title} | آیریک`}
             className="mb-4"
           />
         </div>
