@@ -1,4 +1,4 @@
-export default function WhyIric() {
+export default function WhyAyric() {
   const reasons = [
     {
       number: "01",
