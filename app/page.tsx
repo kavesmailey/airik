@@ -1,7 +1,7 @@
 import Hero from "@/components/home/Hero";
 import ServicesPreview from "@/components/home/ServicesPreview";
 import ProjectsPreview from "@/components/home/ProjectsPreview";
-import WhyIric from "@/components/home/WhyIric";
+import WhyAyric from "@/components/home/WhyAyric";
 import FinalCta from "@/components/home/FinalCta";
 
 export default function HomePage() {
@@ -10,7 +10,7 @@ export default function HomePage() {
       <Hero />
       <ServicesPreview />
       <ProjectsPreview />
-      <WhyIric />
+      <WhyAyric />
       <FinalCta />
     </main>
   );
