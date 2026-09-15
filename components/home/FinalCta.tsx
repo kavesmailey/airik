@@ -25,7 +25,7 @@ export default function FinalCta() {
             <h2
               className="mt-6 text-4xl font-bold sm:text-5xl lg:text-6xl"
               style={{
-                color: "var(--color-white)",
+                color: "var(--color-dark-green)",
                 lineHeight: "var(--line-height-tight)",
               }}
             >
@@ -46,12 +46,20 @@ export default function FinalCta() {
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button href="/استعلام-قیمت" size="lg">
+              <Button
+                href="/استعلام-قیمت"
+                size="lg"
+                variant="outline"
+              >
                 استعلام قیمت
                 <IconArrow direction="up-left" size={16} />
               </Button>
 
-              <Button href="/تماس-با-ما" size="lg" variant="outline">
+              <Button
+                href="/تماس-با-ما"
+                size="lg"
+                variant="outline"
+              >
                 تماس با آیریک
               </Button>
             </div>
