@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import { projects } from "@/content/projects";
 import { siteConfig } from "@/content/site";
@@ -183,8 +182,7 @@ export default function ProjectsPage() {
             {projects.map((project, index) => (
               <Reveal key={project.slug} delay={(index % 2) * 80}>
                 <article className="group">
-                  <Link
-                    href={`/نمونه-کارها/${project.slug}`}
+                  <div
                     className="block"
                     style={{
                       textDecoration: "none",
@@ -247,7 +245,7 @@ export default function ProjectsPage() {
                         </span>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 </article>
               </Reveal>
             ))}
