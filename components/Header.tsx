@@ -23,12 +23,12 @@ export default function Header() {
       dir="rtl"
       className="sticky top-0 z-50 border-b border-black/10 bg-[#f7f5f1]/90 backdrop-blur-xl"
     >
-      <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between px-5 sm:px-8 md:h-[84px] md:px-10 lg:px-12">
+      <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between gap-6 px-5 sm:px-8 md:h-[84px] md:px-10 lg:px-12">
         {/* Logo */}
         <Link
           href="/"
           onClick={() => setIsOpen(false)}
-          className="group relative z-10 flex items-center"
+          className="group relative z-10 flex shrink-0 items-center"
           aria-label={siteConfig.name}
         >
           <span className="text-[22px] font-semibold tracking-[-0.05em] transition-opacity duration-300 group-hover:opacity-55">
@@ -39,7 +39,7 @@ export default function Header() {
         {/* Desktop Navigation */}
         <nav
           aria-label="ناوبری اصلی"
-          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 md:flex lg:gap-7"
+          className="hidden min-w-0 flex-1 items-center justify-center gap-3 lg:flex xl:gap-5"
         >
           {siteConfig.navigation.map((item) => {
             const active = isActive(item.href);
@@ -48,7 +48,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="group relative whitespace-nowrap py-3 text-[12px] text-black/50 transition-colors duration-300 hover:text-black lg:text-[13px]"
+                className="group relative shrink-0 whitespace-nowrap py-3 text-[11px] text-black/50 transition-colors duration-300 hover:text-black xl:text-[12px]"
               >
                 <span className={active ? "text-black" : ""}>
                   {item.label}
@@ -66,10 +66,10 @@ export default function Header() {
         </nav>
 
         {/* Desktop CTA */}
-        <div className="hidden md:block">
+        <div className="hidden shrink-0 lg:block">
           <Link
             href={siteConfig.cta.href}
-            className="group inline-flex items-center gap-2.5 rounded-full bg-black px-5 py-2.5 text-[12px] font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-black/85"
+            className="group inline-flex items-center gap-2 rounded-full bg-black px-4 py-2.5 text-[11px] font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-black/85 xl:px-5 xl:text-[12px]"
           >
             <span>{siteConfig.cta.label}</span>
 
@@ -82,14 +82,14 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile / Tablet Menu Button */}
         <button
           type="button"
           aria-label={isOpen ? "بستن منو" : "باز کردن منو"}
           aria-expanded={isOpen}
           aria-controls="mobile-navigation"
           onClick={() => setIsOpen((value) => !value)}
-          className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-black/10 transition-colors duration-300 hover:bg-black/5 md:hidden"
+          className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/10 transition-colors duration-300 hover:bg-black/5 lg:hidden"
         >
           <span className="relative block h-4 w-5">
             <span
@@ -113,13 +113,11 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile / Tablet Navigation */}
       <div
         id="mobile-navigation"
-        className={`overflow-hidden border-t border-black/10 transition-[max-height,opacity] duration-400 ease-out md:hidden ${
-          isOpen
-            ? "max-h-[700px] opacity-100"
-            : "max-h-0 opacity-0"
+        className={`overflow-hidden border-t border-black/10 transition-[max-height,opacity] duration-300 ease-out lg:hidden ${
+          isOpen ? "max-h-[900px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <nav
@@ -140,7 +138,9 @@ export default function Header() {
                     : "text-black/55 hover:text-black"
                 }`}
               >
-                <span className="text-lg">{item.label}</span>
+                <span className="text-base sm:text-lg">
+                  {item.label}
+                </span>
 
                 <span
                   aria-hidden="true"
