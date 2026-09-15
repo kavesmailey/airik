@@ -8,6 +8,10 @@ import { siteConfig } from "@/content/site";
 
 const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
 
+const logoUrl = siteConfig.logo.startsWith("http")
+  ? siteConfig.logo
+  : `${siteUrl}${siteConfig.logo}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
@@ -46,12 +50,23 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: "fa_IR",
     type: "website",
+    images: [
+      {
+        url: logoUrl,
+        alt: "لوگوی آیریک",
+      },
+    ],
   },
 
   twitter: {
     card: "summary_large_image",
     title: `${siteConfig.name} | ${siteConfig.tagline}`,
     description: siteConfig.description,
+    images: [logoUrl],
+  },
+
+  icons: {
+    icon: siteConfig.logo,
   },
 };
 
@@ -62,7 +77,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className="min-h-screen bg-[#f7f5f1] text-black antialiased">
+      <body className="min-h-screen bg-white text-[#022F12] antialiased">
         <Header />
         {children}
         <Footer />
