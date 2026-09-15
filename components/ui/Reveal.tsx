@@ -6,60 +6,66 @@ interface RevealProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
-  respectReducedMotion?: boolean;
+  direction?: "up" | "down" | "left" | "right" | "none";
+  once?: boolean;
 }
 
 export default function Reveal({
   children,
   className = "",
   delay = 0,
-  respectReducedMotion = true,
+  direction = "up",
+  once = true,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const reducedMotion = respectReducedMotion
-      ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      : false;
-
-    if (reducedMotion) {
-      setIsVisible(true);
-      return;
-    }
-
     const element = ref.current;
+
     if (!element) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+
+          if (once) {
+            observer.unobserve(element);
           }
-        });
+        } else if (!once) {
+          setVisible(false);
+        }
       },
       {
-        threshold: 0.15,
-        rootMargin: "0px 0px -40px 0px",
+        threshold: 0.12,
+        rootMargin: "0px 0px -60px 0px",
       }
     );
 
     observer.observe(element);
+
     return () => observer.disconnect();
-  }, [respectReducedMotion]);
+  }, [once]);
+
+  const transforms = {
+    up: "translateY(50px)",
+    down: "translateY(-50px)",
+    left: "translateX(50px)",
+    right: "translateX(-50px)",
+    none: "none",
+  };
 
   return (
     <div
       ref={ref}
       className={className}
       style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(22px)",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translate3d(0, 0, 0)" : transforms[direction],
+        transition: `opacity 900ms cubic-bezier(0.22, 1, 0.36, 1), transform 1100ms cubic-bezier(0.22, 1, 0.36, 1)`,
         transitionDelay: `${delay}ms`,
-        transitionDuration: "600ms",
-        transitionTimingFunction: "var(--ease-default)",
+        willChange: visible ? "auto" : "opacity, transform",
       }}
     >
       {children}
