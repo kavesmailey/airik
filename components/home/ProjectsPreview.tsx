@@ -1,9 +1,8 @@
 import Link from "next/link";
 
 import { projects } from "@/content/projects";
-
-import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 import IconArrow from "@/components/ui/IconArrow";
+import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 
 export default function ProjectsPreview() {
   return (
@@ -62,7 +61,9 @@ export default function ProjectsPreview() {
                 <MediaPlaceholder
                   aspectRatio="4/3"
                   label={project.title}
-                  tone="dark"
+                  tone="light"
+                  src={project.image}
+                  alt={project.title}
                   className="transition-transform duration-500 group-hover:scale-[1.02]"
                 />
               </div>
