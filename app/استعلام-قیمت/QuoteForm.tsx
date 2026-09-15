@@ -1,269 +1,459 @@
-"use client";
+import type { Metadata } from "next";
 
-import { FormEvent, useState } from "react";
+import { siteConfig } from "@/content/site";
+import QuoteForm from "./QuoteForm";
+import JsonLd from "@/components/seo/JsonLd";
 
-const projectTypes = [
-  "چاپ سیلک",
-  "چاپ DTF",
-  "چاپ روی لباس",
-  "چاپ روی بگ",
-  "چاپ روی کارتن",
-  "چاپ روی جعبه پیتزا",
-  "چاپ روی لیوان کاغذی",
-  "چاپ روی ظروف گرد",
-  "چاپ روی تیشرت",
-  "چاپ روی پارچه",
-  "چاپ کیسه پارچه‌ای",
-  "چاپ نایلون",
-  "تولید و چاپ توت‌بگ",
-  "چاپ لیوان",
-  "چاپ روی فلز",
-  "چاپ روی چوب",
-  "چاپ روی استیل",
-  "چاپ روی پلکسی",
-  "سایر",
+const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
+const canonicalUrl = `${siteUrl}/استعلام-قیمت`;
+
+export const metadata: Metadata = {
+  title: "استعلام قیمت چاپ | آیریک",
+  description:
+    "برای استعلام قیمت خدمات چاپ آیریک، نوع محصول، تعداد، ابعاد و زمان مورد نیاز پروژه را ارسال کنید.",
+  alternates: {
+    canonical: canonicalUrl,
+  },
+  openGraph: {
+    title: "استعلام قیمت چاپ | آیریک",
+    description:
+      "مشخصات پروژه چاپی خود را برای آیریک ارسال کنید و برای انتخاب روش چاپ و برآورد قیمت راهنمایی بگیرید.",
+    url: canonicalUrl,
+    siteName: siteConfig.name,
+    locale: "fa_IR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "استعلام قیمت چاپ | آیریک",
+    description:
+      "مشخصات پروژه چاپی خود را برای آیریک ارسال کنید و برای انتخاب روش چاپ و برآورد قیمت راهنمایی بگیرید.",
+  },
+};
+
+const faqs = [
+  {
+    question: "برای استعلام قیمت چاپ چه اطلاعاتی لازم است؟",
+    answer:
+      "برای شروع، نوع محصول، تعداد تقریبی، ابعاد و زمان مورد نیاز پروژه کافی است. اگر اطلاعات دیگری مثل جنس متریال یا روش چاپ را می‌دانید، می‌توانید آن را هم در توضیحات وارد کنید.",
+  },
+  {
+    question: "اگر روش چاپ مناسب را ندانم چه؟",
+    answer:
+      "نیازی نیست روش چاپ را از قبل مشخص کنید. کافی است محصول و کاربرد آن را توضیح دهید تا بر اساس مشخصات پروژه، روش مناسب چاپ بررسی شود.",
+  },
+  {
+    question: "قیمت چاپ بر چه اساسی تعیین می‌شود؟",
+    answer:
+      "قیمت نهایی به عواملی مانند نوع چاپ، محصول یا متریال، تعداد، ابعاد، تعداد رنگ، جزئیات اجرا و زمان مورد نیاز بستگی دارد.",
+  },
+  {
+    question: "آیا برای سفارش‌های برندها و کسب‌وکارها هم استعلام قیمت انجام می‌شود؟",
+    answer:
+      "بله. سفارش‌های چاپی برندها، کسب‌وکارها و پروژه‌های سازمانی قابل بررسی هستند.",
+  },
 ];
 
-export default function QuoteForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "خانه",
+      item: siteUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "استعلام قیمت",
+      item: canonicalUrl,
+    },
+  ],
+};
 
-  const [status, setStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({
-    type: null,
-    message: "",
-  });
+const quotePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "استعلام قیمت چاپ",
+  description:
+    "صفحه استعلام قیمت خدمات چاپ آیریک برای سفارش‌های چاپی برندها و کسب‌وکارها.",
+  url: canonicalUrl,
+  inLanguage: "fa-IR",
+  mainEntity: {
+    "@type": "Service",
+    name: "استعلام قیمت خدمات چاپ",
+    provider: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteUrl,
+    },
+    areaServed: {
+      "@type": "City",
+      name: "کرج",
+    },
+    serviceType: "خدمات چاپ",
+  },
+};
 
-  async function handleSubmit(
-    event: FormEvent<HTMLFormElement>
-  ) {
-    event.preventDefault();
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
 
-    if (isSubmitting) return;
-
-    setIsSubmitting(true);
-
-    setStatus({
-      type: null,
-      message: "",
-    });
-
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch("/api/quote.php", {
-        method: "POST",
-        body: formData,
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(
-          result.message ||
-            "ارسال درخواست انجام نشد. لطفاً دوباره تلاش کنید."
-        );
-      }
-
-      setStatus({
-        type: "success",
-        message:
-          result.message ||
-          "درخواست شما با موفقیت ارسال شد. به‌زودی با شما تماس می‌گیریم.",
-      });
-
-      form.reset();
-    } catch {
-      setStatus({
-        type: "error",
-        message:
-          "ارسال درخواست انجام نشد. لطفاً دوباره تلاش کنید یا از طریق صفحه تماس با ما ارتباط بگیرید.",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  }
-
+export default function QuotePage() {
   return (
-    <form
-      method="post"
-      onSubmit={handleSubmit}
-      className="border-t border-black/10"
-    >
-      <div className="grid gap-8 py-8 md:grid-cols-2">
-        <label className="block">
-          <span className="mb-3 block text-sm text-black/50">
-            نام و نام خانوادگی
-          </span>
+    <main dir="rtl">
+      <JsonLd type="breadcrumb" data={breadcrumbSchema} />
+      <JsonLd type="organization" data={quotePageSchema} />
+      <JsonLd type="faq" data={faqSchema} />
 
-          <input
-            type="text"
-            name="name"
-            required
-            autoComplete="name"
-            placeholder="نام شما"
-            className="w-full border-b border-black/15 bg-transparent px-0 py-4 text-base outline-none transition-colors placeholder:text-black/25 focus:border-black"
-          />
-        </label>
+      {/* Hero */}
+      <section
+        className="border-b"
+        style={{ borderColor: "rgba(2, 47, 18, 0.12)" }}
+      >
+        <div className="container-iric py-32 sm:py-40 lg:py-48">
+          <div className="max-w-5xl">
+            <p
+              className="mb-8 text-sm font-medium"
+              style={{ color: "var(--color-primary)" }}
+            >
+              استعلام قیمت چاپ
+            </p>
 
-        <label className="block">
-          <span className="mb-3 block text-sm text-black/50">
-            شماره تماس
-          </span>
+            <h1
+              className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl"
+              style={{
+                color: "var(--color-dark-green)",
+                lineHeight: "1.12",
+              }}
+            >
+              مشخصات پروژه را
+              <br />
+              برای ما بفرستید.
+            </h1>
 
-          <input
-            type="tel"
-            name="phone"
-            required
-            autoComplete="tel"
-            placeholder="۰۹۱۲..."
-            dir="ltr"
-            className="w-full border-b border-black/15 bg-transparent px-0 py-4 text-base outline-none transition-colors placeholder:text-black/25 focus:border-black"
-          />
-        </label>
-      </div>
-
-      <label className="block border-t border-black/10 py-8">
-        <span className="mb-3 block text-sm text-black/50">
-          ایمیل
-        </span>
-
-        <input
-          type="email"
-          name="email"
-          autoComplete="email"
-          placeholder="you@example.com"
-          dir="ltr"
-          className="w-full border-b border-black/15 bg-transparent px-0 py-4 text-base outline-none transition-colors placeholder:text-black/25 focus:border-black"
-        />
-      </label>
-
-      <label className="block border-t border-black/10 py-8">
-        <span className="mb-3 block text-sm text-black/50">
-          نوع پروژه
-        </span>
-
-        <select
-          name="projectType"
-          defaultValue=""
-          required
-          className="w-full border-b border-black/15 bg-transparent px-0 py-4 text-base outline-none transition-colors focus:border-black"
-        >
-          <option value="" disabled>
-            انتخاب کنید
-          </option>
-
-          {projectTypes.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <div className="grid gap-8 border-t border-black/10 py-8 md:grid-cols-2">
-        <label className="block">
-          <span className="mb-3 block text-sm text-black/50">
-            تعداد تقریبی
-          </span>
-
-          <input
-            type="text"
-            name="quantity"
-            placeholder="مثلاً ۵۰۰ عدد"
-            className="w-full border-b border-black/15 bg-transparent px-0 py-4 text-base outline-none transition-colors placeholder:text-black/25 focus:border-black"
-          />
-        </label>
-
-        <label className="block">
-          <span className="mb-3 block text-sm text-black/50">
-            ابعاد
-          </span>
-
-          <input
-            type="text"
-            name="dimensions"
-            placeholder="مثلاً ۲۰ × ۳۰ سانتی‌متر"
-            className="w-full border-b border-black/15 bg-transparent px-0 py-4 text-base outline-none transition-colors placeholder:text-black/25 focus:border-black"
-          />
-        </label>
-      </div>
-
-      <label className="block border-t border-black/10 py-8">
-        <span className="mb-3 block text-sm text-black/50">
-          متریال یا جنس محصول
-        </span>
-
-        <input
-          type="text"
-          name="material"
-          placeholder="اگر می‌دانید، وارد کنید"
-          className="w-full border-b border-black/15 bg-transparent px-0 py-4 text-base outline-none transition-colors placeholder:text-black/25 focus:border-black"
-        />
-      </label>
-
-      <label className="block border-t border-black/10 py-8">
-        <span className="mb-3 block text-sm text-black/50">
-          زمان مورد نیاز
-        </span>
-
-        <input
-          type="text"
-          name="deadline"
-          placeholder="مثلاً تا پایان شهریور"
-          className="w-full border-b border-black/15 bg-transparent px-0 py-4 text-base outline-none transition-colors placeholder:text-black/25 focus:border-black"
-        />
-      </label>
-
-      <label className="block border-t border-black/10 py-8">
-        <span className="mb-3 block text-sm text-black/50">
-          توضیحات پروژه
-        </span>
-
-        <textarea
-          name="message"
-          rows={7}
-          placeholder="هر اطلاعات دیگری که برای برآورد قیمت مفید است..."
-          className="w-full resize-none border-b border-black/15 bg-transparent px-0 py-4 text-base leading-8 outline-none transition-colors placeholder:text-black/25 focus:border-black"
-        />
-      </label>
-
-      {status.type && (
-        <div
-          role="status"
-          aria-live="polite"
-          className={`mb-8 border px-5 py-4 text-sm leading-7 ${
-            status.type === "success"
-              ? "border-black/10 bg-[#E4F0CC] text-[#022F12]"
-              : "border-red-900/15 bg-red-50 text-red-900/75"
-          }`}
-        >
-          {status.message}
+            <p
+              className="mt-10 max-w-3xl text-lg sm:text-xl"
+              style={{
+                color: "var(--color-dark-green)",
+                opacity: 0.68,
+                lineHeight: "2",
+              }}
+            >
+              برای دریافت برآورد قیمت خدمات چاپ، مشخصات اولیه پروژه خود را
+              ارسال کنید. نوع محصول، تعداد، ابعاد و زمان مورد نیاز به ما کمک
+              می‌کند تا درخواست شما را دقیق‌تر بررسی کنیم.
+            </p>
+          </div>
         </div>
-      )}
+      </section>
 
-      <div className="border-t border-black/10 pt-8">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="inline-flex items-center gap-3 rounded-full bg-[#022F12] px-8 py-4 text-sm text-white transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
-        >
-          {isSubmitting
-            ? "در حال ارسال..."
-            : "ارسال درخواست"}
+      {/* Quick Answer */}
+      <section
+        className="border-b"
+        style={{
+          backgroundColor: "var(--color-soft-green)",
+          borderColor: "rgba(2, 47, 18, 0.12)",
+        }}
+      >
+        <div className="container-iric py-16 sm:py-20">
+          <div className="max-w-4xl">
+            <p
+              className="mb-4 text-sm font-medium"
+              style={{ color: "var(--color-dark-green)" }}
+            >
+              استعلام قیمت چاپ
+            </p>
 
-          {!isSubmitting && (
-            <span aria-hidden="true">↗</span>
-          )}
-        </button>
+            <p
+              className="text-lg sm:text-xl"
+              style={{
+                color: "var(--color-dark-green)",
+                opacity: 0.68,
+                lineHeight: "2",
+              }}
+            >
+              برای استعلام قیمت چاپ در آیریک، کافی است نوع محصول، تعداد
+              تقریبی، ابعاد و زمان مورد نیاز را مشخص کنید. توضیحات فنی پروژه
+              را نیز می‌توانید در فرم وارد کنید تا امکان بررسی دقیق‌تر وجود
+              داشته باشد.
+            </p>
+          </div>
+        </div>
+      </section>
 
-        <p className="mt-5 max-w-lg text-xs leading-6 text-black/35">
-          اطلاعات ارسال‌شده برای بررسی و برآورد پروژه استفاده می‌شود.
-          پس از بررسی، برای ادامه فرایند با شما تماس خواهیم گرفت.
-        </p>
-      </div>
-    </form>
+      {/* Form */}
+      <section style={{ backgroundColor: "var(--color-white)" }}>
+        <div className="container-iric py-20 sm:py-24 md:py-32 lg:py-40">
+          <div className="grid gap-20 md:grid-cols-[0.7fr_1.3fr] md:gap-28">
+            <div>
+              <p
+                className="mb-7 text-sm font-medium"
+                style={{ color: "var(--color-primary)" }}
+              >
+                اطلاعات پروژه
+              </p>
+
+              <h2
+                className="text-3xl font-bold leading-[1.45] tracking-tight sm:text-4xl"
+                style={{ color: "var(--color-dark-green)" }}
+              >
+                هرچه اطلاعات
+                <br />
+                دقیق‌تر باشد،
+                <br />
+                برآورد دقیق‌تر است.
+              </h2>
+
+              <p
+                className="mt-8 max-w-md text-base"
+                style={{
+                  color: "var(--color-dark-green)",
+                  opacity: 0.55,
+                  lineHeight: "2",
+                }}
+              >
+                اگر هنوز بعضی از مشخصات پروژه را نمی‌دانید، مشکلی نیست.
+                اطلاعاتی که در اختیار دارید را وارد کنید و جزئیات باقی‌مانده
+                را در ادامه بررسی می‌کنیم.
+              </p>
+
+              <div
+                className="mt-12 border-t"
+                style={{ borderColor: "rgba(2, 47, 18, 0.12)" }}
+              >
+                {[
+                  "نوع محصول",
+                  "تعداد تقریبی",
+                  "ابعاد",
+                  "زمان مورد نیاز",
+                ].map((item, index) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-5 border-b py-5"
+                    style={{ borderColor: "rgba(2, 47, 18, 0.12)" }}
+                  >
+                    <span
+                      className="text-xs"
+                      style={{
+                        color: "var(--color-dark-green)",
+                        opacity: 0.3,
+                      }}
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <span
+                      className="text-sm"
+                      style={{ color: "var(--color-dark-green)" }}
+                    >
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <QuoteForm />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section
+        className="border-y"
+        style={{
+          backgroundColor: "var(--color-soft-green)",
+          borderColor: "rgba(2, 47, 18, 0.12)",
+        }}
+      >
+        <div className="container-iric py-20 sm:py-24 md:py-32">
+          <div className="grid gap-16 md:grid-cols-[0.7fr_1.3fr] md:gap-28">
+            <div>
+              <p
+                className="mb-7 text-sm font-medium"
+                style={{ color: "var(--color-primary)" }}
+              >
+                بعد از ارسال درخواست
+              </p>
+
+              <h2
+                className="text-3xl font-bold leading-[1.45] tracking-tight sm:text-4xl"
+                style={{ color: "var(--color-dark-green)" }}
+              >
+                از درخواست
+                <br />
+                تا برآورد.
+              </h2>
+            </div>
+
+            <div
+              className="border-t"
+              style={{ borderColor: "rgba(2, 47, 18, 0.12)" }}
+            >
+              {[
+                {
+                  title: "بررسی پروژه",
+                  text: "اطلاعات ارسال‌شده بررسی می‌شوند.",
+                },
+                {
+                  title: "انتخاب روش مناسب",
+                  text: "در صورت نیاز، روش چاپ و مشخصات فنی مناسب پروژه مشخص می‌شود.",
+                },
+                {
+                  title: "برآورد قیمت",
+                  text: "بر اساس مشخصات پروژه، هزینه و شرایط اجرا بررسی می‌شود.",
+                },
+                {
+                  title: "تماس و ادامه فرایند",
+                  text: "برای هماهنگی جزئیات و ادامه سفارش با شما ارتباط برقرار می‌کنیم.",
+                },
+              ].map((item, index) => (
+                <div
+                  key={item.title}
+                  className="grid gap-5 border-b py-8 sm:grid-cols-[60px_1fr]"
+                  style={{ borderColor: "rgba(2, 47, 18, 0.12)" }}
+                >
+                  <span
+                    className="text-xs"
+                    style={{
+                      color: "var(--color-dark-green)",
+                      opacity: 0.3,
+                    }}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <div>
+                    <h3
+                      className="text-lg font-bold"
+                      style={{ color: "var(--color-dark-green)" }}
+                    >
+                      {item.title}
+                    </h3>
+
+                    <p
+                      className="mt-3 max-w-xl text-sm"
+                      style={{
+                        color: "var(--color-dark-green)",
+                        opacity: 0.55,
+                        lineHeight: "2",
+                      }}
+                    >
+                      {item.text}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section style={{ backgroundColor: "var(--color-white)" }}>
+        <div className="container-iric py-20 sm:py-24 md:py-32 lg:py-40">
+          <div className="grid gap-16 md:grid-cols-[0.7fr_1.3fr] md:gap-28">
+            <div>
+              <p
+                className="mb-7 text-sm font-medium"
+                style={{ color: "var(--color-primary)" }}
+              >
+                سوالات متداول
+              </p>
+
+              <h2
+                className="text-3xl font-bold leading-[1.45] tracking-tight sm:text-4xl"
+                style={{ color: "var(--color-dark-green)" }}
+              >
+                قبل از
+                <br />
+                استعلام قیمت.
+              </h2>
+
+              <p
+                className="mt-7 max-w-sm text-sm"
+                style={{
+                  color: "var(--color-dark-green)",
+                  opacity: 0.5,
+                  lineHeight: "2",
+                }}
+              >
+                پاسخ چند سؤال رایج درباره قیمت‌گذاری و ثبت درخواست چاپ.
+              </p>
+            </div>
+
+            <div
+              className="border-t"
+              style={{ borderColor: "rgba(2, 47, 18, 0.12)" }}
+            >
+              {faqs.map((faq, index) => (
+                <details
+                  key={faq.question}
+                  className="group border-b"
+                  style={{ borderColor: "rgba(2, 47, 18, 0.12)" }}
+                >
+                  <summary className="flex cursor-pointer list-none items-start justify-between gap-8 py-7">
+                    <div className="flex gap-5">
+                      <span
+                        className="pt-1 text-xs"
+                        style={{
+                          color: "var(--color-dark-green)",
+                          opacity: 0.3,
+                        }}
+                      >
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+
+                      <span
+                        className="text-lg font-medium leading-8"
+                        style={{ color: "var(--color-dark-green)" }}
+                      >
+                        {faq.question}
+                      </span>
+                    </div>
+
+                    <span
+                      className="text-xl transition-transform group-open:rotate-45"
+                      style={{
+                        color: "var(--color-dark-green)",
+                        opacity: 0.4,
+                      }}
+                      aria-hidden="true"
+                    >
+                      +
+                    </span>
+                  </summary>
+
+                  <p
+                    className="pb-8 pr-9 text-sm sm:text-base"
+                    style={{
+                      color: "var(--color-dark-green)",
+                      opacity: 0.55,
+                      lineHeight: "2",
+                    }}
+                  >
+                    {faq.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
