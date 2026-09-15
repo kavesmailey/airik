@@ -293,30 +293,81 @@ export default function ContactPage() {
                     <option value="" disabled>
                       انتخاب کنید
                     </option>
+<option value="silk">
+  چاپ سیلک
+</option>
 
-                    <option value="packaging">
-                      بسته‌بندی
-                    </option>
+<option value="dtf">
+  چاپ DTF
+</option>
 
-                    <option value="clothing">
-                      چاپ روی لباس
-                    </option>
+<option value="clothing">
+  چاپ روی لباس
+</option>
 
-                    <option value="fabric">
-                      چاپ روی پارچه
-                    </option>
+<option value="bag">
+  چاپ روی بگ
+</option>
 
-                    <option value="product">
-                      چاپ روی محصول
-                    </option>
+<option value="carton">
+  چاپ روی کارتن
+</option>
 
-                    <option value="advertising">
-                      اقلام تبلیغاتی
-                    </option>
+<option value="pizza-box">
+  چاپ روی جعبه پیتزا
+</option>
 
-                    <option value="other">
-                      سایر
-                    </option>
+<option value="paper-cup">
+  چاپ روی لیوان کاغذی
+</option>
+
+<option value="round-container">
+  چاپ روی ظروف گرد
+</option>
+
+<option value="tshirt">
+  چاپ روی تیشرت
+</option>
+
+<option value="fabric">
+  چاپ روی پارچه
+</option>
+
+<option value="cloth-bag">
+  چاپ کیسه پارچه‌ای
+</option>
+
+<option value="nylon">
+  چاپ نایلون
+</option>
+
+<option value="tote-bag">
+  تولید و چاپ توت‌بگ
+</option>
+
+<option value="cup">
+  چاپ لیوان
+</option>
+
+<option value="metal">
+  چاپ روی فلز
+</option>
+
+<option value="wood">
+  چاپ روی چوب
+</option>
+
+<option value="steel">
+  چاپ روی استیل
+</option>
+
+<option value="plexiglass">
+  چاپ روی پلکسی
+</option>
+
+<option value="other">
+  سایر
+</option>
                   </select>
                 </label>
 
