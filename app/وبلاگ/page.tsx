@@ -1,337 +1,203 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+
+import Reveal from "@/components/ui/Reveal";
+import ParallaxImage from "@/components/ui/ParallaxImage";
+import IconArrow from "@/components/ui/IconArrow";
 import { blogPosts } from "@/content/blog";
 
-export const metadata: Metadata = {
-  title: "بلاگ | راهنمای چاپ و انتخاب روش چاپ",
-  description:
-    "راهنما و مطالب کاربردی درباره چاپ، چاپ سیلک، چاپ DTF، چاپ روی لباس، پارچه و سایر خدمات چاپی آیریک.",
-  alternates: {
-    canonical: "/وبلاگ",
-  },
-  openGraph: {
-    title: "بلاگ | آیریک",
-    description:
-      "راهنما و مطالب کاربردی درباره روش‌های چاپ و انتخاب تکنیک مناسب برای هر پروژه.",
-    type: "website",
-  },
-};
-
-const categories = [
-  "همه مطالب",
-  "راهنمای چاپ",
-  "تکنیک‌های چاپ",
-];
-
-const faqItems = [
-  {
-    question: "برای انتخاب روش چاپ مناسب از کجا شروع کنیم؟",
-    answer:
-      "ابتدا نوع محصول یا متریال، تعداد مورد نیاز، ابعاد، نوع طرح، کیفیت مورد انتظار و زمان تحویل را مشخص کنید. این اطلاعات معمولاً برای مقایسه روش‌های مختلف چاپ کافی هستند.",
-  },
-  {
-    question: "چاپ سیلک برای چه پروژه‌هایی مناسب است؟",
-    answer:
-      "چاپ سیلک برای بسیاری از پروژه‌های چاپ روی لباس، پارچه و برخی محصولات مناسب است. انتخاب نهایی به جنس سطح، تیراژ و ویژگی‌های طرح بستگی دارد.",
-  },
-  {
-    question: "چاپ سیلک یا DTF؛ کدام بهتر است؟",
-    answer:
-      "هیچ‌کدام همیشه بهتر نیستند. نوع طرح، متریال، تعداد رنگ، تیراژ و نتیجه مورد انتظار مشخص می‌کنند کدام روش برای پروژه مناسب‌تر است.",
-  },
-];
-
-function JsonLd({ data }: { data: Record<string, unknown> }) {
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(data),
-      }}
-    />
-  );
-}
-
 export default function BlogPage() {
-  const articleListSchema = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "بلاگ آیریک",
-    description:
-      "راهنما و مطالب کاربردی درباره روش‌های چاپ و انتخاب روش مناسب برای پروژه‌های چاپی.",
-    mainEntity: {
-      "@type": "ItemList",
-      itemListElement: blogPosts.map((post, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: post.title,
-        url: `/وبلاگ/${post.slug}`,
-      })),
-    },
-  };
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "خانه",
-        item: "/",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "بلاگ",
-        item: "/وبلاگ",
-      },
-    ],
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
-    })),
-  };
+  const featuredPost = blogPosts[0];
+  const otherPosts = blogPosts.slice(1);
 
   return (
-    <main dir="rtl">
-      <JsonLd data={articleListSchema} />
-      <JsonLd data={breadcrumbSchema} />
-      <JsonLd data={faqSchema} />
+    <main>
+      {/* Header */}
+      <section className="container mx-auto px-5 pb-16 pt-32 sm:px-8 sm:pb-20 sm:pt-40 lg:px-12 lg:pb-24">
+        <Reveal direction="up">
+          <p className="mb-5 text-sm font-medium text-[#8BC53D]">
+            وبلاگ آیریک
+          </p>
+        </Reveal>
 
-      {/* HERO */}
-      <section className="border-b border-black/10">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="max-w-5xl">
-            <p className="mb-7 text-sm font-medium text-black/45">
-              بلاگ آیریک
-            </p>
+        <Reveal direction="up" delay={100}>
+          <h1
+            className="max-w-4xl text-4xl font-semibold tracking-[-0.025em] text-[#021408] sm:text-5xl lg:text-6xl"
+            style={{ lineHeight: 1.3 }}
+          >
+            درباره چاپ،
+            <br />
+            محصول و برند.
+          </h1>
+        </Reveal>
 
-            <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
-              راهنمای چاپ؛
-              <br />
-              قبل از چاپ بهتر بدانید.
-            </h1>
-
-            <p className="mt-9 max-w-3xl text-lg leading-9 text-black/60 md:text-xl">
-              درباره روش‌های چاپ، کاربردها، محدودیت‌ها و نکاتی که به شما
-              کمک می‌کنند برای پروژه‌تان انتخاب دقیق‌تری داشته باشید.
-            </p>
-          </div>
-        </div>
+        <Reveal direction="up" delay={220}>
+          <p className="mt-7 max-w-2xl text-base leading-8 text-[#022F12]/65 sm:text-lg">
+            راهنماها و مطالب کاربردی برای انتخاب بهتر روش چاپ و ساخت
+            تجربه‌ای بهتر برای محصول و برند.
+          </p>
+        </Reveal>
       </section>
 
-      {/* QUICK ANSWER */}
-      <section className="border-b border-black/10 bg-[#f5f3ef]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 lg:px-12">
-          <div className="grid gap-8 md:grid-cols-[0.35fr_1fr] md:gap-16">
-            <p className="text-sm font-medium text-black/45">
-              راهنمای سریع
-            </p>
+      {/* Featured */}
+      {featuredPost && (
+        <section className="container mx-auto px-5 pb-20 sm:px-8 lg:px-12 lg:pb-28">
+          <Reveal direction="up">
+            <Link
+              href={`/وبلاگ/${featuredPost.slug}`}
+              className="group grid overflow-hidden rounded-[28px] bg-[#E4F0CC] lg:grid-cols-[1.15fr_0.85fr]"
+            >
+              <div className="relative min-h-[360px] overflow-hidden sm:min-h-[480px] lg:min-h-[560px]">
+                <ParallaxImage
+                  src={featuredPost.image}
+                  alt={featuredPost.title}
+                  strength={16}
+                  className="absolute inset-0 h-full w-full"
+                />
 
-            <p className="max-w-4xl text-lg leading-9 text-black/65 md:text-xl">
-              انتخاب روش چاپ به عواملی مثل جنس متریال، تیراژ، نوع طرح، کیفیت
-              مورد انتظار، زمان تولید و بودجه بستگی دارد. در بلاگ آیریک این
-              معیارها را به زبان ساده بررسی می‌کنیم تا قبل از سفارش بتوانید
-              گزینه‌های مناسب را مقایسه کنید.
-            </p>
-          </div>
-        </div>
-      </section>
+                <div className="absolute inset-0 bg-[#021408]/0 transition-colors duration-700 group-hover:bg-[#021408]/20" />
 
-      {/* ARTICLES */}
-      <section>
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="mb-14 flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
+                <div className="absolute right-6 top-6 sm:right-8 sm:top-8">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#021408] transition-transform duration-500 group-hover:-translate-x-1 group-hover:-translate-y-1">
+                    <IconArrow direction="up-left" size={20} />
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-between p-8 sm:p-10 lg:p-12">
+                <div>
+                  <p className="text-sm font-medium text-[#8BC53D]">
+                    مقاله منتخب
+                  </p>
+
+                  <h2
+                    className="mt-6 text-3xl font-semibold text-[#021408] sm:text-4xl"
+                    style={{ lineHeight: 1.4 }}
+                  >
+                    {featuredPost.title}
+                  </h2>
+
+                  <p className="mt-5 text-sm leading-8 text-[#022F12]/60 sm:text-base">
+                    {featuredPost.excerpt}
+                  </p>
+                </div>
+
+                <div className="mt-10 flex items-center justify-between border-t border-[#022F12]/10 pt-5 text-sm">
+                  <span className="text-[#022F12]/45">
+                    {featuredPost.readTime}
+                  </span>
+
+                  <span className="text-[#022F12]/45">
+                    مطالعه مقاله
+                  </span>
+                </div>
+              </div>
+            </Link>
+          </Reveal>
+        </section>
+      )}
+
+      {/* Other posts */}
+      <section className="container mx-auto px-5 pb-24 sm:px-8 lg:px-12 lg:pb-32">
+        <Reveal direction="up">
+          <div className="mb-10 flex items-end justify-between">
             <div>
-              <p className="mb-5 text-sm font-medium text-black/45">
-                آخرین مطالب
+              <p className="mb-4 text-sm font-medium text-[#8BC53D]">
+                مطالب بیشتر
               </p>
 
-              <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
-                راهنمای چاپ
+              <h2
+                className="text-3xl font-semibold text-[#021408] sm:text-4xl"
+                style={{ lineHeight: 1.35 }}
+              >
+                بیشتر بخوانید
               </h2>
             </div>
-
-            <p className="text-sm text-black/40">
-              {blogPosts.length} مطلب
-            </p>
           </div>
+        </Reveal>
 
-          {/* CATEGORIES */}
-          <nav
-            aria-label="دسته‌بندی مطالب"
-            className="mb-16 flex flex-wrap gap-2"
-          >
-            {categories.map((category, index) => (
-              <span
-                key={category}
-                className={`rounded-full border px-5 py-2.5 text-xs ${
-                  index === 0
-                    ? "border-black bg-black text-white"
-                    : "border-black/10 text-black/55"
-                }`}
+        <div className="grid gap-10 sm:grid-cols-2">
+          {otherPosts.map((post, index) => (
+            <Reveal
+              key={post.slug}
+              direction="up"
+              delay={index * 120}
+            >
+              <Link
+                href={`/وبلاگ/${post.slug}`}
+                className="group block"
               >
-                {category}
-              </span>
-            ))}
-          </nav>
+                <div className="relative overflow-hidden rounded-[24px]">
+                  <ParallaxImage
+                    src={post.image}
+                    alt={post.title}
+                    strength={12}
+                    className="h-[280px] sm:h-[340px]"
+                  />
 
-          {/* BLOG GRID */}
-          <div className="grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
-            {blogPosts.map((post) => (
-              <article key={post.slug} className="group">
-                <Link
-                  href={`/وبلاگ/${post.slug}`}
-                  className="block"
-                >
-                  {/* BLOG IMAGE */}
-                  <div className="relative mb-7 aspect-[16/10] overflow-hidden bg-[#f5f3ef]">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                    />
+                  <div className="absolute inset-0 bg-[#021408]/0 transition-colors duration-700 group-hover:bg-[#021408]/25" />
 
-                    <div className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/[0.04]" />
+                  <div className="absolute right-5 top-5 translate-y-2 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#021408]">
+                      <IconArrow direction="up-left" size={18} />
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-5">
+                  <div className="flex items-center justify-between gap-4 text-xs text-[#022F12]/40">
+                    <span>{post.readTime}</span>
+
+                    <span>
+                      {String(index + 2).padStart(2, "0")}
+                    </span>
                   </div>
 
-                  {/* META */}
-                  <div className="flex items-center gap-3 text-xs text-black/40">
-                    <span>{post.category}</span>
-
-                    <span aria-hidden="true">·</span>
-
-                    <time>{post.date}</time>
-                  </div>
-
-                  {/* TITLE */}
-                  <h3 className="mt-4 text-xl font-medium leading-[1.5] tracking-tight transition-opacity group-hover:opacity-60 md:text-2xl">
+                  <h3
+                    className="mt-3 text-2xl font-medium text-[#021408] transition-transform duration-500 group-hover:-translate-x-1"
+                    style={{ lineHeight: 1.45 }}
+                  >
                     {post.title}
                   </h3>
 
-                  {/* EXCERPT */}
-                  <p className="mt-4 line-clamp-3 text-base leading-8 text-black/50">
+                  <p className="mt-3 text-sm leading-7 text-[#022F12]/55">
                     {post.excerpt}
                   </p>
-
-                  {/* READ MORE */}
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium">
-                    مطالعه مطلب
-
-                    <span
-                      aria-hidden="true"
-                      className="transition-transform group-hover:-translate-x-1"
-                    >
-                      ↗
-                    </span>
-                  </span>
-                </Link>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* EDITORIAL / SEO CONTENT */}
-      <section className="bg-[#f5f3ef]">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="grid gap-16 md:grid-cols-2 md:gap-24">
-            <div>
-              <p className="mb-6 text-sm font-medium text-black/45">
-                چرا این بلاگ؟
-              </p>
-
-              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
-                قبل از سفارش،
-                <br />
-                تصمیم درست بگیرید.
-              </h2>
-            </div>
-
-            <div className="max-w-xl">
-              <p className="text-lg leading-9 text-black/60">
-                تفاوت روش‌های چاپ همیشه از روی ظاهر نهایی مشخص نیست. یک روش
-                ممکن است برای تیراژ پایین، انتخاب خوبی باشد اما برای سفارش
-                بزرگ هزینه بیشتری ایجاد کند. نوع متریال و جزئیات طرح هم
-                می‌توانند نتیجه را تغییر دهند.
-              </p>
-
-              <p className="mt-6 text-lg leading-9 text-black/60">
-                مطالب این بخش برای پاسخ به همین سؤال‌ها نوشته می‌شوند: چه
-                روشی مناسب است، چه زمانی باید از آن استفاده کرد و قبل از
-                سفارش چه نکاتی را باید بدانیم.
-              </p>
-
-              <Link
-                href="/خدمات"
-                className="mt-9 inline-flex items-center gap-3 border-b border-black pb-2 text-sm font-medium"
-              >
-                مشاهده خدمات چاپ
-
-                <span aria-hidden="true">↗</span>
+                </div>
               </Link>
-            </div>
-          </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      {/* FAQ */}
-      <section>
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="grid gap-16 md:grid-cols-[0.7fr_1.3fr] md:gap-24">
+      {/* CTA */}
+      <section className="container mx-auto px-5 pb-8 sm:px-8 lg:px-12 lg:pb-12">
+        <Reveal direction="up">
+          <div className="flex flex-col justify-between gap-8 rounded-[28px] bg-[#022F12] p-8 sm:p-12 lg:flex-row lg:items-end lg:p-16">
             <div>
-              <p className="mb-6 text-sm font-medium text-black/45">
-                سوالات متداول
+              <p className="mb-4 text-sm font-medium text-[#8BC53D]">
+                آیریک
               </p>
 
-              <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
-                سؤال‌هایی که
-                <br />
-                قبل از چاپ داریم.
+              <h2
+                className="max-w-2xl text-3xl font-semibold text-white sm:text-4xl lg:text-5xl"
+                style={{ lineHeight: 1.35 }}
+              >
+                سوالی درباره چاپ دارید؟
               </h2>
             </div>
 
-            <div className="border-t border-black/10">
-              {faqItems.map((item, index) => (
-                <details
-                  key={item.question}
-                  className="group border-b border-black/10"
-                >
-                  <summary className="flex cursor-pointer list-none items-start justify-between gap-8 py-7">
-                    <div className="flex gap-5">
-                      <span className="pt-1 text-xs text-black/30">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
+            <Link
+              href="/استعلام-قیمت"
+              className="group inline-flex shrink-0 items-center gap-4 rounded-full bg-[#8BC53D] px-6 py-4 text-sm font-medium text-[#021408] transition-all duration-500 hover:scale-[1.03]"
+            >
+              با ما صحبت کنید
 
-                      <span className="text-base font-medium leading-8 md:text-lg">
-                        {item.question}
-                      </span>
-                    </div>
-
-                    <span className="pt-1 text-lg text-black/30 transition-transform duration-300 group-open:rotate-45">
-                      +
-                    </span>
-                  </summary>
-
-                  <div className="pb-7 pr-10 text-base leading-8 text-black/55">
-                    {item.answer}
-                  </div>
-                </details>
-              ))}
-            </div>
+              <span className="transition-transform duration-500 group-hover:-translate-x-1">
+                <IconArrow direction="left" size={18} />
+              </span>
+            </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );
