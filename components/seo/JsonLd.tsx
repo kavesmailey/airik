@@ -12,8 +12,6 @@ interface JsonLdProps {
 }
 
 export default function JsonLd({ type, data }: JsonLdProps) {
-  let jsonLd: Record<string, any> | null = null;
-
   const baseUrl = siteConfig.siteUrl.replace(/\/$/, "");
 
   const logoUrl = siteConfig.logo
@@ -29,130 +27,223 @@ export default function JsonLd({ type, data }: JsonLdProps) {
     siteConfig.social.whatsapp,
   ].filter(Boolean);
 
+  const address =
+    siteConfig.contact.address ||
+    siteConfig.contact.city ||
+    siteConfig.contact.country
+      ? {
+          "@type": "PostalAddress",
+          ...(siteConfig.contact.address && {
+            streetAddress: siteConfig.contact.address,
+          }),
+          ...(siteConfig.contact.city && {
+            addressLocality: siteConfig.contact.city,
+          }),
+          ...(siteConfig.contact.country && {
+            addressCountry: siteConfig.contact.country,
+          }),
+        }
+      : undefined;
+
+  let jsonLd: Record<string, any> | null = null;
+
   switch (type) {
+    /* =====================================================
+       ORGANIZATION
+    ===================================================== */
+
     case "organization":
       jsonLd = {
         "@context": "https://schema.org",
         "@type": "Organization",
         "@id": `${baseUrl}/#organization`,
+
         name: siteConfig.name,
+        alternateName: siteConfig.englishName,
         url: baseUrl,
+
         ...(logoUrl && {
-          logo: logoUrl,
+          logo: {
+            "@type": "ImageObject",
+            url: logoUrl,
+          },
         }),
+
         description: siteConfig.description,
         slogan: siteConfig.tagline,
+
         ...(siteConfig.contact.phone && {
           telephone: siteConfig.contact.phone,
         }),
+
         ...(siteConfig.contact.email && {
           email: siteConfig.contact.email,
         }),
-        ...(siteConfig.contact.address && {
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: siteConfig.contact.address,
-            ...(siteConfig.contact.city && {
-              addressLocality: siteConfig.contact.city,
-            }),
-            ...(siteConfig.contact.country && {
-              addressCountry: siteConfig.contact.country,
-            }),
-          },
+
+        ...(address && {
+          address,
         }),
+
         ...(socialProfiles.length > 0 && {
           sameAs: socialProfiles,
         }),
       };
       break;
+
+    /* =====================================================
+       LOCAL BUSINESS
+    ===================================================== */
 
     case "localBusiness":
       jsonLd = {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "@id": `${baseUrl}/#localbusiness`,
+
         name: siteConfig.name,
+        alternateName: siteConfig.englishName,
         url: baseUrl,
+
         ...(logoUrl && {
           logo: logoUrl,
           image: logoUrl,
         }),
+
         description: siteConfig.description,
+
         ...(siteConfig.contact.phone && {
           telephone: siteConfig.contact.phone,
         }),
+
         ...(siteConfig.contact.email && {
           email: siteConfig.contact.email,
         }),
-        ...(siteConfig.contact.address && {
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: siteConfig.contact.address,
-            ...(siteConfig.contact.city && {
-              addressLocality: siteConfig.contact.city,
-            }),
-            ...(siteConfig.contact.country && {
-              addressCountry: siteConfig.contact.country,
-            }),
+
+        ...(address && {
+          address,
+        }),
+
+        ...(siteConfig.contact.city && {
+          areaServed: {
+            "@type": "City",
+            name: siteConfig.contact.city,
+            containedInPlace: {
+              "@type": "Country",
+              name: siteConfig.contact.country || "Iran",
+            },
           },
         }),
+
         ...(siteConfig.contact.workingHours && {
           openingHours: siteConfig.contact.workingHours,
         }),
+
+        ...(siteConfig.contact.serviceArea && {
+          serviceArea: siteConfig.contact.serviceArea,
+        }),
+
         ...(socialProfiles.length > 0 && {
           sameAs: socialProfiles,
         }),
       };
       break;
 
-    case "service":
+    /* =====================================================
+       SERVICE
+    ===================================================== */
+
+    case "service": {
+      const serviceUrl = data?.url
+        ? data.url.startsWith("http")
+          ? data.url
+          : `${baseUrl}${data.url}`
+        : undefined;
+
       jsonLd = {
         "@context": "https://schema.org",
         "@type": "Service",
+
         name: data?.title || data?.name,
         description: data?.shortDescription || data?.description,
-        ...(data?.url && {
-          url: data.url.startsWith("http")
-            ? data.url
-            : `${baseUrl}${data.url}`,
+
+        ...(serviceUrl && {
+          url: serviceUrl,
         }),
+
         provider: {
           "@type": "LocalBusiness",
           "@id": `${baseUrl}/#localbusiness`,
           name: siteConfig.name,
           url: baseUrl,
-        },
-        areaServed: {
-          "@type": "Country",
-          name: siteConfig.contact.country || "Iran",
-        },
-      };
-      break;
 
-    case "article":
+          ...(logoUrl && {
+            image: logoUrl,
+          }),
+        },
+
+        areaServed: [
+          {
+            "@type": "City",
+            name: siteConfig.contact.city || "کرج",
+          },
+          {
+            "@type": "Country",
+            name: siteConfig.contact.country || "ایران",
+          },
+        ],
+      };
+
+      break;
+    }
+
+    /* =====================================================
+       ARTICLE
+    ===================================================== */
+
+    case "article": {
+      const articleUrl = data?.url
+        ? data.url.startsWith("http")
+          ? data.url
+          : `${baseUrl}${data.url}`
+        : `${baseUrl}/وبلاگ/${data?.slug || ""}`;
+
+      const imageUrl = data?.image
+        ? data.image.startsWith("http")
+          ? data.image
+          : `${baseUrl}${data.image}`
+        : undefined;
+
       jsonLd = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
+
         headline: data?.headline || data?.title,
         description: data?.description,
-        ...(data?.image && {
-          image: data.image.startsWith("http")
-            ? data.image
-            : `${baseUrl}${data.image}`,
+
+        ...(imageUrl && {
+          image: imageUrl,
         }),
+
         datePublished: data?.datePublished,
         dateModified: data?.dateModified || data?.datePublished,
-        ...(data?.author && {
-          author: {
-            "@type": "Organization",
-            name: data.author,
-          },
-        }),
+
+        author: data?.author
+          ? {
+              "@type": "Organization",
+              name: data.author,
+            }
+          : {
+              "@type": "Organization",
+              name: siteConfig.name,
+              url: baseUrl,
+            },
+
         publisher: {
           "@type": "Organization",
           "@id": `${baseUrl}/#organization`,
           name: siteConfig.name,
           url: baseUrl,
+
           ...(logoUrl && {
             logo: {
               "@type": "ImageObject",
@@ -160,25 +251,32 @@ export default function JsonLd({ type, data }: JsonLdProps) {
             },
           }),
         },
+
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": data?.url?.startsWith("http")
-            ? data.url
-            : data?.url
-              ? `${baseUrl}${data.url}`
-              : `${baseUrl}/وبلاگ/${data?.slug || ""}`,
+          "@id": articleUrl,
         },
       };
+
       break;
+    }
+
+    /* =====================================================
+       BREADCRUMB
+    ===================================================== */
 
     case "breadcrumb":
       jsonLd = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
+
         itemListElement: Array.isArray(data?.items)
           ? data.items.map(
               (
-                item: { label: string; href: string },
+                item: {
+                  label: string;
+                  href: string;
+                },
                 index: number,
               ) => ({
                 "@type": "ListItem",
@@ -191,15 +289,24 @@ export default function JsonLd({ type, data }: JsonLdProps) {
             )
           : [],
       };
+
       break;
+
+    /* =====================================================
+       FAQ
+    ===================================================== */
 
     case "faq":
       jsonLd = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
+
         mainEntity: Array.isArray(data?.items)
           ? data.items.map(
-              (item: { question: string; answer: string }) => ({
+              (item: {
+                question: string;
+                answer: string;
+              }) => ({
                 "@type": "Question",
                 name: item.question,
                 acceptedAnswer: {
@@ -210,10 +317,13 @@ export default function JsonLd({ type, data }: JsonLdProps) {
             )
           : [],
       };
+
       break;
   }
 
-  if (!jsonLd) return null;
+  if (!jsonLd) {
+    return null;
+  }
 
   return (
     <script
