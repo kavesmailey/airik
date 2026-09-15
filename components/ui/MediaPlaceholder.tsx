@@ -22,16 +22,16 @@ export default function MediaPlaceholder({
   return (
     <div
       className={cn(
-        "relative w-full overflow-hidden",
+        "group relative w-full overflow-hidden",
         className
       )}
       style={{
         aspectRatio,
         borderRadius: "var(--radius-sm)",
         backgroundColor: isDark
-          ? "var(--color-surface-dark)"
-          : "var(--color-surface-light)",
-        border: "1px solid var(--color-border)",
+          ? "var(--color-dark-green)"
+          : "var(--color-soft-green)",
+        border: "1px solid var(--color-dark-green)",
       }}
     >
       {src ? (
@@ -47,18 +47,19 @@ export default function MediaPlaceholder({
             className="absolute inset-0 opacity-[0.08]"
             style={{
               backgroundImage:
-                "linear-gradient(var(--color-text) 1px, transparent 1px), linear-gradient(90deg, var(--color-text) 1px, transparent 1px)",
+                "linear-gradient(var(--color-white) 1px, transparent 1px), linear-gradient(90deg, var(--color-white) 1px, transparent 1px)",
               backgroundSize: "32px 32px",
             }}
           />
 
           <div className="absolute inset-0 flex items-center justify-center">
             <span
-              className="text-xs font-medium tracking-[0.2em] uppercase"
+              className="text-xs font-medium uppercase tracking-[0.2em]"
               style={{
                 color: isDark
-                  ? "var(--color-text-muted)"
-                  : "var(--color-text-dark-muted)",
+                  ? "var(--color-white)"
+                  : "var(--color-dark-green)",
+                opacity: 0.7,
               }}
             >
               {label}
