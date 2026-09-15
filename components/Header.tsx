@@ -1,126 +1,211 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import IconArrow from "@/components/ui/IconArrow";
 
-import { siteConfig } from "@/content/site";
+const navItems = [
+  { label: "خدمات", href: "/خدمات" },
+  { label: "نمونه‌کارها", href: "/نمونه-کارها" },
+  { label: "درباره ما", href: "/درباره-ما" },
+  { label: "تماس با ما", href: "/تماس-با-ما" },
+];
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      setScrolled(currentScrollY > 20);
+
+      if (menuOpen) {
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      if (currentScrollY <= 20) {
+        setHidden(false);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setHidden(true);
+      } else if (currentScrollY < lastScrollY) {
+        setHidden(false);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      document.body.style.overflow = "";
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
     <header
-      dir="rtl"
-      className="sticky top-0 z-50 border-b border-[#022F12]/10 bg-white/95 backdrop-blur-md"
+      className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 ${
+        hidden ? "-translate-y-full" : "translate-y-0"
+      }`}
     >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8 lg:px-10">
-        {/* LOGO */}
-        <Link
-          href="/"
-          aria-label="آیریک — صفحه اصلی"
-          className="relative z-50 flex shrink-0 items-center"
-          onClick={() => setIsOpen(false)}
-        >
-          <img
-            src="/images/brand/logo.svg"
-            alt="آیریک"
-            className="h-9 w-auto object-contain md:h-10"
-          />
-        </Link>
-
-        {/* DESKTOP NAV */}
-        <nav className="hidden items-center gap-7 lg:flex xl:gap-9">
-          {siteConfig.navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="relative py-2 text-sm text-[#022F12]/70 transition-colors duration-200 hover:text-[#022F12]"
-            >
-              {item.label}
-
-              <span className="absolute inset-x-0 bottom-0 h-px origin-right scale-x-0 bg-[#8BC53D] transition-transform duration-300 group-hover:scale-x-100" />
-            </Link>
-          ))}
-        </nav>
-
-        {/* DESKTOP CTA */}
-        <div className="hidden lg:block">
-          <Link
-            href={siteConfig.cta.href}
-            className="inline-flex items-center gap-2 rounded-full bg-[#022F12] px-5 py-3 text-sm text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#022F12]/90"
-          >
-            {siteConfig.cta.label}
-
-            <span aria-hidden="true">↗</span>
-          </Link>
-        </div>
-
-        {/* MOBILE MENU BUTTON */}
-        <button
-          type="button"
-          aria-label={isOpen ? "بستن منو" : "باز کردن منو"}
-          aria-expanded={isOpen}
-          onClick={() => setIsOpen((value) => !value)}
-          className="relative z-50 flex h-11 w-11 items-center justify-center rounded-full border border-[#022F12]/10 text-[#022F12] lg:hidden"
-        >
-          <span className="sr-only">
-            {isOpen ? "بستن منو" : "باز کردن منو"}
-          </span>
-
-          <span className="flex w-5 flex-col gap-1.5">
-            <span
-              className={`block h-px w-full bg-current transition-transform duration-300 ${
-                isOpen ? "translate-y-[4px] rotate-45" : ""
-              }`}
-            />
-
-            <span
-              className={`block h-px w-full bg-current transition-opacity duration-200 ${
-                isOpen ? "opacity-0" : ""
-              }`}
-            />
-
-            <span
-              className={`block h-px w-full bg-current transition-transform duration-300 ${
-                isOpen ? "-translate-y-[4px] -rotate-45" : ""
-              }`}
-            />
-          </span>
-        </button>
-      </div>
-
-      {/* MOBILE MENU */}
       <div
-        className={`overflow-hidden border-t border-[#022F12]/10 bg-white transition-all duration-300 lg:hidden ${
-          isOpen
-            ? "max-h-[calc(100vh-5rem)] opacity-100"
-            : "max-h-0 opacity-0"
+        className={`mx-auto px-5 transition-all duration-500 sm:px-8 lg:px-12 ${
+          scrolled ? "py-3" : "py-5"
         }`}
       >
-        <nav className="mx-auto max-w-7xl px-5 py-5 md:px-8">
-          <div className="flex flex-col">
-            {siteConfig.navigation.map((item) => (
+        <div
+          className={`mx-auto flex max-w-[1600px] items-center justify-between rounded-full border px-4 py-2.5 transition-all duration-500 sm:px-5 ${
+            scrolled
+              ? "border-[#022F12]/10 bg-white/90 shadow-[0_8px_30px_rgba(2,20,8,0.06)] backdrop-blur-xl"
+              : "border-transparent bg-transparent"
+          }`}
+        >
+          {/* Logo */}
+          <Link
+            href="/"
+            onClick={() => setMenuOpen(false)}
+            className="group relative z-10 flex items-center"
+          >
+            <span className="text-xl font-semibold tracking-[-0.04em] text-[#021408] transition-transform duration-500 group-hover:scale-[0.97]">
+              آیریک
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden items-center gap-7 lg:flex">
+            {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="border-b border-[#022F12]/10 py-4 text-base text-[#022F12] transition-colors hover:text-[#8BC53D]"
+                className="group relative py-2 text-sm text-[#022F12]/70 transition-colors duration-300 hover:text-[#021408]"
               >
                 {item.label}
+
+                <span className="absolute inset-x-0 bottom-0 h-px origin-right scale-x-0 bg-[#8BC53D] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:origin-left group-hover:scale-x-100" />
               </Link>
             ))}
+          </nav>
 
+          {/* Desktop CTA */}
+          <Link
+            href="/استعلام-قیمت"
+            className="group hidden items-center gap-3 rounded-full bg-[#022F12] px-5 py-2.5 text-sm font-medium text-white transition-all duration-500 hover:bg-[#8BC53D] hover:text-[#021408] lg:flex"
+          >
+            <span>استعلام قیمت</span>
+
+            <span className="transition-transform duration-500 group-hover:-translate-x-1">
+              <IconArrow direction="left" size={16} />
+            </span>
+          </Link>
+
+          {/* Mobile Menu Button */}
+          <button
+            type="button"
+            aria-label={menuOpen ? "بستن منو" : "باز کردن منو"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((value) => !value)}
+            className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#022F12] text-white transition-all duration-500 hover:bg-[#8BC53D] hover:text-[#021408] lg:hidden"
+          >
+            <span className="relative block h-4 w-4">
+              <span
+                className={`absolute left-0 top-[5px] h-px w-4 bg-current transition-all duration-500 ${
+                  menuOpen
+                    ? "translate-y-[3px] rotate-45"
+                    : "translate-y-0"
+                }`}
+              />
+
+              <span
+                className={`absolute left-0 top-[10px] h-px w-4 bg-current transition-all duration-500 ${
+                  menuOpen
+                    ? "-translate-y-[2px] -rotate-45"
+                    : "translate-y-0"
+                }`}
+              />
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={`fixed inset-0 z-0 bg-[#021408] transition-all duration-700 lg:hidden ${
+          menuOpen
+            ? "visible opacity-100"
+            : "invisible opacity-0"
+        }`}
+      >
+        <div className="flex h-full flex-col justify-between px-7 pb-10 pt-32">
+          <nav className="flex flex-col">
+            {navItems.map((item, index) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                className="group flex items-center justify-between border-b border-white/10 py-5 text-3xl font-medium text-white transition-all duration-500"
+                style={{
+                  opacity: menuOpen ? 1 : 0,
+                  transform: menuOpen
+                    ? "translateY(0)"
+                    : "translateY(20px)",
+                  transitionDelay: menuOpen
+                    ? `${120 + index * 70}ms`
+                    : "0ms",
+                }}
+              >
+                <span>{item.label}</span>
+
+                <span className="text-[#8BC53D] transition-transform duration-500 group-hover:-translate-x-2">
+                  <IconArrow direction="up-left" size={24} />
+                </span>
+              </Link>
+            ))}
+          </nav>
+
+          <div
+            style={{
+              opacity: menuOpen ? 1 : 0,
+              transform: menuOpen
+                ? "translateY(0)"
+                : "translateY(20px)",
+              transition:
+                "opacity 500ms ease, transform 700ms cubic-bezier(0.22,1,0.36,1)",
+              transitionDelay: menuOpen ? "400ms" : "0ms",
+            }}
+          >
             <Link
-              href={siteConfig.cta.href}
-              onClick={() => setIsOpen(false)}
-              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#022F12] px-5 py-4 text-sm text-white"
+              href="/استعلام-قیمت"
+              onClick={() => setMenuOpen(false)}
+              className="group flex items-center justify-between rounded-full bg-[#8BC53D] px-6 py-4 text-sm font-medium text-[#021408]"
             >
-              {siteConfig.cta.label}
+              <span>شروع یک پروژه</span>
 
-              <span aria-hidden="true">↗</span>
+              <span className="transition-transform duration-500 group-hover:-translate-x-1">
+                <IconArrow direction="up-left" size={20} />
+              </span>
             </Link>
           </div>
-        </nav>
+        </div>
       </div>
     </header>
   );
