@@ -13,13 +13,16 @@ type ButtonProps = {
 
 const variants = {
   primary:
-    "bg-black text-white hover:-translate-y-0.5",
+    "bg-[#8BC53D] text-[#FFFFFF] hover:-translate-y-0.5 hover:bg-[#8BC53D]/90",
+
   secondary:
-    "border border-black/15 text-black hover:border-black hover:bg-black hover:text-white",
+    "border border-[#022F12] bg-[#022F12] text-[#FFFFFF] hover:bg-[#021408]",
+
   outline:
-    "border border-black/20 bg-transparent text-black hover:border-black",
+    "border border-[#022F12] bg-transparent text-[#022F12] hover:bg-[#022F12] hover:text-[#FFFFFF]",
+
   text:
-    "text-black hover:opacity-50",
+    "text-[#022F12] hover:opacity-60",
 };
 
 const sizes = {
@@ -37,7 +40,14 @@ export default function Button({
   className = "",
   onClick,
 }: ButtonProps) {
-  const classes = `inline-flex items-center justify-center gap-3 rounded-full transition-all duration-200 ${variants[variant]} ${sizes[size]} ${className}`;
+  const classes = [
+    "inline-flex items-center justify-center gap-3 rounded-full",
+    "transition-all duration-200",
+    "font-medium",
+    variants[variant],
+    sizes[size],
+    className,
+  ].join(" ");
 
   if (href) {
     return (
