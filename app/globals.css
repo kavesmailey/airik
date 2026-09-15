@@ -2,143 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =========================================================
-   FONTS — LAHZEH
-========================================================= */
-
-@font-face {
-  font-family: "Lahzeh";
-  src: url("/fonts/Lahzeh-Thin.woff2") format("woff2");
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Lahzeh";
-  src: url("/fonts/Lahzeh-ExtraLight.woff2") format("woff2");
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Lahzeh";
-  src: url("/fonts/Lahzeh-Light.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Lahzeh";
-  src: url("/fonts/Lahzeh-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Lahzeh";
-  src: url("/fonts/Lahzeh-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Lahzeh";
-  src: url("/fonts/Lahzeh-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Lahzeh";
-  src: url("/fonts/Lahzeh-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Lahzeh";
-  src: url("/fonts/Lahzeh-ExtraBold.woff2") format("woff2");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Lahzeh";
-  src: url("/fonts/Lahzeh-Black.woff2") format("woff2");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-
-/* =========================================================
-   AYRIC — FINAL BRAND PALETTE
-
-   #FFFFFF  White
-   #E4F0CC  Soft Green
-   #8BC53D  Primary Green
-   #022F12  Dark Green
-   #021408  Deepest Green
-========================================================= */
-
 :root {
-  --color-white: #FFFFFF;
-  --color-soft-green: #E4F0CC;
-  --color-primary: #8BC53D;
-  --color-dark-green: #022F12;
-  --color-deepest-green: #021408;
+  --background: #ffffff;
+  --foreground: #021408;
 
-  --color-bg: #FFFFFF;
-  --color-background: #FFFFFF;
-  --color-bg-light: #E4F0CC;
-
-  --color-text: #022F12;
-  --color-text-dark: #021408;
-
-  --color-text-muted: rgba(2, 47, 18, 0.68);
-  --color-text-faint: rgba(2, 47, 18, 0.45);
-
-  --color-text-dark-muted: rgba(2, 20, 8, 0.68);
-  --color-text-dark-faint: rgba(2, 20, 8, 0.45);
-
-  --color-accent: #8BC53D;
-
-  --color-surface-light: #FFFFFF;
-  --color-surface-muted: #E4F0CC;
-  --color-surface-dark: #022F12;
-
-  --color-border: rgba(2, 47, 18, 0.14);
-  --color-border-light: rgba(2, 47, 18, 0.10);
-
-  --background: #FFFFFF;
-  --foreground: #022F12;
-  --muted: rgba(2, 47, 18, 0.68);
-  --border: rgba(2, 47, 18, 0.14);
-
-  --radius-sm: 6px;
-
-  --space-2xl: 3rem;
-  --space-4xl: 5rem;
-  --space-5xl: 7rem;
+  --ayric-green: #8bc53d;
+  --ayric-soft-green: #e4f0cc;
+  --ayric-dark-green: #022f12;
+  --ayric-deepest-green: #021408;
 
   --line-height-tight: 1.3;
+  --line-height-normal: 1.65;
   --line-height-relaxed: 2;
 
-  --ease-default: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-ayric: cubic-bezier(0.22, 1, 0.36, 1);
 }
-
-
-/* =========================================================
-   BASE
-========================================================= */
 
 * {
   box-sizing: border-box;
@@ -146,58 +24,50 @@
 
 html {
   scroll-behavior: smooth;
+  background: var(--background);
 }
 
-html,
 body {
   margin: 0;
-  padding: 0;
-  min-height: 100%;
-}
-
-body {
-  overflow-x: hidden;
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: "Lahzeh", Arial, sans-serif;
-  font-weight: 400;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: inherit;
+  line-height: var(--line-height-normal);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-
-/* =========================================================
-   CONTAINER
-========================================================= */
-
-.container-iric {
-  width: 100%;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 24px;
-  padding-right: 24px;
+img {
+  max-width: 100%;
 }
 
-@media (min-width: 768px) {
-  .container-iric {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-@media (min-width: 1024px) {
-  .container-iric {
-    padding-left: 64px;
-    padding-right: 64px;
-  }
+/* --------------------------------
+   Selection
+-------------------------------- */
+
+::selection {
+  background: var(--ayric-green);
+  color: var(--ayric-deepest-green);
 }
 
+/* --------------------------------
+   Focus
+-------------------------------- */
 
-/* =========================================================
-   TYPOGRAPHY
-========================================================= */
+:focus-visible {
+  outline: 2px solid var(--ayric-green);
+  outline-offset: 4px;
+}
+
+/* --------------------------------
+   Typography
+-------------------------------- */
 
 h1,
 h2,
@@ -206,8 +76,6 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: "Lahzeh", Arial, sans-serif;
-  font-weight: 600;
   letter-spacing: -0.02em;
 }
 
@@ -215,134 +83,103 @@ p {
   margin: 0;
 }
 
-strong,
-b {
-  font-weight: 700;
-}
+/* --------------------------------
+   Smooth interactions
+-------------------------------- */
 
-
-/* =========================================================
-   LINKS
-========================================================= */
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-
-/* =========================================================
-   FORM ELEMENTS
-========================================================= */
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-button,
 a,
-summary,
-select {
+button {
   -webkit-tap-highlight-color: transparent;
 }
 
-button {
-  cursor: pointer;
+button,
+a {
+  transition-timing-function: var(--ease-ayric);
 }
 
-input,
-textarea,
-select {
-  border-radius: 0;
+/* --------------------------------
+   Images
+-------------------------------- */
+
+img {
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
-textarea {
-  min-height: 140px;
-}
-
-
-/* =========================================================
-   SELECTION
-========================================================= */
-
-::selection {
-  background: var(--color-primary);
-  color: var(--color-deepest-green);
-}
-
-
-/* =========================================================
-   SCROLLBAR
-========================================================= */
+/* --------------------------------
+   Scrollbar
+-------------------------------- */
 
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg);
+  background: #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-dark-green);
+  background: rgba(2, 47, 18, 0.22);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-deepest-green);
+  background: rgba(2, 47, 18, 0.42);
 }
 
+/* --------------------------------
+   Utility: Hide scrollbar
+-------------------------------- */
 
-/* =========================================================
-   DETAILS / SUMMARY
-========================================================= */
-
-summary {
-  list-style: none;
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-summary::-webkit-details-marker {
+.no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
+/* --------------------------------
+   Motion performance
+-------------------------------- */
 
-/* =========================================================
-   ACCESSIBILITY
-========================================================= */
-
-:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 4px;
+.parallax-element {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
+/* --------------------------------
+   Reduced motion
+   Accessibility
+-------------------------------- */
 
-/* =========================================================
-   DIRECTION
-========================================================= */
-
-[dir="ltr"] {
-  direction: ltr;
-}
-
-[dir="rtl"] {
-  direction: rtl;
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 767px) {
+@media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  .container-iric {
-    padding-left: 20px;
-    padding-right: 20px;
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------
+   Mobile adjustments
+-------------------------------- */
+
+@media (max-width: 640px) {
+  html {
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
   }
 }
