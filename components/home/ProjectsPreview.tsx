@@ -1,115 +1,72 @@
-import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-import { projects } from "@/content/projects";
-import IconArrow from "@/components/ui/IconArrow";
-import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
+interface MediaPlaceholderProps {
+  label?: string;
+  aspectRatio?: "1/1" | "4/3" | "16/9";
+  tone?: "dark" | "light";
+  className?: string;
+  src?: string | null;
+  alt?: string;
+}
 
-export default function ProjectsPreview() {
+export default function MediaPlaceholder({
+  label = "AYRIC",
+  aspectRatio = "16/9",
+  tone = "dark",
+  className,
+  src,
+  alt = "",
+}: MediaPlaceholderProps) {
+  const isDark = tone === "dark";
+
   return (
-    <section
-      className="py-24 sm:py-32 lg:py-40"
-      style={{ backgroundColor: "var(--color-bg)" }}
-      aria-labelledby="projects-preview-heading"
+    <div
+      className={cn(
+        "group relative w-full overflow-hidden",
+        className
+      )}
+      style={{
+        aspectRatio,
+        borderRadius: "var(--radius-sm)",
+        backgroundColor: isDark
+          ? "var(--color-dark-green)"
+          : "var(--color-soft-green)",
+        border: "1px solid var(--color-dark-green)",
+      }}
     >
-      <div className="container-iric">
-        {/* Header */}
-        <div className="mb-12 flex flex-col gap-6 sm:mb-16 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p
-              className="text-sm font-medium"
-              style={{ color: "var(--color-accent)" }}
-            >
-              نمونه‌کارها
-            </p>
+      {src ? (
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+        />
+      ) : (
+        <>
+          <div
+            className="absolute inset-0 opacity-[0.08]"
+            style={{
+              backgroundImage:
+                "linear-gradient(var(--color-white) 1px, transparent 1px), linear-gradient(90deg, var(--color-white) 1px, transparent 1px)",
+              backgroundSize: "32px 32px",
+            }}
+          />
 
-            <h2
-              id="projects-preview-heading"
-              className="mt-4 text-3xl font-bold sm:text-4xl lg:text-5xl"
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span
+              className="text-xs font-medium uppercase tracking-[0.2em]"
               style={{
-                color: "var(--color-text)",
-                lineHeight: "var(--line-height-tight)",
+                color: isDark
+                  ? "var(--color-white)"
+                  : "var(--color-dark-green)",
+                opacity: 0.7,
               }}
             >
-              بخشی از کارهای ما
-            </h2>
-          </div>
-
-          <Link
-            href="/نمونه-کارها"
-            className="group inline-flex w-fit items-center gap-3 text-sm font-medium"
-            style={{
-              color: "var(--color-text)",
-              textDecoration: "none",
-            }}
-          >
-            <span>مشاهده همه نمونه‌کارها</span>
-
-            <span
-              className="transition-transform duration-300 group-hover:-translate-x-1"
-              aria-hidden="true"
-            >
-              <IconArrow direction="left" size={18} />
+              {label}
             </span>
-          </Link>
-        </div>
-
-        {/* Projects */}
-        <div className="grid gap-8 md:grid-cols-2">
-          {projects.slice(0, 4).map((project, index) => (
-            <article key={project.slug} className="group">
-              <div className="overflow-hidden">
-                <MediaPlaceholder
-                  aspectRatio="4/3"
-                  label={project.title}
-                  tone="light"
-                  src={project.image}
-                  alt={project.title}
-                  className="transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-              </div>
-
-              <div className="mt-5">
-                <div className="flex items-start justify-between gap-6">
-                  <div>
-                    <p
-                      className="text-xs"
-                      style={{ color: "var(--color-text-faint)" }}
-                    >
-                      {String(index + 1).padStart(2, "0")} ·{" "}
-                      {project.category}
-                    </p>
-
-                    <h3
-                      className="mt-3 text-xl font-bold"
-                      style={{ color: "var(--color-text)" }}
-                    >
-                      {project.title}
-                    </h3>
-
-                    <p
-                      className="mt-3 max-w-xl text-sm"
-                      style={{
-                        color: "var(--color-text-muted)",
-                        lineHeight: "var(--line-height-relaxed)",
-                      }}
-                    >
-                      {project.description}
-                    </p>
-                  </div>
-
-                  <span
-                    className="mt-1 shrink-0 opacity-40 transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100"
-                    style={{ color: "var(--color-text)" }}
-                    aria-hidden="true"
-                  >
-                    <IconArrow direction="up-left" size={20} />
-                  </span>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
