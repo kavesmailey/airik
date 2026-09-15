@@ -4,29 +4,42 @@ const config: Config = {
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
+    "./content/**/*.{ts,tsx}",
   ],
+
   theme: {
     extend: {
       colors: {
+        white: "#FFFFFF",
+
+        "ayric-soft": "#E4F0CC",
+        "ayric-green": "#8BC53D",
+        "ayric-dark": "#022F12",
+        "ayric-deep": "#021408",
+
         bg: "var(--color-bg)",
         "bg-surface": "var(--color-surface)",
         "bg-light": "var(--color-bg-light)",
         "bg-light-surface": "var(--color-surface-light)",
+
         text: "var(--color-text)",
         "text-muted": "var(--color-text-muted)",
         "text-dark": "var(--color-text-dark)",
         "text-dark-muted": "var(--color-text-dark-muted)",
+
         accent: "var(--color-accent)",
         "accent-hover": "var(--color-accent-hover)",
+
         border: "var(--color-border)",
         "border-light": "var(--color-border-light)",
+
         "tone-clay": "var(--color-tone-clay)",
         "tone-ink": "var(--color-tone-ink)",
         "tone-olive": "var(--color-tone-olive)",
       },
 
       fontFamily: {
-        sans: ["var(--font-vazirmatn)", "system-ui", "sans-serif"],
+        sans: ["Lahzeh", "Arial", "sans-serif"],
       },
 
       fontSize: {
@@ -55,11 +68,11 @@ const config: Config = {
       },
 
       spacing: {
-        "18": "4.5rem",
-        "22": "5.5rem",
-        "26": "6.5rem",
-        "30": "7.5rem",
-        "34": "8.5rem",
+        18: "4.5rem",
+        22: "5.5rem",
+        26: "6.5rem",
+        30: "7.5rem",
+        34: "8.5rem",
       },
 
       borderRadius: {
@@ -79,8 +92,8 @@ const config: Config = {
 
       boxShadow: {
         header: "0 1px 0 0 var(--color-border)",
-        elevated: "0 4px 24px rgba(0, 0, 0, 0.2)",
-        card: "0 1px 3px rgba(0, 0, 0, 0.12)",
+        elevated: "0 4px 24px rgba(2, 20, 8, 0.12)",
+        card: "0 1px 3px rgba(2, 20, 8, 0.08)",
       },
 
       maxWidth: {
@@ -103,26 +116,41 @@ const config: Config = {
 
       keyframes: {
         "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(22px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
+          "0%": {
+            opacity: "0",
+            transform: "translateY(22px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
         },
+
         "fade-in": {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
         },
       },
 
       animation: {
-        "fade-up": "fade-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards",
-        "fade-in": "fade-in 0.4s ease-out forwards",
+        "fade-up":
+          "fade-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards",
+
+        "fade-in":
+          "fade-in 0.4s ease-out forwards",
       },
 
       opacity: {
-        "4": "0.04",
-        "8": "0.08",
+        4: "0.04",
+        8: "0.08",
       },
     },
   },
+
   plugins: [],
 };
 
