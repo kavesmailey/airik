@@ -1,47 +1,68 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+
 import { projects } from "@/content/projects";
 import { siteConfig } from "@/content/site";
+
+import IconArrow from "@/components/ui/IconArrow";
+import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
+import Reveal from "@/components/ui/Reveal";
+import Button from "@/components/ui/Button";
+import JsonLd from "@/components/seo/JsonLd";
 
 const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
 const canonicalUrl = `${siteUrl}/نمونه-کارها`;
 
 export const metadata: Metadata = {
-  title: "نمونه‌کارهای چاپ آیریک | پروژه‌های چاپ و تولید",
+  title: "نمونه‌کارهای چاپ آیریک | پروژه‌های چاپ برندها",
   description:
-    "نمونه‌کارهای آیریک در زمینه چاپ و تولید برای برندها و کسب‌وکارها؛ شامل چاپ پوشاک، بسته‌بندی، رستوران، کافه، پروژه‌های سازمانی و محصولات تبلیغاتی.",
+    "نمونه‌ای از پروژه‌های چاپ آیریک برای برندها و کسب‌وکارها؛ از چاپ روی پوشاک و بگ تا بسته‌بندی و محصولات مختلف.",
   alternates: {
     canonical: canonicalUrl,
   },
   openGraph: {
     title: "نمونه‌کارهای چاپ آیریک",
     description:
-      "نگاهی به پروژه‌های چاپ و تولید آیریک برای برندها و کسب‌وکارها.",
+      "بخشی از پروژه‌های چاپ آیریک برای برندها و کسب‌وکارها.",
+    type: "website",
     url: canonicalUrl,
     siteName: siteConfig.name,
     locale: "fa_IR",
-    type: "website",
+    images: siteConfig.ogImage
+      ? [
+          {
+            url: `${siteUrl}${siteConfig.ogImage}`,
+            width: 1200,
+            height: 630,
+            alt: "نمونه‌کارهای آیریک",
+          },
+        ]
+      : undefined,
   },
   twitter: {
     card: "summary_large_image",
     title: "نمونه‌کارهای چاپ آیریک",
     description:
-      "نگاهی به پروژه‌های چاپ و تولید آیریک برای برندها و کسب‌وکارها.",
+      "بخشی از پروژه‌های چاپ آیریک برای برندها و کسب‌وکارها.",
   },
 };
 
-function JsonLd({ data }: { data: Record<string, unknown> }) {
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(data),
-      }}
-    />
-  );
-}
-
 export default function ProjectsPage() {
+  const projectListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "نمونه‌کارهای آیریک",
+    description: "پروژه‌های چاپ آیریک برای برندها و کسب‌وکارها.",
+    url: canonicalUrl,
+    numberOfItems: projects.length,
+    itemListElement: projects.map((project, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: project.title,
+      description: project.description,
+    })),
+  };
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -61,322 +82,241 @@ export default function ProjectsPage() {
     ],
   };
 
-  const collectionSchema = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "@id": `${canonicalUrl}#collection`,
-    name: "نمونه‌کارهای چاپ آیریک",
-    description:
-      "مجموعه‌ای از پروژه‌های چاپ و تولید آیریک برای برندها و کسب‌وکارها.",
-    url: canonicalUrl,
-    inLanguage: "fa-IR",
-    isPartOf: {
-      "@type": "WebSite",
-      url: siteUrl,
-      name: siteConfig.name,
-    },
-    mainEntity: {
-      "@type": "ItemList",
-      numberOfItems: projects.length,
-      itemListElement: projects.map((project, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: project.title,
-        description: project.description,
-      })),
-    },
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "چه نوع پروژه‌هایی در نمونه‌کارهای آیریک وجود دارد؟",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "نمونه‌کارهای آیریک شامل پروژه‌های چاپ برای پوشاک، بسته‌بندی، رستوران، کافه، مجموعه‌های سازمانی و محصولات تبلیغاتی است.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "آیا آیریک برای برندها و کسب‌وکارها هم چاپ انجام می‌دهد؟",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "بله. خدمات آیریک برای برندها، کسب‌وکارها و مجموعه‌هایی طراحی شده است که به چاپ و تولید اقلام مختلف نیاز دارند.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "آیا امکان سفارش پروژه مشابه نمونه‌کارها وجود دارد؟",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "بله. برای بررسی امکان اجرا، کافی است مشخصات محصول، تعداد، ابعاد و فایل طرح را ارسال کنید تا روش مناسب چاپ و جزئیات تولید بررسی شود.",
-        },
-      },
-    ],
-  };
-
   return (
-    <main dir="rtl" className="overflow-hidden">
-      <JsonLd data={breadcrumbSchema} />
-      <JsonLd data={collectionSchema} />
-      <JsonLd data={faqSchema} />
+    <main dir="rtl">
+      <JsonLd type="service" data={projectListSchema} />
+      <JsonLd type="breadcrumb" data={breadcrumbSchema} />
 
       {/* HERO */}
-      <section className="border-b border-black/10">
-        <div className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 sm:py-28 md:px-10 md:py-36 lg:px-12 lg:py-40">
+      <section
+        className="pt-32 pb-20 sm:pt-40 sm:pb-28 lg:pt-44 lg:pb-32"
+        style={{
+          backgroundColor: "var(--color-white)",
+        }}
+      >
+        <div className="container-iric">
           <div className="max-w-5xl">
-            <p className="mb-7 text-xs font-medium tracking-wide text-black/40 sm:text-sm">
-              نمونه‌کارهای آیریک
-            </p>
+            <Reveal>
+              <p
+                className="text-sm font-medium"
+                style={{
+                  color: "var(--color-primary)",
+                }}
+              >
+                نمونه‌کارها
+              </p>
 
-            <h1 className="text-[clamp(2.5rem,7vw,6.5rem)] font-medium leading-[1.12] tracking-[-0.045em]">
-              چیزهایی که
-              <br />
-              ساخته‌ایم.
-            </h1>
+              <h1
+                className="mt-5 text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl"
+                style={{
+                  color: "var(--color-dark-green)",
+                  lineHeight: "var(--line-height-tight)",
+                }}
+              >
+                بخشی از پروژه‌هایی که
+                <br />
+                برای برندها اجرا کرده‌ایم.
+              </h1>
 
-            <p className="mt-8 max-w-2xl text-base leading-8 text-black/55 sm:mt-10 sm:text-lg sm:leading-9">
-              مجموعه‌ای از پروژه‌های چاپ و تولید آیریک برای
-              برندها، کسب‌وکارها و مجموعه‌های مختلف؛ از پوشاک و
-              بسته‌بندی تا اقلام تبلیغاتی و سازمانی.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* QUICK ANSWER / GEO */}
-      <section className="border-b border-black/10 bg-[#f7f5f1]">
-        <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 sm:py-20 md:px-10 lg:px-12">
-          <div className="max-w-4xl">
-            <p className="mb-4 text-xs font-medium text-black/40 sm:text-sm">
-              درباره نمونه‌کارها
-            </p>
-
-            <p className="text-lg leading-9 text-black/65 sm:text-xl">
-              آیریک در زمینه چاپ و تولید برای برندها و کسب‌وکارها
-              فعالیت می‌کند و پروژه‌هایی در حوزه پوشاک، بسته‌بندی،
-              رستوران و کافه، پروژه‌های سازمانی و محصولات تبلیغاتی
-              انجام می‌دهد.
-            </p>
+              <p
+                className="mt-8 max-w-2xl text-lg sm:text-xl"
+                style={{
+                  color: "var(--color-dark-green)",
+                  opacity: 0.68,
+                  lineHeight: "var(--line-height-relaxed)",
+                }}
+              >
+                از انتخاب روش چاپ و متریال تا اجرای نهایی، هر پروژه بر اساس
+                نیاز واقعی محصول و برند بررسی و اجرا می‌شود.
+              </p>
+            </Reveal>
           </div>
         </div>
       </section>
 
       {/* PROJECTS */}
-      <section aria-labelledby="projects-heading">
-        <div className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 sm:py-24 md:px-10 md:py-32 lg:px-12">
-          <div className="mb-12 flex items-end justify-between gap-8 sm:mb-16">
-            <div>
-              <p className="mb-4 text-xs font-medium text-black/40 sm:text-sm">
-                پروژه‌ها
-              </p>
-
-              <h2
-                id="projects-heading"
-                className="text-2xl font-medium tracking-[-0.025em] sm:text-3xl md:text-4xl"
-              >
-                انتخابی از کارهای ما
-              </h2>
-            </div>
-
-            <span className="hidden text-xs text-black/30 sm:block">
-              {String(projects.length).padStart(2, "0")} پروژه
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 gap-x-6 gap-y-16 sm:gap-y-20 md:grid-cols-2 md:gap-y-24">
-            {projects.map((project, index) => (
-              <article
-                key={project.slug}
-                className="group"
-                itemScope
-                itemType="https://schema.org/CreativeWork"
-              >
-                <div
-                  className={[
-                    "relative aspect-[4/3] overflow-hidden rounded-[1.25rem] sm:rounded-[1.5rem]",
-                    index % 3 === 0
-                      ? "bg-[#e7e2d4]"
-                      : index % 3 === 1
-                        ? "bg-[#d0d5ec]"
-                        : "bg-[#ead8c5]",
-                  ].join(" ")}
+      <section
+        className="py-24 sm:py-32 lg:py-40"
+        style={{
+          backgroundColor: "var(--color-soft-green)",
+        }}
+        aria-labelledby="projects-heading"
+      >
+        <div className="container-iric">
+          <Reveal>
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p
+                  className="text-sm font-medium"
+                  style={{
+                    color: "var(--color-dark-green)",
+                  }}
                 >
-                  {project.image ? (
-                    <img
-                      src={project.image}
-                      alt={`${project.title} — نمونه‌کار چاپ آیریک`}
-                      loading={index < 2 ? "eager" : "lazy"}
-                      itemProp="image"
-                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center">
-                      <div className="text-center transition-transform duration-700 ease-out group-hover:scale-105">
-                        <span className="block text-[9px] font-medium tracking-[0.4em] text-black/30 sm:text-[10px]">
-                          AYRIC
-                        </span>
+                  پروژه‌ها
+                </p>
 
-                        <span className="mt-4 block text-[5rem] font-medium leading-none tracking-[-0.08em] text-black/10 sm:text-8xl">
-                          {String(index + 1).padStart(2, "0")}
+                <h2
+                  id="projects-heading"
+                  className="mt-4 text-3xl font-bold sm:text-4xl lg:text-5xl"
+                  style={{
+                    color: "var(--color-dark-green)",
+                    lineHeight: "var(--line-height-tight)",
+                  }}
+                >
+                  چاپ در دنیای واقعی.
+                </h2>
+              </div>
+
+              <span
+                className="text-sm"
+                style={{
+                  color: "var(--color-dark-green)",
+                  opacity: 0.55,
+                }}
+              >
+                {projects.length} پروژه
+              </span>
+            </div>
+          </Reveal>
+
+          <div className="mt-14 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:mt-20 lg:gap-x-10 lg:gap-y-20">
+            {projects.map((project, index) => (
+              <Reveal key={project.slug} delay={(index % 2) * 80}>
+                <article className="group">
+                  <Link
+                    href={`/نمونه-کارها/${project.slug}`}
+                    className="block"
+                    style={{
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div className="overflow-hidden">
+                      <MediaPlaceholder
+                        src={project.image}
+                        alt={project.title}
+                        aspectRatio="4/3"
+                        label={project.title}
+                        tone="dark"
+                        className="transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                      />
+                    </div>
+
+                    <div className="mt-6">
+                      <div className="flex items-start justify-between gap-6">
+                        <div>
+                          <p
+                            className="text-xs"
+                            style={{
+                              color: "var(--color-dark-green)",
+                              opacity: 0.48,
+                            }}
+                          >
+                            {String(index + 1).padStart(2, "0")} ·{" "}
+                            {project.category}
+                          </p>
+
+                          <h3
+                            className="mt-3 text-xl font-bold sm:text-2xl"
+                            style={{
+                              color: "var(--color-dark-green)",
+                            }}
+                          >
+                            {project.title}
+                          </h3>
+
+                          <p
+                            className="mt-3 max-w-xl text-sm sm:text-base"
+                            style={{
+                              color: "var(--color-dark-green)",
+                              opacity: 0.64,
+                              lineHeight: "var(--line-height-relaxed)",
+                            }}
+                          >
+                            {project.description}
+                          </p>
+                        </div>
+
+                        <span
+                          className="mt-1 shrink-0 opacity-30 transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100"
+                          style={{
+                            color: "var(--color-dark-green)",
+                          }}
+                          aria-hidden="true"
+                        >
+                          <IconArrow direction="up-left" size={22} />
                         </span>
                       </div>
                     </div>
-                  )}
-
-                  <div className="absolute bottom-4 right-4 sm:bottom-5 sm:right-5">
-                    <span
-                      className="inline-flex rounded-full bg-white/70 px-3 py-1.5 text-[10px] text-black/55 shadow-sm backdrop-blur-md sm:text-[11px]"
-                      itemProp="about"
-                    >
-                      {project.category}
-                    </span>
-                  </div>
-
-                  <span className="absolute left-4 top-4 text-[10px] text-black/30 sm:left-5 sm:top-5 sm:text-xs">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                </div>
-
-                <div className="mt-5 sm:mt-6">
-                  <div className="flex items-start justify-between gap-5">
-                    <div className="min-w-0">
-                      <h3
-                        className="text-lg font-medium tracking-[-0.02em] sm:text-xl md:text-2xl"
-                        itemProp="name"
-                      >
-                        {project.title}
-                      </h3>
-
-                      <p
-                        className="mt-2.5 max-w-xl text-sm leading-7 text-black/50 sm:mt-3"
-                        itemProp="description"
-                      >
-                        {project.description}
-                      </p>
-                    </div>
-
-                    <span className="shrink-0 pt-1 text-[10px] text-black/25 sm:text-xs">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                </div>
-              </article>
+                  </Link>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* APPROACH */}
-      <section className="border-y border-black/10 bg-[#f7f5f1]">
-        <div className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 sm:py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="grid gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-20 lg:gap-32">
-            <div>
-              <p className="mb-5 text-xs font-medium text-black/40 sm:text-sm">
-                نگاه آیریک
-              </p>
+      {/* BUSINESS CTA */}
+      <section
+        className="py-24 sm:py-32 lg:py-40"
+        style={{
+          backgroundColor: "var(--color-white)",
+        }}
+      >
+        <div className="container-iric">
+          <div
+            className="rounded-3xl p-8 sm:p-12 lg:p-16"
+            style={{
+              backgroundColor: "var(--color-dark-green)",
+            }}
+          >
+            <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-20">
+              <Reveal>
+                <div>
+                  <p
+                    className="text-sm font-medium"
+                    style={{
+                      color: "var(--color-primary)",
+                    }}
+                  >
+                    پروژه شما
+                  </p>
 
-              <h2 className="text-3xl font-medium leading-[1.35] tracking-[-0.035em] sm:text-4xl md:text-5xl">
-                چاپ فقط خروجی نیست؛
-                <br />
-                بخشی از تجربه است.
-              </h2>
+                  <h2
+                    className="mt-5 max-w-3xl text-3xl font-bold sm:text-4xl lg:text-5xl"
+                    style={{
+                      color: "var(--color-white)",
+                      lineHeight: "var(--line-height-tight)",
+                    }}
+                  >
+                    پروژه بعدی می‌تواند همین‌جا باشد.
+                  </h2>
+
+                  <p
+                    className="mt-6 max-w-2xl text-base sm:text-lg"
+                    style={{
+                      color: "var(--color-white)",
+                      opacity: 0.7,
+                      lineHeight: "var(--line-height-relaxed)",
+                    }}
+                  >
+                    مشخصات محصول و نیاز چاپی‌تان را برای ما بفرستید تا درباره
+                    روش مناسب اجرا، زمان و هزینه با شما صحبت کنیم.
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal delay={100}>
+                <Button
+                  href="/استعلام-قیمت"
+                  variant="outline"
+                  size="lg"
+                  className="border-[#FFFFFF] text-[#FFFFFF] hover:bg-[#FFFFFF] hover:text-[#022F12]"
+                >
+                  استعلام قیمت
+                  <IconArrow direction="left" size={16} />
+                </Button>
+              </Reveal>
             </div>
-
-            <div className="max-w-2xl">
-              <p className="text-base leading-8 text-black/60 sm:text-lg sm:leading-9">
-                از انتخاب متریال و روش چاپ تا جزئیات اجرای نهایی،
-                هر تصمیم روی چیزی که در دست مخاطب قرار می‌گیرد
-                تأثیر می‌گذارد.
-              </p>
-
-              <p className="mt-6 text-base leading-8 text-black/60 sm:text-lg sm:leading-9">
-                هدف ما این است که کیفیت اجرای چاپ با نیاز واقعی
-                پروژه هماهنگ باشد؛ چه برای یک محصول پوشیدنی، چه
-                بسته‌بندی، اقلام یک کسب‌وکار یا محصولات تبلیغاتی.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ-LIKE SEO CONTENT */}
-      <section>
-        <div className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 sm:py-24 md:px-10 md:py-32 lg:px-12">
-          <div className="max-w-4xl">
-            <p className="mb-5 text-xs font-medium text-black/40 sm:text-sm">
-              سوالات متداول
-            </p>
-
-            <div className="divide-y border-y border-black/10">
-              <details className="py-7">
-                <summary className="cursor-pointer text-lg font-medium sm:text-xl">
-                  چه نوع پروژه‌هایی در نمونه‌کارهای آیریک وجود دارد؟
-                </summary>
-
-                <p className="mt-4 max-w-3xl text-sm leading-8 text-black/55 sm:text-base">
-                  نمونه‌کارهای آیریک شامل پروژه‌های چاپ برای پوشاک،
-                  بسته‌بندی، رستوران، کافه، مجموعه‌های سازمانی و
-                  محصولات تبلیغاتی است.
-                </p>
-              </details>
-
-              <details className="py-7">
-                <summary className="cursor-pointer text-lg font-medium sm:text-xl">
-                  آیا آیریک برای برندها و کسب‌وکارها هم چاپ انجام می‌دهد؟
-                </summary>
-
-                <p className="mt-4 max-w-3xl text-sm leading-8 text-black/55 sm:text-base">
-                  بله. خدمات آیریک برای برندها، کسب‌وکارها و مجموعه‌هایی
-                  طراحی شده است که به چاپ و تولید اقلام مختلف نیاز دارند.
-                </p>
-              </details>
-
-              <details className="py-7">
-                <summary className="cursor-pointer text-lg font-medium sm:text-xl">
-                  آیا امکان سفارش پروژه مشابه نمونه‌کارها وجود دارد؟
-                </summary>
-
-                <p className="mt-4 max-w-3xl text-sm leading-8 text-black/55 sm:text-base">
-                  بله. برای بررسی امکان اجرا، کافی است مشخصات محصول،
-                  تعداد، ابعاد و فایل طرح را ارسال کنید تا روش مناسب
-                  چاپ و جزئیات تولید بررسی شود.
-                </p>
-              </details>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="bg-[#1a1917] text-white">
-        <div className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 sm:py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="max-w-4xl">
-            <p className="mb-6 text-xs font-medium text-white/40 sm:text-sm">
-              پروژه شما
-            </p>
-
-            <h2 className="text-3xl font-medium leading-[1.35] tracking-[-0.035em] sm:text-4xl md:text-5xl lg:text-6xl">
-              پروژه بعدی‌تان را
-              <br />
-              با ما شروع کنید.
-            </h2>
-
-            <p className="mt-7 max-w-2xl text-base leading-8 text-white/50 sm:text-lg sm:leading-9">
-              مشخصات پروژه‌تان را برای ما بفرستید تا درباره روش
-              اجرا و هزینه با شما صحبت کنیم.
-            </p>
-
-            <Link
-              href="/استعلام-قیمت"
-              className="mt-9 inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-medium text-black transition-transform duration-300 hover:-translate-y-0.5"
-            >
-              <span>استعلام قیمت</span>
-              <span aria-hidden="true">↗</span>
-            </Link>
           </div>
         </div>
       </section>
