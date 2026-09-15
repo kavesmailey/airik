@@ -10,7 +10,6 @@ interface FormData {
   productType: string;
   quantity: string;
   printingMethod: string;
-  file: File | null;
   timeline: string;
   description: string;
 }
@@ -48,30 +47,34 @@ export default function QuoteForm() {
     productType: "",
     quantity: "",
     printingMethod: "",
-    file: null,
     timeline: "",
     description: "",
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setFormData((prev) => ({ ...prev, file }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     setIsSubmitting(true);
-    // TODO: Connect to backend (email, Supabase, CRM, Telegram, etc.)
+
+    // TODO: Connect to backend / PHP Telegram endpoint.
     await new Promise((resolve) => setTimeout(resolve, 1000));
+
     setIsSubmitting(false);
     setIsSubmitted(true);
   };
@@ -85,6 +88,7 @@ export default function QuoteForm() {
         >
           درخواست شما دریافت شد
         </h2>
+
         <p
           className="mt-4"
           style={{ color: "var(--color-text-muted)" }}
@@ -121,6 +125,7 @@ export default function QuoteForm() {
           <label htmlFor="name" style={labelStyle}>
             نام
           </label>
+
           <input
             type="text"
             id="name"
@@ -131,10 +136,12 @@ export default function QuoteForm() {
             style={inputStyle}
           />
         </div>
+
         <div>
           <label htmlFor="brand" style={labelStyle}>
             نام برند
           </label>
+
           <input
             type="text"
             id="brand"
@@ -146,10 +153,12 @@ export default function QuoteForm() {
         </div>
       </div>
 
+      {/* Phone */}
       <div>
         <label htmlFor="phone" style={labelStyle}>
           شماره تماس
         </label>
+
         <input
           type="tel"
           id="phone"
@@ -167,6 +176,7 @@ export default function QuoteForm() {
         <label htmlFor="productType" style={labelStyle}>
           نوع محصول
         </label>
+
         <select
           id="productType"
           name="productType"
@@ -176,6 +186,7 @@ export default function QuoteForm() {
           style={inputStyle}
         >
           <option value="">انتخاب کنید</option>
+
           {productTypes.map((type) => (
             <option key={type} value={type}>
               {type}
@@ -189,6 +200,7 @@ export default function QuoteForm() {
         <label htmlFor="quantity" style={labelStyle}>
           تعداد تقریبی
         </label>
+
         <select
           id="quantity"
           name="quantity"
@@ -198,6 +210,7 @@ export default function QuoteForm() {
           style={inputStyle}
         >
           <option value="">انتخاب کنید</option>
+
           {quantityOptions.map((qty) => (
             <option key={qty} value={qty}>
               {qty}
@@ -211,6 +224,7 @@ export default function QuoteForm() {
         <label htmlFor="printingMethod" style={labelStyle}>
           نوع چاپ
         </label>
+
         <select
           id="printingMethod"
           name="printingMethod"
@@ -220,6 +234,7 @@ export default function QuoteForm() {
           style={inputStyle}
         >
           <option value="">انتخاب کنید</option>
+
           {printingMethods.map((method) => (
             <option key={method} value={method}>
               {method}
@@ -228,26 +243,12 @@ export default function QuoteForm() {
         </select>
       </div>
 
-      {/* File upload */}
-      <div>
-        <label htmlFor="file" style={labelStyle}>
-          آپلود لوگو یا طرح (اختیاری)
-        </label>
-        <input
-          type="file"
-          id="file"
-          name="file"
-          accept=".ai,.pdf,.png,.jpg,.jpeg,.eps,.psd"
-          onChange={handleFileChange}
-          style={inputStyle}
-        />
-      </div>
-
       {/* Timeline */}
       <div>
         <label htmlFor="timeline" style={labelStyle}>
           زمان مورد نیاز
         </label>
+
         <input
           type="text"
           id="timeline"
@@ -264,6 +265,7 @@ export default function QuoteForm() {
         <label htmlFor="description" style={labelStyle}>
           توضیحات
         </label>
+
         <textarea
           id="description"
           name="description"
@@ -274,8 +276,16 @@ export default function QuoteForm() {
         />
       </div>
 
-      <Button type="submit" size="lg" className="w-full" onClick={undefined} href={undefined}>
-        {isSubmitting ? "در حال ارسال..." : "دریافت مشاوره و استعلام قیمت"}
+      <Button
+        type="submit"
+        size="lg"
+        className="w-full"
+        onClick={undefined}
+        href={undefined}
+      >
+        {isSubmitting
+          ? "در حال ارسال..."
+          : "دریافت مشاوره و استعلام قیمت"}
       </Button>
     </form>
   );
