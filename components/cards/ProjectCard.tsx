@@ -11,24 +11,29 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <article className="group block">
       <MediaPlaceholder
+        src={project.image}
+        alt={project.title}
         aspectRatio="4/3"
         label={project.title}
         tone="dark"
-        className="mb-4"
+        className="mb-4 transition-transform duration-500 group-hover:scale-[1.02]"
       />
 
       <div className="flex items-start justify-between gap-4">
         <div>
           <p
             className="mb-2 text-sm"
-            style={{ color: "var(--color-text-muted)" }}
+            style={{
+              color: "var(--color-dark-green)",
+              opacity: 0.58,
+            }}
           >
             {project.category}
           </p>
 
           <h3
             className="text-lg font-bold"
-            style={{ color: "var(--color-text)" }}
+            style={{ color: "var(--color-dark-green)" }}
           >
             {project.title}
           </h3>
@@ -36,7 +41,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <p
             className="mt-2 text-sm"
             style={{
-              color: "var(--color-text-muted)",
+              color: "var(--color-dark-green)",
+              opacity: 0.68,
               lineHeight: "var(--line-height-relaxed)",
             }}
           >
@@ -45,8 +51,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         <span
-          className="mt-1 shrink-0 opacity-40 transition-transform duration-300 group-hover:-translate-x-1"
-          style={{ color: "var(--color-text-faint)" }}
+          className="mt-1 shrink-0 opacity-40 transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100"
+          style={{ color: "var(--color-dark-green)" }}
           aria-hidden="true"
         >
           <IconArrow direction="up-left" size={20} />
