@@ -3,16 +3,16 @@ import Link from "next/link";
 import { blogPosts } from "@/content/blog";
 
 export const metadata: Metadata = {
-  title: "مجله چاپ | راهنمای چاپ و انتخاب روش چاپ",
+  title: "بلاگ | راهنمای چاپ و انتخاب روش چاپ",
   description:
-    "راهنما و مطالب کاربردی درباره چاپ، چاپ سیلک، چاپ دیجیتال، چاپ افست، چاپ روی لباس، پارچه و بسته‌بندی برای کمک به انتخاب روش مناسب چاپ.",
+    "راهنما و مطالب کاربردی درباره چاپ، چاپ سیلک، چاپ DTF، چاپ روی لباس، پارچه و سایر خدمات چاپی آیریک.",
   alternates: {
     canonical: "/وبلاگ",
   },
   openGraph: {
-    title: "مجله چاپ | آیریک",
+    title: "بلاگ | آیریک",
     description:
-      "راهنما و مطالب کاربردی درباره روش‌های چاپ، کاربردها، هزینه و انتخاب تکنیک مناسب برای هر پروژه.",
+      "راهنما و مطالب کاربردی درباره روش‌های چاپ و انتخاب تکنیک مناسب برای هر پروژه.",
     type: "website",
   },
 };
@@ -32,12 +32,12 @@ const faqItems = [
   {
     question: "چاپ سیلک برای چه پروژه‌هایی مناسب است؟",
     answer:
-      "چاپ سیلک برای بسیاری از پروژه‌های چاپ روی لباس، پارچه و برخی محصولات تبلیغاتی مناسب است. انتخاب نهایی به جنس سطح، تیراژ و ویژگی‌های طرح بستگی دارد.",
+      "چاپ سیلک برای بسیاری از پروژه‌های چاپ روی لباس، پارچه و برخی محصولات مناسب است. انتخاب نهایی به جنس سطح، تیراژ و ویژگی‌های طرح بستگی دارد.",
   },
   {
-    question: "چاپ دیجیتال بهتر است یا چاپ افست؟",
+    question: "چاپ سیلک یا DTF؛ کدام بهتر است؟",
     answer:
-      "هیچ‌کدام همیشه بهتر نیستند. چاپ دیجیتال معمولاً برای تیراژ پایین و سرعت بیشتر مناسب است، در حالی که چاپ افست می‌تواند برای تیراژهای بالاتر اقتصادی‌تر باشد.",
+      "هیچ‌کدام همیشه بهتر نیستند. نوع طرح، متریال، تعداد رنگ، تیراژ و نتیجه مورد انتظار مشخص می‌کنند کدام روش برای پروژه مناسب‌تر است.",
   },
 ];
 
@@ -56,7 +56,7 @@ export default function BlogPage() {
   const articleListSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "مجله چاپ آیریک",
+    name: "بلاگ آیریک",
     description:
       "راهنما و مطالب کاربردی درباره روش‌های چاپ و انتخاب روش مناسب برای پروژه‌های چاپی.",
     mainEntity: {
@@ -83,7 +83,7 @@ export default function BlogPage() {
       {
         "@type": "ListItem",
         position: 2,
-        name: "مجله چاپ",
+        name: "بلاگ",
         item: "/وبلاگ",
       },
     ],
@@ -113,7 +113,7 @@ export default function BlogPage() {
         <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
           <div className="max-w-5xl">
             <p className="mb-7 text-sm font-medium text-black/45">
-              مجله آیریک
+              بلاگ آیریک
             </p>
 
             <h1 className="text-4xl font-medium leading-[1.25] tracking-tight md:text-6xl lg:text-7xl">
@@ -140,7 +140,7 @@ export default function BlogPage() {
 
             <p className="max-w-4xl text-lg leading-9 text-black/65 md:text-xl">
               انتخاب روش چاپ به عواملی مثل جنس متریال، تیراژ، نوع طرح، کیفیت
-              مورد انتظار، زمان تولید و بودجه بستگی دارد. در مجله آیریک این
+              مورد انتظار، زمان تولید و بودجه بستگی دارد. در بلاگ آیریک این
               معیارها را به زبان ساده بررسی می‌کنیم تا قبل از سفارش بتوانید
               گزینه‌های مناسب را مقایسه کنید.
             </p>
@@ -188,21 +188,22 @@ export default function BlogPage() {
 
           {/* BLOG GRID */}
           <div className="grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
-            {blogPosts.map((post, index) => (
+            {blogPosts.map((post) => (
               <article key={post.slug} className="group">
                 <Link
                   href={`/وبلاگ/${post.slug}`}
                   className="block"
                 >
-                  {/* IMAGE PLACEHOLDER */}
+                  {/* BLOG IMAGE */}
                   <div className="relative mb-7 aspect-[16/10] overflow-hidden bg-[#f5f3ef]">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-xs font-medium tracking-[0.15em] text-black/25">
-                        AIRIK / {String(index + 1).padStart(2, "0")}
-                      </span>
-                    </div>
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    />
 
-                    <div className="absolute inset-x-0 bottom-0 h-px bg-black/10" />
+                    <div className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/[0.04]" />
                   </div>
 
                   {/* META */}
@@ -248,7 +249,7 @@ export default function BlogPage() {
           <div className="grid gap-16 md:grid-cols-2 md:gap-24">
             <div>
               <p className="mb-6 text-sm font-medium text-black/45">
-                چرا این مجله؟
+                چرا این بلاگ؟
               </p>
 
               <h2 className="text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
@@ -318,44 +319,17 @@ export default function BlogPage() {
                       </span>
                     </div>
 
-                    <span className="text-xl text-black/40 transition-transform group-open:rotate-45">
+                    <span className="pt-1 text-lg text-black/30 transition-transform duration-300 group-open:rotate-45">
                       +
                     </span>
                   </summary>
 
-                  <p className="pb-8 pr-9 text-sm leading-8 text-black/50 md:pr-10 md:text-base">
+                  <div className="pb-7 pr-10 text-base leading-8 text-black/55">
                     {item.answer}
-                  </p>
+                  </div>
                 </details>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FINAL CTA */}
-      <section className="border-t border-black/10">
-        <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
-          <div className="border-t border-black/10 pt-16 md:pt-20">
-            <h2 className="max-w-4xl text-3xl font-medium leading-[1.4] tracking-tight md:text-5xl">
-              جواب سؤال‌تان را پیدا نکردید؟
-              <br />
-              مستقیماً از ما بپرسید.
-            </h2>
-
-            <p className="mt-7 max-w-2xl text-base leading-8 text-black/50">
-              اگر درباره روش چاپ مناسب پروژه، متریال یا هزینه مطمئن نیستید،
-              مشخصات پروژه را ارسال کنید تا راهنمایی‌تان کنیم.
-            </p>
-
-            <Link
-              href="/استعلام-قیمت"
-              className="mt-10 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm text-white transition-transform hover:-translate-y-0.5"
-            >
-              استعلام قیمت چاپ
-
-              <span aria-hidden="true">↗</span>
-            </Link>
           </div>
         </div>
       </section>
