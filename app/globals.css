@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ==========================================================
+/* =========================================================
    FONTS — LAHZEH
-========================================================== */
+========================================================= */
 
 @font-face {
   font-family: "Lahzeh";
@@ -78,51 +78,71 @@
   font-display: swap;
 }
 
-/* ==========================================================
-   AYRIC BRAND TOKENS
-   Final approved palette
-========================================================== */
+
+/* =========================================================
+   AYRIC — FINAL BRAND PALETTE
+
+   #FFFFFF  White
+   #E4F0CC  Soft Green
+   #8BC53D  Primary Green
+   #022F12  Dark Green
+   #021408  Deepest Green
+========================================================= */
 
 :root {
-  /* Brand palette */
-  --ayric-white: #ffffff;
-  --ayric-soft-green: #e4f0cc;
-  --ayric-green: #8bc53d;
-  --ayric-dark-green: #022f12;
-  --ayric-deep-green: #021408;
+  /* Core palette */
+  --color-white: #FFFFFF;
+  --color-soft-green: #E4F0CC;
+  --color-primary: #8BC53D;
+  --color-dark-green: #022F12;
+  --color-deepest-green: #021408;
 
-  /* Semantic tokens */
-  --color-bg: #ffffff;
-  --color-surface: #e4f0cc;
-  --color-bg-light: #ffffff;
-  --color-surface-light: #e4f0cc;
+  /* Main semantic tokens */
+  --color-bg: #FFFFFF;
+  --color-background: #FFFFFF;
+  --color-bg-light: #E4F0CC;
 
-  --color-text: #021408;
-  --color-text-muted: #022f12;
+  --color-text: #022F12;
   --color-text-dark: #021408;
-  --color-text-dark-muted: #022f12;
 
-  --color-accent: #8bc53d;
-  --color-accent-hover: #022f12;
+  --color-text-muted: rgba(2, 47, 18, 0.68);
+  --color-text-faint: rgba(2, 47, 18, 0.45);
+
+  --color-text-dark-muted: rgba(2, 20, 8, 0.68);
+  --color-text-dark-faint: rgba(2, 20, 8, 0.45);
+
+  --color-accent: #8BC53D;
+
+  --color-surface-light: #FFFFFF;
+  --color-surface-muted: #E4F0CC;
+  --color-surface-dark: #022F12;
 
   --color-border: rgba(2, 47, 18, 0.14);
-  --color-border-light: rgba(2, 47, 18, 0.08);
+  --color-border-light: rgba(2, 47, 18, 0.10);
 
-  /* Legacy semantic names kept for component compatibility */
-  --color-tone-clay: #8bc53d;
-  --color-tone-ink: #021408;
-  --color-tone-olive: #022f12;
-
-  /* Existing global names */
-  --background: #ffffff;
-  --foreground: #021408;
-  --muted: #022f12;
+  /* Legacy aliases used by existing components */
+  --background: #FFFFFF;
+  --foreground: #022F12;
+  --muted: rgba(2, 47, 18, 0.68);
   --border: rgba(2, 47, 18, 0.14);
+
+  /* Layout / motion */
+  --radius-sm: 6px;
+
+  --space-2xl: 3rem;
+  --space-4xl: 5rem;
+  --space-5xl: 7rem;
+
+  --line-height-tight: 1.12;
+  --line-height-relaxed: 1.9;
+
+  --ease-default: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ==========================================================
+
+/* =========================================================
    BASE
-========================================================== */
+========================================================= */
 
 * {
   box-sizing: border-box;
@@ -130,7 +150,6 @@
 
 html {
   scroll-behavior: smooth;
-  background: var(--ayric-white);
 }
 
 html,
@@ -151,9 +170,38 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ==========================================================
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container-iric {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (min-width: 768px) {
+  .container-iric {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-iric {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+}
+
+
+/* =========================================================
    TYPOGRAPHY
-========================================================== */
+========================================================= */
 
 h1,
 h2,
@@ -176,18 +224,20 @@ b {
   font-weight: 700;
 }
 
-/* ==========================================================
+
+/* =========================================================
    LINKS
-========================================================== */
+========================================================= */
 
 a {
   color: inherit;
   text-decoration: none;
 }
 
-/* ==========================================================
-   FORMS
-========================================================== */
+
+/* =========================================================
+   FORM ELEMENTS
+========================================================= */
 
 button,
 input,
@@ -217,39 +267,42 @@ textarea {
   min-height: 140px;
 }
 
-/* ==========================================================
+
+/* =========================================================
    SELECTION
-========================================================== */
+========================================================= */
 
 ::selection {
-  background: var(--ayric-green);
-  color: var(--ayric-deep-green);
+  background: var(--color-primary);
+  color: var(--color-deepest-green);
 }
 
-/* ==========================================================
+
+/* =========================================================
    SCROLLBAR
-========================================================== */
+========================================================= */
 
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--ayric-white);
+  background: var(--color-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--ayric-green);
+  background: var(--color-dark-green);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ayric-dark-green);
+  background: var(--color-deepest-green);
 }
 
-/* ==========================================================
+
+/* =========================================================
    DETAILS / SUMMARY
-========================================================== */
+========================================================= */
 
 summary {
   list-style: none;
@@ -259,18 +312,20 @@ summary::-webkit-details-marker {
   display: none;
 }
 
-/* ==========================================================
+
+/* =========================================================
    ACCESSIBILITY
-========================================================== */
+========================================================= */
 
 :focus-visible {
-  outline: 2px solid var(--ayric-green);
+  outline: 2px solid var(--color-primary);
   outline-offset: 4px;
 }
 
-/* ==========================================================
+
+/* =========================================================
    DIRECTION
-========================================================== */
+========================================================= */
 
 [dir="ltr"] {
   direction: ltr;
@@ -280,14 +335,10 @@ summary::-webkit-details-marker {
   direction: rtl;
 }
 
-/* ==========================================================
-   UTILITY
-========================================================== */
 
-.container-iric {
-  width: min(100% - 3rem, 1280px);
-  margin-inline: auto;
-}
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 767px) {
   html {
@@ -295,6 +346,7 @@ summary::-webkit-details-marker {
   }
 
   .container-iric {
-    width: min(100% - 2rem, 1280px);
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
