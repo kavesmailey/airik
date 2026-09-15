@@ -1,463 +1,262 @@
-import type { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
 
-import { siteConfig } from "@/content/site";
-import JsonLd from "@/components/seo/JsonLd";
-
-const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
-const canonicalUrl = `${siteUrl}/درباره-ما`;
-
-export const metadata: Metadata = {
-  title: "درباره ما | آیریک",
-  description:
-    "درباره آیریک؛ مجموعه‌ای برای ارائه راهکارهای چاپ و تولید برای برندها و کسب‌وکارها.",
-  alternates: {
-    canonical: canonicalUrl,
-  },
-  openGraph: {
-    title: "درباره ما | آیریک",
-    description:
-      "درباره آیریک؛ مجموعه‌ای برای ارائه راهکارهای چاپ و تولید برای برندها و کسب‌وکارها.",
-    url: canonicalUrl,
-    siteName: siteConfig.name,
-    locale: "fa_IR",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "درباره ما | آیریک",
-    description:
-      "درباره آیریک؛ مجموعه‌ای برای ارائه راهکارهای چاپ و تولید برای برندها و کسب‌وکارها.",
-  },
-};
-
-const values = [
-  {
-    number: "01",
-    title: "دقت",
-    text: "جزئیات کوچک می‌توانند تفاوت بزرگی در نتیجه نهایی ایجاد کنند.",
-  },
-  {
-    number: "02",
-    title: "کیفیت",
-    text: "کیفیت برای ما فقط مشخصات فنی نیست؛ تجربه‌ای است که محصول منتقل می‌کند.",
-  },
-  {
-    number: "03",
-    title: "راهکار",
-    text: "هر پروژه مسئله متفاوتی دارد و باید راهکار متناسب خودش را پیدا کند.",
-  },
-  {
-    number: "04",
-    title: "همراهی",
-    text: "از اولین گفتگو تا تحویل نهایی، کنار پروژه می‌مانیم.",
-  },
-];
-
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "خانه",
-      item: siteUrl,
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "درباره ما",
-      item: canonicalUrl,
-    },
-  ],
-};
-
-const aboutPageSchema = {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  "@id": `${canonicalUrl}#about`,
-  url: canonicalUrl,
-  name: "درباره ما | آیریک",
-  description:
-    "درباره آیریک؛ مجموعه‌ای برای ارائه راهکارهای چاپ و تولید برای برندها و کسب‌وکارها.",
-  inLanguage: "fa-IR",
-  isPartOf: {
-    "@type": "WebSite",
-    url: siteUrl,
-    name: siteConfig.name,
-  },
-  about: {
-    "@type": "Organization",
-    name: siteConfig.name,
-    url: siteUrl,
-  },
-};
+import Reveal from "@/components/ui/Reveal";
+import ParallaxImage from "@/components/ui/ParallaxImage";
+import IconArrow from "@/components/ui/IconArrow";
 
 export default function AboutPage() {
-  return (
-    <main dir="rtl">
-      <JsonLd type="breadcrumb" data={breadcrumbSchema} />
-      <JsonLd type="organization" data={aboutPageSchema} />
+  const values = [
+    {
+      number: "۰۱",
+      title: "دقت در جزئیات",
+      text: "در چاپ، جزئیات کوچک می‌توانند نتیجه نهایی یک محصول را تغییر دهند. ما از مرحله انتخاب روش چاپ تا اجرای نهایی، به همین جزئیات توجه می‌کنیم.",
+    },
+    {
+      number: "۰۲",
+      title: "انتخاب درست",
+      text: "همه پروژه‌ها به یک روش چاپ نیاز ندارند. راه‌حل مناسب را بر اساس محصول، متریال، تیراژ و نتیجه مورد انتظار انتخاب می‌کنیم.",
+    },
+    {
+      number: "۰۳",
+      title: "کیفیت قابل اتکا",
+      text: "هدف فقط تولید یک خروجی چاپی نیست؛ نتیجه باید روی محصول نهایی درست، تمیز و قابل اتکا به نظر برسد.",
+    },
+    {
+      number: "۰۴",
+      title: "همراهی با برند",
+      text: "چاپ بخشی از تجربه برند است. تلاش می‌کنیم نتیجه نهایی با هویت و کیفیتی که برند شما می‌خواهد هماهنگ باشد.",
+    },
+  ];
 
+  return (
+    <main>
       {/* Hero */}
-      <section
-        className="border-b"
-        style={{ borderColor: "rgba(2, 47, 18, 0.12)" }}
-      >
-        <div className="container-iric py-32 sm:py-40 lg:py-48">
-          <div className="max-w-5xl">
-            <p
-              className="mb-8 text-sm font-medium"
-              style={{ color: "var(--color-primary)" }}
-            >
+      <section className="container mx-auto px-5 pb-20 pt-32 sm:px-8 sm:pb-24 sm:pt-40 lg:px-12 lg:pb-32">
+        <div className="max-w-5xl">
+          <Reveal direction="up">
+            <p className="mb-5 text-sm font-medium text-[#8BC53D]">
               درباره آیریک
             </p>
+          </Reveal>
 
+          <Reveal direction="up" delay={100}>
             <h1
-              className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl"
-              style={{
-                color: "var(--color-dark-green)",
-                lineHeight: "1.15",
-              }}
+              className="max-w-5xl text-4xl font-semibold tracking-[-0.025em] text-[#021408] sm:text-5xl lg:text-6xl"
+              style={{ lineHeight: 1.35 }}
             >
-              چاپ را از
+              چاپ فقط چیزی نیست
               <br />
-              زاویه دیگری می‌بینیم.
+              که روی محصول دیده می‌شود.
             </h1>
+          </Reveal>
 
+          <Reveal direction="up" delay={220}>
             <p
-              className="mt-10 max-w-3xl text-lg sm:text-xl"
-              style={{
-                color: "var(--color-dark-green)",
-                opacity: 0.68,
-                lineHeight: "2",
-              }}
+              className="mt-7 max-w-2xl text-base text-[#022F12]/65 sm:text-lg"
+              style={{ lineHeight: 2 }}
             >
-              آیریک برای برندها و کسب‌وکارهایی ساخته شده که خروجی فیزیکی را
-              بخشی از تجربه برند خود می‌دانند، نه صرفاً یک محصول چاپ‌شده.
+              آیریک یک مجموعه تخصصی چاپ است که تلاش می‌کند بین
+              کیفیت چاپ، محصول و هویت برند ارتباط درست‌تری ایجاد کند.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Statement */}
-      <section style={{ backgroundColor: "var(--color-white)" }}>
-        <div className="container-iric py-32 sm:py-40 lg:py-48">
-          <div className="grid gap-16 md:grid-cols-[0.7fr_1.3fr] md:gap-28">
-            <div>
-              <p
-                className="text-sm font-medium"
-                style={{ color: "var(--color-primary)" }}
-              >
-                نگاه ما
-              </p>
-            </div>
+      {/* Main image */}
+      <section className="container mx-auto px-5 pb-20 sm:px-8 lg:px-12 lg:pb-28">
+        <Reveal direction="up">
+          <div className="overflow-hidden rounded-[28px]">
+            <ParallaxImage
+              src="/images/hero.jpg"
+              alt="آیریک؛ چاپ تخصصی برای برندها"
+              priority
+              strength={22}
+              className="h-[320px] sm:h-[480px] lg:h-[640px]"
+            />
+          </div>
+        </Reveal>
+      </section>
 
-            <div>
-              <p
-                className="text-3xl font-bold tracking-tight sm:text-5xl"
-                style={{
-                  color: "var(--color-dark-green)",
-                  lineHeight: "1.5",
-                }}
-              >
-                ما معتقدیم چاپ فقط انتقال یک تصویر روی یک سطح نیست.
-                <span
-                  style={{
-                    color: "var(--color-dark-green)",
-                    opacity: 0.35,
-                  }}
+      {/* Introduction */}
+      <section className="bg-[#E4F0CC]">
+        <div className="container mx-auto px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
+          <div className="grid gap-12 lg:grid-cols-[0.3fr_1fr] lg:gap-20">
+            <Reveal direction="right">
+              <p className="text-sm font-medium text-[#022F12]/45">
+                چرا آیریک؟
+              </p>
+            </Reveal>
+
+            <Reveal direction="up" delay={120}>
+              <div className="max-w-4xl">
+                <p
+                  className="text-2xl font-medium tracking-[-0.015em] text-[#021408] sm:text-3xl lg:text-4xl"
+                  style={{ lineHeight: 1.7 }}
                 >
-                  {" "}
-                  بخشی از چیزی است که مخاطب لمس می‌کند، می‌بیند و به خاطر
-                  می‌سپارد.
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+                  ما چاپ را بخشی از محصول می‌دانیم؛ جایی که کیفیت
+                  اجرا، انتخاب متریال و توجه به جزئیات می‌تواند
+                  تجربه‌ای که یک برند می‌سازد را کامل کند.
+                </p>
 
-      {/* Visual */}
-      <section style={{ backgroundColor: "var(--color-white)" }}>
-        <div className="container-iric">
-          <div
-            className="relative flex min-h-[480px] items-center justify-center overflow-hidden rounded-[2rem] md:min-h-[650px]"
-            style={{
-              backgroundColor: "var(--color-soft-green)",
-              border: "1px solid rgba(2, 47, 18, 0.12)",
-            }}
-          >
-            <div className="text-center">
-              <span
-                className="block text-xs tracking-[0.3em]"
-                style={{
-                  color: "var(--color-dark-green)",
-                  opacity: 0.45,
-                }}
-              >
-                AYRIC
-              </span>
-
-              <span
-                className="mt-5 block text-[9rem] font-bold leading-none tracking-[-0.1em] md:text-[15rem]"
-                style={{
-                  color: "var(--color-primary)",
-                  opacity: 0.45,
-                }}
-              >
-                A
-              </span>
-            </div>
-
-            <p
-              className="absolute bottom-7 right-7 max-w-xs text-sm leading-7 md:bottom-10 md:right-10"
-              style={{
-                color: "var(--color-dark-green)",
-                opacity: 0.55,
-              }}
-            >
-              جایی که ایده به یک چیز واقعی تبدیل می‌شود.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Story */}
-      <section style={{ backgroundColor: "var(--color-white)" }}>
-        <div className="container-iric py-32 sm:py-40 lg:py-48">
-          <div className="grid gap-16 md:grid-cols-[0.75fr_1.25fr] md:gap-28">
-            <div>
-              <p
-                className="mb-7 text-sm font-medium"
-                style={{ color: "var(--color-primary)" }}
-              >
-                داستان آیریک
-              </p>
-
-              <h2
-                className="text-3xl font-bold tracking-tight sm:text-5xl"
-                style={{
-                  color: "var(--color-dark-green)",
-                  lineHeight: "1.45",
-                }}
-              >
-                از یک سفارش
-                <br />
-                تا یک رابطه.
-              </h2>
-            </div>
-
-            <div
-              className="space-y-8 text-lg sm:text-xl"
-              style={{
-                color: "var(--color-dark-green)",
-                opacity: 0.68,
-                lineHeight: "2",
-              }}
-            >
-              <p>
-                آیریک با یک نگاه ساده شکل گرفته است: اینکه فرآیند چاپ نباید
-                فقط از دریافت فایل و تحویل محصول تشکیل شود.
-              </p>
-
-              <p>
-                ما می‌خواهیم قبل از تولید، مسئله را بفهمیم؛ متریال و روش مناسب
-                را پیدا کنیم و مطمئن شویم نتیجه نهایی با چیزی که برند در ذهن
-                دارد فاصله‌ای ندارد.
-              </p>
-
-              <p>
-                به همین دلیل هر پروژه برای ما فرصتی است برای پیدا کردن راهی
-                بهتر برای تبدیل یک ایده به یک تجربه فیزیکی.
-              </p>
-            </div>
+                <p
+                  className="mt-8 max-w-3xl text-base text-[#022F12]/65 sm:text-lg"
+                  style={{ lineHeight: 2 }}
+                >
+                  از چاپ سیلک و DTF گرفته تا چاپ روی لباس،
+                  بسته‌بندی و محصولات مختلف، تلاش ما این است که
+                  برای هر پروژه راه‌حل مناسب و قابل اجرا پیدا کنیم.
+                </p>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
       {/* Values */}
-      <section
-        className="border-y"
-        style={{
-          backgroundColor: "var(--color-soft-green)",
-          borderColor: "rgba(2, 47, 18, 0.12)",
-        }}
-      >
-        <div className="container-iric py-32 sm:py-40 lg:py-48">
-          <div className="mb-16 max-w-3xl sm:mb-24">
-            <p
-              className="mb-7 text-sm font-medium"
-              style={{ color: "var(--color-primary)" }}
-            >
-              اصول ما
+      <section className="container mx-auto px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
+        <Reveal direction="up">
+          <div className="mb-14 max-w-2xl">
+            <p className="mb-4 text-sm font-medium text-[#8BC53D]">
+              رویکرد ما
             </p>
 
             <h2
-              className="text-3xl font-bold tracking-tight sm:text-5xl"
-              style={{
-                color: "var(--color-dark-green)",
-                lineHeight: "1.4",
-              }}
+              className="text-3xl font-semibold text-[#021408] sm:text-4xl lg:text-5xl"
+              style={{ lineHeight: 1.4 }}
             >
-              چیزهایی که
-              <br />
-              کوتاه نمی‌آیند.
+              چیزهایی که برای ما مهم‌اند.
             </h2>
           </div>
+        </Reveal>
 
-          <div
-            className="grid border-t md:grid-cols-2"
-            style={{ borderColor: "rgba(2, 47, 18, 0.12)" }}
-          >
-            {values.map((value) => (
-              <div
-                key={value.number}
-                className="border-b py-10 sm:py-14 md:px-10"
-                style={{ borderColor: "rgba(2, 47, 18, 0.12)" }}
-              >
-                <span
-                  className="text-xs"
-                  style={{
-                    color: "var(--color-dark-green)",
-                    opacity: 0.4,
-                  }}
-                >
+        <div className="border-t border-[#022F12]/10">
+          {values.map((value, index) => (
+            <Reveal
+              key={value.number}
+              direction="up"
+              delay={index * 100}
+            >
+              <div className="group grid gap-5 border-b border-[#022F12]/10 py-8 sm:grid-cols-[80px_0.8fr_1.2fr] sm:items-start sm:gap-8 sm:py-10 lg:grid-cols-[100px_0.8fr_1.2fr] lg:gap-12">
+                <span className="text-sm text-[#022F12]/35 transition-colors duration-500 group-hover:text-[#8BC53D]">
                   {value.number}
                 </span>
 
                 <h3
-                  className="mt-7 text-2xl font-bold"
-                  style={{ color: "var(--color-dark-green)" }}
+                  className="text-xl font-medium text-[#021408] transition-transform duration-500 group-hover:-translate-x-1 sm:text-2xl"
+                  style={{ lineHeight: 1.5 }}
                 >
                   {value.title}
                 </h3>
 
                 <p
-                  className="mt-5 max-w-md leading-8"
-                  style={{
-                    color: "var(--color-dark-green)",
-                    opacity: 0.62,
-                  }}
+                  className="max-w-xl text-sm text-[#022F12]/55 sm:text-base"
+                  style={{ lineHeight: 2 }}
                 >
                   {value.text}
                 </p>
               </div>
-            ))}
-          </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      {/* Why */}
-      <section style={{ backgroundColor: "var(--color-white)" }}>
-        <div className="container-iric py-32 sm:py-40 lg:py-48">
-          <div className="max-w-5xl">
-            <p
-              className="mb-8 text-sm font-medium"
-              style={{ color: "var(--color-primary)" }}
-            >
-              چرا آیریک؟
-            </p>
+      {/* Statement */}
+      <section className="container mx-auto px-5 pb-20 sm:px-8 lg:px-12 lg:pb-28">
+        <Reveal direction="up">
+          <div className="relative overflow-hidden rounded-[28px]">
+            <ParallaxImage
+              src="/images/portfolio/packaging.jpg"
+              alt="چاپ و بسته‌بندی"
+              strength={18}
+              className="h-[420px] sm:h-[520px] lg:h-[620px]"
+            />
 
-            <h2
-              className="text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
-              style={{
-                color: "var(--color-dark-green)",
-                lineHeight: "1.45",
-              }}
-            >
-              چون بین یک فایل خوب
-              <br />
-              و یک خروجی خوب،
-              <br />
-              تفاوت زیادی وجود دارد.
-            </h2>
+            <div className="absolute inset-0 bg-[#021408]/65" />
 
-            <p
-              className="mt-10 max-w-3xl text-lg sm:text-xl"
-              style={{
-                color: "var(--color-dark-green)",
-                opacity: 0.65,
-                lineHeight: "2",
-              }}
-            >
-              تجربه، شناخت متریال، انتخاب روش درست و توجه به جزئیات اجرایی
-              همان چیزی است که یک خروجی معمولی را از یک خروجی درست و قابل
-              اعتماد جدا می‌کند.
-            </p>
+            <div className="absolute inset-0 flex items-end p-7 sm:p-10 lg:p-14">
+              <div className="max-w-3xl">
+                <p className="mb-5 text-sm font-medium text-[#8BC53D]">
+                  Print with purpose.
+                </p>
+
+                <h2
+                  className="text-3xl font-semibold text-white sm:text-4xl lg:text-5xl"
+                  style={{ lineHeight: 1.4 }}
+                >
+                  نتیجه خوب فقط روی کاغذ یا پارچه اتفاق نمی‌افتد؛
+                  باید روی خود محصول هم درست به نظر برسد.
+                </h2>
+              </div>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      {/* CTA */}
-      <section
-        style={{
-          backgroundColor: "var(--color-primary)",
-        }}
-      >
-        <div className="container-iric py-32 sm:py-40 lg:py-52">
-          <div className="max-w-4xl">
-            <p
-              className="mb-7 text-sm font-bold"
-              style={{ color: "var(--color-white)" }}
-            >
-              همکاری
-            </p>
+      {/* Services link */}
+      <section className="container mx-auto px-5 pb-20 sm:px-8 lg:px-12 lg:pb-28">
+        <Reveal direction="up">
+          <div className="grid gap-8 rounded-[28px] bg-[#F4F7EE] p-8 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-end lg:p-14">
+            <div>
+              <p className="mb-4 text-sm font-medium text-[#8BC53D]">
+                خدمات آیریک
+              </p>
 
-            <h2
-              className="text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
-              style={{
-                color: "var(--color-dark-green)",
-                lineHeight: "1.4",
-              }}
-            >
-              یک پروژه دارید؟
-              <br />
-              با هم شروعش کنیم.
-            </h2>
+              <h2
+                className="max-w-2xl text-3xl font-semibold text-[#021408] sm:text-4xl"
+                style={{ lineHeight: 1.4 }}
+              >
+                برای هر محصول، یک راه‌حل چاپی مناسب وجود دارد.
+              </h2>
+            </div>
 
-            <p
-              className="mt-8 max-w-2xl text-lg"
-              style={{
-                color: "var(--color-white)",
-                opacity: 0.88,
-                lineHeight: "2",
-              }}
+            <Link
+              href="/خدمات"
+              className="group inline-flex items-center gap-4 text-sm font-medium text-[#021408]"
             >
-              درباره پروژه‌تان با ما صحبت کنید. حتی اگر هنوز جزئیات کامل را
-              نمی‌دانید.
-            </p>
+              مشاهده خدمات
 
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <span className="transition-transform duration-500 group-hover:-translate-x-1">
+                <IconArrow direction="left" size={19} />
+              </span>
+            </Link>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Final CTA */}
+      <section className="container mx-auto px-5 pb-8 sm:px-8 lg:px-12 lg:pb-12">
+        <Reveal direction="up">
+          <div className="relative overflow-hidden rounded-[28px] bg-[#022F12] p-8 sm:p-12 lg:p-16">
+            <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-[#8BC53D]/10 blur-3xl" />
+
+            <div className="relative max-w-3xl">
+              <p className="mb-5 text-sm font-medium text-[#8BC53D]">
+                شروع یک پروژه
+              </p>
+
+              <h2
+                className="text-3xl font-semibold text-white sm:text-4xl lg:text-5xl"
+                style={{ lineHeight: 1.4 }}
+              >
+                اگر کیفیت چاپ برایتان مهم است،
+                از همین‌جا شروع کنیم.
+              </h2>
+
               <Link
                 href="/استعلام-قیمت"
-                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full border px-8 py-4 text-sm font-bold transition-all hover:-translate-y-0.5"
-                style={{
-                  borderColor: "var(--color-dark-green)",
-                  color: "var(--color-dark-green)",
-                  backgroundColor: "transparent",
-                }}
+                className="group mt-8 inline-flex items-center gap-4 rounded-full bg-[#8BC53D] px-6 py-4 text-sm font-medium text-[#021408] transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20"
               >
                 استعلام قیمت
-                <span aria-hidden="true">↗</span>
-              </Link>
 
-              <Link
-                href="/تماس-با-ما"
-                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full border px-8 py-4 text-sm font-bold transition-all hover:-translate-y-0.5"
-                style={{
-                  borderColor: "var(--color-dark-green)",
-                  color: "var(--color-dark-green)",
-                  backgroundColor: "transparent",
-                }}
-              >
-                تماس با آیریک
-                <span aria-hidden="true">↗</span>
+                <span className="transition-transform duration-500 group-hover:-translate-x-1">
+                  <IconArrow direction="left" size={18} />
+                </span>
               </Link>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );
