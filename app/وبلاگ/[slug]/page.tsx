@@ -29,6 +29,7 @@ export function generateMetadata({
   }
 
   const canonicalUrl = `${siteConfig.siteUrl}/وبلاگ/${post.slug}`;
+  const imageUrl = `${siteConfig.siteUrl}${post.image}`;
 
   return {
     title: `${post.title} | آیریک`,
@@ -45,12 +46,21 @@ export function generateMetadata({
       siteName: siteConfig.name,
       locale: "fa_IR",
       type: "article",
+      publishedTime: post.dateISO,
+      modifiedTime: post.dateISO,
+      images: [
+        {
+          url: imageUrl,
+          alt: post.title,
+        },
+      ],
     },
 
     twitter: {
       card: "summary_large_image",
       title: `${post.title} | آیریک`,
       description: post.excerpt,
+      images: [imageUrl],
     },
   };
 }
@@ -80,7 +90,7 @@ function renderContent(content: string) {
       return (
         <h2
           key={index}
-          className="mt-14 mb-5 text-2xl font-medium leading-[1.5] tracking-tight md:text-3xl"
+          className="mb-5 mt-14 text-2xl font-medium leading-[1.5] tracking-tight md:text-3xl"
         >
           {text.replace("### ", "")}
         </h2>
@@ -111,14 +121,20 @@ export default function ArticlePage({
 
   const articleUrl = `${siteConfig.siteUrl}/وبلاگ/${post.slug}`;
   const blogUrl = `${siteConfig.siteUrl}/وبلاگ`;
+  const imageUrl = `${siteConfig.siteUrl}${post.image}`;
 
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
+
     headline: post.title,
     description: post.excerpt,
+
+    image: [imageUrl],
+
     datePublished: post.dateISO,
     dateModified: post.dateISO,
+
     articleSection: post.category,
     inLanguage: "fa-IR",
 
@@ -177,8 +193,11 @@ export default function ArticlePage({
   return (
     <main dir="rtl">
       <JsonLd data={articleSchema} />
-
       <JsonLd data={breadcrumbSchema} />
+
+      {/* ==========================================================
+          ARTICLE HEADER
+      =========================================================== */}
 
       <section className="border-b border-black/10">
         <div className="mx-auto max-w-5xl px-6 py-24 md:px-10 md:py-32">
@@ -186,11 +205,18 @@ export default function ArticlePage({
             aria-label="مسیر صفحه"
             className="mb-12 flex flex-wrap items-center gap-2 text-xs text-black/40"
           >
-            <Link href="/">خانه</Link>
+            <Link href="/" className="transition-colors hover:text-black">
+              خانه
+            </Link>
 
             <span aria-hidden="true">/</span>
 
-            <Link href="/وبلاگ">بلاگ</Link>
+            <Link
+              href="/وبلاگ"
+              className="transition-colors hover:text-black"
+            >
+              بلاگ
+            </Link>
 
             <span aria-hidden="true">/</span>
 
@@ -217,6 +243,27 @@ export default function ArticlePage({
         </div>
       </section>
 
+      {/* ==========================================================
+          ARTICLE IMAGE
+      =========================================================== */}
+
+      <section className="border-b border-black/10">
+        <div className="mx-auto max-w-6xl px-6 py-10 md:px-10 md:py-16">
+          <div className="relative aspect-[16/9] overflow-hidden bg-[#f5f3ef]">
+            <img
+              src={post.image}
+              alt={post.title}
+              className="h-full w-full object-cover"
+              fetchPriority="high"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ==========================================================
+          SUMMARY
+      =========================================================== */}
+
       <section className="border-b border-black/10 bg-[#f5f3ef]">
         <div className="mx-auto max-w-5xl px-6 py-14 md:px-10 md:py-20">
           <div className="grid gap-6 md:grid-cols-[0.3fr_1fr] md:gap-14">
@@ -230,6 +277,10 @@ export default function ArticlePage({
           </div>
         </div>
       </section>
+
+      {/* ==========================================================
+          ARTICLE CONTENT
+      =========================================================== */}
 
       <article>
         <div className="mx-auto max-w-3xl px-6 py-24 md:px-10 md:py-32">
@@ -255,6 +306,10 @@ export default function ArticlePage({
           </div>
         </div>
       </article>
+
+      {/* ==========================================================
+          CTA
+      =========================================================== */}
 
       <section className="bg-[#f5f3ef]">
         <div className="mx-auto max-w-5xl px-6 py-24 md:px-10 md:py-32">
@@ -285,6 +340,10 @@ export default function ArticlePage({
         </div>
       </section>
 
+      {/* ==========================================================
+          RELATED POSTS
+      =========================================================== */}
+
       {relatedPosts.length > 0 && (
         <section>
           <div className="mx-auto max-w-5xl px-6 py-24 md:px-10 md:py-32">
@@ -303,25 +362,40 @@ export default function ArticlePage({
                 <Link
                   key={related.slug}
                   href={`/وبلاگ/${related.slug}`}
-                  className="group border-t border-black/10 pt-6"
+                  className="group"
                 >
-                  <p className="text-xs text-black/40">
-                    {related.category}
-                  </p>
+                  <div className="relative mb-6 aspect-[16/10] overflow-hidden bg-[#f5f3ef]">
+                    <img
+                      src={related.image}
+                      alt={related.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    />
+                  </div>
 
-                  <h3 className="mt-4 text-xl font-medium leading-8 transition-opacity group-hover:opacity-60">
-                    {related.title}
-                  </h3>
+                  <div className="border-t border-black/10 pt-6">
+                    <p className="text-xs text-black/40">
+                      {related.category}
+                    </p>
 
-                  <p className="mt-3 text-sm leading-7 text-black/50">
-                    {related.excerpt}
-                  </p>
+                    <h3 className="mt-4 text-xl font-medium leading-8 transition-opacity group-hover:opacity-60">
+                      {related.title}
+                    </h3>
+
+                    <p className="mt-3 text-sm leading-7 text-black/50">
+                      {related.excerpt}
+                    </p>
+                  </div>
                 </Link>
               ))}
             </div>
           </div>
         </section>
       )}
+
+      {/* ==========================================================
+          BACK TO BLOG
+      =========================================================== */}
 
       <section className="border-t border-black/10">
         <div className="mx-auto max-w-5xl px-6 py-16 md:px-10">
