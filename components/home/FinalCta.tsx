@@ -5,15 +5,19 @@ import Reveal from "@/components/ui/Reveal";
 export default function FinalCta() {
   return (
     <section
-      className="section-iric"
-      style={{ backgroundColor: "var(--color-accent)" }}
+      className="py-32 sm:py-40 lg:py-52"
+      style={{
+        backgroundColor: "var(--color-primary)",
+      }}
     >
       <div className="container-iric">
         <Reveal>
           <div className="mx-auto max-w-4xl text-center">
             <p
               className="text-xs font-bold tracking-[0.18em]"
-              style={{ color: "var(--color-accent-contrast)" }}
+              style={{
+                color: "var(--color-white)",
+              }}
             >
               آماده شروع هستید؟
             </p>
@@ -21,7 +25,7 @@ export default function FinalCta() {
             <h2
               className="mt-6 text-4xl font-bold sm:text-5xl lg:text-6xl"
               style={{
-                color: "var(--color-accent-contrast)",
+                color: "var(--color-white)",
                 lineHeight: "var(--line-height-tight)",
               }}
             >
@@ -31,8 +35,8 @@ export default function FinalCta() {
             <p
               className="mx-auto mt-6 max-w-2xl text-base sm:text-lg"
               style={{
-                color: "var(--color-accent-contrast)",
-                opacity: 0.82,
+                color: "var(--color-white)",
+                opacity: 0.88,
                 lineHeight: "var(--line-height-relaxed)",
               }}
             >
@@ -55,8 +59,8 @@ export default function FinalCta() {
             <p
               className="mt-8 text-sm"
               style={{
-                color: "var(--color-accent-contrast)",
-                opacity: 0.65,
+                color: "var(--color-white)",
+                opacity: 0.72,
               }}
             >
               قبل از شروع تولید، همه جزئیات سفارش با شما هماهنگ می‌شود.
