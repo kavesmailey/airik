@@ -28,8 +28,8 @@ export const siteConfig = {
     whatsapp: "",
   },
 
-  logo: "",
-  logoMark: "",
+  logo: "/images/brand/logo.svg",
+  logoMark: "/images/brand/logo.svg",
   ogImage: "",
 
   navigation: [
