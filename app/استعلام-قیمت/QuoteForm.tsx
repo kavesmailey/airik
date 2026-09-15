@@ -1,20 +1,32 @@
-
 "use client";
 
 import { FormEvent, useState } from "react";
 
 const projectTypes = [
+  "چاپ سیلک",
+  "چاپ DTF",
   "چاپ روی لباس",
+  "چاپ روی بگ",
+  "چاپ روی کارتن",
+  "چاپ روی جعبه پیتزا",
+  "چاپ روی لیوان کاغذی",
+  "چاپ روی ظروف گرد",
+  "چاپ روی تیشرت",
   "چاپ روی پارچه",
-  "بسته‌بندی",
-  "چاپ روی محصول",
-  "اقلام تبلیغاتی",
-  "چاپ کاغذ و مقوا",
+  "چاپ کیسه پارچه‌ای",
+  "چاپ نایلون",
+  "تولید و چاپ توت‌بگ",
+  "چاپ لیوان",
+  "چاپ روی فلز",
+  "چاپ روی چوب",
+  "چاپ روی استیل",
+  "چاپ روی پلکسی",
   "سایر",
 ];
 
 export default function QuoteForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [status, setStatus] = useState<{
     type: "success" | "error" | null;
     message: string;
@@ -23,12 +35,15 @@ export default function QuoteForm() {
     message: "",
   });
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault();
 
     if (isSubmitting) return;
 
     setIsSubmitting(true);
+
     setStatus({
       type: null,
       message: "",
@@ -47,7 +62,8 @@ export default function QuoteForm() {
 
       if (!response.ok || !result.success) {
         throw new Error(
-          result.message || "ارسال درخواست انجام نشد. لطفاً دوباره تلاش کنید."
+          result.message ||
+            "ارسال درخواست انجام نشد. لطفاً دوباره تلاش کنید."
         );
       }
 
@@ -76,7 +92,6 @@ export default function QuoteForm() {
       onSubmit={handleSubmit}
       className="border-t border-black/10"
     >
-      {/* NAME + PHONE */}
       <div className="grid gap-8 py-8 md:grid-cols-2">
         <label className="block">
           <span className="mb-3 block text-sm text-black/50">
@@ -110,9 +125,10 @@ export default function QuoteForm() {
         </label>
       </div>
 
-      {/* EMAIL */}
       <label className="block border-t border-black/10 py-8">
-        <span className="mb-3 block text-sm text-black/50">ایمیل</span>
+        <span className="mb-3 block text-sm text-black/50">
+          ایمیل
+        </span>
 
         <input
           type="email"
@@ -124,9 +140,10 @@ export default function QuoteForm() {
         />
       </label>
 
-      {/* PROJECT TYPE */}
       <label className="block border-t border-black/10 py-8">
-        <span className="mb-3 block text-sm text-black/50">نوع پروژه</span>
+        <span className="mb-3 block text-sm text-black/50">
+          نوع پروژه
+        </span>
 
         <select
           name="projectType"
@@ -146,7 +163,6 @@ export default function QuoteForm() {
         </select>
       </label>
 
-      {/* QUANTITY + DIMENSIONS */}
       <div className="grid gap-8 border-t border-black/10 py-8 md:grid-cols-2">
         <label className="block">
           <span className="mb-3 block text-sm text-black/50">
@@ -162,7 +178,9 @@ export default function QuoteForm() {
         </label>
 
         <label className="block">
-          <span className="mb-3 block text-sm text-black/50">ابعاد</span>
+          <span className="mb-3 block text-sm text-black/50">
+            ابعاد
+          </span>
 
           <input
             type="text"
@@ -173,7 +191,6 @@ export default function QuoteForm() {
         </label>
       </div>
 
-      {/* MATERIAL */}
       <label className="block border-t border-black/10 py-8">
         <span className="mb-3 block text-sm text-black/50">
           متریال یا جنس محصول
@@ -187,7 +204,6 @@ export default function QuoteForm() {
         />
       </label>
 
-      {/* DEADLINE */}
       <label className="block border-t border-black/10 py-8">
         <span className="mb-3 block text-sm text-black/50">
           زمان مورد نیاز
@@ -201,7 +217,6 @@ export default function QuoteForm() {
         />
       </label>
 
-      {/* MESSAGE */}
       <label className="block border-t border-black/10 py-8">
         <span className="mb-3 block text-sm text-black/50">
           توضیحات پروژه
@@ -215,14 +230,13 @@ export default function QuoteForm() {
         />
       </label>
 
-      {/* STATUS */}
       {status.type && (
         <div
           role="status"
           aria-live="polite"
           className={`mb-8 border px-5 py-4 text-sm leading-7 ${
             status.type === "success"
-              ? "border-black/10 bg-[#f7f5f1] text-black/70"
+              ? "border-black/10 bg-[#E4F0CC] text-[#022F12]"
               : "border-red-900/15 bg-red-50 text-red-900/75"
           }`}
         >
@@ -230,14 +244,15 @@ export default function QuoteForm() {
         </div>
       )}
 
-      {/* SUBMIT */}
       <div className="border-t border-black/10 pt-8">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex items-center gap-3 rounded-full bg-black px-8 py-4 text-sm text-white transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+          className="inline-flex items-center gap-3 rounded-full bg-[#022F12] px-8 py-4 text-sm text-white transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
         >
-          {isSubmitting ? "در حال ارسال..." : "ارسال درخواست"}
+          {isSubmitting
+            ? "در حال ارسال..."
+            : "ارسال درخواست"}
 
           {!isSubmitting && (
             <span aria-hidden="true">↗</span>
