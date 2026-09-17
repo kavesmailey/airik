@@ -12,33 +12,15 @@ const navItems = [
 ];
 
 export default function Header() {
-  const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      setScrolled(currentScrollY > 20);
-
-      if (menuOpen) {
-        lastScrollY = currentScrollY;
-        return;
-      }
-
-      if (currentScrollY <= 20) {
-        setHidden(false);
-      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setHidden(true);
-      } else if (currentScrollY < lastScrollY) {
-        setHidden(false);
-      }
-
-      lastScrollY = currentScrollY;
+      setScrolled(window.scrollY > 20);
     };
+
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll, {
       passive: true,
@@ -47,7 +29,7 @@ export default function Header() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [menuOpen]);
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) {
@@ -63,11 +45,7 @@ export default function Header() {
   }, [menuOpen]);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 ${
-        hidden ? "-translate-y-full" : "translate-y-0"
-      }`}
-    >
+    <header className="fixed inset-x-0 top-0 z-[100]">
       <div
         className={`mx-auto px-5 transition-all duration-500 sm:px-8 lg:px-12 ${
           scrolled ? "py-3" : "py-5"
@@ -84,11 +62,14 @@ export default function Header() {
           <Link
             href="/"
             onClick={() => setMenuOpen(false)}
-            className="group relative z-10 flex items-center"
+            aria-label="آیریک"
+            className="group relative z-10 flex h-10 items-center"
           >
-            <span className="text-xl font-semibold tracking-[-0.04em] text-[#021408] transition-transform duration-500 group-hover:scale-[0.97]">
-              آیریک
-            </span>
+            <img
+              src="/images/brand/logo.svg"
+              alt="آیریک"
+              className="h-8 w-auto object-contain transition-transform duration-500 group-hover:scale-[0.97] sm:h-9"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -124,7 +105,7 @@ export default function Header() {
             aria-label={menuOpen ? "بستن منو" : "باز کردن منو"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((value) => !value)}
-            className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#022F12] text-white transition-all duration-500 hover:bg-[#8BC53D] hover:text-[#021408] lg:hidden"
+            className="relative z-[110] flex h-10 w-10 items-center justify-center rounded-full bg-[#022F12] text-white transition-all duration-500 hover:bg-[#8BC53D] hover:text-[#021408] lg:hidden"
           >
             <span className="relative block h-4 w-4">
               <span
@@ -149,10 +130,8 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-0 bg-[#021408] transition-all duration-700 lg:hidden ${
-          menuOpen
-            ? "visible opacity-100"
-            : "invisible opacity-0"
+        className={`fixed inset-0 z-[90] bg-[#021408] transition-all duration-700 lg:hidden ${
+          menuOpen ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
         <div className="flex h-full flex-col justify-between px-7 pb-10 pt-32">
