@@ -8,7 +8,7 @@ import IconArrow from "@/components/ui/IconArrow";
 export default function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div className="container mx-auto px-5 pt-6 sm:px-8 sm:pt-8 lg:px-12 lg:pt-10">
+      <div className="container mx-auto px-5 pb-0 pt-32 sm:px-8 sm:pt-40 lg:px-12 lg:pt-44">
         <div className="max-w-5xl">
           <Reveal direction="up" delay={0}>
             <p className="mb-5 text-sm font-medium text-[#8BC53D] sm:text-base">
