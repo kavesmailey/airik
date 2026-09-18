@@ -7,7 +7,12 @@ import IconArrow from "@/components/ui/IconArrow";
 import { services } from "@/content/services";
 import { toPersianDigits } from "@/lib/format";
 
-const featuredSlugs = ["چاپ-سیلک", "چاپ-dtf"];
+const featuredSlugs = [
+  "چاپ-سیلک",
+  "چاپ-dtf",
+  "توری-کشی-و-عکاسی",
+  "ساخت-شابلون-چاپ-سیلک",
+];
 
 const serviceImages: Record<string, string> = {
   "چاپ-سیلک": "/images/services/silk-print.jpg",
@@ -173,7 +178,10 @@ export default function ServicesPage() {
 
                   <span className="absolute right-5 top-5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-[#022F12] backdrop-blur-sm">
                     {toPersianDigits(
-                      String(index + 3).padStart(2, "0")
+                      String(index + featuredServices.length + 1).padStart(
+                        2,
+                        "0"
+                      )
                     )}
                   </span>
                 </div>
@@ -189,16 +197,6 @@ export default function ServicesPage() {
                   <p className="mt-3 line-clamp-3 text-sm leading-7 text-[#022F12]/60">
                     {service.shortDescription}
                   </p>
-
-                  <div className="mt-auto flex items-center justify-between border-t border-[#022F12]/10 pt-5">
-                    <span className="text-sm text-[#022F12]/45">
-                      خدمات چاپ آیریک
-                    </span>
-
-                    <span className="text-[#022F12] transition-transform duration-500 group-hover:-translate-x-1">
-                      <IconArrow direction="left" size={18} />
-                    </span>
-                  </div>
                 </div>
               </article>
             </Reveal>
