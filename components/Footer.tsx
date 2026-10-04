@@ -36,7 +36,8 @@ export default function Footer() {
             </Link>
 
             <p className="mt-8 max-w-sm text-base leading-8 text-white/55">
-              چاپ تخصصی برای برندهایی که کیفیت اهمیت دارد.
+              {siteConfig.tagline}.
+              <br />
               از چاپ سیلک و DTF تا چاپ روی لباس، بگ، پارچه،
               بسته‌بندی و سطوح مختلف.
             </p>
