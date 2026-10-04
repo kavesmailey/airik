@@ -1,6 +1,3 @@
-"use client";
-
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import { siteConfig } from "@/content/site";
@@ -58,15 +55,21 @@ const contactSchema = {
     "راه‌های ارتباط با آیریک برای سفارش چاپ، دریافت مشاوره و استعلام قیمت.",
   url: canonicalUrl,
   mainEntity: {
-    "@type": "Organization",
+    "@type": "LocalBusiness",
     name: siteConfig.name,
-    email: "hello@ayric.ir",
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "customer service",
-      email: "hello@ayric.ir",
-      availableLanguage: ["fa"],
+    url: siteUrl,
+    telephone: siteConfig.contact.phone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: siteConfig.contact.address,
+      addressLocality: siteConfig.contact.city,
+      addressCountry: siteConfig.contact.country,
     },
+    sameAs: [
+      siteConfig.social.instagram,
+      siteConfig.social.telegram,
+      siteConfig.social.whatsapp,
+    ].filter(Boolean),
   },
 };
 
@@ -90,7 +93,7 @@ export default function ContactPage() {
       <JsonLd type="organization" data={contactSchema} />
       <JsonLd type="faq" data={faqSchema} />
 
-      {/* Hero */}
+      {/* HERO */}
       <section className="container mx-auto px-5 pb-20 pt-32 sm:px-8 sm:pb-24 sm:pt-40 lg:px-12 lg:pb-32 lg:pt-44">
         <div className="max-w-5xl">
           <Reveal direction="up">
@@ -124,7 +127,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Quick Answer */}
+      {/* QUICK ANSWER */}
       <section className="bg-[#E4F0CC]">
         <div className="container mx-auto px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
           <Reveal direction="right">
@@ -147,11 +150,11 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact + Form */}
+      {/* CONTACT */}
       <section className="bg-white">
         <div className="container mx-auto px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
-          <div className="grid gap-16 md:grid-cols-[0.75fr_1.25fr] md:gap-24 lg:gap-28">
-            {/* Contact Info */}
+          <div className="grid gap-16 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24">
+            {/* CONTACT INFO */}
             <Reveal direction="right">
               <div>
                 <p className="mb-7 text-sm font-medium text-[#8BC53D]">
@@ -159,44 +162,94 @@ export default function ContactPage() {
                 </p>
 
                 <div className="border-t border-[#022F12]/10">
+                  {/* PHONE */}
                   <div className="border-b border-[#022F12]/10 py-7">
                     <p className="mb-3 text-xs text-[#022F12]/40">
                       تلفن
                     </p>
 
                     <a
-                      href="tel:+9821XXXXXXXX"
+                      href={`tel:${siteConfig.contact.phone}`}
                       className="text-lg font-medium text-[#022F12] transition-opacity duration-300 hover:opacity-60"
                       dir="ltr"
                     >
-                      +98 21 XXX XXXX
+                      {siteConfig.contact.phoneDisplay}
                     </a>
                   </div>
 
+                  {/* WHATSAPP */}
                   <div className="border-b border-[#022F12]/10 py-7">
                     <p className="mb-3 text-xs text-[#022F12]/40">
-                      ایمیل
+                      واتساپ
                     </p>
 
                     <a
-                      href="mailto:hello@ayric.ir"
+                      href={siteConfig.social.whatsapp}
+                      target="_blank"
+                      rel="noreferrer"
                       className="text-lg font-medium text-[#022F12] transition-opacity duration-300 hover:opacity-60"
                       dir="ltr"
                     >
-                      hello@ayric.ir
+                      WhatsApp
                     </a>
                   </div>
 
+                  {/* TELEGRAM */}
                   <div className="border-b border-[#022F12]/10 py-7">
                     <p className="mb-3 text-xs text-[#022F12]/40">
-                      ساعات پاسخگویی
+                      تلگرام
                     </p>
 
-                    <p className="text-lg font-medium leading-8 text-[#022F12]">
-                      شنبه تا پنجشنبه
-                      <br />
-                      ۹:۰۰ تا ۱۸:۰۰
+                    <a
+                      href={siteConfig.social.telegram}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-lg font-medium text-[#022F12] transition-opacity duration-300 hover:opacity-60"
+                      dir="ltr"
+                    >
+                      Telegram
+                    </a>
+                  </div>
+
+                  {/* INSTAGRAM */}
+                  <div className="border-b border-[#022F12]/10 py-7">
+                    <p className="mb-3 text-xs text-[#022F12]/40">
+                      اینستاگرام
                     </p>
+
+                    <a
+                      href={siteConfig.social.instagram}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-lg font-medium text-[#022F12] transition-opacity duration-300 hover:opacity-60"
+                      dir="ltr"
+                    >
+                      @ayric_chap
+                    </a>
+                  </div>
+
+                  {/* ADDRESS */}
+                  <div className="border-b border-[#022F12]/10 py-7">
+                    <p className="mb-3 text-xs text-[#022F12]/40">
+                      آدرس
+                    </p>
+
+                    <p
+                      className="text-lg font-medium leading-9 text-[#022F12]"
+                      style={{ lineHeight: 2 }}
+                    >
+                      {siteConfig.contact.address}
+                    </p>
+
+                    <a
+                      href={siteConfig.contact.mapUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-5 inline-flex items-center gap-3 text-sm font-medium text-[#8BC53D] transition-opacity hover:opacity-60"
+                    >
+                      مسیریابی روی نقشه
+                      <span aria-hidden="true">↗</span>
+                    </a>
                   </div>
                 </div>
 
@@ -211,128 +264,57 @@ export default function ContactPage() {
               </div>
             </Reveal>
 
-            {/* Form */}
+            {/* MAP */}
             <Reveal direction="left" delay={120}>
               <div>
-                <p className="mb-7 text-sm font-medium text-[#8BC53D]">
-                  درخواست شما
-                </p>
+                <div className="mb-7 flex items-end justify-between gap-6">
+                  <div>
+                    <p className="mb-3 text-sm font-medium text-[#8BC53D]">
+                      موقعیت آیریک
+                    </p>
 
-                <form
-                  method="post"
-                  className="border-t border-[#022F12]/10"
+                    <h2 className="text-2xl font-semibold text-[#021408] sm:text-3xl">
+                      ما را روی نقشه پیدا کنید.
+                    </h2>
+                  </div>
+
+                  <a
+                    href={siteConfig.contact.mapUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hidden shrink-0 items-center gap-2 rounded-full border border-[#022F12] px-5 py-3 text-sm font-medium text-[#022F12] transition-all duration-300 hover:bg-[#022F12] hover:text-white sm:inline-flex"
+                  >
+                    مسیریابی
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+
+                <div className="overflow-hidden border border-[#022F12]/10 bg-[#E4F0CC]">
+                  <iframe
+                    src={siteConfig.contact.mapEmbedUrl}
+                    title="موقعیت آیریک روی نقشه"
+                    className="h-[420px] w-full border-0 sm:h-[500px]"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </div>
+
+                <a
+                  href={siteConfig.contact.mapUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-5 inline-flex items-center gap-3 text-sm font-medium text-[#022F12] sm:hidden"
                 >
-                  <div className="grid gap-8 py-8 md:grid-cols-2">
-                    <label className="block">
-                      <span className="mb-3 block text-sm text-[#022F12]/55">
-                        نام و نام خانوادگی
-                      </span>
-
-                      <input
-                        type="text"
-                        name="name"
-                        required
-                        autoComplete="name"
-                        placeholder="نام شما"
-                        className="w-full border-b border-[#022F12]/15 bg-transparent px-0 py-4 text-base text-[#022F12] outline-none transition-colors placeholder:text-[#022F12]/25 focus:border-[#8BC53D]"
-                      />
-                    </label>
-
-                    <label className="block">
-                      <span className="mb-3 block text-sm text-[#022F12]/55">
-                        شماره تماس
-                      </span>
-
-                      <input
-                        type="tel"
-                        name="phone"
-                        required
-                        autoComplete="tel"
-                        placeholder="۰۹۱۲..."
-                        className="w-full border-b border-[#022F12]/15 bg-transparent px-0 py-4 text-base text-[#022F12] outline-none transition-colors placeholder:text-[#022F12]/25 focus:border-[#8BC53D]"
-                      />
-                    </label>
-                  </div>
-
-                  <label className="block border-t border-[#022F12]/10 py-8">
-                    <span className="mb-3 block text-sm text-[#022F12]/55">
-                      ایمیل
-                    </span>
-
-                    <input
-                      type="email"
-                      name="email"
-                      autoComplete="email"
-                      placeholder="you@example.com"
-                      dir="ltr"
-                      className="w-full border-b border-[#022F12]/15 bg-transparent px-0 py-4 text-base text-[#022F12] outline-none transition-colors placeholder:text-[#022F12]/25 focus:border-[#8BC53D]"
-                    />
-                  </label>
-
-                  <label className="block border-t border-[#022F12]/10 py-8">
-                    <span className="mb-3 block text-sm text-[#022F12]/55">
-                      نوع پروژه
-                    </span>
-
-                    <select
-                      name="projectType"
-                      defaultValue=""
-                      className="w-full border-b border-[#022F12]/15 bg-transparent px-0 py-4 text-base text-[#022F12] outline-none transition-colors focus:border-[#8BC53D]"
-                    >
-                      <option value="" disabled>
-                        انتخاب کنید
-                      </option>
-
-                      <option value="silk">چاپ سیلک</option>
-                      <option value="dtf">چاپ DTF</option>
-                      <option value="clothing">چاپ روی لباس</option>
-                      <option value="bag">چاپ روی بگ</option>
-                      <option value="packaging">چاپ روی کارتن</option>
-                      <option value="pizza-box">چاپ روی جعبه پیتزا</option>
-                      <option value="paper-cup">چاپ روی لیوان کاغذی</option>
-                      <option value="round-containers">
-                        چاپ روی ظروف گرد
-                      </option>
-                      <option value="tshirt">چاپ روی تیشرت</option>
-                      <option value="fabric">چاپ روی پارچه</option>
-                      <option value="other">سایر</option>
-                    </select>
-                  </label>
-
-                  <label className="block border-t border-[#022F12]/10 py-8">
-                    <span className="mb-3 block text-sm text-[#022F12]/55">
-                      توضیحات پروژه
-                    </span>
-
-                    <textarea
-                      name="message"
-                      required
-                      rows={6}
-                      placeholder="نوع محصول، تعداد، ابعاد، زمان مورد نیاز و هر اطلاعاتی که درباره پروژه دارید..."
-                      className="w-full resize-none border-b border-[#022F12]/15 bg-transparent px-0 py-4 text-base leading-8 text-[#022F12] outline-none transition-colors placeholder:text-[#022F12]/25 focus:border-[#8BC53D]"
-                    />
-                  </label>
-
-                  <div className="border-t border-[#022F12]/10 pt-8">
-                    <button
-                      type="submit"
-                      className="group inline-flex items-center gap-4 rounded-full bg-[#8BC53D] px-7 py-4 text-sm font-medium text-[#021408] transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#022F12]/10"
-                    >
-                      ارسال درخواست
-
-                      <span className="transition-transform duration-500 group-hover:-translate-x-1">
-                        <IconArrow direction="left" size={18} />
-                      </span>
-                    </button>
-                  </div>
-                </form>
+                  باز کردن مسیر روی Google Maps
+                  <span aria-hidden="true">↗</span>
+                </a>
               </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Quote CTA */}
+      {/* QUOTE CTA */}
       <section className="bg-[#E4F0CC]">
         <div className="container mx-auto px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
           <Reveal direction="up">
