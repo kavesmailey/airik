@@ -10,22 +10,25 @@ export const siteConfig = {
   siteUrl: "https://ayricchap.ir",
 
   contact: {
-    phone: "",
-    phoneDisplay: "",
+    phone: "+989128583216",
+    phoneDisplay: "+98 912 858 3216",
     email: "",
-    address: "",
+    address: "کرج، میدان شهدا، خیابان مظاهری، خیابان فیضی، پلاک ۳۰",
     city: "کرج",
     country: "ایران",
     workingHours: "",
-    mapEmbedUrl: "",
+    mapEmbedUrl:
+      "https://www.google.com/maps?q=35.81545165240275,50.996401599760084&output=embed",
+    mapUrl:
+      "https://www.google.com/maps/dir/?api=1&destination=35.81545165240275,50.996401599760084",
     serviceArea: "ارسال به سراسر ایران",
   },
 
   social: {
-    instagram: "",
+    instagram: "https://www.instagram.com/ayric_chap/",
     linkedin: "",
-    telegram: "",
-    whatsapp: "",
+    telegram: "https://t.me/+989128583216",
+    whatsapp: "https://wa.me/989128583216",
   },
 
   logo: "/images/brand/logo.svg",
